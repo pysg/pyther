@@ -6,8 +6,8 @@ def argument_gpec(func):
     def box(*arg):
         try:
             if 1 <= arg[0] <= 3 and 0 <= arg[1] <= 3: return func(*arg)
-        except ValueError:
-            return ValueError("NMODEL = 1,2,3 and ICALC = 0,1,2,3")
+        except AttributeError:
+            return AttributeError("NMODEL = 1,2,3 and ICALC = 0,1,2,3")
         else:
             return func(3, 2)
     return box
@@ -55,8 +55,12 @@ class Control_arguments(object):
             raise AttributeError("'ICALC' not in ['constants_eps', 'parameters_eps', 'rk_param', 'density']")
         self._ICALC = ICALC
 
-nm = Control_arguments("PR", "constants_eps")
-print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
+def control_arguments_gpec(gpec_data):
+
+    if gpec_data:
+        NMODEL, ICALC = gpec2pyther_argument(NMODEL, ICALC)
+    else:
+        nm = Control_arguments("PR", "constants_eps")
 
 
 def main():
@@ -72,13 +76,9 @@ def main():
     print ('critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
     print ('critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
     print ('compressibility_factor_Zz = {0}'.format(properties_component[1]['Zc']))
-    NMODEL = 1
-    ICALC = -3    
 
-    if type(NMODEL) == int or type(ICALC) == int:
-        NMODEL, ICALC = gpec2pyther_argument(NMODEL, ICALC)
-        
-    print('NMODEL = {0} and ICALC = {1}'.format(NMODEL, ICALC))
+    nm = Control_arguments("PR", "constants_eps")
+    print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
 
 if __name__ == "__main__":
