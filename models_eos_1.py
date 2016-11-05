@@ -13,7 +13,7 @@ A1, B1, C1 = -2.4407, 7.4513, 12.504
 
 D = np.array([0.428363, 18.496215, 0.338426, 0.660, 789.723105, 2.512392])
 
-def initial_data(omega, delta_1, NMODEL, ICALC, Pc):
+def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
 
     d1 = (1 + delta_1 ** 2) / (1 + delta_1)
     y = 1 + (2 * (1 + delta_1)) ** (1.0 / 3) + (4 / (1 + delta_1)) ** (1.0 / 3)
@@ -155,7 +155,7 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             #delta_1 = dinputs[1]
 
             #print(rk, delta_1, omega)
-            rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc)
+            rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs)
 
             #print(Tr)
             eos_calculation = Parameter_eos()
@@ -172,13 +172,12 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
 
             Tc = dinputs[0]
             Pc = dinputs[1]
-
             omega = dinputs[2]
             delta_1 = dinputs[3]
             T_especific = dinputs[4]
             RHOLSat_esp = dinputs[5]
 
-            rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc)
+            rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs)
             eos_calculation = Parameter_eos()
             delta_1_parameter = eos_calculation.resolver_delta_1_cal(delta_1, rk, Pvdat, RHOLSat_esp, Pc, Tc, Tr)
 
@@ -201,14 +200,19 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         print('The parameter delta1(rho,T) is {0}'.format(delta_1_parameter))
         return delta_1_parameter
 
-print("-" * 79)
+def main():
 
-dinputs, NMODEL, ICALC = eos('RKPR_3')
-NMODEL, ICALC = convert_argument(NMODEL, ICALC)
-resultado = models_eos_cal(NMODEL, ICALC, dinputs)
+	print("-" * 79)
 
-print('-' * 79)
+	dinputs, NMODEL, ICALC = eos('RKPR_3')
+	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
+	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
+	print('-' * 79)
+
+
+if __name__ == '__main__':
+	main()
 
 
 
