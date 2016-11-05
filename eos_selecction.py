@@ -121,21 +121,14 @@ def eos(prueba):
 
 def convert_argument(NMODEL, ICALC):
 
-    if ICALC == 0:
-        ICALC = "constants_eps"
-    elif ICALC == 1:
-        ICALC = "parameters_eps"
-    elif ICALC == 2:
-        ICALC = "rk_param"
-    elif ICALC == 3:
-        ICALC = "density"
+    if ICALC == 0: ICALC = "constants_eps"
+    elif ICALC == 1: ICALC = "parameters_eps"
+    elif ICALC == 2: ICALC = "rk_param"
+    elif ICALC == 3: ICALC = "density"
 
-    if NMODEL == 1:
-        NMODEL = "SRK"
-    elif NMODEL == 2:
-        NMODEL = "PR"
-    elif NMODEL == 3:
-        NMODEL = "RKPR"
+    if NMODEL == 1: NMODEL = "SRK"
+    elif NMODEL == 2: NMODEL = "PR"
+    elif NMODEL == 3: NMODEL = "RKPR"
 
     print('NMODEL = {0} and ICALC = {1}'.format(NMODEL, ICALC))
 

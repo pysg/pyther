@@ -1,4 +1,4 @@
-import pandas as pd
+import numpy as np
 
 
 def sumando(a,b):

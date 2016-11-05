@@ -1,6 +1,6 @@
 import numpy as np
 from eos_selecction import eos, convert_argument
-from cubic_parameters_1 import Parameter_eos
+from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 
 RGAS = 0.08314472
 # Definir el significado fisicoquímico
@@ -201,18 +201,10 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         print('The parameter delta1(rho,T) is {0}'.format(delta_1_parameter))
         return delta_1_parameter
 
-
-
-
 print("-" * 79)
-
-#eos_calculation = Parameter_eos()
-
-## functions import from eos_selection
 
 dinputs, NMODEL, ICALC = eos('RKPR_3')
 NMODEL, ICALC = convert_argument(NMODEL, ICALC)
-
 resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
 print('-' * 79)
