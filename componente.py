@@ -72,11 +72,11 @@ def main():
     properties_component = component_eos.selec_component(dppr_file, component)
 
     print ('Component = {0}'.format(component))
-    print ('acentric_factor = {0}'.format(properties_component[1]['Omega']))
-    print ('critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
-    print ('critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
-    print ('critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
-    print ('compressibility_factor_Zz = {0}'.format(properties_component[1]['Zc']))
+    print ('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
+    print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
+    print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
+    print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
+    print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
 
     nm = Control_arguments("PR", "constants_eps")
     print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
