@@ -1,6 +1,4 @@
 # encoding: UTF-8
-
-
 import numpy as np
 
 A0, B0, C0 = 0.0017, 1.9681, -2.7238
@@ -27,9 +25,6 @@ if NMODEL in ["constants_eps", "parameters_eps", "rk_param", "density"]:
 	print(99)
 
 
-
-
-
 class Circulo(object):
 
 	def __init__(self, radio):
@@ -47,7 +42,6 @@ class Circulo(object):
 			self._radio = 0.5
 
 
-
 c = Circulo(0)
 print ("Radio:", c.radio)
 
@@ -55,7 +49,7 @@ print ("Radio:", c.radio)
 class Eos(object):
 
 	def __init__(self, NMODEL):
-		self._NMODEL = NMODEL
+		self.NMODEL = NMODEL
 
 	@property
 	def NMODEL(self):
@@ -65,9 +59,29 @@ class Eos(object):
 	def radio(self, NMODEL):
 		if NMODEL > 0:
 			self._NMODEL = NMODEL
-		else:
-			self._NMODEL = 0.5
+		self._NMODEL = 0.5
 
 
-e = Eos(-2)
-print ("Radio:", e.NMODEL)
+
+
+
+class CajaFuerte(object):
+
+	def __init__(self, PIN):
+		self.PIN = PIN
+
+	@property
+	def PIN(self):
+		print ("Enviando copia a la NSA...")
+		return self._PIN
+
+	@PIN.setter
+	def PIN(self, PIN):
+		if len(str(PIN)) != 4:
+			raise ValueError("’PIN’ ha de tener cuatro d´ıgitos")
+		self._PIN = PIN
+
+hucha = CajaFuerte(781)
+print ("PIN:", hucha.PIN)
+#hucha.PIN = 880
+

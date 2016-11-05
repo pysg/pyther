@@ -41,6 +41,31 @@ def selec_eos_cal(NMODEL, ICALC):
         ICALC = "rk_param"
         return NMODEL, ICALC
 
+
+class control_arguments(object):
+
+    def __init__(self, NMODEL):
+        self.NMODEL = NMODEL
+
+    @property
+    def NMODEL(self):
+        print ("NMODEL is valid ...")
+        return self._NMODEL
+
+    @NMODEL.setter
+    def NMODEL(self, NMODEL):
+        if NMODEL not in ["SRK", "PR", "RKPR"]:
+            raise ValueError("’NMODEL’ not in ['SRK', 'PR', 'RKPR']")
+        self._NMODEL = NMODEL
+
+nm = control_arguments("RKPR")
+print ("NMODEL: {0}".format(nm.NMODEL))
+
+
+
+
+
+
 def main():
     dppr_file = "PureFull.xls"
     component = 'METHANE'
