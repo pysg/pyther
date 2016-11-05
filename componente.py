@@ -71,6 +71,7 @@ def main():
     component_eos = Data_parse()
     properties_component = component_eos.selec_component(dppr_file, component)
 
+    print ('Component = {0}'.format(component))
     print ('acentric_factor = {0}'.format(properties_component[1]['Omega']))
     print ('critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
     print ('critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
