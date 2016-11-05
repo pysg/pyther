@@ -44,21 +44,33 @@ def selec_eos_cal(NMODEL, ICALC):
 
 class control_arguments(object):
 
-    def __init__(self, NMODEL):
+    def __init__(self, NMODEL, ICALC):
         self.NMODEL = NMODEL
+        self.ICALC = ICALC
 
     @property
     def NMODEL(self):
         print ("NMODEL is valid ...")
         return self._NMODEL
 
+    @property
+    def ICALC(self):
+        print("ICALC is valid ...")
+        return self._ICALC
+
     @NMODEL.setter
     def NMODEL(self, NMODEL):
         if NMODEL not in ["SRK", "PR", "RKPR"]:
-            raise ValueError("’NMODEL’ not in ['SRK', 'PR', 'RKPR']")
-        self._NMODEL = NMODEL
+            raise AttributeError("’NMODEL’ not in ['SRK', 'PR', 'RKPR']")
+        self._NMODEL = NMODEL    
 
-nm = control_arguments("RKPR")
+    @ICALC.setter
+    def ICALC(self, ICALC):
+        if ICALC not in ["constants_eps", "parameters_eps", "rk_param", "density"]:
+            raise AttributeError("'ICALC' not in ['constants_eps', 'parameters_eps', 'rk_param', 'density']")
+        self._ICALC = ICALC
+
+nm = control_arguments("RKPR", "constants_eps")
 print ("NMODEL: {0}".format(nm.NMODEL))
 
 
