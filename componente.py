@@ -26,23 +26,8 @@ def gpec2pyther_argument(NMODEL, ICALC):
 
     return NMODEL, ICALC
 
-def selec_eos_cal(NMODEL, ICALC):
-    try:
-        model = NMODEL in ["SRK", "PR", "RKPR"]
-        calc = ICALC in ["constants_eps", "parameters_eps", "rk_param", "density"]
-        if model and calc:
-            return NMODEL, ICALC
-    except ValueError:
-        msg = """NMODEL is not ["SRK", "PR", "RKPR"] or 
-                 ICALC is not ["constants_eps", "parameters_eps", "rk_param", "density"]"""             
-        return ValueError(msg)
-    else:
-        NMODEL = "RKPR"
-        ICALC = "rk_param"
-        return NMODEL, ICALC
 
-
-class control_arguments(object):
+class Control_arguments(object):
 
     def __init__(self, NMODEL, ICALC):
         self.NMODEL = NMODEL
@@ -70,12 +55,8 @@ class control_arguments(object):
             raise AttributeError("'ICALC' not in ['constants_eps', 'parameters_eps', 'rk_param', 'density']")
         self._ICALC = ICALC
 
-nm = control_arguments("RKPR", "constants_eps")
-print ("NMODEL: {0}".format(nm.NMODEL))
-
-
-
-
+nm = Control_arguments("PR", "constants_eps")
+print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
 
 def main():
@@ -96,12 +77,9 @@ def main():
 
     if type(NMODEL) == int or type(ICALC) == int:
         NMODEL, ICALC = gpec2pyther_argument(NMODEL, ICALC)
-    else:#if type(NMODEL) == str or type(ICALC) == str:
-        NMODEL, ICALC = selec_eos_cal(NMODEL, ICALC)
         
     print('NMODEL = {0} and ICALC = {1}'.format(NMODEL, ICALC))
 
 
 if __name__ == "__main__":
-    # execute only if run as a script
     main()
