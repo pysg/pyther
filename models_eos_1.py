@@ -2,6 +2,8 @@ import numpy as np
 from eos_selecction import eos, convert_argument
 from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 
+from componente import Control_arguments
+
 RGAS = 0.08314472
 # Definir el significado fisicoquímico
 
@@ -62,24 +64,29 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             params = [ac, b, rm]
 
         if ICALC == 'parameters_eps':
-            Tc = OMb * ac / (OMa * RGAS * b)
-            Pc = OMb * RGAS * Tc / b
-            Vceos = Zc * RGAS * Tc / Pc
 
-            if NMODEL == 'SRK':
-                del1 = 1.0
-                al = -0.175
-                be = 1.574
-                ga = 0.48 - rm
-            elif NMODEL == 'PR':
-                del1 = 1.0 + np.sqrt(2.0)
-                al = -0.26992
-                be = 1.54226
-                ga = 0.37464 - rm
+        	ac = dinputs[0]
+        	b = dinputs[1]
+        	del1 = dinputs[2]
+        	rk = dinputs[3]
 
-            OM = acentric_factor_cal(al, be, ga)
+        	Tc = OMb * ac / (OMa * RGAS * b)
+        	Pc = OMb * RGAS * Tc / b
+        	Vceos = Zc * RGAS * Tc / Pc
 
-            constants = [Tc, Pc, OM, Vceos]
+        	if NMODEL == 'SRK':
+        		del1 = 1.0
+        		al = -0.175
+        		be = 1.574
+        		ga = 0.48 - rm
+        	elif NMODEL == 'PR':
+        		del1 = 1.0 + np.sqrt(2.0)
+        		al = -0.26992
+        		be = 1.54226
+        		ga = 0.37464 - rm
+
+        	OM = acentric_factor_cal(al, be, ga)
+        	constants = [Tc, Pc, OM, Vceos]
 
     elif NMODEL == 'RKPR':
         if ICALC == 'constants_eps':
@@ -200,11 +207,14 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         print('The parameter delta1(rho,T) is {0}'.format(delta_1_parameter))
         return delta_1_parameter
 
+nm = Control_arguments("RKPR", "constants_eps")
+print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
+
 def main():
 
 	print("-" * 79)
 
-	dinputs, NMODEL, ICALC = eos('RKPR_3')
+	dinputs, NMODEL, ICALC = eos('PR_0')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
