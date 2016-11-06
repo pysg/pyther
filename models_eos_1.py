@@ -207,12 +207,13 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         print('The parameter delta1(rho,T) is {0}'.format(delta_1_parameter))
         return delta_1_parameter
 
-nm = Control_arguments("RKPR", "constants_eps")
-print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
 def main():
 
 	print("-" * 79)
+
+	nm = Control_arguments("RKPR", "constants_eps")
+	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
 	dinputs, NMODEL, ICALC = eos('PR_0')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
@@ -223,6 +224,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
-
-
