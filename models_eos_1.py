@@ -40,6 +40,46 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
 
     return rk, Pvdat, Tr
 
+
+def data_in():
+
+	if  ICALC == 'constants_eps':
+		# CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
+		Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+
+	if ICALC == 'parameters_eps':
+		ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+
+	if ICALC == 'rk_param':
+		# dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
+		Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+
+		zrat = dinputs[4]
+		ac = dinputs[5]
+		b = dinputs[6]
+		d = dinputs[7]
+		delta_1 = d
+		rk = dinputs[8]
+
+
+	if ICALC == 'density':
+		# (T, RhoLsat)
+		# Trho = T / Tc
+		# del1 = 2.0    #!  initial value
+		# RHOld = 0.0
+
+		Tc = dinputs[0]
+		Pc = dinputs[1]
+		omega = dinputs[2]
+
+		delta_1 = dinputs[3]
+
+		T_especific = dinputs[4]
+		RHOLSat_esp = dinputs[5]
+
+
+
+
 def models_eos_cal(NMODEL, ICALC, dinputs):
 
     if NMODEL == 'SRK' or NMODEL == 'PR':
@@ -142,12 +182,11 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             Pc = dinputs[1]
             OM = dinputs[2]
             dc = dinputs[3]
-            zrat = dinputs[4]
-            ac = dinputs[5]
-            b = dinputs[6]
-            d = dinputs[7]
-            delta_1 = d
-            rk = dinputs[8]
+            #zrat = dinputs[4]
+            # ac = dinputs[5]
+            # b = dinputs[6]            
+            delta_1 = dinputs[7]
+            # rk = dinputs[8]
 
             omega = OM
 
@@ -215,7 +254,7 @@ def main():
 	nm = Control_arguments("RKPR", "constants_eps")
 	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	dinputs, NMODEL, ICALC = eos('PR_0')
+	dinputs, NMODEL, ICALC = eos('RKPR_2')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
