@@ -29,13 +29,15 @@ def eos(prueba):
         ICALC, NMODEL, IVAP = 0, 3, 0
         componente = "Etano_RKPR_0"
         Tc, Pc, omega, Vceos = 305.32, 48.72, 0.09949, 0.1724175 #  1.185
-        print("componente = {0} \nTc = {1} \nPc = {2} \nomega = {3} \nVceos = {4}".format(componente, Tc, Pc, omega, Vceos))
+        
+        #print("componente = {0} \nTc = {1} \nPc = {2} \nomega = {3} \nVceos = {4}".format(componente, Tc, Pc, omega, Vceos))
 
         RT = RGAS * Tc
         Zc = Pc * Vceos / RT
-        print("Zc = {0}".format(Zc))
+        
+        #print("Zc = {0}".format(Zc))
         del1ini = D[0] + D[1] * (D[2] - Zc)**D[3] + D[4] * (D[2] - Zc)**D[5]
-        print("del1ini = {0}".format(del1ini))
+        #print("del1ini = {0}".format(del1ini))
 
         dinputs = np.array([Tc, Pc, omega, Vceos])
 

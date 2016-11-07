@@ -22,12 +22,12 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
     # initial guess for k parameter
     rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
     #rk = rk * 1.2 # 1.1 #5.2 #3.2
-    if ICALC == 'parameters_eps' or ICALC == 'rk_param':
-        rk = rk * 1.2
+    if ICALC == 'constants_eps' or ICALC == 'parameters_eps' or ICALC == 'rk_param':
+        rk *= 1.2
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)         
     elif ICALC == 'density':
-        rk = rk * 5.2 
+        rk *= 5.2 
         Tr_calculada = dinputs[4] / dinputs[0]
         Tr = Tr_calculada
         Pvdat = Pc * 10 ** -((1.0 / Tr - 1.0) * 7 * (1.0 + omega) / 3)
@@ -55,17 +55,14 @@ def data_in():
 		T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
 
 
-
-
 def models_eos_cal(NMODEL, ICALC, dinputs):
 
     if NMODEL == 'SRK' or NMODEL == 'PR':
-        # CONSTANTS SPECIFICATION READ(Tc,Pc,OM)
+        # CONSTANTS SPECIFICATION READ [Tc, Pc, OM]
         if ICALC == 'constants_eps':
             Tc = dinputs[0]
             Pc = dinputs[1]
             OM = dinputs[2]
-            RT = RGAS * Tc
 
             if NMODEL == 'SRK':
                 rm = 0.48 + 1.574 * OM - 0.175 * OM**2
@@ -75,19 +72,21 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
                 del1 = 1.0 + np.sqrt(2.0)
 
             Zc, OMa, OMb = compressibility_factor_cal(del1)
-            Vceos = Zc * RGAS * Tc / Pc
-            ac = OMa * RT ** 2 / Pc
-            b = OMb * RT / Pc
-            params = [ac, b, rm]
+            
+            Vceos = (Zc * RGAS * Tc) / Pc
 
+            ac = OMa * (RGAS * Tc) ** 2 / Pc
+            b = OMb * (RGAS * Tc) / Pc
+            
+            params = [ac, b, rm, del1]
+
+        # PARAMETERS SPECIFICATION READ [ac, b]
         if ICALC == 'parameters_eps':
 
         	ac = dinputs[0]
         	b = dinputs[1]
-        	del1 = dinputs[2]
-        	rk = dinputs[3]
 
-        	Tc = OMb * ac / (OMa * RGAS * b)
+        	Tc = (OMb * ac) / (OMa * RGAS * b)
         	Pc = OMb * RGAS * Tc / b
         	Vceos = Zc * RGAS * Tc / Pc
 
@@ -107,30 +106,38 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
 
     elif NMODEL == 'RKPR':
         if ICALC == 'constants_eps':
-            # CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
+            # CONSTANTS SPECIFICATION READ [Tc, Pc, OM, Vceos]
             Tc = dinputs[0]
             Pc = dinputs[1]
             OM = dinputs[2]
             Vceos = dinputs[3]
-            RT = RGAS * Tc
-            Zc = Pc * Vceos / RT
+            
+            Zc = Pc * Vceos / (RGAS * Tc)
+            
             del1ini = D[0] + D[1] * (D[2] - Zc) ** D[3] + D[4] * (D[2] - Zc)** D[5]
             print('del1ini = {0}'.format(del1ini))
 
-            del_1 = getdel1(Zc, del1ini)[0]
+            delta_1 = getdel1(Zc, del1ini)[0]
 
-            Zc, OMa, OMb = compressibility_factor_cal(del_1)
+            Zc, OMa, OMb = compressibility_factor_cal(delta_1)
+            
             print('Zc = {0}'.format(Zc))
 
-            ac = OMa * RT ** 2 / Pc
-            b = OMb * RT / Pc
+            ac = OMa * (RGAS * Tc) ** 2 / Pc
+            b = OMb * (RGAS * Tc) / Pc
 
             # calcular rk
-            rk = 1
+            rk, Pvdat, Tr = initial_data(OM, delta_1, NMODEL, ICALC, Pc, dinputs)
 
-            params = [ac, b, del_1, rk]
+            eos_calculation = Parameter_eos()
+            rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
+
+            # rk = 1
+
+            params = [ac, b, rk, delta_1]
 
         elif ICALC == 'parameters_eps':
+        	# PARAMETERS SPECIFICATION READ [ac, b, rk, del1]
 
             ac = dinputs[0]
             b = dinputs[1]
@@ -150,10 +157,8 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             OM = acentric_factor_cal(al, be, ga)
 
             constants = [Tc, Pc, OM, Vceos]
-        # RKPR EOS (Tc,Pc,OM)
         elif ICALC == 'rk_param':
-
-            # dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
+        	# CONSTANTS SPECIFICATION and del1 READ [Tc, Pc, OM, del1]
 
             Tc = dinputs[0]
             Pc = dinputs[1]
@@ -166,9 +171,9 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             eos_calculation = Parameter_eos()
             rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
 
-        # RhoLsat SPECIFICATION together with Tc,Pc,OM
         elif ICALC == 'density':
-            # (T, RhoLsat), Trho = T / Tc,  initial value del1 = 2.0, RHOld = 0.0
+        	# CONSTANTS SPECIFICATION and (T, RhoLsat) READ [Tc, Pc, OM, del1, T, RHOLsat]
+            # Trho = T / Tc,  read initial value of del1
 
             Tc = dinputs[0]
             Pc = dinputs[1]
@@ -208,7 +213,7 @@ def main():
 	nm = Control_arguments("RKPR", "constants_eps")
 	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	dinputs, NMODEL, ICALC = eos('RKPR_3')
+	dinputs, NMODEL, ICALC = eos('RKPR_2')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
