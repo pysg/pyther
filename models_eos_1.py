@@ -46,30 +46,13 @@ def data_in():
 
 	if ICALC == 'rk_param':
 		# dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
-		Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
-
-		zrat = dinputs[4]
-		ac = dinputs[5]
-		b = dinputs[6]
-		d = dinputs[7]
-		delta_1 = d
-		rk = dinputs[8]
-
+		Tc, Pc, OM, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[7]
 
 	if ICALC == 'density':
-		# (T, RhoLsat)
-		# Trho = T / Tc
-		# del1 = 2.0    #!  initial value
-		# RHOld = 0.0
 
-		Tc = dinputs[0]
-		Pc = dinputs[1]
-		omega = dinputs[2]
+		Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
 
-		delta_1 = dinputs[3]
-
-		T_especific = dinputs[4]
-		RHOLSat_esp = dinputs[5]
+		T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
 
 
 
@@ -175,55 +158,30 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             Tc = dinputs[0]
             Pc = dinputs[1]
             OM = dinputs[2]
-            dc = dinputs[3]
-            # zrat = dinputs[4]
-            # ac = dinputs[5]
-            # b = dinputs[6]            
+        
             delta_1 = dinputs[7]
-            # rk = dinputs[8]
 
-            omega = OM
+            rk, Pvdat, Tr = initial_data(OM, delta_1, NMODEL, ICALC, Pc, dinputs)
 
-            #RT = RGAS * Tc
-
-            #print(dinputs)
-
-            # THEN  ! del1 SPECIFICATION together with Tc,Pc,OM
-            # READ(NIN,*)del1  ! this line must be active when it is not a list
-
-            #rk = dinputs[0]
-            #delta_1 = dinputs[1]
-
-            #print(rk, delta_1, omega)
-            rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs)
-
-            #print(Tr)
             eos_calculation = Parameter_eos()
             rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
-            #rk_cal = Parameter_eos.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
-            #print('rk_cal = '.format(rk_cal))
 
         # RhoLsat SPECIFICATION together with Tc,Pc,OM
         elif ICALC == 'density':
-            # (T, RhoLsat)
-            # Trho = T / Tc
-            # del1 = 2.0    #!  initial value
-            # RHOld = 0.0
+            # (T, RhoLsat), Trho = T / Tc,  initial value del1 = 2.0, RHOld = 0.0
 
             Tc = dinputs[0]
             Pc = dinputs[1]
-            omega = dinputs[2]
+            OM = dinputs[2]
 
             delta_1 = dinputs[3]
             
             T_especific = dinputs[4]
             RHOLSat_esp = dinputs[5]
 
-            rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs)
+            rk, Pvdat, Tr = initial_data(OM, delta_1, NMODEL, ICALC, Pc, dinputs)
             eos_calculation = Parameter_eos()
             delta_1_parameter = eos_calculation.resolver_delta_1_cal(delta_1, rk, Pvdat, RHOLSat_esp, Pc, Tc, Tr)
-
-            #print(delta_1_parameter)
 
 
     print('The NMODEL is eos_{0} and method ICALC is {1}'.format(NMODEL, ICALC))
