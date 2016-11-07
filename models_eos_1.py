@@ -17,17 +17,11 @@ D = np.array([0.428363, 18.496215, 0.338426, 0.660, 789.723105, 2.512392])
 
 def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
 
-    d1 = (1 + delta_1 ** 2) / (1 + delta_1)
-    y = 1 + (2 * (1 + delta_1)) ** (1.0 / 3) + (4 / (1 + delta_1)) ** (1.0 / 3)
-    OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) \
-    / (3 * y + d1 - 1.0) ** 2    
-    OMb = 1 / (3 * y + d1 - 1.0)
-    Zc = y / (3 * y + d1 - 1.0)
+    Zc, OMa, OMb = compressibility_factor_cal(delta_1)
 
     # initial guess for k parameter
     rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
     #rk = rk * 1.2 # 1.1 #5.2 #3.2
-    # if ICALC == 1 or ICALC == 2:
     if ICALC == 'parameters_eps' or ICALC == 'rk_param':
         rk = rk * 1.2
         Tr = 0.7
@@ -256,7 +250,7 @@ def main():
 	nm = Control_arguments("RKPR", "constants_eps")
 	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	dinputs, NMODEL, ICALC = eos('PR_0')
+	dinputs, NMODEL, ICALC = eos('RKPR_3')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 

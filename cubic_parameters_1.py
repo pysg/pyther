@@ -169,8 +169,6 @@ class Parameter_eos(object):
         self.Tsat = Tr * Tc
         P_sur = PV_supuesta
 
-        #print(self.Tsat)
-
         self.a = self.energetic_parameter_cal(rk_inicial, delta_1_initial, Pc, Tc, Tr)
         self.b = self.parameter_ab_cal(delta_1_initial, Pc, Tc)[1]
 
@@ -198,16 +196,12 @@ class Parameter_eos(object):
         self.PV_calculed = fsolve(self.saturation_pressure_cal, PV_inicial,
         args=(rk_class, delta_1_initial, Pc, Tc, Tr), xtol=1e-4)
 
-        #print(self.PV_calculed)
-
         return self.PV_calculed
 
     def funcion_saturacion_cal(self, rk_inicial, delta_1_initial, Pvdat, Pc, Tc, Tr):
 
         presion_saturada_modelo = self.phase_equilibrium_cal(rk_inicial, delta_1_initial, Pvdat, Pc, Tc, Tr)
         self.saturation_function = abs(presion_saturada_modelo - Pvdat) / Pvdat
-
-        #print(self.saturation_function)
 
         return self.saturation_function
 
@@ -219,25 +213,12 @@ class Parameter_eos(object):
         return self.rk_calculated
 
     def parameter_ab_cal(self, delta_1_initial, Pc, Tc):
-        #RT = RGAS * T_especific
-        #RT = RGAS * dinputs[0]
-        
-        # d1 = (1 + delta_1_initial ** 2) / (1 + delta_1_initial)
-        # y = 1 + (2 * (1 + delta_1_initial)) ** (1.0 / 3) \
-        # + (4.0 / (1 + delta_1_initial)) ** (1.0 / 3.0)
-        # OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) \
-        # / (3 * y + d1 - 1.0) ** 2
-        # OMb = 1 / (3 * y + d1 - 1.0)
-        # Zc = y / (3 * y + d1 - 1.0)
 
         Zc, OMa, OMb = compressibility_factor_cal(delta_1_initial)
-
-
 
         dc = Pc / Zc / (RGAS * Tc)
         Vceos = 1.0 / dc
 
-        #self.ac = OMa * RT**2 / Pc
         self.ac = OMa * (RGAS * Tc)**2 / Pc
         self.b = OMb * (RGAS * Tc) / Pc
 
@@ -250,10 +231,6 @@ class Parameter_eos(object):
         
         self.rk_calculated = self.resolver_rk_cal(rk_inicial, delta_1_initial, Pvdat, Pc, Tc, Tr)
 
-        #print(self.a, self.b)
-
-        #print(self.rk_calculated)
-
         self.volume_liquid_delta = self.volume_liquid
         self.density_liquid = 1 / self.volume_liquid_delta
 
@@ -264,8 +241,6 @@ class Parameter_eos(object):
         RHOLSat_cal = self.density_cal(delta_1_initial, rk_inicial, Pvdat, Pc, Tc, Tr)
         self.density_function = abs(RHOLSat_cal - RHOLSat_esp)
         self.density_function = self.density_function / RHOLSat_esp
-
-        #print(self.density_function)
 
         return self.density_function
 
