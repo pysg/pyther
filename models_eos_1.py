@@ -182,7 +182,7 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             Pc = dinputs[1]
             OM = dinputs[2]
             dc = dinputs[3]
-            #zrat = dinputs[4]
+            # zrat = dinputs[4]
             # ac = dinputs[5]
             # b = dinputs[6]            
             delta_1 = dinputs[7]
@@ -219,7 +219,9 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             Tc = dinputs[0]
             Pc = dinputs[1]
             omega = dinputs[2]
+
             delta_1 = dinputs[3]
+            
             T_especific = dinputs[4]
             RHOLSat_esp = dinputs[5]
 
@@ -254,7 +256,7 @@ def main():
 	nm = Control_arguments("RKPR", "constants_eps")
 	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	dinputs, NMODEL, ICALC = eos('RKPR_2')
+	dinputs, NMODEL, ICALC = eos('PR_0')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 

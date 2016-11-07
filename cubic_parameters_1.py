@@ -221,13 +221,19 @@ class Parameter_eos(object):
     def parameter_ab_cal(self, delta_1_initial, Pc, Tc):
         #RT = RGAS * T_especific
         #RT = RGAS * dinputs[0]
-        d1 = (1 + delta_1_initial ** 2) / (1 + delta_1_initial)
-        y = 1 + (2 * (1 + delta_1_initial)) ** (1.0 / 3) \
-        + (4.0 / (1 + delta_1_initial)) ** (1.0 / 3.0)
-        OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) \
-        / (3 * y + d1 - 1.0) ** 2
-        OMb = 1 / (3 * y + d1 - 1.0)
-        Zc = y / (3 * y + d1 - 1.0)
+        
+        # d1 = (1 + delta_1_initial ** 2) / (1 + delta_1_initial)
+        # y = 1 + (2 * (1 + delta_1_initial)) ** (1.0 / 3) \
+        # + (4.0 / (1 + delta_1_initial)) ** (1.0 / 3.0)
+        # OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) \
+        # / (3 * y + d1 - 1.0) ** 2
+        # OMb = 1 / (3 * y + d1 - 1.0)
+        # Zc = y / (3 * y + d1 - 1.0)
+
+        Zc, OMa, OMb = compressibility_factor_cal(delta_1_initial)
+
+
+
         dc = Pc / Zc / (RGAS * Tc)
         Vceos = 1.0 / dc
 
