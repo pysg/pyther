@@ -169,6 +169,8 @@ class Parameter_eos(object):
         self.Tsat = Tr * Tc
         P_sur = PV_supuesta
 
+        #print(self.Tsat)
+
         self.a = self.energetic_parameter_cal(rk_inicial, delta_1_initial, Pc, Tc, Tr)
         self.b = self.parameter_ab_cal(delta_1_initial, Pc, Tc)[1]
 
@@ -241,6 +243,8 @@ class Parameter_eos(object):
         RHOLSat_cal = self.density_cal(delta_1_initial, rk_inicial, Pvdat, Pc, Tc, Tr)
         self.density_function = abs(RHOLSat_cal - RHOLSat_esp)
         self.density_function = self.density_function / RHOLSat_esp
+
+        #print(self.density_function)
 
         return self.density_function
 

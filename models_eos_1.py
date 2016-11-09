@@ -23,11 +23,11 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
     rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
     #rk = rk * 1.2 # 1.1 #5.2 #3.2
     if ICALC == 'constants_eps' or ICALC == 'parameters_eps' or ICALC == 'rk_param':
-        rk *= 1.2
+        rk *= 1.5
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)         
     elif ICALC == 'density':
-        rk *= 5.2 
+        rk = rk * 1.5 #5.2 
         Tr_calculada = dinputs[4] / dinputs[0]
         Tr = Tr_calculada
         Pvdat = Pc * 10 ** -((1.0 / Tr - 1.0) * 7 * (1.0 + omega) / 3)
@@ -51,7 +51,6 @@ def data_in():
 	if ICALC == 'density':
 
 		Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
-
 		T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
 
 
@@ -80,11 +79,12 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
             
             params = [ac, b, rm, del1]
 
-        # PARAMETERS SPECIFICATION READ [ac, b]
+        # PARAMETERS SPECIFICATION READ [ac, b, rm]
         if ICALC == 'parameters_eps':
 
         	ac = dinputs[0]
         	b = dinputs[1]
+        	rm = dinputs[2]
 
         	Tc = (OMb * ac) / (OMa * RGAS * b)
         	Pc = OMb * RGAS * Tc / b
@@ -202,7 +202,7 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         print('The parameter rk_cal is {0}'.format(rk_cal))
         return rk_cal
     elif ICALC == 'density':
-        print('The parameter delta1(rho,T) is {0}'.format(delta_1_parameter))
+        print('The parameter delta1(rho,T) = {0}'.format(delta_1_parameter))
         return delta_1_parameter
 
 
@@ -213,7 +213,7 @@ def main():
 	nm = Control_arguments("RKPR", "constants_eps")
 	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	dinputs, NMODEL, ICALC = eos('RKPR_2')
+	dinputs, NMODEL, ICALC = eos('RKPR_3')
 	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
