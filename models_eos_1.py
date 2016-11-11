@@ -3,6 +3,7 @@ from eos_selecction import eos, convert_argument
 from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 
 from componente import Control_arguments
+from pure_data import Data_parse
 
 RGAS = 0.08314472
 # Definir el significado fisicoquímico
@@ -205,6 +206,16 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         print('The parameter delta1(rho,T) = {0}'.format(delta_1_parameter))
         return delta_1_parameter
 
+
+component_eos = Data_parse()
+properties_component = component_eos.selec_component(dppr_file, component)
+
+print ('Component = {0}'.format(component))
+print ('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
+print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
+print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
+print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
+print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
 
 def main():
 
