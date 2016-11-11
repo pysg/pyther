@@ -207,6 +207,11 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
         return delta_1_parameter
 
 
+
+dppr_file = "PureFull.xls"
+component = 'METHANE'
+#component = "ETHANE"
+
 component_eos = Data_parse()
 properties_component = component_eos.selec_component(dppr_file, component)
 
@@ -216,6 +221,16 @@ print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
 print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
 print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
 print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
+
+
+#dinputs = np.array[properties_component[1]['Tc']] #, properties_component[1]['Pc'], properties_component[1]['Omega']]
+
+dinputs = properties_component[1]['Tc']
+print (type(dinputs))
+#Tc = dinputs[0]
+#Pc = dinputs[1]
+#OM = dinputs[2]
+
 
 def main():
 
