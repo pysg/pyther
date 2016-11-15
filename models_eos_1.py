@@ -227,7 +227,7 @@ print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
 
 dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'], properties_component[1]['Omega']])
 #dinputs = np.array(dinputs)
-print (dinputs[2])
+print (dinputs)
 #Tc = dinputs[0]
 #Pc = dinputs[1]
 #OM = dinputs[2]
