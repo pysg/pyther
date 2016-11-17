@@ -55,6 +55,17 @@ def data_in(dinputs):
 		T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
 
 
+
+
+def require_ID (func):
+    def wrapper (*arg):
+        
+        return Control_arguments(arg[0], arg[1])
+ 
+    return wrapper
+
+
+@require_ID
 def models_eos_cal(NMODEL, ICALC, dinputs):
 
     if NMODEL == 'SRK' or NMODEL == 'PR':
@@ -214,11 +225,14 @@ def main():
 
 	print("-" * 79)
 
-	nm = Control_arguments("RKPR", "constants_eps")
-	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
+	#nm = Control_arguments("RKPR", "constants_eps")
+	#print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	NMODEL = nm.NMODEL
-	ICALC = nm.ICALC
+	#NMODEL = nm.NMODEL
+	#ICALC = nm.ICALC
+
+	NMODEL = "RKPR"
+	ICALC = "constants_eps"
 
 	dppr_file = "PureFull.xls"
 	#component = 'METHANE'
@@ -242,13 +256,7 @@ def main():
 
 	dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
 	 					properties_component[1]['Omega'], properties_component[1]['Vc']])
-	#dinputs = np.array(dinputs)
 	print (dinputs)
-	#Tc = dinputs[0]
-	#Pc = dinputs[1]
-	#OM = dinputs[2]
-
-
 
 	#dinputs, NMODEL, ICALC = eos('RKPR_3')
 	#NMODEL, ICALC = convert_argument(NMODEL, ICALC)
