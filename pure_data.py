@@ -50,14 +50,9 @@ def main():
     component = "TRIPHENYLMETHANE"
     #component = "PYRENE"
     
-    component_eos = Data_parse()
-
-    #print(component_eos.read_dppr(dppr_file).index.get_values())
-    #print(component_eos.read_dppr(dppr_file))
-    # index.get_values())
-    
-    component_eos.selec_component(dppr_file, component)
-    print(component_eos.selec_component(dppr_file, component))
+    components_eos = Data_parse()    
+    component_eos = components_eos.selec_component(dppr_file, component)
+    print(component_eos)
 
 
 if __name__ == "__main__":
