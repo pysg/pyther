@@ -214,6 +214,12 @@ def main():
 
 	print("-" * 79)
 
+	nm = Control_arguments("PR", "constants_eps")
+	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
+
+	NMODEL = nm.NMODEL
+	ICALC = nm.ICALC
+
 	dppr_file = "PureFull.xls"
 	#component = 'METHANE'
 	component = "ETHANE"
@@ -240,11 +246,6 @@ def main():
 	#OM = dinputs[2]
 
 
-	nm = Control_arguments("RKPR", "constants_eps")
-	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
-
-	NMODEL = nm.NMODEL
-	ICALC = nm.ICALC
 
 	#dinputs, NMODEL, ICALC = eos('RKPR_3')
 	#NMODEL, ICALC = convert_argument(NMODEL, ICALC)
