@@ -41,11 +41,11 @@ class Data_parse(object):
 def main():
     
     dppr_file = "PureFull.xls"
-    component = 'METHANE'
+    component = "METHANE"
     
     component_eos = Data_parse()
     component_eos.selec_component(dppr_file, component)
-    #print((NMODEL))
+    print(component_eos.selec_component(dppr_file, component))
 
 
 if __name__ == "__main__":
