@@ -36,7 +36,7 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
     return rk, Pvdat, Tr
 
 
-def data_in():
+def data_in(dinputs):
 
 	if  ICALC == 'constants_eps':
 		# CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
@@ -225,7 +225,8 @@ print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
 
 #dinputs = np.array[properties_component[1]['Tc']] #, properties_component[1]['Pc'], properties_component[1]['Omega']]
 
-dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'], properties_component[1]['Omega']])
+dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
+ 					properties_component[1]['Omega'], properties_component[1]['Vc']])
 #dinputs = np.array(dinputs)
 print (dinputs)
 #Tc = dinputs[0]
@@ -240,8 +241,12 @@ def main():
 	nm = Control_arguments("RKPR", "constants_eps")
 	print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
 
-	dinputs, NMODEL, ICALC = eos('RKPR_3')
-	NMODEL, ICALC = convert_argument(NMODEL, ICALC)
+	NMODEL = nm.NMODEL
+	ICALC = nm.ICALC
+
+	#dinputs, NMODEL, ICALC = eos('RKPR_3')
+	#NMODEL, ICALC = convert_argument(NMODEL, ICALC)
+	
 	resultado = models_eos_cal(NMODEL, ICALC, dinputs)
 
 	print('-' * 79)
