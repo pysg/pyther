@@ -222,7 +222,10 @@ def main():
 
 	dppr_file = "PureFull.xls"
 	#component = 'METHANE'
-	component = "ETHANE"
+	#component = "ETHANE"
+	#component = "3-METHYLHEPTANE"
+	#component = "n-PENTACOSANE"
+	component = "ISOBUTANE"
 
 	component_eos = Data_parse()
 	properties_component = component_eos.selec_component(dppr_file, component)
