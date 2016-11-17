@@ -7,7 +7,11 @@ class Data_parse(object):
     """
     
     def read_dppr(self, dppr_file):
-        self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
+        #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
+
+        self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]#.head().ix[:, 1:12]
+        
+
         #component_names = dppr_data.index.get_values()
         return self.dppr_data
         
@@ -41,9 +45,17 @@ class Data_parse(object):
 def main():
     
     dppr_file = "PureFull.xls"
-    component = "METHANE"
+    #component = "METHANE"
+    #component = "ISOBUTANE"
+    component = "TRIPHENYLMETHANE"
+    #component = "PYRENE"
     
     component_eos = Data_parse()
+
+    #print(component_eos.read_dppr(dppr_file).index.get_values())
+    #print(component_eos.read_dppr(dppr_file))
+    # index.get_values())
+    
     component_eos.selec_component(dppr_file, component)
     print(component_eos.selec_component(dppr_file, component))
 
