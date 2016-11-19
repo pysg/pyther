@@ -225,21 +225,12 @@ def main():
 
 	print("-" * 79)
 
-	#nm = Control_arguments("RKPR", "constants_eps")
-	#print ("NMODEL: {0} and ICALC: {1}".format(nm.NMODEL, nm.ICALC))
-
-	#NMODEL = nm.NMODEL
-	#ICALC = nm.ICALC
-
-	NMODEL = "RKPR"
-	ICALC = "constants_eps"
-
 	dppr_file = "PureFull.xls"
 	#component = 'METHANE'
 	#component = "ETHANE"
-	component = "3-METHYLHEPTANE"
+	#component = "3-METHYLHEPTANE"
 	#component = "n-PENTACOSANE"
-	#component = "ISOBUTANE"
+	component = "ISOBUTANE"
 
 	properties_data = Data_parse()
 	properties_component = properties_data.selec_component(dppr_file, component)
@@ -256,10 +247,9 @@ def main():
 
 	dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
 	 					properties_component[1]['Omega'], properties_component[1]['Vc']])
-	print (dinputs)
 
-	#dinputs, NMODEL, ICALC = eos('RKPR_3')
-	#NMODEL, ICALC = convert_argument(NMODEL, ICALC)
+	NMODEL = "RKPR"
+	ICALC = "constants_eps"
 	
 	component_eos = models_eos_cal(NMODEL, ICALC, dinputs)
 

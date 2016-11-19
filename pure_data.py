@@ -9,10 +9,8 @@ class Data_parse(object):
     def read_dppr(self, dppr_file):
         #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
 
-        self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]#.head().ix[:, 1:12]
-        
-
-        #component_names = dppr_data.index.get_values()
+        self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]
+        # component_names = dppr_data.index.get_values()
         return self.dppr_data
         
     def selec_component(self, dppr_file, component):
@@ -28,19 +26,24 @@ class Data_parse(object):
         #print ('compressibility_factor_Z = {0}'.format(self.properties['Zc']))
         #print(self.label.keys())
         #print(self.label.values())
-        
+
         return self.name, self.properties
 
+        def fun(self):
+            pass
 
-#dppr_file = "PureFull.xls"
-#component = 'METHANE'
+    
 
-#component_eos = Data_parse()
-#component_eos.selec_component(dppr_file, component)
 
-#component = 'ETHANE'
-#selec_component_cal(component)
-
+def show(component, properties_component):
+    print ('Component = {0}'.format(component))
+    print ('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
+    print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
+    print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
+    print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
+    print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
+    
+        
 
 def main():
     
@@ -50,9 +53,17 @@ def main():
     component = "TRIPHENYLMETHANE"
     #component = "PYRENE"
     
-    components_eos = Data_parse()    
-    component_eos = components_eos.selec_component(dppr_file, component)
-    print(component_eos)
+    properties_table = Data_parse()    
+    #component, properties_component = properties_table.selec_component(dppr_file, component)
+
+    #print(properties_component["Omega"])
+    #print(component)
+
+    properties_component = properties_table.selec_component(dppr_file, component)
+
+    print(properties_component)
+
+    #show_properti(component, properties_component)
 
 
 if __name__ == "__main__":
