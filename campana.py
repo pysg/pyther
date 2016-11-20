@@ -128,16 +128,6 @@ class Component(object):
 
 	def function_Ar_cal(self):
 		
-		self.bv = self.B / self.V
-		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
-		self.g = self.R * np.log(1 - self.B / self.V)
-
-		self.AUX = self.R * self.T / (self.V - self.B)
-		self.fB = -(self.f + self.V * self.fv) / self.B
-		self.FFB = self.nT * AUX - self.D * self.fB
-		self.Di = 2 * self.nT * self.ac * self.alfa
-		self.Bi = self.bc
-
 		self.Ar = -self.nT * self.g * self.T - self.D * self.f
 		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
 		self.gv = self.R * self.B / (self.V * (self.V - self.B))
