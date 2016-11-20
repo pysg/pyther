@@ -128,15 +128,6 @@ class Component(object):
 
 	def function_Ar_cal(self):
 		
-		self.Ar = -self.nT * self.g * self.T - self.D * self.f
-		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
-		self.gv = self.R * self.B / (self.V * (self.V - self.B))
-		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
-		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
-		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
-		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
-		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
-		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
 		''' pressure '''
 		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
 		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
