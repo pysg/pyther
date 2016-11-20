@@ -128,14 +128,6 @@ class Component(object):
 
 	def function_Ar_cal(self):
 		
-		''' pressure '''
-		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
-		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
-
-		if self.eq != "RKPR":
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
-		else:
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
 
 		ArT = -nT * g - dDdT * f
 		ArTV = -nT * gv - dDdT * fV
