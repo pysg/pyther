@@ -124,19 +124,4 @@ component = Component()
 component.function_Ar_cal()
 
 
-class Component(object):		
-
-	def function_Ar_cal(self):
-		
-
-		ArT = -nT * g - dDdT * f
-		ArTV = -nT * gv - dDdT * fV
-		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
-		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
-
-		return self.g, self.f, self.Ar
-
-
-component = Component()
-component.function_Ar_cal()
 
