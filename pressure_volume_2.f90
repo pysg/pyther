@@ -310,21 +310,3 @@ C
 
 
 
-
-
-C
-      SUBROUTINE XTVTERMO(INDIC,T,V,P,rn,
-    1                    FUGLOG,DLFUGT,DLFUGV,DLFUGX)
-C
-C-------parameters of XTVTERMO (crit. point, LLV and CEP calculations)
-C
-C       rn        mixture mole numbers                     (input)
-C       t            temperature (k)                       (input)
-C       v            volume        (L)                     (input)
-C       p            pressure    (bar)                     (output)
-C       FUGLOG    vector of log. of fugacities (x*phi*P)   (output)    INDIC < 5
-C       DLFUGT    t-derivative of FUGLOG (const. vol,n)    (output)    INDIC = 2 or 4
-C       DLFUGV    vol-derivative of FUGLOG (const temp,n)  (output)    INDIC < 5
-C       DLFUGX    comp-derivative of FUGLOG (const t & v)  (output)    INDIC > 2
-C---------------------------------------------------
-C---  MODIFIED AND CORRECTED july 2005
