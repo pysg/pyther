@@ -1,0 +1,10 @@
+8. Tutorial
+***********
+***********
+
+Inicio del tutorial para la manipulación con la interfaz gráfica 
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/diagrama_clase_8.jpeg
+	:width: 1200

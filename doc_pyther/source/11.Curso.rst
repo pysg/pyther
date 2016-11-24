@@ -1,0 +1,45 @@
+11. Curso de Doctorado de Termodinámica
+***************************************
+*************************************** 
+
+
+Coeficientes de actividad
+Coeficientes de fugacidad
+Presión de vapor
+Propiedades termodinámicas
+
+
+Calculo flash 
+
+
+Sistemas reactivos
+Cálculo flash reactivo
+
+Estabilidad material de las fases
+Dinámica de Columna de destilación reactiva heterogénea
+
+
+
+
+
+
+
+
+
+
+
+
+Este libro tiene dos objetivos principales, el primero es profundizar en los algoritmos y métodos numéricos empleados para realizar cálculos en termodinámica de la ingeniería química para acercar este tema a los estudiantes. El segundo objetivo es mostrar una pequeña parte del potencial que tiene un lenguaje de programación como Python, resaltando que es software libre y las posibilidades que brinda para el desarrollo de cálculo científico.
+
+
+
+
+
+
+
+
+
+
+
+
+

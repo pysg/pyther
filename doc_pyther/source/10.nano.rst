@@ -1,0 +1,23 @@
+12. Termodinámica de fluidos confinados
+***************************************
+***************************************
+
+
+En la termodinámica clásica los efectos de la capilaridad y la la segragación por gravedad no son tenidos encuenta en el análisis PVT del equilibrio de fases
+
+
+Phase  equilibrium  of  fluids  confined  in  porous  media  from an  extended  Peng–Robinson  equation  of  state
+
+Para abordar la termodinámica de fluidos confinados en shale media, se han destacado principalmente 3 enfoques: la simulación molecular, los modelos de adsorción convencionales y el creciente campo de la extensión de ecuaciones de estado [Ref_x].
+
+1. En el primer método se cuenta con una buena aproximación del cálculo de las propiedades termodinámicas, sin embargo, es costoso computacionalmente realizar este tipo de cálculos para sistemas complejos y/o que requieran realizarse como parte de un simulador que involucre cálculos de otra índole más allá de un perfil de concentración.
+
+2. En el segundo método, se enfoca en determinar las propiedades termodinámicas del sistema subdividiendo el problema, por un lado la fases que se encuentra confinada en el interior del medio poroso se modela utilizando el enfoque convencional de las isotermas de adsorción, mientras que las propiedades de la fases presenten en el bulk, se modela con enfoques, por ejemplo las tradicionales como las ecuaciones, dando lugar a  problemas de consistencia en el modelo puesto que no se puede modelar el sistema completo con un solo set de parámetros, lo cual es una inconsistencia.
+
+3. El tercer método se concentra en extender los modelos de las ecuaciones de estado, que han sido ampliamente probadas para calcular las propiedades termodinámicas para fases no confinadas, para ampliar su rango de aplicación con fases confinadas en nanoporos, en donde el equilibrio de fases involucra una mayor complejidad que el tratamiento convencional puede representar.
+
+
+
+Modelo de tensión superficial:
+
+.. math:: P^v - \frac {2 \sigma Cos(\teta)} / R - P^l = 0

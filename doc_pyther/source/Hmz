@@ -1,0 +1,5 @@
+**********************************
+Función de la Energía de Helmhotlz
+**********************************
+
+En este documento se presenta el cálculo de la fugacidad para el caso de un componente puro y una mezcla de C compoentes a una presión P, temperatura T, Volumen V y número de moles N utilizando ecuaciones de estado (SRK) y **Peng-Robinson (PR)** y las reglas de mezclado de **Van Der Walls (VDW)** siguiendo el enfoque modular presentado por Mishelsen ..[].

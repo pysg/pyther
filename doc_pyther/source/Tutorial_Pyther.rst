@@ -1,0 +1,62 @@
+15. Tutorial Pyther 1.0
+**********************
+**********************
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/muestra_1.jpeg
+	:width: 1200
+
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/muestra_2.jpeg
+	:width: 1200
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/muestra_3.jpeg
+	:width: 1200
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/muestra_4.jpeg
+	:width: 1200
+
+
+
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/solido_1.jpeg
+	:width: 1200
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/solido_2.jpeg
+	:width: 1200
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/solido_3.jpeg
+	:width: 1200
+
+
+
+
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/gpec_1.jpeg
+	:width: 1200
+
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/gpec_2.jpeg
+	:width: 1200
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/gpec_3.jpeg
+	:width: 1200

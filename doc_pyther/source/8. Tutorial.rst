@@ -1,0 +1,9 @@
+8. Tutorial Pyther 1.0
+**********************
+**********************
+
+
+Figura 1. Diagrama de Clases Pyther
+
+.. image:: _static/diagrama_clase_8.jpeg
+	:width: 1200

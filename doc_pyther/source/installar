@@ -1,0 +1,18 @@
+virtualwrapper
+
+mk
+
+workon
+
+revisar los compiladores requeridos para numpy gcc y gcFORTRAN por la instalación con pip, eso se mejora con conda al traer los archivos binarios para una determinado casi
+
+generación de la clave pública
+
+luego de install probar los test que trae Sur
+
+pip install nose
+revisar pytest
+
+
+forma oficial para hacer test de Python es con la calse: TestCase
+
