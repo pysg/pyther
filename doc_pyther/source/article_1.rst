@@ -1,4 +1,4 @@
-3. Diagrama de Clases UML
+33. Articulo: Data science to phase equilibrium
 *************************
 *************************
 
@@ -6,6 +6,12 @@
 ----------------
 
 En esta sección se presenta una breve explicación de la primera parte del diagrama de clases que corresponde al cálculo de la fugacidad de un componente puro. Por tanto, los nombres de clases, atributos y métodos están sujetos a modificaciones, actualizaciones y correciones, junto con la estructura de las relaciones entre clases presentadas aquí, así como también las que se puedan adicionar como resultado de la continua revisión del diagrama de clases.
+
+En este trabajo se presenta una librería open source pyther que busca facilitar la manipulacion, procesamiento y visualización de datos relevantes para el equilibrio termodinámico de fases de sustancias puras.
+
+
+
+
 
 Figura 1. Diagrama de Clases Pyther
 
