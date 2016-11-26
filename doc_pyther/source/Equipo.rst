@@ -2,8 +2,8 @@
 ***********************
 ***********************
 
-
-Martín Cismondi Duarte: PhD. In Chemical Engineering 
+Andrés pySG
+PhD. Martín Cismondi Duarte
 
 
 
