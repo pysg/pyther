@@ -2,8 +2,8 @@
 ***********************
 ***********************
 
-Andrés pySG
-PhD. Martín Cismondi Duarte
+- Andrés pySG
+- PhD. Martín Cismondi Duarte
 
 
 
