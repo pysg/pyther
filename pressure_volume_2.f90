@@ -5,7 +5,7 @@ Desde el Main Program, que incluye estos commons...
     COMMON/PAEP/ TP(NA),PP(NA),ZP(NA),DLP(NA),DVP(NA),NPAEP
 
 Se llama así a la rutina para generar las campanas de saturación de ambos componentes en un sistema binario
-    CALL PvcurveNewton(nout,1)
+     CALL PvcurveNewton(nout,1)
     CALL PvcurveNewton(nout,2)
 
 (como el arranque alternativo desde 50K), etc.
@@ -51,14 +51,14 @@ c    IPATH=1
     WRITE (nout,*) 'VAP'
 c    Starting from critical point    c    c
     WRITE(nout,15) TCmod(icomp),Pc(icomp),Dc(icomp),Dc(icomp)
-    T=0.9999*TCmod(icomp)
-    Vc=1/DC(icomp)
-    Vv=1.03*Vc
-    Zc=Pc(icomp)*Vc/RGAS/T
-    aaa=min(0.89+(Zc-0.2)/2,0.95)
-    Vl=aaa*Vc
-    NS=3
-    delXS=0.10
+    T = 0.9999 * TCmod(icomp)
+    Vc = 1/DC(icomp)
+    Vv = 1.03*Vc
+    Zc = Pc(icomp)*Vc/RGAS/T
+    aaa = min(0.89 + (Zc - 0.2) / 2, 0.95)
+    Vl = aaa*Vc
+    NS = 3
+    delXS = 0.10
     go to 2
 c    c    c    c    c    c    c    c    c    c    c
 c

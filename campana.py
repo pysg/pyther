@@ -2,6 +2,36 @@ import numpy as np
 import solution_matrix as sm
 
 
+temperature = 0.9999 * Tc
+critical_volume = 1 / DC
+vapor_volume = 1.03 * critical_volume
+Zc = Pc * critical_volume / RGAS / temperature
+liquid_volume = min(0.89 + (Zc - 0.2) / 2, 0.95) * critical_volume
+NS = 3
+delXS = 0.10
+#------------------------------------------------------
+  XVAR = log([T, Vl, Vv])
+    DFDS=0.0D0
+    DFDS(3)=1.0D0
+    RJAC=0.0D0
+    RJAC(3,NS)=1.0D0
+ 1    NITER=0
+    T=exp(XVAR(1))
+    Vl=exp(XVAR(2))
+    Vv=exp(XVAR(3))
+    FMAXOLD=8.0D0
+    FMAX=7.0D0
+    DMAXOLD=8.0D0
+    DMAX=7.0D0
+    F(3)=0.0D0
+    delX=0.0
+    NV=0
+#------------------------------------------------------
+
+
+
+
+
 T = 123
 TOLF = 1e-3
 NS = 2
