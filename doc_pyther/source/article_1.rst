@@ -12,6 +12,11 @@ En este trabajo se presenta una librería open source pyther que busca facilitar
 
 Recientemente se vienen dando grandes avances en materia del desarrollo de software de interes cientifico por parte de investigadores de diferentes áreas con poca formación en desarrollo de software y buenas practicas de programación. en ese sentido se vienen dando una series de herramientas que facilitan esta incorporación del desarroolo de software para outsiders que cuenten facilmente con más simplicidad en materia de codigo para enfocarse en la implmentación de servicios y microservicios sin detenerse tanto en la parte del desarrollo de software pero al mismo tiempo que esto no implique ni resulte en codigo mal implementado, codigo espagueti, no escalable ni facil de mantener por carencia de buenas practicas de implementación y ausencia de documentación.
 
+
+El enfoque que se viene dando es la automatización de diferentes tareas repetitivas que consumen tiempo que los investigadores pueden destinar al analisis de los resultados en lugar de hacer estas tareas monotonas cada vez que requiere hacer un ensayo.
+
+
+
 Figura 1. Diagrama de Clases Pyther
 
 .. image:: _static/diagrama_clase_8.jpeg
