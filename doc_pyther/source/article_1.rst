@@ -16,6 +16,9 @@ Recientemente se vienen dando grandes avances en materia del desarrollo de softw
 El enfoque que se viene dando es la automatización de diferentes tareas repetitivas que consumen tiempo que los investigadores pueden destinar al analisis de los resultados en lugar de hacer estas tareas monotonas cada vez que requiere hacer un ensayo.
 
 
+En este trabajo se toma un enfoque de desarrollo de una librería que facilite la manipulación, procesamiento y visualización de datos relevantes al equilibrio de fases y fluidos supercriticos.
+
+
 
 Figura 1. Diagrama de Clases Pyther
 
