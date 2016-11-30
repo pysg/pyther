@@ -18,6 +18,8 @@ El enfoque que se viene dando es la automatización de diferentes tareas repetit
 
 En este trabajo se toma un enfoque de desarrollo de una librería que facilite la manipulación, procesamiento y visualización de datos relevantes al equilibrio de fases y fluidos supercriticos.
 
+También se enfoca en desarrollar una documentación que permita llegar esta librería a interesados que no estén familiarizados con este tipo de herramientas, de forma que lo puedan poner a prueba y aportar mejoras y correcciónes.
+
 
 
 Figura 1. Diagrama de Clases Pyther
