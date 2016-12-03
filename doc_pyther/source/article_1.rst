@@ -23,7 +23,7 @@ También se enfoca en desarrollar una documentación que permita llegar esta lib
 Otro de los puntos importantes que se tratan en este trabajo es la capcidad de desarrollo de harramientas computaciones que predigan los puntos de interes termodinámico 
 
 
-este desarrollo parte de la manipulación de las propiedades termofisicas de sustancias puras 
+este desarrollo parte de la manipulación de las propiedades termofisicas de sustancias puras para luego implementar la capcidad de mezclas y sistemas binarios
 
 
 
