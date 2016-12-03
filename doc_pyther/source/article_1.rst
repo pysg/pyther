@@ -20,7 +20,7 @@ En este trabajo se toma un enfoque de desarrollo de una librería que facilite l
 
 También se enfoca en desarrollar una documentación que permita llegar esta librería a interesados que no estén familiarizados con este tipo de herramientas, de forma que lo puedan poner a prueba y aportar mejoras y correcciónes.
 
-
+Otro de los puntos importantes que se tratan en este trabajo es la capcidad de desarrollo de harramientas computaciones que predigan los puntos de interes termodinámico 
 
 Figura 1. Diagrama de Clases Pyther
 
