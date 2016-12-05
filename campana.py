@@ -10,22 +10,24 @@ liquid_volume = min(0.89 + (Zc - 0.2) / 2, 0.95) * critical_volume
 NS = 3
 delXS = 0.10
 #------------------------------------------------------
-  XVAR = log([T, Vl, Vv])
-    DFDS=0.0D0
-    DFDS(3)=1.0D0
-    RJAC=0.0D0
-    RJAC(3,NS)=1.0D0
- 1    NITER=0
-    T=exp(XVAR(1))
-    Vl=exp(XVAR(2))
-    Vv=exp(XVAR(3))
-    FMAXOLD=8.0D0
-    FMAX=7.0D0
-    DMAXOLD=8.0D0
-    DMAX=7.0D0
-    F(3)=0.0D0
-    delX=0.0
-    NV=0
+XVAR = np.log([temperature, liquid_volume, vapor_volume])
+DFDS=0.0
+DFDS(3)=1.0
+RJAC=0.0
+RJAC(3,NS)=1.0
+
+NITER=0
+T=exp(XVAR(1))
+Vl=exp(XVAR(2))
+Vv=exp(XVAR(3))
+
+FMAXOLD=8.0
+FMAX=7.0
+DMAXOLD=8.0
+DMAX=7.0
+F(3)=0.0
+delX=0.0
+NV=0
 #------------------------------------------------------
 
 
@@ -155,3 +157,49 @@ component.function_Ar_cal()
 
 
 
+class Component(object):		
+
+	def function_Ar_cal(self):
+		
+		self.bv = self.B / self.V
+		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
+		self.g = self.R * np.log(1 - self.B / self.V)
+
+		self.AUX = self.R * self.T / (self.V - self.B)
+		self.fB = -(self.f + self.V * self.fv) / self.B
+		self.FFB = self.nT * AUX - self.D * self.fB
+		self.Di = 2 * self.nT * self.ac * self.alfa
+		self.Bi = self.bc
+
+		self.Ar = -self.nT * self.g * self.T - self.D * self.f
+		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
+		self.gv = self.R * self.B / (self.V * (self.V - self.B))
+		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
+		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
+		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
+		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
+		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
+		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
+		''' pressure '''
+		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
+		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
+
+		if self.eq != "RKPR":
+			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
+		else:
+			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
+
+		ArT = -nT * g - dDdT * f
+		ArTV = -nT * gv - dDdT * fV
+		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
+		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
+
+		return self.g, self.f, self.Ar
+
+
+component = Component()
+component.function_Ar_cal()
+
+
+
+# this is a example for the calculate for one composi
