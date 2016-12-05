@@ -203,3 +203,10 @@ component.function_Ar_cal()
 
 
 # this is a example for the calculate for one composi
+component.function_Ar_cal()
+
+
+
+
+# there is a form to convert a componet object in a molec
+
