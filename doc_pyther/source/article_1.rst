@@ -26,7 +26,7 @@ Otro de los puntos importantes que se tratan en este trabajo es la capcidad de d
 este desarrollo parte de la manipulación de las propiedades termofisicas de sustancias puras para luego implementar la capcidad de mezclas y sistemas binarios
 
 
-
+en este contexto se propician herramientas que buscan hacer el desarrollo, la implementación y sobre todo la difusión de información teneindo un fuerte enfasis en lo interactivo
 
 Figura 1. Diagrama de Clases Pyther
 
