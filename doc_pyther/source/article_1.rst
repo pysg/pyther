@@ -28,6 +28,13 @@ este desarrollo parte de la manipulación de las propiedades termofisicas de sus
 
 en este contexto se propician herramientas que buscan hacer el desarrollo, la implementación y sobre todo la difusión de información teneindo un fuerte enfasis en lo interactivo
 
+
+
+Otra de las psoibilidades que hace fuerte el ecosistema cientifico de Python es la posiblidad de utilizar librerías especializadas para diferentes campos de la cienca, como por ejemplo la librería Pandas que se enfoca en la manipulación de datos 
+
+
+
+
 Figura 1. Diagrama de Clases Pyther
 
 .. image:: _static/diagrama_clase_8.jpeg
