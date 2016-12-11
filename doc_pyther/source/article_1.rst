@@ -32,7 +32,7 @@ en este contexto se propician herramientas que buscan hacer el desarrollo, la im
 
 Otra de las psoibilidades que hace fuerte el ecosistema cientifico de Python es la posiblidad de utilizar librerías especializadas para diferentes campos de la cienca, como por ejemplo la librería Pandas que se enfoca en la manipulación de datos, la librería mathplotlib enfica en la visualización de datos.
 
-En el caso de la termodinámica se encuentran diferentes tipos de sotfware esfocados en el equilibrio de fases principalmente desarrolado en lenguajes como FORTRAN 
+En el caso de la termodinámica se encuentran diferentes tipos de sotfware esfocados en el equilibrio de fases principalmente desarrolado en lenguajes como FORTRAN manteniendo librerías de calculo numérico que no son libres.
 
 
 
