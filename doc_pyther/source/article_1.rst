@@ -34,6 +34,8 @@ Otra de las psoibilidades que hace fuerte el ecosistema cientifico de Python es 
 
 En el caso de la termodinámica se encuentran diferentes tipos de sotfware esfocados en el equilibrio de fases principalmente desarrolado en lenguajes como FORTRAN manteniendo librerías de calculo numérico que no son libres.
 
+En caso de las sustancias puras, en este trabajo se presenta la ecuación de estado RKPR la cual es una ecuación de estado de 3 parámetros 
+
 
 
 
