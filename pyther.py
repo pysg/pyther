@@ -228,6 +228,7 @@ def print_properties_component(component, properties_component):
     print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
     print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
     print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
+    print ("\n")
 
 
 
