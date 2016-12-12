@@ -1,3 +1,7 @@
+5.1. PyTher: Examples eos calculations for pure substance
+*******************************************************
+*******************************************************
+
 
 importar las linrerías requeridas, en este caso se trata de la numpy
 junto con pyther
