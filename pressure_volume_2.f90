@@ -64,7 +64,7 @@ c    c    c    c    c    c    c    c    c    c    c
 c
 c    c    c    c    c    c    c    c    c    c    c
 c
- 2    XVAR=log([T,Vl,Vv])
+ 2    XVAR = log([T, Vl, Vv])
     DFDS=0.0D0
     DFDS(3)=1.0D0
     RJAC=0.0D0
