@@ -18,7 +18,8 @@ Contents:
    Jupyther_1.rst
    Diagrama_clase.rst   
    Volumen.rst
-   Hmz.rst   
+   Hmz.rst
+   pyther_reunion.rst   
    Estabilidad.rst
    flash.rst
    PuntosCriticos.rst   
