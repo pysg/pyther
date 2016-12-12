@@ -1,3 +1,7 @@
+5a. PyTher: an Open Source Python library for Thermodynamics
+***********************************************************
+***********************************************************
+
 
 importar las linrerías requeridas, en este caso se trata de las
 librerías numpy, pandas junto con pyther
