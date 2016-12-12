@@ -1,4 +1,4 @@
-5.1. PyTher: Examples eos calculations for pure substance
+5a. PyTher: Examples eos calculations for pure substance
 *******************************************************
 *******************************************************
 
