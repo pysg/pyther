@@ -11,7 +11,7 @@ librerías numpy, pandas junto con pyther
 En los ejemplos siguientes se utilizan los datos termodísicos de la base
 de datos DPPR. Para el caso se tiene como especificación la ecuación de
 estado RKPR y las constantes criticas para el componente
-3-METHYLHEPTANE.
+3-METHYLHEPTANE a continuación.
 
 .. code:: python
 
