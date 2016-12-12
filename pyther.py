@@ -65,7 +65,7 @@ def require_ID (func):
     return wrapper
 
 
-@require_ID
+#@require_ID
 def models_eos_cal(NMODEL, ICALC, dinputs):
 
     if NMODEL == 'SRK' or NMODEL == 'PR':
@@ -205,9 +205,12 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
 
 
     if ICALC == 'constants_eps':
-        print(params)
+        print("params = [ac, b, rm, del1]")
+        #ac, b, rm, del1 = params
+        #print("ac = {0} b = {1} rm = {2} del1 = {3}".format(ac, b, rm, del1))
         return params
     elif ICALC == 'parameters_eps':
+        print("constants = [Tc, Pc, OM, Vceos]")
         print(constants)
         return constants
     elif ICALC == 'rk_param':
@@ -238,30 +241,18 @@ def main():
     #component = "3-METHYLHEPTANE"
     #component = "n-PENTACOSANE"
     component = "ISOBUTANE"
+    NMODEL = "RKPR"
+    ICALC = "constants_eps"
 
     properties_data = Data_parse()
     properties_component = properties_data.selec_component(dppr_file, component)
-
-    #print ('Component = {0}'.format(component))
-    #print ('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
-    #print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
-    #print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
-    #print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
-    #print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
-
-
-    #dinputs = np.array[properties_component[1]['Tc']] #, properties_component[1]['Pc'], properties_component[1]['Omega']]
-
+    print_properties_component(component, properties_component)
     dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
                         properties_component[1]['Omega'], properties_component[1]['Vc']])
-
-    NMODEL = "RKPR"
-    ICALC = "constants_eps"
-    print_properties_component(component, properties_component)
     
     component_eos = models_eos_cal(NMODEL, ICALC, dinputs)
+    print(component_eos[0])
     print('-' * 79)
-
 
 if __name__ == '__main__':
 	main()
