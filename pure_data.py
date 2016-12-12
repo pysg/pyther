@@ -52,6 +52,8 @@ def main():
     #component = "ISOBUTANE"
     component = "TRIPHENYLMETHANE"
     #component = "PYRENE"
+    component = "CARBON DIOXIDE"
+    #component = "CARBON"
     
     properties_table = Data_parse()    
     #component, properties_component = properties_table.selec_component(dppr_file, component)

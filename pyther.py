@@ -243,6 +243,7 @@ def main():
     component = "ISOBUTANE"
     NMODEL = "RKPR"
     ICALC = "constants_eps"
+    #ICALC = "density"
 
     properties_data = Data_parse()
     properties_component = properties_data.selec_component(dppr_file, component)
@@ -251,7 +252,7 @@ def main():
                         properties_component[1]['Omega'], properties_component[1]['Vc']])
     
     component_eos = models_eos_cal(NMODEL, ICALC, dinputs)
-    print(component_eos[0])
+    #print(component_eos[0])
     print('-' * 79)
 
 if __name__ == '__main__':

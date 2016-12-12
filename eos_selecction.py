@@ -16,10 +16,10 @@ se tienen 8 casos de posibles especificaciones
 # prueba = "PR_0" # ICALC, NMODEL, IVAP = 0, 2, 0
 # prueba = "PR_1" # ICALC,NMODEL,IVAP = 1, 2, 0
 
-prueba = 'RKPR_0' # ICALC, NMODEL, IVAP = 0, 3, 0
+#prueba = 'RKPR_0' # ICALC, NMODEL, IVAP = 0, 3, 0
 # prueba = "RKPR_1" # ICALC,NMODEL,IVAP = 1, 3, 0
 # prueba = "RKPR_2" # ICALC,NMODEL,IVAP = 2, 3, 0
-# prueba = "RKPR_3" # ICALC,NMODEL,IVAP = 3, 3, 0
+prueba = "RKPR_3" # ICALC,NMODEL,IVAP = 3, 3, 0
 
 
 def eos(prueba):
