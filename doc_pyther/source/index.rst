@@ -19,7 +19,8 @@ Contents:
    Diagrama_clase.rst   
    Volumen.rst
    Hmz.rst
-   pyther_reunion.rst   
+   pyther_reunion.rst
+   pyther_consistencia.rst   
    Estabilidad.rst
    flash.rst
    PuntosCriticos.rst   
