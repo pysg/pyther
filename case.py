@@ -12,6 +12,7 @@ component = "ISOBUTANE"
 component = "CARBON DIOXIDE"
 
 NMODEL = "RKPR"
+NMODEL = "PR"
 ICALC = "constants_eps"
 ICALC = "density"
 
