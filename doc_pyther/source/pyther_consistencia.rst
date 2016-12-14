@@ -5,7 +5,7 @@
 A. Salazar * , M. Cismondí
 
 
-**Resumen**. En este trabajo se presenta la herramienta IPyTherm, la cual se
+**Resumen**. En este trabajo se presenta la herramienta PyTher, la cual se
 enfoca en cálculos termodinámicos del comportamiento de fases a través de
 la plataforma Jupyter para realizar el análisis computacional de la
 consistencia termodinámica de datos experimentales entre fases líquido-
@@ -50,7 +50,7 @@ adecuada verificación por parte de los pares evaluadores de la gran cantidad de
 presentados para su publicación con un tiempo insuficiente para corroborar la calidad de
 los datos experimentales reportados (Chirico et al, 2013; Frenkel et al, 2006).
 
-En este trabajo se presenta la herramienta IPyTherm para el procesamiento y
+En este trabajo se presenta la herramienta PyTher para el procesamiento y
 visualización de datos experimentales del equilibrio de fases líquido-vapor, la cual se
 basa en la tecnología de la plataforma IPython que en su tercera versión recibe el
 nombre de Jupyter. Esta plataforma se desarrolla bajo el concepto del “peper
@@ -65,5 +65,18 @@ que se está realizando, resultando en un proceso improductivo por el costo de t
 que involucra la manipulación de herramientas de cálculo científico tradicionalmente
 implementado en lenguajes como FORTRAN, el cual es limitado para el procesamiento
 y visualización de grandes cantidades de datos (M. Gaitan et al. 2012).
+
+
+2. **Consistencia termodinámica**
+
+En esta sección se presenta la manipulación de las ecuaciones para determinar el
+valor de la derivada parcial de la temperatura con respecto a la fracción molar de un
+componente en la fase líquida a presión constante, según la definición de la Ec. (1).
+
+
+
+
+
+
 
 
