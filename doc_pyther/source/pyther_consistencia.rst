@@ -49,9 +49,21 @@ para completar de forma “engañosa” la información de propiedades termodin�
 adecuada verificación por parte de los pares evaluadores de la gran cantidad de artículos
 presentados para su publicación con un tiempo insuficiente para corroborar la calidad de
 los datos experimentales reportados (Chirico et al, 2013; Frenkel et al, 2006).
+
 En este trabajo se presenta la herramienta IPyTherm para el procesamiento y
 visualización de datos experimentales del equilibrio de fases líquido-vapor, la cual se
 basa en la tecnología de la plataforma IPython que en su tercera versión recibe el
 nombre de Jupyter. Esta plataforma se desarrolla bajo el concepto del “peper
 ejecutable” (Pérez and Granger, 2007; Pérez, 2013), puesto que frecuentemente en el
-desarrollo de una investigación científica actual se requiere de la computación
+desarrollo de una investigación científica actual se requiere de la computación,
+procesamiento, visualización y presentación de una gran cantidad de información y
+datos que habitualmente se realiza con diferentes herramientas computacionales que no
+siempre están adaptadas para funcionar juntas lo que implica un esfuerzo considerable,
+tener que enfocarse en llevar datos de un formato a otro para poder avanzar en el
+procesamiento, que principio no hace parte del objetivo de la investigación científica
+que se está realizando, resultando en un proceso improductivo por el costo de tiempo
+que involucra la manipulación de herramientas de cálculo científico tradicionalmente
+implementado en lenguajes como FORTRAN, el cual es limitado para el procesamiento
+y visualización de grandes cantidades de datos (M. Gaitan et al. 2012).
+
+
