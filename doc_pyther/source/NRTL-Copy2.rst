@@ -1,4 +1,3 @@
-
 Modelos para la energía de gibbs de Exceso
 ==========================================
 
