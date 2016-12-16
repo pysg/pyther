@@ -20,6 +20,7 @@ Contents:
    Volumen.rst
    Hmz.rst
    pyther_reunion.rst
+   IPyTherm_2.rst
    pyther_consistencia.rst   
    Estabilidad.rst
    flash.rst

@@ -1,6 +1,6 @@
-5a. PyTher: an Open Source Python library for Thermodynamics
-***********************************************************
-***********************************************************
+5a. PyTher: Model, parameters and properties component
+******************************************************
+******************************************************
 
 
 importar las linrerías requeridas, en este caso se trata de las
