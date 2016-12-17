@@ -50,7 +50,6 @@ a = np.array([[0, 300, 300, 300, -229.1, -14.09, 72.8700],
 			  ])
 
 #----------------------------------------------------------------------
-
 A = np.exp(-a / T)
 r = np.sum(R * v, axis = 1)
 q = np.sum(Q * v, axis = 1)
@@ -66,6 +65,9 @@ L = qxj / qx
 li = 5 * (r - q) - (r - 1)
 lnYCi = np.log(J/xj) + 5 * q * np.log(L/J) + li - (J/xj) * (np.sum(xj * li))
 
+xg = (v.T / np.sum(v, axis = 1)).T
+Lg = ((Q * xg).T / np.sum(Q * xg, axis = 1)).T
+
 print("A = ", A)
 print("r = ", r)
 print("q = ", q)
@@ -77,6 +79,8 @@ print("qx = ", qx)
 print("L = ", L)
 print("li = ", li)
 print("lnYCi = ", lnYCi)
+print("xg = ", xg)
+print("Lg = ", Lg)
 
 # J = 0.20591   0.79409
 # L = 0.29549   0.70451
@@ -84,22 +88,6 @@ print("lnYCi = ", lnYCi)
 # lnYCi = 0.248043   0.042572
 
 #----------------------------------------------------------------------
-
-
-xg = (v.T / np.sum(v, axis = 1)).T
-
-Qxg = Q * xg
-SQxg = np.sum(Q * xg, axis = 1)
-
-Lg = (Qxg.T / SQxg).T
-
-Lg = ((Q * xg).T / np.sum(Q * xg, axis = 1)).T
-
-print("Q = ", Q)
-print("xg = ", xg)
-print("Qxg = ", Qxg)
-print("SQxg = ", SQxg)
-print("Lg = ", Lg)
 
 # Lg =
 
@@ -120,9 +108,17 @@ print("Lg = ", Lg)
 
 #ST = ST'
 
-ST = Lg[1] * A
+#ST = np.sum(Lg[1].T * A, axis = 1)
 
-print(ST)
+ST = Lg @ A
+print("ST = ", ST)
 
 
+#a = np.zeros(4)
 
+#print("a = ", a)
+
+#ST =
+
+#   1.00000   0.40066   0.40066   0.40066   2.01069   1.04389   0.80078
+#   0.73014   0.63516   0.63516   0.63516   0.95633   0.64487   1.49217
