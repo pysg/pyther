@@ -85,41 +85,21 @@ print("lnYCi = ", lnYCi)
 
 #----------------------------------------------------------------------
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#for i = 1 : 1 : m      %Molécula (i)
-
-#   for k = 1 : 1 : g   %Grupo funcional (k)
-#      xg(k,i) = v(k,i)./sum(v(:,i));
-
-print("Q = ", Q)
 
 xg = (v.T / np.sum(v, axis = 1)).T
-print("xg = ", xg)
-
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#for i = 1 : 1 : m      %Molécula (i)
-
-#   for k = 1 : 1 : g   %Grupo funcional (k)
-
-#      Lg(k,i) = Q(k,1)*xg(k,i)/sum(Q.*xg(:,i));
-
-# Lg
-
-
-
 
 Qxg = Q * xg
-print("Qxg = ", Qxg)
-
 SQxg = np.sum(Q * xg, axis = 1)
 
-print(SQxg)
+Lg = (Qxg.T / SQxg).T
 
-Lg = Qxg / SQxg
+Lg = ((Q * xg).T / np.sum(Q * xg, axis = 1)).T
 
+print("Q = ", Q)
+print("xg = ", xg)
+print("Qxg = ", Qxg)
+print("SQxg = ", SQxg)
 print("Lg = ", Lg)
-
-
 
 # Lg =
 
@@ -131,9 +111,18 @@ print("Lg = ", Lg)
 #   0.00000   0.59073
 #   0.00000   0.00000
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#for i = 1 : 1 : m      %Molécula (i)
 
+#   for k = 1 : 1 : g   %Grupo funcional (k)
 
+#      ST(k,i) = sum(Lg(:,i).*A(:,k));
 
+#ST = ST'
+
+ST = Lg[1] * A
+
+print(ST)
 
 
 
