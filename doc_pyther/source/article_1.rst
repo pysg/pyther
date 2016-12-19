@@ -41,6 +41,9 @@ La capacidad de modelar adecuadamente las propiedades termodinámicas es importa
 
 
 
+otra de las posibilidades es la utilización de librerías especializadas para el analisis de datos, como el caso de Pandas. A continuación se presenta una serie de ejemplo que muestra dichas posibilidades
+
+
 Figura 1. Diagrama de Clases Pyther
 
 .. image:: _static/diagrama_clase_8.jpeg
