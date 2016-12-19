@@ -80,10 +80,6 @@ Dentro de los principales métodos numéricos que se consideran para el desarrol
 
 .. [#] Sommerville, Ian (2004) Software Enginnering, 7th edition, Pretince Hall Traducción al español por el Departamento de Ciencias de la Computación e Inteligencia Artificial de la Universidad de Alicante (2005).
 
-
-
-
-
 .. [#] Rodriguez-Reartes S.B., Cismondi M., Zabaloy M.S., Computation of solid-fluidfluid equilibria for binary asymmetric mixtures in wide ranges of conditions, J. Supercrit. Fluids. 57 (2011) 9–24.
 
 .. [#] Rodriguez-Reartes S.B., Cismondi M., Zabaloy M.S., Modeling approach for the high pressure solid-fluid equilibrium of asymmetric systems, Ind. Eng. Chem. Res. 50 (2011) 3049–3059.

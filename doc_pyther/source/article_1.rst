@@ -37,6 +37,8 @@ En el caso de la termodinámica se encuentran diferentes tipos de sotfware esfoc
 En caso de las sustancias puras, en este trabajo se presenta la ecuación de estado RKPR la cual es una ecuación de estado de 3 parámetros. En esta librería se presenta ejemplos de la manipulación de los paŕametros de cada posiblidad para representar una determinada sustancia  
 
 
+La capacidad de modelar adecuadamente las propiedades termodinámicas es importante para el desarrollo y diseño de equipos de diferentes áreas.
+
 
 
 Figura 1. Diagrama de Clases Pyther
