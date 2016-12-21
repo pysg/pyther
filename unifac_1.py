@@ -100,23 +100,8 @@ print("Lg = ", Lg)
 #   0.00000   0.00000
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#for i = 1 : 1 : m      %Molécula (i)
-
-#   for k = 1 : 1 : g   %Grupo funcional (k)
-
-#      ST(k,i) = sum(Lg(:,i).*A(:,k));
-
-#ST = ST'
-
-#ST = np.sum(Lg[1].T * A, axis = 1)
-
 ST = Lg @ A
 print("ST = ", ST)
-
-
-#a = np.zeros(4)
-
-#print("a = ", a)
 
 #ST =
 
