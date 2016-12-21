@@ -1,6 +1,6 @@
 import numpy as np
+from scipy import optimize
 from scipy.optimize import fsolve
-
 
 
 
@@ -563,14 +563,24 @@ def equilibrioSF(x, Pe, nif, n1, n2, Avsl):
     return eqSF
 
 
+#(x, Pe, nif, nCf, eq, TcDato, PcDato, wDAto, Avsl)
+
+#(x, Pe, nif, n1, eq, TcDato, PcDato, wDato, Avsl)
+
 eq = 'PR'
-#Avsl = -0.0565500835
-Avsl = -0.09605965500835
+Avsl = -0.0565500835
+#Avsl = -0.09605965500835
 
 initial_temperature = [346.5] # T [=] K
 initial_pressure = 136.9 # [=] bar
 
-Tcal = fsolve(equilibrioSF,initial_temperature,args=(initial_pressure, 1, 2, -0.09605965500835), xtol=1e-4)
+n1 = 1
+n2 = 2
+
+nif = np.array([n1, n2])
+
+
+Tcal = fsolve(equilibrioSF,initial_temperature,args=(initial_pressure, nif, 1, 2, Avsl), xtol=1e-4)
 print(Tcal, "K")
 
 t_exp = [323.65, 326.04, 326.43, 328.12, 329.45, 329.89, 333.43, 335.12, 340.19, 344.58, 346.65, 352.53, 362.45, 362.76, 371.82, 379.74]
