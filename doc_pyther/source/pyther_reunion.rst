@@ -2,6 +2,16 @@
 ******************************************************
 ******************************************************
 
+Temperatura critica
+Presión critica
+factor acentrico Omega
+Volumen critico
+
+ 
+
+
+
+
 
 importar las linrerías requeridas, en este caso se trata de las
 librerías numpy, pandas junto con pyther
