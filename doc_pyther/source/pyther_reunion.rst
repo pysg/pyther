@@ -11,6 +11,13 @@ En esta sección se presenta la forma de obtener los parámetros correspondiente
 las ecuaciones de estado SRK, PR y RKPR con las diferentes especificaciones que se
 pueden realizar. 
 
+Para el caso de las ecuaciones de estado SRK y PR se tienen como parámetros a las constantes
+a_c y b. Estos parámetros se determinan a partir de las constantes criticas para cada
+sustancia pura. 
+
+En el caso de la ecuación de estado RKPR se tiene 2 parámetros adicionales a los ya mencionados
+ac y b. Son los parámetros d1 y k, que se muestran en las siguientes ecuaciones:
+
 
 
 
