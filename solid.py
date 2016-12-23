@@ -578,6 +578,9 @@ n1 = 1
 n2 = 2
 
 nif = np.array([n1, n2])
+TcDato = 
+PcDato = 
+wDAto = 
 
 
 Tcal = fsolve(equilibrioSF,initial_temperature,args=(initial_pressure, nif, 1, 2, Avsl), xtol=1e-4)
