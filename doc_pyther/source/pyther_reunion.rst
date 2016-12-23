@@ -2,10 +2,10 @@
 ******************************************************
 ******************************************************
 
--Temperatura critica
--Presión critica
--factor acentrico Omega
--Volumen critico
+- Temperatura critica
+- Presión critica
+- factor acentrico Omega
+- Volumen critico
 
 En esta sección se presenta la forma de obtener los parámetros correspondientes para
 las ecuaciones de estado SRK, PR y RKPR con las diferentes especificaciones que se
