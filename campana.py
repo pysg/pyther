@@ -2,6 +2,17 @@ import numpy as np
 import solution_matrix as sm
 
 
+c    Starting from critical point    c    c
+    WRITE(nout,15) TCmod(icomp),Pc(icomp),Dc(icomp),Dc(icomp)
+    T = 0.9999 * TCmod(icomp)
+    Vc = 1/DC(icomp)
+    Vv = 1.03*Vc
+    Zc = Pc(icomp)*Vc/RGAS/T
+    aaa = min(0.89 + (Zc - 0.2) / 2, 0.95)
+    Vl = aaa*Vc
+    NS = 3
+    delXS = 0.10
+
 temperature = 0.9999 * Tc
 critical_volume = 1 / DC
 vapor_volume = 1.03 * critical_volume
@@ -29,6 +40,9 @@ F(3)=0.0
 delX=0.0
 NV=0
 #------------------------------------------------------
+
+
+
 
 
 
