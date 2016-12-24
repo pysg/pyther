@@ -24,19 +24,21 @@ critical_volume = 1 / DC
 vapor_volume = 1.03 * critical_volume
 Zc = Pc * critical_volume / RGAS / temperature
 liquid_volume = min(0.89 + (Zc - 0.2) / 2, 0.95) * critical_volume
-NS = 3
+NS = 2
 delXS = 0.10
 
 #------------------------------------------------------
 XVAR = np.log([temperature, liquid_volume, vapor_volume])
 
+#DFDS = 0.0
 DFDS = np.zeros(3)
-print(DFDS)
+DFDS[2] = 1.0
+print("DFDS = ", format(DFDS))
 
-DFDS=0.0
-DFDS[3]=1.0
-RJAC=0.0
-RJAC[3, NS]=1.0
+#RJAC=0.0
+RJAC = np.zeros([3, 3])
+RJAC[2, NS]=1.0
+print("RJAC = ", format(RJAC))
 
 NITER=0
 T=exp(XVAR[1])
