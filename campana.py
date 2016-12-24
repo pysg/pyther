@@ -1,5 +1,5 @@
 import numpy as np
-import solution_matrix as sm
+#import solution_matrix as sm
 
 
 #c    Starting from critical point    c    c
@@ -20,23 +20,24 @@ Zc = Pc * critical_volume / RGAS / temperature
 liquid_volume = min(0.89 + (Zc - 0.2) / 2, 0.95) * critical_volume
 NS = 3
 delXS = 0.10
+
 #------------------------------------------------------
 XVAR = np.log([temperature, liquid_volume, vapor_volume])
 DFDS=0.0
-DFDS(3)=1.0
+DFDS[3]=1.0
 RJAC=0.0
-RJAC(3,NS)=1.0
+RJAC[3, NS]=1.0
 
 NITER=0
-T=exp(XVAR(1))
-Vl=exp(XVAR(2))
-Vv=exp(XVAR(3))
+T=exp(XVAR[1])
+Vl=exp(XVAR[2])
+Vv=exp(XVAR[3])
 
 FMAXOLD=8.0
 FMAX=7.0
 DMAXOLD=8.0
 DMAX=7.0
-F(3)=0.0
+F[3]=0.0
 delX=0.0
 NV=0
 #------------------------------------------------------
