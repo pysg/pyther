@@ -13,6 +13,12 @@ import numpy as np
 #    NS = 3
 #    delXS = 0.10
 
+Tc = 123
+DC = 0.234
+Pc = 23
+
+RGAS = 0.80324234
+
 temperature = 0.9999 * Tc
 critical_volume = 1 / DC
 vapor_volume = 1.03 * critical_volume
@@ -23,6 +29,10 @@ delXS = 0.10
 
 #------------------------------------------------------
 XVAR = np.log([temperature, liquid_volume, vapor_volume])
+
+DFDS = np.zeros(3)
+print(DFDS)
+
 DFDS=0.0
 DFDS[3]=1.0
 RJAC=0.0
