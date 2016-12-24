@@ -41,15 +41,20 @@ RJAC[2, NS]=1.0
 print("RJAC = ", format(RJAC))
 
 NITER=0
-T=exp(XVAR[1])
-Vl=exp(XVAR[2])
-Vv=exp(XVAR[3])
+T = np.exp(XVAR[0])
+Vl = np.exp(XVAR[1])
+Vv = np.exp(XVAR[2])
+
+
+print("T = {0}, Vl = {1}, Vv = {2}".format(T, Vl, Vv))
 
 FMAXOLD=8.0
 FMAX=7.0
 DMAXOLD=8.0
 DMAX=7.0
-F[3]=0.0
+F = np.zeros(3)
+
+F[2]=0.0
 delX=0.0
 NV=0
 #------------------------------------------------------
