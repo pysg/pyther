@@ -60,7 +60,28 @@ NV=0
 #------------------------------------------------------
 
 
+#if(NV.GE.5.and.T.LT.0.4*Tcmod(icomp))return
+#      IF ((FMAX.GT.FMAXOLD.and.DMAX.GT.DMAXOLD).OR.NITER.eq.10) THEN
+#            delXS=0.8*delXS
+#            if(abs(delXS).lt.0.001)return
+#            if(XOLD(1).NE.0.0D0)go to 7
+#        END IF
+#        NITER=NITER+1
 
+
+
+criterio_1 = NV > 0.5 and T < 0.4*Tcmod
+
+# IF ((FMAX.GT.FMAXOLD.and.DMAX.GT.DMAXOLD).OR.NITER.eq.10) THEN
+if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
+	# delXS=0.8*delXS
+	delXS = 0.8 * delXS
+	# if(abs(delXS).lt.0.001)return
+	if abs(delXS) < 0.001:
+		return
+		# if(XOLD(1).NE.0.0D0)go to 7
+		if XOLD[0] != 0:
+			pass
 
 
 
