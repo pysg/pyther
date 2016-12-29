@@ -103,19 +103,25 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 
 
 if delXS < 0.0:
-	if NS == 0.1:
-		delXS=max(delXS,-0.008) ! Max lnT decrease allowed
-	elif NS == 0.2:
-		delXS=max(delXS,-0.01) ! Max lnVl decrease allowed: 0.01  ! DO NOT CHANGE !!!
-	if(NS.eq.3)
-            delXS=max(delXS,-0.10) ! Max lnVv decrease allowed: 0.20
-    ELSE
-        if(NS.EQ.1)
-            delXS=min(delXS,0.01) ! Max lnT increase allowed: 0.5 K
-        if(NS.eq.2)
-            delXS=min(delXS,0.05) ! Max lnVl increase allowed: 0.01
-        if(NS.eq.3)
-            delXS=min(delXS,0.20) ! Max lnVv increase allowed: 0.20
+	if NS == 1:
+		#! Max lnT decrease allowed
+		delXS=max(delXS,-0.008) 
+	elif NS == 2:
+		#! Max lnVl decrease allowed: 0.01  ! DO NOT CHANGE !!!
+		delXS=max(delXS,-0.01) 
+	elif NS == 3:
+		#! Max lnVv decrease allowed: 0.20
+		delXS=max(delXS,-0.10) 
+else:
+	if NS == 1:
+		#! Max lnT increase allowed: 0.5 K
+		delXS=min(delXS,0.01)
+	if NS == 2:
+		#! Max lnVl increase allowed: 0.01
+		delXS=min(delXS,0.05)
+	if NS == 3:
+		#! Max lnVv increase allowed: 0.20
+		delXS=min(delXS,0.20) 
  
 
 
