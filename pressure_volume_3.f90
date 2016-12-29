@@ -188,24 +188,17 @@ c    oscillations are recognized by negative dotp
         if(FMAX.lt.1.0D-1.and.FMAX*DMAX.lt.1.0D-11)exit
     END DO
 
-
-
-
-
-
-
-
-
     
     RHOL=1/Vl
     RHOV=1/Vv
 
 
-        db = dFdS
-        AJ=RJAC
-        call dgesv( N, 1, AJ, lda, ipiv, db, ldb, info )
-        if (info.ne.0) write(6,*)"error with dgesv in parameter ",info
-        dXdS = db
+    db = dFdS
+    AJ=RJAC
+    call dgesv( N, 1, AJ, lda, ipiv, db, ldb, info )
+    if (info.ne.0) write(6,*)"error with dgesv in parameter ",info
+    dXdS = db
+
 c        
     NSOLD=NS
 
