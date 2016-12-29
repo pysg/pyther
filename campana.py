@@ -180,6 +180,22 @@ def comprobar_delXS(delXS, NS):
 
 
  
+XOLD = XVAR
+TOLD = T
+POLD = Pv
+DVOLD = RHOV
+DLOLD = RHOL
+NV = 0
+
+S = XOLD(NS) + delXS
+
+#! Initial estimates for the 3 variables in the next point
+XVAR = XOLD + dXdS * delXS / dXdS[NS]
+
+T = np.exp(XVAR[1])
+Vl = np.exp(XVAR[2])
+Vv = np.exp(XVAR[3])
+
 
 
 

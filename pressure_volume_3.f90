@@ -17,9 +17,6 @@
 
     rn (inf) =0.0
     rn(icomp)=1.0
-    WRITE (nout,*)
-    WRITE (nout,*) '   T(K)    Pv(bar)    rhoL     rhoV'
-    WRITE (nout,*) 'VAP'
 
 c    Starting from critical point    c    c
     WRITE(nout,15) TCmod(icomp),Pc(icomp),Dc(icomp),Dc(icomp)
