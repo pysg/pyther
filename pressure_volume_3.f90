@@ -206,11 +206,8 @@ c
     if(Pv.gt.1.D-20.and.(T.gt.0.25*TCmod(icomp).or.T>250)     ! modified April 6, 2016
     1                              .and.T.lt.TCmod(icomp))go to 1
  
-    if(T.gt.TCmod(icomp))WRITE(nout,15) TCmod(icomp),Pc(icomp),Dc(icomp),Dc(icomp)
-    WRITE (nout,*)
 
-15    FORMAT(F8.3,X,E11.4E3,F9.4,X,E11.4E3,2I4,X,E11.3E2)
-    end
+
 
 
 

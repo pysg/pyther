@@ -197,10 +197,16 @@ Vl = np.exp(XVAR[2])
 Vv = np.exp(XVAR[3])
 
 
+#if(Pv.gt.1.D-20.and.(T.gt.0.25*TCmod(icomp).or.T>250)     ! modified April 6, 2016
+#    1                              .and.T.lt.TCmod(icomp))go to 1
+ 
+#if(T.gt.TCmod(icomp))WRITE(nout,15) TCmod(icomp),Pc(icomp),Dc(icomp),Dc(icomp)
+#    WRITE (nout,*)
 
 
-
-
+if (Pv > 1e-20 and (T > 0.25 * TCmod or T>250) and T < TCmod):
+	print("go to 1")
+ 
 
 
 
