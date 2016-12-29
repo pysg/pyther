@@ -85,6 +85,36 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 
 
 
+
+#    if(NS.ne.NSOLD)then
+#        dSdSold=dXdS(NS)
+#        dXdS=dXdS/dSdSold
+#        RJAC(3,1:3)=0.0D0
+#        RJAC(3,NS)=1.0D0
+#    end if
+
+#    NITER=min(niter,10)
+#    delXS=delXS*5/NITER/dXdS(NSOLD)
+
+
+
+if NS != NSOLD:
+	dSdSold = dXdS[NS]
+	dXdS = dXdS / dSdSold
+	RJAC[3, 1:3] = 0.0
+	RJAC[3, NS] = 1.0
+
+NITER = min(niter,10)
+delXS = delXS * 5 / NITER / dXdS[NSOLD]
+
+
+
+
+
+
+
+
+
 #IF(delXS.LT.0)then
 #        if(NS.EQ.1)
 #            delXS=max(delXS,-0.008) ! Max lnT decrease allowed
