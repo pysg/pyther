@@ -85,6 +85,47 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 
 
 
+#IF(delXS.LT.0)then
+#        if(NS.EQ.1)
+#            delXS=max(delXS,-0.008) ! Max lnT decrease allowed
+#        if(NS.eq.2)
+#            delXS=max(delXS,-0.01) ! Max lnVl decrease allowed: 0.01  ! DO NOT CHANGE !!!
+#        if(NS.eq.3)
+#            delXS=max(delXS,-0.10) ! Max lnVv decrease allowed: 0.20
+#    ELSE
+#        if(NS.EQ.1)
+#            delXS=min(delXS,0.01) ! Max lnT increase allowed: 0.5 K
+#        if(NS.eq.2)
+#            delXS=min(delXS,0.05) ! Max lnVl increase allowed: 0.01
+#        if(NS.eq.3)
+#            delXS=min(delXS,0.20) ! Max lnVv increase allowed: 0.20
+#    END IF
+
+
+if delXS < 0.0:
+	if NS == 0.1:
+		delXS=max(delXS,-0.008) ! Max lnT decrease allowed
+	elif NS == 0.2:
+		delXS=max(delXS,-0.01) ! Max lnVl decrease allowed: 0.01  ! DO NOT CHANGE !!!
+	if(NS.eq.3)
+            delXS=max(delXS,-0.10) ! Max lnVv decrease allowed: 0.20
+    ELSE
+        if(NS.EQ.1)
+            delXS=min(delXS,0.01) ! Max lnT increase allowed: 0.5 K
+        if(NS.eq.2)
+            delXS=min(delXS,0.05) ! Max lnVl increase allowed: 0.01
+        if(NS.eq.3)
+            delXS=min(delXS,0.20) ! Max lnVv increase allowed: 0.20
+ 
+
+
+
+
+
+
+
+
+
 
 
 T = 123
