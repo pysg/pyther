@@ -83,6 +83,17 @@ c    c    c    c    c    c    c    c    c    c    c
     delX=0.0
     NV=0
 
+
+
+
+
+
+
+
+
+
+
+
 c    Newton procedure for solving the present point
     DO WHILE (DMAX.GT.TOL.or.FMAX.GT.TOLF)
 
@@ -176,15 +187,19 @@ c    oscillations are recognized by negative dotp
         
         if(FMAX.lt.1.0D-1.and.FMAX*DMAX.lt.1.0D-11)exit
     END DO
+
+
+
+
+
+
+
+
+
     
     RHOL=1/Vl
     RHOV=1/Vv
 
-    IF(volcheck)THEN
-        WRITE (nout,15) T,Pv,RHOL,RHOV,NS,NITER,volog
-    ELSE
-        WRITE (nout,15) T,Pv,RHOL,RHOV,NS,NITER
-    END IF
 
         db = dFdS
         AJ=RJAC
