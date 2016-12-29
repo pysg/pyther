@@ -1,34 +1,3 @@
-Desde el Main Program, que incluye estos commons...
-COMMON /MODEL/ NMODEL
-COMMON/TCGC/TCGC(MAXC),PCGC
-COMMON/CRIT/TC(MAXC),PC(MAXC),DC(MAXC)
-COMMON/PAEP/ TP(NA),PP(NA),ZP(NA),DLP(NA),DVP(NA),NPAEP
-
-    subroutine PvcurveNewton(nout,icomp) ! S para los primeros puntos debería ser ln(Vv/Vl)
-    
-    implicit DOUBLE PRECISION (A-H,O-Z)
-    PARAMETER (nco=2, RGAS=0.08314472d0, NA=2)
-    
-    DIMENSION TCmod(nco),rn(nco),SENS(3),dold(3),dot(3)
-    dimension Arn(nco),ArVn(nco),ArTn(nco)
-    DIMENSION XVAR(3),F(3),dFdS(3),dXdS(3),delX(3),RJAC(3,3),XOLD(3)
-    DIMENSION AJ(3,3),IPIV(3),db(3)
-    DIMENSION FUGx(2),FUGy(2)
-    DIMENSION FUGTx(2),FUGTy(2)
-    DIMENSION FUGVx(2),FUGVy(2)
-    DIMENSION DFGN(2,2)
-    DIMENSION DPDNx(2),DPDNy(2)
-
-    LOGICAL oscil, volcheck
-    
-    COMMON/CRIT/TC(nco),PC(nco),DC(nco)
-    COMMON/TCGC/TCGC(nco)
-    COMMON /MODEL/ NMODEL
-    COMMON/Pder/ DPDN(2),DPDT,DPDV
-    COMMON/PAEP/ TP(NA),PP(NA),ZP(NA),DLP(NA),DVP(NA),NPAEP
-
-    volcheck=.false.    ! false for visual executable. true to study azeotropy
-    volog=0.0d0
     NTEMP=0
     NDER=1
     XOLD=0.0D0
@@ -82,17 +51,6 @@ c    c    c    c    c    c    c    c    c    c    c
     F(3)=0.0D0
     delX=0.0
     NV=0
-
-
-
-
-
-
-
-
-
-
-
 
 c    Newton procedure for solving the present point
     DO WHILE (DMAX.GT.TOL.or.FMAX.GT.TOLF)
