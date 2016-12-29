@@ -13,6 +13,12 @@ import numpy as np
 #    NS = 3
 #    delXS = 0.10
 
+# PARAMETER (nco=2, RGAS=0.08314472d0, NA=2)
+nco = 2
+RGAS=0.08314472
+NA=2
+
+
 Tc = 123
 DC = 0.234
 Pc = 23
