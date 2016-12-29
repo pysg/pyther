@@ -85,6 +85,20 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 
 
 
+#    NSOLD=NS
+
+#    IF(VV.GT.1.1*VC)THEN  ! .and.T.GT.0.3*Tcmod(icomp)
+#        NS=1
+#    ELSE
+#        NS=3
+#    END IF
+
+NSOLD = NS
+
+if VV > 1.1 * VC:
+	NS = 1
+else:
+	NS = 3
 
 #    if(NS.ne.NSOLD)then
 #        dSdSold=dXdS(NS)
