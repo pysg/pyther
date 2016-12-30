@@ -269,7 +269,7 @@ if (Pv > 1e-20 and (T > 0.25 * TCmod or T > 250) and T < TCmod):
 
 def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 
-    NG = NGR
+	NG = NGR
     NC = 2
     
     NTEMP = 0
@@ -295,36 +295,35 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
     Z = P * V / (TOTN * RT)
     DPDT = -ArTV + TOTN * RGAS / V
 
-    DO 60 I=1,NC
+    #DO 60 I=1,NC
     
-    IF(RN(I).EQ.0.0)GOTO 60
+    #IF(RN(I).EQ.0.0)GOTO 60
     if rn[I] == 0:
     	print("GOTO 60")
-C        FUGLOG(I)=-LOG(Z)+Arn(I)/RT + log(rn(I)/TOTN) + log(P)
-C        FUGLOG(I)=Arn(I)/RT + log(rn(I)/TOTN) + log(P/Z) this crashes at very low T LLV when Z=P=0.000000...
-        FUGLOG(I)=Arn(I)/RT + log(rn(I)) + log(RT/V)
-        DPDN(I) = RT/V-ArVn(I)
-        DLFUGV(I)=-DPDN(I)/RT                    ! term DPDV/P is cancelled out
-        IF(NTEMP.EQ.0) GOTO 60
-        DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
-   60 CONTINUE
-   62 IF(NDER.LT.2) GOTO 64
-      DO 63 I=1,NC
-      DO 61 K=I,NC
-        DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
-   61        DLFUGX(K,I)=DLFUGX(I,K)
-        DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
-   63 CONTINUE
-   64 RETURN
-      END
 
+    FUGLOG[I] = Arn[I] / RT + log(rn[I]) + log(RT / V)
+    DPDN[I] = RT / V - ArVn[I]
 
+    #! term DPDV/P is cancelled out
+    DLFUGV[I] = -DPDN[I] / RT                    
+    
+    if NTEMP == 0:
+    	print("GOTO 60")
 
+    #! term DPDT/P is cancelled out
+    DLFUGT[I] = (ArTn[I] - Arn[I] / T) / RT + 1.0 / T
 
+    #60 CONTINUE
+    #62 IF(NDER.LT.2) GOTO 64
 
+    if NDER < 2:
+    	DO 63 I=1,NC
+    	DO 61 K=I,NC
 
-
-
+    #! term 1/TOTN is cancelled out
+    DLFUGX[I, K] = Arn2[I, K] / RT
+    DLFUGX[K, I] = DLFUGX[I, K]
+    DLFUGX[I, I] = DLFUGX[I, I] + 1.0 / rn[I]
 
 
 
