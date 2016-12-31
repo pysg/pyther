@@ -270,8 +270,7 @@ if (Pv > 1e-20 and (T > 0.25 * TCmod or T > 250) and T < TCmod):
 def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 
 	NG = NGR
-    NC = 2
-    
+    NC = 2    
     NTEMP = 0
     IGZ = 0
     NDER = 1
@@ -284,10 +283,10 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 
     TOTN = sum(rn)
     RT = RGAS*T
-    call ArVnder(NDER,NTEMP,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+    call ArVnder(NDER, NTEMP, rn, V, T, Ar, ArV, ArTV, ArV2, Arn, ArVn, ArTn, Arn2)
     
     P = TOTN*RT/V - ArV
-    DPDV = -ArV2-RT*TOTN/V**2
+    DPDV = -ArV2 - RT * TOTN / V ** 2
     
     if INDIC > 4:
     	print("GOTO 62")
@@ -312,9 +311,6 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 
     #! term DPDT/P is cancelled out
     DLFUGT[I] = (ArTn[I] - Arn[I] / T) / RT + 1.0 / T
-
-    #60 CONTINUE
-    #62 IF(NDER.LT.2) GOTO 64
 
     if NDER < 2:
     	DO 63 I=1,NC
@@ -465,56 +461,4 @@ component.function_Ar_cal()
 
 
 
-class Component(object):		
-
-	def function_Ar_cal(self):
-		
-		self.bv = self.B / self.V
-		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
-		self.g = self.R * np.log(1 - self.B / self.V)
-
-		self.AUX = self.R * self.T / (self.V - self.B)
-		self.fB = -(self.f + self.V * self.fv) / self.B
-		self.FFB = self.nT * AUX - self.D * self.fB
-		self.Di = 2 * self.nT * self.ac * self.alfa
-		self.Bi = self.bc
-
-		self.Ar = -self.nT * self.g * self.T - self.D * self.f
-		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
-		self.gv = self.R * self.B / (self.V * (self.V - self.B))
-		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
-		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
-		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
-		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
-		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
-		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
-		''' pressure '''
-		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
-		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
-
-		if self.eq != "RKPR":
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
-		else:
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
-
-		ArT = -nT * g - dDdT * f
-		ArTV = -nT * gv - dDdT * fV
-		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
-		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
-
-		return self.g, self.f, self.Ar
-
-
-component = Component()
-component.function_Ar_cal()
-
-
-
-# this is a example for the calculate for one composi
-component.function_Ar_cal()
-
-
-
-
-# there is a form to convert a componet object in a molec
 
