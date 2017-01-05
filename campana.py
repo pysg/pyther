@@ -463,15 +463,15 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 	f = log((V + D1 * Bmix) / (V + D2 * Bmix)) / Bmix / (D1 - D2)
 	g = RGAS * log(1 - Bmix / V)
 
-	fv = -1/((V+D1*Bmix)*(V+D2*Bmix))
-	fB = -(f+V*fv)/Bmix
-	gv = RGAS*Bmix/(V*(V-Bmix))
+	fv = -1/((V + D1 * Bmix) * (V + D2 * Bmix))
+	fB = -(f + V * fv) / Bmix
+	gv = RGAS * Bmix / (V * (V - Bmix))
 
 	fv2=(-1/(V+D1*Bmix)**2+1/(V+D2*Bmix)**2)/Bmix/(D1-D2)
 	gv2=RGAS*(1/V**2-1/(V-Bmix)**2)
 
-!  DERIVATIVES OF f WITH RESPECT TO DELTA1
-	auxD2=(1+2/(1+D1)**2)
+#!  DERIVATIVES OF f WITH RESPECT TO DELTA1
+	auxD2 = (1 + 2 / (1 + D1) ** 2)
 
 	fD1=(1/(V+D1*Bmix)+2/(V+D2*Bmix)/(1+D1)**2)-f*auxD2
 	fD1=fD1/(D1-D2)
@@ -485,7 +485,7 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 			4/(V+D2*Bmix)**2/(1+D1)**4)-2*fD1*(1+2/(1+D1)**2)
 	fD1D1=fD1D1/(D1-D2)
 
-!  Reduced Helmholtz Energy and derivatives
+#!  Reduced Helmholtz Energy and derivatives
 	Ar=-TOTN*g*T-D*f
 	ArV=-TOTN*gv*T-D*fv
 	ArV2=-TOTN*gv2*T-D*fv2
