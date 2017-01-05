@@ -481,9 +481,9 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 
 	fVD1=-(fV * auxD2 + 1 / (V + D1 * Bmix) ** 2 + 2 / (V + D2 * Bmix) ** 2 / (1 + D1) ** 2) / (D1 - D2)
 
-	fD1D1=4*(f-1/(V+D2*Bmix))/(1+D1)**3+Bmix*(-1/(V+D1*Bmix)**2+ &
+	fD1D1 = 4 * (f - 1 / (V + D2 * Bmix)) / (1 + D1) ** 3 + Bmix * (-1 / (V + D1 * Bmix) ** 2 + &
 			4/(V+D2*Bmix)**2/(1+D1)**4)-2*fD1*(1+2/(1+D1)**2)
-	fD1D1=fD1D1/(D1-D2)
+	fD1D1 = fD1D1 / (D1 - D2)
 
 #!  Reduced Helmholtz Energy and derivatives
 	Ar=-TOTN*g*T-D*f
