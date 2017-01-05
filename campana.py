@@ -439,10 +439,10 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 
 	COMMON /rule/ncomb
 
-	nc=nco
+	nc = nco
 	TOTN = sum(rn)
-	call DELTAnder(nc,rn,D1,dD1i,dD1ij)
-	D2=(1-D1)/(1+D1)
+	call DELTAnder(nc, rn, D1, dD1i, dD1ij)
+	D2 = (1 - D1) / (1 + D1)
 
 
 	if(ncomb.lt.2)then
@@ -452,13 +452,13 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 
 	else
 
-!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
-!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
+#!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
+#!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
 
 	end if
 
-!  The f's and g's used here are for Ar, not F (reduced Ar)					***********
-!  This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
+#!  The f's and g's used here are for Ar, not F (reduced Ar)					***********
+#!  This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
 
 	f=log((V+D1*Bmix)/(V+D2*Bmix))/Bmix/(D1-D2)
 	g=RGAS*log(1-Bmix/V)
