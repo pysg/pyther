@@ -460,12 +460,12 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 #!  The f's and g's used here are for Ar, not F (reduced Ar)					***********
 #!  This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
 
-	f=log((V+D1*Bmix)/(V+D2*Bmix))/Bmix/(D1-D2)
-	g=RGAS*log(1-Bmix/V)
+	f = log((V + D1 * Bmix) / (V + D2 * Bmix)) / Bmix / (D1 - D2)
+	g = RGAS * log(1 - Bmix / V)
 
-	fv=-1/((V+D1*Bmix)*(V+D2*Bmix))
-	fB=-(f+V*fv)/Bmix
-	gv=RGAS*Bmix/(V*(V-Bmix))
+	fv = -1/((V+D1*Bmix)*(V+D2*Bmix))
+	fB = -(f+V*fv)/Bmix
+	gv = RGAS*Bmix/(V*(V-Bmix))
 
 	fv2=(-1/(V+D1*Bmix)**2+1/(V+D2*Bmix)**2)/Bmix/(D1-D2)
 	gv2=RGAS*(1/V**2-1/(V-Bmix)**2)
