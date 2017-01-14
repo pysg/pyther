@@ -7,7 +7,7 @@
 #import ipywidgets as wdg
 
 
-
+import pyther as pt
 from scipy import optimize
 import numpy as np
 from matplotlib import pyplot
@@ -978,6 +978,33 @@ def equilibrioSF(x, Pe, n1, n2):
 
 guess = [346.5] # T [=] K
 Pe = 136.9 # [=] bar
+
+
+dppr_file = "PureFull.xls"
+#component = 'METHANE'
+#component = "ETHANE"
+#component = "3-METHYLHEPTANE"
+#component = "n-PENTACOSANE"
+component = "ISOBUTANE"
+
+components = ["n-TETRACOSANE", "METHANE"]
+
+properties_data = pt.Data_parse()
+
+component_eos_list = np.zeros( (len(components),4) )
+
+for index, component in enumerate(components):
+
+    properties_component = properties_data.selec_component(dppr_file, component)
+    pt.print_properties_component(component, properties_component)
+    dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
+                        properties_component[1]['Omega'], properties_component[1]['Vc']])
+
+
+
+components_table = pd.DataFrame(component_eos_list, index=components, columns=['ac', 'b', 'rm', 'del1'])
+
+print(components_table)
 
 TcmDato
 PcmDato
