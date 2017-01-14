@@ -986,24 +986,24 @@ Pe = 136.9 # [=] bar
 
 # In[9]:
 
-button = widgets.Button(description="Sólido-Fluido")
+#button = widgets.Button(description="Sólido-Fluido")
 #display(button)
 
 
 nnCC_1 = 1
 nnCC_2 = 2
 
-def calcularSolidoFluido(b):
-    clear_output()
+def calcularSolidoFluido():
+    #clear_output()
     #Tcal = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
     TemEquilibrioSF = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
     print ("-"*100)
     print("Temperatura de Equilibrio SF = ", TemEquilibrioSF, "K")
     
 
-button.on_click(calcularSolidoFluido)
-display(button)
-
+#button.on_click(calcularSolidoFluido)
+#display(button)
+calcularSolidoFluido()
 
 # In[23]:
 
