@@ -209,5 +209,41 @@ c
 
 
 
-
+#
+      SUBROUTINE TERMO(MTYP,INDIC,IC,T,P,rn,V,PHILOG,DLPHIT,DLPHIP,FUGN)
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      PARAMETER (MAXC=2,nco=2,RGAS=0.08314472d0)
+      DIMENSION FUGN(MAXC,MAXC)
+      DIMENSION PHILOG(MAXC),DLPHIT(MAXC),DLPHIP(MAXC),DPDN(MAXC)
+    dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
+c   The output PHILOG is actually the vector ln(phi(i)*P)
+    NC=2
+    NTEMP=0
+      IGZ=0
+      NDER=1
+      IF (INDIC.GT.2) NDER=2
+      IF (INDIC.EQ.2 .OR. INDIC.EQ.4) NTEMP=1
+    TOTN = sum(rn)
+    if(P.le.0.0d0)MTYP=1
+    CALL VCALC(MTYP,NC,rn,T,P,V)      
+      RT = RGAS*T
+      Z = V/(TOTN*RT)   ! this is Z/P
+    call ArVnder(NDER,NTEMP,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      DPV = -ArV2-RT*TOTN/V**2
+    DPDT = -ArTV+TOTN*RGAS/V
+      DO 60 I=1,NC
+      PHILOG(I)=-LOG(Z)+Arn(I)/RT
+      DPDN(I) = RT/V-ArVn(I)
+      DLPHIP(I)=-DPDN(I)/DPV/RT-1.D0/P
+    IF(NTEMP.EQ.0) GOTO 60
+    DLPHIT(I)=(ArTn(I)-Arn(I)/T)/RT+DPDN(I)*DPDT/DPV/RT+1.D0/T
+   60 CONTINUE
+   62 IF(NDER.LT.2) GOTO 64
+      DO 63 I=1,NC
+      DO 61 K=I,NC
+      FUGN(I,K)=1.D0/TOTN+(Arn2(I,K)+DPDN(I)*DPDN(K)/DPV)/RT 
+   61 FUGN(K,I)=FUGN(I,K)
+   63 CONTINUE
+   64 RETURN
+      END
 

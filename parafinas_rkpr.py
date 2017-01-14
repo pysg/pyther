@@ -11,7 +11,7 @@
 from scipy import optimize
 import numpy as np
 from matplotlib import pyplot
-get_ipython().magic('matplotlib inline')
+#get_ipython().magic('matplotlib inline')
 
 from scipy import optimize
 import numpy as np
@@ -19,18 +19,16 @@ from matplotlib import pyplot
 import pandas as pd
 from numpy import linalg as LA
 
-from IPython.html import widgets
-from IPython.display import display
-from IPython.display import clear_output
+#from IPython.html import widgets
+#from IPython.display import display
+#from IPython.display import clear_output
 
-from ipywidgets import widgets
-from ipywidgets import *
-import ipywidgets as wdg
+#from ipywidgets import widgets
+#from ipywidgets import *
+#import ipywidgets as wdg
 import matplotlib.pyplot as plt
 
 from scipy.optimize import fsolve
-from IPython.display import clear_output
-
 
 
 
@@ -47,11 +45,6 @@ Etiquetas
 
 # In[3]:
 
-
-
-
-import numpy as np
-from numpy import linalg as LA
 
 
 class Fugacidad():
@@ -934,67 +927,6 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
 
 
 
-# In[18]:
-
-Componentes_1 = widgets.SelectMultiple(
-    description="Componente 1",
-    options=list(Etiquetas))
-
-Componentes_2 = widgets.SelectMultiple(
-    description="Componente 2",
-    options=list(Etiquetas))
-
-display(Componentes_1)
-display(Componentes_2)
-
-
-# In[19]:
-
-button = widgets.Button(description="Cargar Datos")
-
-def cargarDatos(b):
-    clear_output()
-    print("Compnenete 1: ", Componentes_1.value)
-    Nombre = Componentes_1.value
-    Propiedades = data2.loc[Nombre]
-    Factor_Acentrico_1 = Propiedades[0]
-    Temperatura_Critica_1 = Propiedades[1]
-    Presion_Critica_1 = Propiedades[2]
-    Z_Critico_1 = Propiedades[3]
-
-    #print(Propiedades)
-    print ("Factor_Acentrico = ", Factor_Acentrico_1)
-    print ("Temperatura_Critica = ", Temperatura_Critica_1, "K")
-    print ("Presion_Critica = ", Presion_Critica_1, "bar")
-    print ("Z_Critico = ", Z_Critico_1, "\n")
-    
-    
-    print("Componente 2: ", Componentes_2.value)
-    Nombre = Componentes_2.value
-    Propiedades = data2.loc[Nombre]
-    Factor_Acentrico_2 = Propiedades[0]
-    Temperatura_Critica_2 = Propiedades[1]
-    Presion_Critica_2 = Propiedades[2]
-    Z_Critico_2 = Propiedades[3]
-
-    #print(Propiedades)
-    print ("Factor_Acentrico = ", Factor_Acentrico_2)
-    print ("Temperatura_Critica = ", Temperatura_Critica_2, "K")
-    print ("Presion_Critica = ", Presion_Critica_2, "bar")
-    print ("Z_Critico = ", Z_Critico_2)
-    
-    global TcmDato, PcmDato, wcmDato
-    
-    eq = "PR"
-    TcmDato = np.array([Temperatura_Critica_1, Temperatura_Critica_2])
-    PcmDato = np.array([Presion_Critica_1, Presion_Critica_2])
-    wcmDato = np.array([Factor_Acentrico_1, Factor_Acentrico_2])
-    
-    print(TcmDato, PcmDato, wcmDato)
-
-
-button.on_click(cargarDatos)
-display(button)
 
 
 # In[20]:

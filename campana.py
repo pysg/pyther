@@ -1,7 +1,6 @@
 import numpy as np
 #import solution_matrix as sm
 
-
 #c    Starting from critical point    c    c
 #    WRITE(nout,15) TCmod(icomp),Pc(icomp),Dc(icomp),Dc(icomp)
 #    T = 0.9999 * TCmod(icomp)
