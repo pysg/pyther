@@ -979,6 +979,10 @@ def equilibrioSF(x, Pe, n1, n2):
 guess = [346.5] # T [=] K
 Pe = 136.9 # [=] bar
 
+TcmDato
+PcmDato
+wcmDato
+
 
 #Tcal = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
 #print(Tcal, "K")
