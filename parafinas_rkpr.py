@@ -1108,8 +1108,8 @@ Tcomp
 
 button = widgets.Button(description="Diagrama Serie Sólido-Fluido")
 
-def DiagramaSerieSF(b):
-    clear_output()
+def DiagramaSerieSF():
+    
    
     pyplot.scatter(Ccomp,Tcomp, color = 'red', label = 'PR')
     pyplot.title('Serie C4-C11 Temp. Equilibrio SF')
@@ -1118,9 +1118,7 @@ def DiagramaSerieSF(b):
     pyplot.ylabel('Temperatura [=] K')
     
 
-button.on_click(DiagramaSerieSF)
-display(button)
-
+DiagramaSerieSF()
 
 # In[ ]:
 
