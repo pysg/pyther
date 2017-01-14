@@ -1,3 +1,13 @@
+#from IPython.html import widgets
+#from ipywidgets import widgets
+#from IPython.html import widgets # Widget definitions
+#from IPython.display import display # Used to display widgets in the notebook
+#from ipywidgets import *
+#import matplotlib.pyplot as plt
+#import ipywidgets as wdg
+
+
+
 from scipy import optimize
 import numpy as np
 from matplotlib import pyplot
@@ -16,9 +26,10 @@ from IPython.display import clear_output
 from ipywidgets import widgets
 from ipywidgets import *
 import ipywidgets as wdg
-
 import matplotlib.pyplot as plt
 
+from scipy.optimize import fsolve
+from IPython.display import clear_output
 
 
 
@@ -1032,7 +1043,6 @@ def equilibrioSF(x, Pe, n1, n2):
     return eqSF
 
 
-from scipy.optimize import fsolve
 
 guess = [346.5] # T [=] K
 Pe = 136.9 # [=] bar
@@ -1047,7 +1057,6 @@ Pe = 136.9 # [=] bar
 button = widgets.Button(description="Sólido-Fluido")
 #display(button)
 
-from IPython.display import clear_output
 
 nnCC_1 = 1
 nnCC_2 = 2
@@ -1141,203 +1150,8 @@ num
 
 # In[32]:
 
-from IPython.html import widgets
-from ipywidgets import widgets
-from IPython.html import widgets # Widget definitions
-from IPython.display import display # Used to display widgets in the notebook
-from ipywidgets import *
-import matplotlib.pyplot as plt
-import ipywidgets as wdg
 
 
-# In[33]:
-
-Componentes_1 = widgets.SelectMultiple(
-    description="Componente 1",
-    options=list(Etiquetas))
-
-Componentes_2 = widgets.SelectMultiple(
-    description="Componente 2",
-    options=list(Etiquetas))
-
-button = widgets.Button(description="Cargar Datos")
-
-def cargarDatos(b):
-    clear_output()
-    print("Compnenete 1: ", Componentes_1.value)
-    Nombre = Componentes_1.value
-    Propiedades = data2.loc[Nombre]
-    Factor_Acentrico_1 = Propiedades[0]
-    Temperatura_Critica_1 = Propiedades[1]
-    Presion_Critica_1 = Propiedades[2]
-    Z_Critico_1 = Propiedades[3]
-
-    #print(Propiedades)
-    print ("Factor_Acentrico = ", Factor_Acentrico_1)
-    print ("Temperatura_Critica = ", Temperatura_Critica_1, "K")
-    print ("Presion_Critica = ", Presion_Critica_1, "bar")
-    print ("Z_Critico = ", Z_Critico_1, "\n")
-    
-    
-    print("Componente 2: ", Componentes_2.value)
-    Nombre = Componentes_2.value
-    Propiedades = data2.loc[Nombre]
-    Factor_Acentrico_2 = Propiedades[0]
-    Temperatura_Critica_2 = Propiedades[1]
-    Presion_Critica_2 = Propiedades[2]
-    Z_Critico_2 = Propiedades[3]
-
-    #print(Propiedades)
-    print ("Factor_Acentrico = ", Factor_Acentrico_2)
-    print ("Temperatura_Critica = ", Temperatura_Critica_2, "K")
-    print ("Presion_Critica = ", Presion_Critica_2, "bar")
-    print ("Z_Critico = ", Z_Critico_2)
-    
-    global Tcm, Pcm, wm
-    
-    eq = "PR"
-    Tcm = np.array([Temperatura_Critica_1, Temperatura_Critica_2])
-    Pcm = np.array([Presion_Critica_1, Presion_Critica_2])
-    wm = np.array([Factor_Acentrico_1, Factor_Acentrico_2])
-
-
-button.on_click(cargarDatos)
-#display(button)
-
-page1 = widgets.VBox(children=[Componentes_1, Componentes_2, button], padding=4)
-
-
-#VBox([VBox([Button(description='Press'), Dropdown(options=['a', 'b']), Button(description='Button')]), 
-#      VBox([Button(), Checkbox(), IntText()]), 
-#      VBox([Button(), IntSlider(), Button()])], background_color='#EEE')
-
-
-ecuacionEstado = widgets.Dropdown(description='Fluido :', padding=4, options=['SRK', 'PR', 'RKPR'])
-modeloSolido = widgets.Dropdown(description='Sólido :', padding=4, options=['Modelo I', 'Modelo II', 'Modelo III'])
-
-button = widgets.Button(description="Cargar Modelos")
-
-def cargarModelos(b):
-    clear_output()
-    print("Compnenete 1: ", Componentes_1.value)
-    print("Componente 2: ", Componentes_2.value)
-    print("Modelo Fluido : ", ecuacionEstado.value)
-    print("Modelo Sólido : ", modeloSolido.value)
-
-button.on_click(cargarModelos)
-
-page2 = widgets.Box(children=[ecuacionEstado, modeloSolido, button], padding=4)
-
-
-
-Kij = widgets.Text(description='$K_{ij}$ =', padding=4, value="0.0")
-Lij = widgets.Text(description='$L_{ij}$ =', padding=4, value="0.0")
-
-d1 = widgets.Text(description='$\delta_1$:', padding=4, value="0.0")
-d2 = widgets.Text(description='$\delta_2$:', padding=4, value="0.0")
-
-k1 = widgets.Text(description='$k_1$:', padding=4, value="0.0")
-k2 = widgets.Text(description='$k_2$:', padding=4, value="0.0")
-
-button = widgets.Button(description="Cargar Parametros")
-titulo = widgets.HTML(
-    #value="<H1>Hello<\H1> <b>World</b>"
-    value="<C><H1>Parametros de interacción<H1>"
-    
-)
-
-button = widgets.Button(description="Cargar Parametros")
-
-def cargarParametros(b):
-    clear_output()
-    print("Compnenete 1: ", Componentes_1.value)
-    print("Componente 2: ", Componentes_2.value)
-    print("Modelo Fluido : ", ecuacionEstado.value)
-    print("Modelo Sólido : ", modeloSolido.value)
-    print("Kij =", Kij.value)
-    print("Lij =", Lij.value)
-    print("d1 = ", d1.value)
-    print("d2 = ", d2.value)
-    print("k1 = ", k1.value)
-    print("k2 = ", k2.value)
-
-button.on_click(cargarParametros)
-
-page3 = widgets.Box(children=[titulo, Kij, Lij, d1, d2, k1, k2, button], padding=4)
-
-
-
-button = widgets.Button(description="Sólido-Fluido")
-#display(button)
-
-from IPython.display import clear_output
-
-nnCC_1 = 1
-nnCC_2 = 2
-
-def calcularSolidoFluido(b):
-    clear_output()
-    #Tcal = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
-    Tcal = fsolve(equilibrioSF,guess,args=(Pe, nnCC_1, nnCC_2), xtol=1e-4)
-    print("Temperatura ESF = ", Tcal, "K")
-    
-   
-    
-
-button.on_click(calcularSolidoFluido)
-#display(button)
-
-
-page4 = widgets.Box(children=[button], padding=4)
-
-button = widgets.Button(description="Diagrama Sólido-Fluido")
-
-def DiagramaSolidoFluido(b):
-    clear_output()
-    #Tcal = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
-    Tcal = fsolve(equilibrioSF,guess,args=(Pe, nnCC_1, nnCC_2), xtol=1e-4)
-    print(Tcal, "K")
-    
-    pyplot.scatter(Tres,pres, color = 'red', label = 'PR')
-    pyplot.scatter(temp,pres, label = 'Datos')
-    pyplot.title('Temperatura Equilibrio sólido-Líquido')
-    pyplot.legend(loc="upper left") 
-    pyplot.xlabel('Temperatura [=] K')  
-    pyplot.ylabel('Presión [=] bar')
-    
-
-button.on_click(DiagramaSolidoFluido)
-
-
-page5 = widgets.Box(children=[button], padding=4)
-
-
-
-
-page6 = widgets.Box(children=[button], padding=4)
-
-tabs = widgets.Tab(children=[page1, page2, page3, page4, page5, page6])
-#display(tabs)
-
-tabs.set_title(0, 'Componentes')
-tabs.set_title(1, 'Modelos')
-tabs.set_title(2, 'Parametros')
-tabs.set_title(3, 'Resultados')
-tabs.set_title(4, 'Experimentales')
-tabs.set_title(5, 'Ajuste de Datos')
-
-#--------------------- Binary ------------------------------
-
-tabs_1 = widgets.Tab(children=[page1, page2, page3, page4, page5, page6])
-
-#--------------------- Binary ------------------------------
-
-
-
-accord = widgets.Accordion(children=[tabs,], width=400)
-display(accord)
-
-accord.set_title(0, 'Sólido_Puro-Fluido Binario')
 
 
 # In[30]:
