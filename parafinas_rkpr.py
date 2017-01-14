@@ -1,51 +1,3 @@
-
-# coding: utf-8
-
-# <h1> Equilibrio sólido-fluido binario<h1>
-
-# Ecuación ( 5.3) página V-3 
-# 
-# $$ f_{puro,2}^s(T,P) = \hat f_2 \left(T,P,y_2 \right) $$
-# 
-# $$ F = f_{puro,2}^s(T,P) - \hat f_2 \left(T,P,y_2 \right) $$
-# 
-# En este caso se tiene una ecuación con una incognita, que puede ser la $T$ cuando se especifica la $P$ y viceversa.
-# 
-# Se importa el método **fsolve** de la librería **scipy** como sigue:
-# 
-# **from scipy.optimize import fsolve**
-# 
-# el cual es utilizado para resolver la ecuación de igualdad de fugacidades del sólido y fluido calculada en la función **equilibrioSF**, que utiliza 
-# 
-
-# Ecuación (5.7) página V-6 
-# 
-# $$ f_{puro,2}^l(T,P) = \hat f_2 \left(T,y_2=1, v_{2, puro} \right) $$
-# 
-
-# <h2> Modelo para la fugacidad de un sólido puro <h2>
-
-# $$ f(T,P)_{puro,i}^s = f(T,P)_{puro,i}^l exp \left( \frac{\Delta v_i^{s-l}}{RT_{i,f}} \left( \lambda_1 + \lambda_2 + \lambda_3 \right)   \right)$$
-# 
-# $$ \lambda_1 = C_1\left( 1- \frac{T_{i,f}}{T}\right)$$
-# 
-# $$ \lambda_2 = C_2\left( -1- \frac{T_{i,f}}{T}  + ln \left(\frac{T}{T_{i,f}}\right) \right)$$
-# 
-# $$ \lambda_3 = C_3\left( -1 + \frac{T}{2T_{i,f}} + \frac{T_{i,f}}{2T} \right) + \frac{T_{i,f}}{T} \left(P-P_{i,f} \right)$$
-
-# $$ P = P_{i,f} + C_1\left( 1- \frac{T}{T_{i,f}}\right) + C_2\left(\frac{T}{T_{i,f}} -1 + \frac{T}{T_{i,f}}ln \left(\frac{T_{i,f}}{T}\right) \right) + C_3\left(\frac{T}{T_{i,f}} - \frac{T^2}{2T_{i,f}^2} - \frac{1}{2}  \right)$$
-# 
-# $$ C_1 = \frac{\Delta h_{i,f}}{\Delta v^{s-l}}$$
-# 
-# $$ C_2 = \frac{AT_{i,f}}{\Delta v^{s-l}}$$
-# 
-# $$ C_3 = \frac{BT_{i,f}^2}{\Delta v^{s-l}}$$
-
-# $$ K_i = \frac{\hat{\varphi}^L_i}{\hat{\varphi}^L_i} $$
-# 
-
-# In[1]:
-
 from scipy import optimize
 import numpy as np
 from matplotlib import pyplot
@@ -59,8 +11,15 @@ from numpy import linalg as LA
 
 from IPython.html import widgets
 from IPython.display import display
-
 from IPython.display import clear_output
+
+from ipywidgets import widgets
+from ipywidgets import *
+import ipywidgets as wdg
+
+import matplotlib.pyplot as plt
+
+
 
 
 
