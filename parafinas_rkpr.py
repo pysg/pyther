@@ -1046,7 +1046,6 @@ fig= pyplot.scatter(Tres,p_exp)
 
 # In[27]:
 
-button = widgets.Button(description="Diagrama Sólido-Fluido")
 
 def diagramaSolidoFluido(b):
     clear_output()
@@ -1058,9 +1057,8 @@ def diagramaSolidoFluido(b):
     pyplot.ylabel('Presión [=] bar')
     
 
-button.on_click(diagramaSolidoFluido)
-display(button)
 
+diagramaSolidoFluido()
 
 # In[28]:
 
@@ -1082,10 +1080,6 @@ num
 
 # In[32]:
 
-
-
-
-
 # In[30]:
 
 C4 = 325.74196687 
@@ -1106,7 +1100,7 @@ Tcomp
 
 # In[31]:
 
-button = widgets.Button(description="Diagrama Serie Sólido-Fluido")
+
 
 def DiagramaSerieSF():
     
