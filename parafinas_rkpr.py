@@ -312,13 +312,13 @@ class Fugacidad():
         return self.g, self.f, self.Ar, self.bv
     
     def tomar_B(self):
-        print ("tomando B =", self.B)
+        #print ("tomando B =", self.B)
         return self.B + 10
     
     def derivadas_delta_1(self):
         #DERIVATIVES OF f WITH RESPECT TO DELTA1
         auxD2 = (1 + 2 / (1 + self.s1) ** 2)
-        print("B delta1 = ", self.B)
+        #print("B delta1 = ", self.B)
         
         como_1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2)
         como_2 = self.f * auxD2
@@ -430,7 +430,7 @@ class Fugacidad():
         Cp_liquido= par_liq[:, 0] + par_liq[:, 1] * T + par_liq[:, 2] * T ** 2 + par_liq[:, 3] * T ** 3 + par_liq[:, 4] * T ** 4
         #print ("Cp_liquido", Cp_liquido)
         DeltaCp = (Cp_solido - Cp_liquido) * (1.0 / 1000)
-        print ("Delta Cp", DeltaCp)
+        #print ("Delta Cp", DeltaCp)
 
         #Unidades de Delta H de fusión en Kcal/mol
         DeltaH_f = np.array([13.12, 21.23]) * (1000 / 1.0) * (4.18 / 1.0)
@@ -444,10 +444,10 @@ class Fugacidad():
         C = (DeltaCp / Rp) * np.log(Tfus / T)
         self.EXP = np.exp(A - B - C)
 
-        print ("A = ", A)
-        print ("B = ", B)
-        print ("C = ", C)
-        print ("EXP = ", self.EXP)
+        #print ("A = ", A)
+        #print ("B = ", B)
+        #print ("C = ", C)
+        #print ("EXP = ", self.EXP)
 
         return self.EXP
     
@@ -858,10 +858,10 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
         Tc = Tcm[1]
         Pc = Pcm[1]
         w = wcm[1]
-        print ("Temperatura Critica = ", Tc, "K")
-        print ("Presión Critica = ", Pc, "bar")
-        print ("Factor Acentrico = ", w)       
-        print ("...............................................................")
+        #print ("Temperatura Critica = ", Tc, "K")
+        #print ("Presión Critica = ", Pc, "bar")
+        #print ("Factor Acentrico = ", w)       
+        #print ("...............................................................")
     elif nC == 2:
         #print ("...............................................................")
         # metano - C24
@@ -886,9 +886,9 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
         Tc = Tcm
         Pc = Pcm
         w = wcm
-        print ("Temperatura Critica = ", Tc, "K")
-        print ("Presión Critica = ", Pc, "bar")
-        print ("Factor Acentrico = ", w)
+        #print ("Temperatura Critica = ", Tc, "K")
+        #print ("Presión Critica = ", Pc, "bar")
+        #print ("Factor Acentrico = ", w)
         #print ("...............................................................")
 
     #---------------------------------------------------------------------------
@@ -924,11 +924,6 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
 
     
 
-
-
-
-
-
 # In[20]:
 
 eq = "PR"
@@ -961,16 +956,16 @@ def equilibrioSF(x, Pe, n1, n2):
     
     # fugacidad del sólido puro
     FugS = calculaFugacidad(x, Pe, n1, eq, TcmDato, PcmDato, wcmDato)
-    print(eq, TcmDato, PcmDato, wcmDato)
+    #print(eq, TcmDato, PcmDato, wcmDato)
     # fugacidad del fluido pesado en la mezcla fluida
     FugF = calculaFugacidad(x, Pe, n2, eq, TcmDato, PcmDato, wcmDato)
     
     # Función de igualdad de fugacidades del sólido y el fluido
     eqSF = np.abs(np.abs(np.log(FugS)) - np.abs(np.log(FugF[1])))
-    print ("-"*100)
-    print ("ln(Fugacidad Sólido) = ", np.log(FugS))
-    print ("ln(Fugacidad Fluido) = ", np.log(FugF[1]))
-    print ("ln(Fugacidad Sólido) - ln(Fugacidad Fluido) = ", eqSF)   
+    #print ("-"*100)
+    #print ("ln(Fugacidad Sólido) = ", np.log(FugS))
+    #print ("ln(Fugacidad Fluido) = ", np.log(FugF[1]))
+    #print ("ln(Fugacidad Sólido) - ln(Fugacidad Fluido) = ", eqSF)   
     
     return eqSF
 
@@ -987,28 +982,30 @@ dppr_file = "PureFull.xls"
 #component = "n-PENTACOSANE"
 component = "ISOBUTANE"
 
-components = ["n-TETRACOSANE", "METHANE"]
+components = ["METHANE", "n-TETRACOSANE"]
 
 properties_data = pt.Data_parse()
 
 component_eos_list = np.zeros( (len(components),4) )
+dinputs = np.zeros( (len(components),4) )
+
 
 for index, component in enumerate(components):
 
     properties_component = properties_data.selec_component(dppr_file, component)
     pt.print_properties_component(component, properties_component)
-    dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
+    dinputs[index] = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
                         properties_component[1]['Omega'], properties_component[1]['Vc']])
 
 
 
 components_table = pd.DataFrame(component_eos_list, index=components, columns=['ac', 'b', 'rm', 'del1'])
 
-print(components_table)
+print(dinputs)
 
-TcmDato
-PcmDato
-wcmDato
+TcmDato = dinputs[:, 0]
+PcmDato = dinputs[:, 1]
+wcmDato = dinputs[:, 2]
 
 
 #Tcal = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
@@ -1078,8 +1075,8 @@ fig= pyplot.scatter(Tres,p_exp)
 # In[27]:
 
 
-def diagramaSolidoFluido(b):
-    clear_output()
+def diagramaSolidoFluido():
+
     pyplot.scatter(Tres,pres, color = 'red', label = 'PR')
     pyplot.scatter(temp,pres, label = 'Datos')
     pyplot.title('Temperatura Equilibrio sólido-Líquido')
@@ -1089,7 +1086,7 @@ def diagramaSolidoFluido(b):
     
 
 
-diagramaSolidoFluido()
+#diagramaSolidoFluido()
 
 # In[28]:
 
@@ -1133,8 +1130,7 @@ Tcomp
 
 
 
-def DiagramaSerieSF():
-    
+def DiagramaSerieSF():    
    
     pyplot.scatter(Ccomp,Tcomp, color = 'red', label = 'PR')
     pyplot.title('Serie C4-C11 Temp. Equilibrio SF')
