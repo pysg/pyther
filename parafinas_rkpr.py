@@ -1,46 +1,12 @@
-#from IPython.html import widgets
-#from ipywidgets import widgets
-#from IPython.html import widgets # Widget definitions
-#from IPython.display import display # Used to display widgets in the notebook
-#from ipywidgets import *
-#import matplotlib.pyplot as plt
-#import ipywidgets as wdg
-
-
 import pyther as pt
 from scipy import optimize
-import numpy as np
-from matplotlib import pyplot
-#get_ipython().magic('matplotlib inline')
-
-from scipy import optimize
-import numpy as np
-from matplotlib import pyplot
-import pandas as pd
-from numpy import linalg as LA
-
-#from IPython.html import widgets
-#from IPython.display import display
-#from IPython.display import clear_output
-
-#from ipywidgets import widgets
-#from ipywidgets import *
-#import ipywidgets as wdg
-import matplotlib.pyplot as plt
-
 from scipy.optimize import fsolve
+import numpy as np
+import pandas as pd
 
-
-
-# In[2]:
-
-f = pd.read_excel("PureFull.xls")
-f.head()
-data2 = pd.DataFrame(f)
-data2 = data2.set_index('Name')
-data2 = data2.ix[:, 1:12]
-Etiquetas = data2.index.get_values()
-Etiquetas
+from numpy import linalg as LA
+from matplotlib import pyplot
+import matplotlib.pyplot as plt
 
 
 # In[3]:
@@ -939,10 +905,12 @@ eq = "PR"
 # In[21]:
 
 
-t_exp = [323.65, 326.04, 326.43, 328.12, 329.45, 329.89, 333.43, 335.12, 340.19, 344.58, 346.65, 352.53, 362.45, 362.76, 371.82, 379.74]
+t_exp = [323.65, 326.04, 326.43, 328.12, 329.45, 329.89, 333.43, 335.12,
+         340.19, 344.58, 346.65, 352.53, 362.45, 362.76, 371.82, 379.74]
 temp = np.array(t_exp)
 
-p_exp = [1, 101.0, 136.9, 183.8, 266.2, 266.8, 426.9, 480.3, 718.9, 912.5, 1010.6, 1277.8, 1778.0, 1825.1, 2323.4, 2736.1]
+p_exp = [1, 101.0, 136.9, 183.8, 266.2, 266.8, 426.9, 480.3, 718.9, 912.5,
+         1010.6, 1277.8, 1778.0, 1825.1, 2323.4, 2736.1]
 pres= np.array(p_exp)
 
 pos = np.arange(len(pres))
@@ -1088,25 +1056,6 @@ def diagramaSolidoFluido():
 
 #diagramaSolidoFluido()
 
-# In[28]:
-
-t_exp = [323.65, 326.04, 326.43, 328.12, 329.45, 329.89, 333.43, 335.12, 340.19, 344.58, 346.65, 352.53, 362.45, 362.76, 371.82, 379.74]
-temp = np.array(t_exp)
-
-p_exp = [1, 101.0, 136.9, 183.8, 266.2, 266.8, 426.9, 480.3, 718.9, 912.5, 1010.6, 1277.8, 1778.0, 1825.1, 2323.4, 2736.1]
-pres= np.array(p_exp)
-
-pos = np.arange(len(pres))
-num = np.ones(len(pres))
-
-for x, P, i in zip(temp, pres, pos):
-    print (x, P, i)
-    num[i] = x
-    
-num
-
-
-# In[32]:
 
 # In[30]:
 
@@ -1139,9 +1088,9 @@ def DiagramaSerieSF():
     pyplot.ylabel('Temperatura [=] K')
     
 
-DiagramaSerieSF()
+#DiagramaSerieSF()
 
-# In[ ]:
+
 
 
 
