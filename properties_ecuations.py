@@ -46,13 +46,13 @@ def read_dppr(dppr_file):
 
 data = read_dppr(dppr_file)
 
-print(data)
+#print(data)
 
 g = 3
 components_labels = [x for x in range(0, 13*g, 13)]
 data_name = data.ix[components_labels, 0].get_values()
 
-def rho_liq_cal(component, property_thermodynamics):
+def property_cal(component, property_thermodynamics):
 	
 	rho_liquido_constans = [x + property_thermodynamics[3]  for x in range(0, 13*g, 13)]
 	datos_rho_liquido = data.ix[rho_liquido_constans, 1:8].get_values()
@@ -68,12 +68,31 @@ def rho_liq_cal(component, property_thermodynamics):
 	# A / B ^ (1 + (1 - T / C) ^ D)
 	A, B, C, D, E, Min, Max = rho_liquido_constans_component
 	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-	rho_liquido = A / B ** (1 + (1 - Temp_vector / C) ** D)
-	print(rho_liquido)
-
-	return rho_liquido_constans_component
 
 
+	if property_thermodynamics == Solid_Density:
+		pass
+	elif property_thermodynamics == Liquid_Density:
+		rho_liquido = A / B ** (1 + (1 - Temp_vector / C) ** D)
+		print(rho_liquido)
+		return rho_liquido_constans_component
+
+	elif property_thermodynamics == Vapour_Pressure:
+	Heat_of_Vaporization
+	Solid_Heat_Capacity
+	Liquid_Heat_Capacity
+	Ideal_Gas_Heat_Capacity
+	Second_Virial_Coefficient
+	Liquid_Viscosity
+	Vapour_Viscosity
+	Liquid_Thermal_Conductivity
+	Vapour_Thermal_Conductivity
+	Surface_Tension
+
+
+
+
+property_cal("ETHANE", Liquid_Density)
 
 
 
