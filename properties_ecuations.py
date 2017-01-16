@@ -36,6 +36,9 @@ data_grupo = data.ix[0:12, 0:6]
 print(data.ix[0,0], data.ix[13,0], data.ix[26,0])
 
 
+for i in range(0, 13*10, 13):
+	print(data.ix[i,0])
+
 
 
 
