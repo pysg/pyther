@@ -20,20 +20,29 @@ properties_data = pt.Data_parse()
 def read_dppr(dppr_file):
         #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
 
-        dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:5]
+        #dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:5]
+        dppr_data = pd.read_excel(dppr_file).ix[:, 0:6]
+        
         # component_names = dppr_data.index.get_values()
         return dppr_data
     
 
-print(read_dppr(dppr_file))
+
+data = read_dppr(dppr_file)
+print(data)
+
+data_grupo = data.ix[0:12, 0:6]
+
+print(data.ix[0,0], data.ix[13,0], data.ix[26,0])
 
 
-#print(properties_data)
 
-def selec_component(self, dppr_file, component):
-        self.name = str(component)
-        self.properties = self.read_dppr(dppr_file).loc[self.name]
-        self.label = {self.name : self.properties}
+
+
+def selec_component(dppr_file, component):
+        name = str(component)
+        properties = read_dppr(dppr_file).loc[name]
+        label = {name : properties}
 
         #print(self.properties.index)
         #print ('name = {0}'.format(self.name))
@@ -44,7 +53,12 @@ def selec_component(self, dppr_file, component):
         #print(self.label.keys())
         #print(self.label.values())
 
-        return self.name, self.properties
+        return name, properties
+
+#selec_component(dppr_file, component)
+
+
+
 
 
 #component_eos_list = np.zeros( (len(components),4) )
