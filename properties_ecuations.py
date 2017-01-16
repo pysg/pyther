@@ -44,13 +44,89 @@ def rho_liq_cal(component):
 
 	rho_liquido_constans_component = datos_rho_liquido.loc[component]
 
-
 	return rho_liquido_constans_component
 
+def mu_liq_cal(component):
+	
+	mu_liquid_constans = [x+8 for x in range(0, 13*g, 13)]
+	datos_mu_liquid = data.ix[mu_liquid_constans, 1:8].get_values()
+
+	print(datos_mu_liquid)
+	datos_mu_liquid = pd.DataFrame(data=datos_mu_liquid,index=data_name,
+						 columns=["A", "B", "C", "D", "E", "Min", "Max"])
+
+	mu_liquid_constans_component = datos_mu_liquid.loc[component]
+
+	return mu_liquid_constans_component
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4"
+"Liquid Density", "[kmol/m^3]", "A/B^(1+(1-T/C)^D)"
+"Vapour Pressure", "[Pa]", "exp(A+B/T+C*ln(T)+D*T^E)"
+"Heat of Vaporization", "[J/kmol]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)"
+"Solid Heat Capacity", "[J/(kmol*K)]", "A+B*T+C*T^2+D*T^3+E*T^4"
+"Liquid Heat Capacity", "[J/(kmol*K)]", "A^2/(1-Tr)+B-2*A*C*(1-Tr)-A*D*(1-Tr)^2-C^2*(1-Tr)^3/3-C*D*(1-Tr)^4/2-D^2*(1-Tr)^5/5"
+"Ideal Gas Heat Capacity" "[J/(kmol*K)]", "A+B*(C/T/sinh(C/T))^2+D*(E/T/cosh(E/T))^2"
+"Second	Virial	Coefficient", "[m^3/kmol]", "A+B/T+C/T^3+D/T^8+E/T^9"
+"Liquid	Viscosity", "[kg/(m*s)]", "exp(A+B/T+C*ln(T)+D*T^E)"
+"Vapour	Viscosity", "[kg/(m*s)]", "A*T^B/(1+C/T+D/T^2)"
+"Liquid	Thermal	Conductivity", "[J/(m*s*K)]", "A+B*T+C*T^2+D*T^3+E*T^4"
+"Vapour	Thermal	Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)"
+"Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)"	
+
+
+
+
+
+
+
+
+
+
+
+def vapor_pressure_cal(component):
+	
+	mu_liquid_constans = [x+2 for x in range(0, 13*g, 13)]
+	datos_mu_liquid = data.ix[mu_liquid_constans, 1:8].get_values()
+
+	print(datos_mu_liquid)
+	datos_mu_liquid = pd.DataFrame(data=datos_mu_liquid,index=data_name,
+						 columns=["A", "B", "C", "D", "E", "Min", "Max"])
+
+	mu_liquid_constans_component = datos_mu_liquid.loc[component]
+
+	return mu_liquid_constans_component
+
+
 # Liquid_density [kmol/m^3]
+# Temperature [K]
 # A / B ^ (1 + (1 - T / C) ^ D)
 A, B, C, D, E, Min, Max = rho_liq_cal("ETHANE")
-
 Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 rho_liquido = A / B ** (1 + (1 - Temp_vector / C) ** D)
 print(rho_liquido)
+
+# Liquid_Viscosity	[kg/(m*s)]
+# Temperature [K]
+# exp(A+B/T+C*ln(T)+D*T^E)
+
+A, B, C, D, E, Min, Max = mu_liq_cal("ETHANE")
+Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+mu_liquid = np.exp(A + B / Temp_vector + C * np.log(Temp_vector) + D * Temp_vector ** E)
+print(mu_liquid)
