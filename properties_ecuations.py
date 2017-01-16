@@ -78,16 +78,27 @@ def property_cal(component, property_thermodynamics):
 		return rho_liquido_constans_component
 
 	elif property_thermodynamics == Vapour_Pressure:
-	Heat_of_Vaporization
-	Solid_Heat_Capacity
-	Liquid_Heat_Capacity
-	Ideal_Gas_Heat_Capacity
-	Second_Virial_Coefficient
-	Liquid_Viscosity
-	Vapour_Viscosity
-	Liquid_Thermal_Conductivity
-	Vapour_Thermal_Conductivity
-	Surface_Tension
+		pass
+	elif property_thermodynamics == Heat_of_Vaporization:
+		pass
+	elif property_thermodynamics == Solid_Heat_Capacity:
+		pass
+	elif property_thermodynamics == Liquid_Heat_Capacity:
+		pass
+	elif property_thermodynamics == Ideal_Gas_Heat_Capacity:
+		pass
+	elif property_thermodynamics == Second_Virial_Coefficient:
+		pass
+	elif property_thermodynamics == Liquid_Viscosity:
+		pass
+	elif property_thermodynamics == Vapour_Viscosity:
+		pass
+	elif property_thermodynamics == Liquid_Thermal_Conductivity:
+		pass
+	elif property_thermodynamics == Vapour_Thermal_Conductivity:
+		pass
+	elif property_thermodynamics == Surface_Tension:
+		pass
 
 
 
