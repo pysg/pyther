@@ -87,16 +87,25 @@ def property_cal(component, property_thermodynamics):
 		print(heat_of_Vaporization)
 		return heat_of_Vaporization
 	elif property_thermodynamics == Solid_Heat_Capacity:
-		solid_Heat_Capacity = A+B*T+C*T^2+D*T^3+E*T^4
-		pass
+		solid_Heat_Capacity = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector ** 4
+		print(solid_Heat_Capacity)
+		return solid_Heat_Capacity
 	elif property_thermodynamics == Liquid_Heat_Capacity:
-		pass
+		liquid_Heat_Capacity = A ** 2 / (1-Tr) + B-2*A*C*(1-Tr)-A*D*(1-Tr)**2-C**2*(1-Tr)**3/3-C*D*(1-Tr)**4/2-D**2*(1-Tr)**5/5
+		print(liquid_Heat_Capacity)
+		return(liquid_Heat_Capacity)
 	elif property_thermodynamics == Ideal_Gas_Heat_Capacity:
-		pass
+		ideal_Gas_Heat_Capacity = A+B*(C/Temp_vector/np.sinh(C/Temp_vector))**2+D*(E/Temp_vector/np.cosh(E/Temp_vector))**2
+		print(ideal_Gas_Heat_Capacity)
+		return ideal_Gas_Heat_Capacity
 	elif property_thermodynamics == Second_Virial_Coefficient:
-		pass
+		second_Virial_Coefficient = A+B/Temp_vector+C/Temp_vector**3+D/Temp_vector**8+E/Temp_vector**9
+		print(second_Virial_Coefficient)
+		return second_Virial_Coefficient
 	elif property_thermodynamics == Liquid_Viscosity:
-		pass
+		liquid_Viscosity = np.exp(A + B / Temp_vector + C * np.log(Temp_vector) + D * Temp_vector ** E)
+		print(liquid_Viscosity)
+		return liquid_Viscosity
 	elif property_thermodynamics == Vapour_Viscosity:
 		pass
 	elif property_thermodynamics == Liquid_Thermal_Conductivity:
