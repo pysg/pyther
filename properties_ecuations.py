@@ -107,13 +107,21 @@ def property_cal(component, property_thermodynamics):
 		print(liquid_Viscosity)
 		return liquid_Viscosity
 	elif property_thermodynamics == Vapour_Viscosity:
-		pass
+		vapour_Viscosity = A*Temp_vector**B/(1+C/Temp_vector+D/Temp_vector**2)
+		print(vapour_Viscosity)
+		return vapour_Viscosity
 	elif property_thermodynamics == Liquid_Thermal_Conductivity:
-		pass
+		liquid_Thermal_Conductivity = A+B*Temp_vector+C*Temp_vector**2+D*Temp_vector**3+E*Temp_vector**4
+		print(liquid_Thermal_Conductivity)
+		return liquid_Thermal_Conductivity
 	elif property_thermodynamics == Vapour_Thermal_Conductivity:
-		pass
+		vapour_Thermal_Conductivity = A*Temp_vector**B/(1+C/Temp_vector+D/Temp_vector**2)
+		print(vapour_Thermal_Conductivity)
+		return vapour_Thermal_Conductivity
 	elif property_thermodynamics == Surface_Tension:
-		pass
+		surface_Tension = A*(1-Tr)**(B+C*Tr+D*Tr*2)
+		print(surface_Tension)
+		return surface_Tension
 
 
 compo = "METHANE"
