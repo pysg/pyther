@@ -139,7 +139,7 @@ def property_cal(component, property_thermodynamics):
 		return surface_Tension
 
 
-#component = 'METHANE'
+component = 'METHANE'
 #component = "ETHANE"
 #component = "3-METHYLHEPTANE"
 #component = "n-PENTACOSANE"
@@ -148,9 +148,9 @@ component = "n-TETRADECANE"
 
 #components = ["METHANE", "n-TETRACOSANE"]
 
-property_cal(component, Liquid_Density)
-
-
+#property_cal(component, Liquid_Density)
+#property_cal(component, Solid_Density)
+property_cal(component, Vapour_Pressure)
 
 # Tareas
 
