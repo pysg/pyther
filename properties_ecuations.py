@@ -74,17 +74,17 @@ def property_cal(component, property_thermodynamics):
 
 	#get_constans = 
 
-	select_constans_thermodynamics = [x + property_thermodynamics[3] for x in range(0, 13*g, 13)]
-	values_constans_thermodynamics = data.ix[select_constans_thermodynamics, 1:8].get_values()
+	select_constans = [x + property_thermodynamics[3] for x in range(0, 13*g, 13)]
+	values_constans = data.ix[select_constans, 1:8].get_values()
+	table_constans = pd.DataFrame(data=values_constans,index=data_name,
+						 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
 
-	table_constans_thermodynamics = pd.DataFrame(data=values_constans_thermodynamics,index=data_name,
-						 columns=["A", "B", "C", "D", "E", "Min", "Max"])
+	print(table_constans)
+	component_constans = table_constans.loc[component]
 
-	print("xxx = {0}".format(table_constans_thermodynamics))
-	rho_liquido_constans_component = table_constans_thermodynamics.loc[component]
-
-	A, B, C, D, E, Min, Max = rho_liquido_constans_component
+	A, B, C, D, E, Min, Max = component_constans
 	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+	print(component_constans)
 	
 
 
