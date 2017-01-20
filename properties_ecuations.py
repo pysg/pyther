@@ -76,8 +76,10 @@ def property_cal(component, property_thermodynamics, temperature = None):
 
 	if temperature == None:
 		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-	else:
+	elif (Min < np.array(temperature) < Max):
 		Temp_vector = np.array(temperature)
+	else:
+		return print("temperature is not valid")
 
 	print(component_constans)
 
@@ -153,7 +155,8 @@ component = 'METHANE'
 
 #components = ["METHANE", "n-TETRACOSANE"]
 
-property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3])
+#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3])
+property_thermodynamics = property_cal(component, Vapour_Pressure, 180.4)
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
