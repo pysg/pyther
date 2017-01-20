@@ -150,7 +150,10 @@ component = "n-TETRADECANE"
 
 #property_cal(component, Liquid_Density)
 #property_cal(component, Solid_Density)
-print(property_cal(component, Vapour_Pressure))
+
+property_thermodynamics = property_cal(component, Vapour_Pressure)
+
+print(property_thermodynamics)
 
 
 # Tareas
