@@ -72,7 +72,9 @@ def property_cal(component, property_thermodynamics):
 	Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 	"""
 
-	rho_liquido_constans = [x + property_thermodynamics[3]  for x in range(0, 13*g, 13)]
+	get_constans = 
+
+	rho_liquido_constans = [x + property_thermodynamics[3] for x in range(0, 13*g, 13)]
 	datos_rho_liquido = data.ix[rho_liquido_constans, 1:8].get_values()
 
 	print(datos_rho_liquido)
@@ -204,7 +206,3 @@ property_cal(compo, Liquid_Density)
 # Temperature [K]
 # exp(A+B/T+C*ln(T)+D*T^E)
 
-#A, B, C, D, E, Min, Max = mu_liq_cal("ETHANE")
-#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-#mu_liquid = np.exp(A + B / Temp_vector + C * np.log(Temp_vector) + D * Temp_vector ** E)
-#print(mu_liquid)
