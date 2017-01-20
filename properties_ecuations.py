@@ -18,20 +18,12 @@ Liquid_Thermal_Conductivity = "Liquid Thermal Conductivity", "[J/(m*s*K)]", "A+B
 Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
 Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 
-print(Solid_Density)
 #----------------------------------------------------------------------------------------------------------------
 
 dppr_file = "PureFull_mod_properties.xls"
 
 #print(dppr_file)
 
-#component = 'METHANE'
-#component = "ETHANE"
-#component = "3-METHYLHEPTANE"
-#component = "n-PENTACOSANE"
-component = "ISOBUTANE"
-
-#components = ["METHANE", "n-TETRACOSANE"]
 
 properties_data = pt.Data_parse()
 
@@ -48,7 +40,7 @@ data = read_dppr(dppr_file)
 
 #print(data)
 
-g = 3
+g = 30
 components_labels = [x for x in range(0, 13*g, 13)]
 data_name = data.ix[components_labels, 0].get_values()
 
@@ -72,8 +64,6 @@ def property_cal(component, property_thermodynamics):
 	Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 	"""
 
-	#get_constans = 
-
 	select_constans = [x + property_thermodynamics[3] for x in range(0, 13*g, 13)]
 	values_constans = data.ix[select_constans, 1:8].get_values()
 	table_constans = pd.DataFrame(data=values_constans,index=data_name,
@@ -85,8 +75,6 @@ def property_cal(component, property_thermodynamics):
 	A, B, C, D, E, Min, Max = component_constans
 	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 	print(component_constans)
-	
-
 
 	if property_thermodynamics == Solid_Density:
 
@@ -102,13 +90,17 @@ def property_cal(component, property_thermodynamics):
 		return liquid_Density
 
 	elif property_thermodynamics == Vapour_Pressure:
+
 		vapour_Pressure = np.exp(A+B/Temp_vector + C * np.log(Temp_vector)+D*Temp_vector **E)
 		print(vapour_Pressure)
 		return vapour_Pressure
+
 	elif property_thermodynamics == Heat_of_Vaporization:
+
 		heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)
 		print(heat_of_Vaporization)
 		return heat_of_Vaporization
+
 	elif property_thermodynamics == Solid_Heat_Capacity:
 		solid_Heat_Capacity = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector ** 4
 		print(solid_Heat_Capacity)
@@ -147,10 +139,16 @@ def property_cal(component, property_thermodynamics):
 		return surface_Tension
 
 
-compo = "METHANE"
-#compo = "ETHANE"
+#component = 'METHANE'
+#component = "ETHANE"
+#component = "3-METHYLHEPTANE"
+#component = "n-PENTACOSANE"
+#component = "ISOBUTANE"
+component = "n-TETRADECANE"
 
-property_cal(compo, Liquid_Density)
+#components = ["METHANE", "n-TETRACOSANE"]
+
+property_cal(component, Liquid_Density)
 
 
 
