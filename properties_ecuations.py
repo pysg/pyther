@@ -190,18 +190,3 @@ property_cal(compo, Liquid_Density)
 # conclusiones
 
 
-
-
-
-
-
-
-
-
-
-
-
-# Liquid_Viscosity	[kg/(m*s)]
-# Temperature [K]
-# exp(A+B/T+C*ln(T)+D*T^E)
-
