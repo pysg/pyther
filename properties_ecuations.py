@@ -44,7 +44,7 @@ g = 30
 components_labels = [x for x in range(0, 13*g, 13)]
 data_name = data.ix[components_labels, 0].get_values()
 
-def property_cal(component, property_thermodynamics):
+def property_cal(component, property_thermodynamics, temperature = None):
 
 	"""
 	properties thermodynamics
@@ -73,7 +73,12 @@ def property_cal(component, property_thermodynamics):
 	component_constans = table_constans.loc[component]
 
 	A, B, C, D, E, Min, Max = component_constans
-	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+
+	if temperature == None:
+		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+	else:
+		Temp_vector = np.array(temperature)
+
 	print(component_constans)
 
 	if property_thermodynamics == Solid_Density:
@@ -144,15 +149,12 @@ component = 'METHANE'
 #component = "3-METHYLHEPTANE"
 #component = "n-PENTACOSANE"
 #component = "ISOBUTANE"
-component = "n-TETRADECANE"
+#component = "n-TETRADECANE"
 
 #components = ["METHANE", "n-TETRACOSANE"]
 
-#property_cal(component, Liquid_Density)
-#property_cal(component, Solid_Density)
-
-property_thermodynamics = property_cal(component, Vapour_Pressure)
-
+property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3])
+#property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
 
