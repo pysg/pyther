@@ -82,25 +82,23 @@ def property_cal(component, property_thermodynamics):
 						 columns=["A", "B", "C", "D", "E", "Min", "Max"])
 
 	rho_liquido_constans_component = datos_rho_liquido.loc[component]
-
-	# Liquid_density [kmol/m^3]
-	# Temperature [K]
-	# A / B ^ (1 + (1 - T / C) ^ D)
+		
 	A, B, C, D, E, Min, Max = rho_liquido_constans_component
 	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 	
 
 
 	if property_thermodynamics == Solid_Density:
+
 		solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4
 		print(solid_Density)
 		return solid_Density
+
 	elif property_thermodynamics == Liquid_Density:
 	
 
 		liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)
-		print(liquid_Density)
-		
+		print("liquid_Density = {0}".format(liquid_Density))		
 		return liquid_Density
 
 	elif property_thermodynamics == Vapour_Pressure:
