@@ -73,20 +73,6 @@ def property_cal(component, property_thermodynamics):
 	"""
 
 	
-	rho_liquido_constans = [x + property_thermodynamics[3]  for x in range(0, 13*g, 13)]
-	datos_rho_liquido = data.ix[rho_liquido_constans, 1:8].get_values()
-
-	print(datos_rho_liquido)
-	datos_rho_liquido = pd.DataFrame(data=datos_rho_liquido,index=data_name,
-						 columns=["A", "B", "C", "D", "E", "Min", "Max"])
-
-	rho_liquido_constans_component = datos_rho_liquido.loc[component]
-
-	# Liquid_density [kmol/m^3]
-	# Temperature [K]
-	# A / B ^ (1 + (1 - T / C) ^ D)
-	A, B, C, D, E, Min, Max = rho_liquido_constans_component
-	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 
 
 	if property_thermodynamics == Solid_Density:
@@ -94,8 +80,25 @@ def property_cal(component, property_thermodynamics):
 		print(solid_Density)
 		return solid_Density
 	elif property_thermodynamics == Liquid_Density:
+	
+		rho_liquido_constans = [x + property_thermodynamics[3]  for x in range(0, 13*g, 13)]
+		datos_rho_liquido = data.ix[rho_liquido_constans, 1:8].get_values()
+
+		print(datos_rho_liquido)
+		datos_rho_liquido = pd.DataFrame(data=datos_rho_liquido,index=data_name,
+							 columns=["A", "B", "C", "D", "E", "Min", "Max"])
+
+		rho_liquido_constans_component = datos_rho_liquido.loc[component]
+
+		# Liquid_density [kmol/m^3]
+		# Temperature [K]
+		# A / B ^ (1 + (1 - T / C) ^ D)
+		A, B, C, D, E, Min, Max = rho_liquido_constans_component
+		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+
 		liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)
 		print(liquid_Density)
+		
 		return liquid_Density
 	elif property_thermodynamics == Vapour_Pressure:
 		vapour_Pressure = np.exp(A+B/Temp_vector + C * np.log(Temp_vector)+D*Temp_vector **E)
