@@ -72,7 +72,7 @@ def property_cal(component, property_thermodynamics):
 	Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 	"""
 
-	get_constans = 
+	#get_constans = 
 
 	rho_liquido_constans = [x + property_thermodynamics[3] for x in range(0, 13*g, 13)]
 	datos_rho_liquido = data.ix[rho_liquido_constans, 1:8].get_values()
@@ -102,6 +102,7 @@ def property_cal(component, property_thermodynamics):
 		print(liquid_Density)
 		
 		return liquid_Density
+
 	elif property_thermodynamics == Vapour_Pressure:
 		vapour_Pressure = np.exp(A+B/Temp_vector + C * np.log(Temp_vector)+D*Temp_vector **E)
 		print(vapour_Pressure)
