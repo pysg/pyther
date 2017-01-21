@@ -164,13 +164,14 @@ Min = 30
 Max = 90
 t = np.array([40, 34, 56, 98, 25])
 
+#myList = [ x if x%2 else x*100 for x in range(1, 10)]
 
-condition_1 = [i for i in t if Min < np.array(i) < Max]
+Temperature_valid = [i if Min < np.array(i) < Max else False for i in t]
 
 #condition = Min < np.array(t) < Max
 
-print(condition_1)
-
+print(Temperature_valid)
+#print(myList)
 
 # Tareas
 
