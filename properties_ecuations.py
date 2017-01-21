@@ -160,6 +160,17 @@ property_thermodynamics = property_cal(component, Vapour_Pressure, 180.4)
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
+Min = 30
+Max = 90
+t = np.array([40, 34, 56, 98, 25])
+
+
+condition_1 = [i for i in t if Min < np.array(i) < Max]
+
+#condition = Min < np.array(t) < Max
+
+print(condition_1)
+
 
 # Tareas
 
