@@ -171,7 +171,7 @@ print(property_thermodynamics)
 # revisar las ecuaciones para utilizar el enfoque de fugacidad de solidó para determinar 
 # las demás propiedades termodinámicas
 
-# para los graficos de velocidad de sonido tener en cuenta "por ejempllo" las isotermas  
+# para los graficos de velocidad de sonido tener en cuenta "por ejemplo" las isotermas  
 # para el caso de una sola fase
 
 # criterio de parar el calculo es que sea hasta el 5% de la presión de vapor de la
