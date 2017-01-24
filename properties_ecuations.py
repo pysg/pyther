@@ -42,7 +42,6 @@ components_labels = [x for x in range(0, 13*g, 13)]
 data_name = data.ix[components_labels, 0].get_values()
 
 def property_cal(component, property_thermodynamics, temperature = None):
-
 	"""
 	properties thermodynamics
 
@@ -78,15 +77,19 @@ def property_cal(component, property_thermodynamics, temperature = None):
 
 	if temperature == None:
 		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-	else:	
+	else:
+		if type(temperature) != "list": temperature = [temperature]
+
+		print(type(temperature))
+		
 		Temperature_enter = [i if Min < np.array(i) < Max
 		 else "{0} K is a temperature not valid".format(i) for i in temperature]
 		Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
 		Temperature_valid = [i for i in Temperature_enter if type(i) != str]
 
-		print("Temperature_enter = {0}". format(Temperature_enter))
-		print("Temperature_invalid = {0}". format(Temperature_invalid))
-		print("Temperature_valid = {0}". format(Temperature_valid))
+		print("Temperature_enter = {0}".format(Temperature_enter))
+		print("Temperature_invalid = {0}".format(Temperature_invalid))
+		print("Temperature_valid = {0}".format(Temperature_valid))
 		
 		Temp_vector = np.array(Temperature_valid)
 
@@ -131,7 +134,7 @@ def property_cal(component, property_thermodynamics, temperature = None):
 		return surface_Tension
 
 
-#component = 'METHANE'
+component = 'METHANE'
 #component = "ETHANE"
 #component = "3-METHYLHEPTANE"
 #component = "n-PENTACOSANE"
@@ -142,10 +145,13 @@ components = ["METHANE", "n-TETRACOSANE"]
 
 temp = [180.4, 181.4, 185.3, 210, 85]
 temp = 180.4
-#property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
-property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
+
+property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
+#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
 #property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
  
+do = [23.4]
+print(type(do))
