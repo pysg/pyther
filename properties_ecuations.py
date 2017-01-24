@@ -76,18 +76,20 @@ def property_cal(component, property_thermodynamics, temperature = None):
 
 	if temperature == None:
 		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-	elif (Min < np.array(temperature) < Max):
-		Temp_vector = np.array(temperature)
+	#elif (Min < np.array(temperature) < Max):
+	#	Temp_vector = np.array(temperature)
 	else:
-		return print("temperature is not valid")
+		#return print("temperature is not valid")
 
-	#Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in t]
-	#Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
-	#Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+		Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in temperature]
+		Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+		Temperature_valid = [i for i in Temperature_enter if type(i) != str]
 
-	#print(Temperature_enter)
-	#print(Temperature_invalid)
-	#print(Temperature_valid)
+		print("Temperature_enter = {0}". format(Temperature_enter))
+		print("Temperature_invalid = {0}". format(Temperature_invalid))
+		print("Temperature_valid = {0}". format(Temperature_valid))
+		
+		Temp_vector = np.array(Temperature_valid)
 
 
 	print(component_constans)
@@ -164,15 +166,17 @@ component = 'METHANE'
 
 #components = ["METHANE", "n-TETRACOSANE"]
 
-#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3])
-property_thermodynamics = property_cal(component, Vapour_Pressure, 180.4)
+temp = [180.4, 181.4, 185.3, 210, 85]
+
+property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
+#property_thermodynamics = property_cal(component, Vapour_Pressure, t)
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
 Min = 30
 Max = 90
-t = np.array([40, 98.4, 34, 56, 25, 456])
 
+t = np.array([40, 98.4, 34, 56, 25, 456])
 t = np.array([40])
 
 Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in t]
