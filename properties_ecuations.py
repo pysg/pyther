@@ -167,25 +167,12 @@ component = 'METHANE'
 #components = ["METHANE", "n-TETRACOSANE"]
 
 temp = [180.4, 181.4, 185.3, 210, 85]
-
-property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
+property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
+#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
 #property_thermodynamics = property_cal(component, Vapour_Pressure, t)
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
-Min = 30
-Max = 90
-
-t = np.array([40, 98.4, 34, 56, 25, 456])
-t = np.array([40])
-
-Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in t]
-Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
-Temperature_valid = [i for i in Temperature_enter if type(i) != str]
-
-print(Temperature_enter)
-print(Temperature_invalid)
-print(Temperature_valid)
  
 # Tareas
 
