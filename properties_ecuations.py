@@ -23,8 +23,6 @@ Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12
 dppr_file = "PureFull_mod_properties.xls"
 
 #print(dppr_file)
-
-
 properties_data = pt.Data_parse()
 
 def read_dppr(dppr_file):
@@ -37,7 +35,6 @@ def read_dppr(dppr_file):
         return dppr_data
 
 data = read_dppr(dppr_file)
-
 #print(data)
 
 g = 30
@@ -81,7 +78,8 @@ def property_cal(component, property_thermodynamics, temperature = None):
 	else:
 		#return print("temperature is not valid")
 
-		Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in temperature]
+		Temperature_enter = [i if Min < np.array(i) < Max
+		 else "{0} K is a temperature not valid".format(i) for i in temperature]
 		Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
 		Temperature_valid = [i for i in Temperature_enter if type(i) != str]
 
@@ -169,44 +167,7 @@ component = 'METHANE'
 temp = [180.4, 181.4, 185.3, 210, 85]
 property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
 #property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
-#property_thermodynamics = property_cal(component, Vapour_Pressure, t)
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
 
  
-# Tareas
-
-# estado de referencias del estado triple para las propiedades del gas ideal
-
-# graficar la correlación de la densidad de liquido para comparar y sobreponer
-# con la parte de la campana calculada con la ecuación de estado para el líquido
-
-# revisar las ecuaciones para utilizar el enfoque de fugacidad de solidó para determinar 
-# las demás propiedades termodinámicas
-
-# para los graficos de velocidad de sonido tener en cuenta "por ejemplo" las isotermas  
-# para el caso de una sola fase
-
-# criterio de parar el calculo es que sea hasta el 5% de la presión de vapor de la
-# isoterma a la cual se está calculando. En caso de las isotermas super criticas, 
-# se toma como parametro el 5% de la presión critica
-
-# incluir el calculo del corrimiento de volumen
-
-# dato experiental de líquido saturado para determinar un corrimiento C
-# para adicionar dicho corrimiento
-
-
-# escribir un borrador del artículo
-
-# introduccion# 
-# arquitectura diagrama 
-# calculo termodinámicas
-# referencias del libro de mollerup, conceptos de algoritmos por ejemmplo la cmapana
-# - subsecciópn calculo de la cmapana de saturación,, parametros de inicio
-# sección para calcular los otros diagramas, descripción general del calculo  
-# resultados o ejemplos
-# -sub sección pantallazos del notebook para mostrar capacidades de ussuarios
-# conclusiones
-
-
