@@ -73,11 +73,7 @@ def property_cal(component, property_thermodynamics, temperature = None):
 
 	if temperature == None:
 		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-	#elif (Min < np.array(temperature) < Max):
-	#	Temp_vector = np.array(temperature)
-	else:
-		#return print("temperature is not valid")
-
+	else:	
 		Temperature_enter = [i if Min < np.array(i) < Max
 		 else "{0} K is a temperature not valid".format(i) for i in temperature]
 		Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
