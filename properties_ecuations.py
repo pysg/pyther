@@ -89,28 +89,16 @@ def property_cal(component, property_thermodynamics, temperature = None):
 	print(component_constans)
 
 	if property_thermodynamics == Solid_Density:
-
-		solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4
-		#print(solid_Density)
+		solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
 		return solid_Density
-
 	elif property_thermodynamics == Liquid_Density:
-	
-
-		liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)
-		#print("liquid_Density = {0}".format(liquid_Density))		
+		liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)		
 		return liquid_Density
-
 	elif property_thermodynamics == Vapour_Pressure:
-
-		vapour_Pressure = np.exp(A + B/Temp_vector + C * np.log(Temp_vector)+D*Temp_vector **E)
-		#print(vapour_Pressure)
+		vapour_Pressure = np.exp(A + B/Temp_vector + C * np.log(Temp_vector)+D*Temp_vector **E)		
 		return vapour_Pressure
-
 	elif property_thermodynamics == Heat_of_Vaporization:
-
-		heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)
-		#print(heat_of_Vaporization)
+		heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)		
 		return heat_of_Vaporization
 
 	elif property_thermodynamics == Solid_Heat_Capacity:
@@ -151,14 +139,14 @@ def property_cal(component, property_thermodynamics, temperature = None):
 		return surface_Tension
 
 
-component = 'METHANE'
-#component = "ETHANE"
+#component = 'METHANE'
+component = "ETHANE"
 #component = "3-METHYLHEPTANE"
 #component = "n-PENTACOSANE"
 #component = "ISOBUTANE"
 #component = "n-TETRADECANE"
 
-#components = ["METHANE", "n-TETRACOSANE"]
+components = ["METHANE", "n-TETRACOSANE"]
 
 temp = [180.4, 181.4, 185.3, 210, 85]
 property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
