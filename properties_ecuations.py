@@ -68,8 +68,13 @@ def property_cal(component, property_thermodynamics, temperature = None):
 
 	print(table_constans)
 	component_constans = table_constans.loc[component]
+	print(component_constans)
+
+	Min, Max = np.zeros(2), np.array(2)
 
 	A, B, C, D, E, Min, Max = component_constans
+
+	print("sss = ",Min, Max)
 
 	if temperature == None:
 		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
@@ -85,9 +90,6 @@ def property_cal(component, property_thermodynamics, temperature = None):
 		
 		Temp_vector = np.array(Temperature_valid)
 
-
-	print(component_constans)
-
 	if property_thermodynamics == Solid_Density:
 		solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
 		return solid_Density
@@ -100,47 +102,37 @@ def property_cal(component, property_thermodynamics, temperature = None):
 	elif property_thermodynamics == Heat_of_Vaporization:
 		heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)		
 		return heat_of_Vaporization
-
 	elif property_thermodynamics == Solid_Heat_Capacity:
 		solid_Heat_Capacity = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector ** 4
-		#print(solid_Heat_Capacity)
 		return solid_Heat_Capacity
 	elif property_thermodynamics == Liquid_Heat_Capacity:
 		liquid_Heat_Capacity = A ** 2 / (1-Tr) + B-2*A*C*(1-Tr)-A*D*(1-Tr)**2-C**2*(1-Tr)**3/3-C*D*(1-Tr)**4/2-D**2*(1-Tr)**5/5
-		#print(liquid_Heat_Capacity)
 		return(liquid_Heat_Capacity)
 	elif property_thermodynamics == Ideal_Gas_Heat_Capacity:
 		ideal_Gas_Heat_Capacity = A+B*(C/Temp_vector/np.sinh(C/Temp_vector))**2+D*(E/Temp_vector/np.cosh(E/Temp_vector))**2
-		#print(ideal_Gas_Heat_Capacity)
 		return ideal_Gas_Heat_Capacity
 	elif property_thermodynamics == Second_Virial_Coefficient:
 		second_Virial_Coefficient = A+B/Temp_vector+C/Temp_vector**3+D/Temp_vector**8+E/Temp_vector**9
-		#print(second_Virial_Coefficient)
 		return second_Virial_Coefficient
 	elif property_thermodynamics == Liquid_Viscosity:
 		liquid_Viscosity = np.exp(A + B / Temp_vector + C * np.log(Temp_vector) + D * Temp_vector ** E)
-		#print(liquid_Viscosity)
 		return liquid_Viscosity
 	elif property_thermodynamics == Vapour_Viscosity:
 		vapour_Viscosity = A*Temp_vector**B/(1+C/Temp_vector+D/Temp_vector**2)
-		#print(vapour_Viscosity)
 		return vapour_Viscosity
 	elif property_thermodynamics == Liquid_Thermal_Conductivity:
 		liquid_Thermal_Conductivity = A+B*Temp_vector+C*Temp_vector**2+D*Temp_vector**3+E*Temp_vector**4
-		#print(liquid_Thermal_Conductivity)
 		return liquid_Thermal_Conductivity
 	elif property_thermodynamics == Vapour_Thermal_Conductivity:
 		vapour_Thermal_Conductivity = A*Temp_vector**B/(1+C/Temp_vector+D/Temp_vector**2)
-		#print(vapour_Thermal_Conductivity)
 		return vapour_Thermal_Conductivity
 	elif property_thermodynamics == Surface_Tension:
 		surface_Tension = A*(1-Tr)**(B+C*Tr+D*Tr*2)
-		#print(surface_Tension)
 		return surface_Tension
 
 
 #component = 'METHANE'
-component = "ETHANE"
+#component = "ETHANE"
 #component = "3-METHYLHEPTANE"
 #component = "n-PENTACOSANE"
 #component = "ISOBUTANE"
@@ -149,7 +141,9 @@ component = "ETHANE"
 components = ["METHANE", "n-TETRACOSANE"]
 
 temp = [180.4, 181.4, 185.3, 210, 85]
-property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
+temp = 180.4
+#property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
+property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
 #property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
 #property_thermodynamics = property_cal(component, Vapour_Pressure)
 print(property_thermodynamics)
