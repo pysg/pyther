@@ -81,6 +81,15 @@ def property_cal(component, property_thermodynamics, temperature = None):
 	else:
 		return print("temperature is not valid")
 
+	#Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in t]
+	#Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+	#Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+
+	#print(Temperature_enter)
+	#print(Temperature_invalid)
+	#print(Temperature_valid)
+
+
 	print(component_constans)
 
 	if property_thermodynamics == Solid_Density:
@@ -162,13 +171,18 @@ print(property_thermodynamics)
 
 Min = 30
 Max = 90
-t = np.array([40, 34, 56, 98.4, 25, 456])
+t = np.array([40, 98.4, 34, 56, 25, 456])
 
-Temperature_valid = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in t]
+t = np.array([40])
 
+Temperature_enter = [i if Min < np.array(i) < Max else "{0} K is a temperature not valid".format(i) for i in t]
+Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+Temperature_valid = [i for i in Temperature_enter if type(i) != str]
 
+print(Temperature_enter)
+print(Temperature_invalid)
 print(Temperature_valid)
-
+ 
 # Tareas
 
 # estado de referencias del estado triple para las propiedades del gas ideal
