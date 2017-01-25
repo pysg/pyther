@@ -25,22 +25,27 @@ Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12
 
 #----------------------------------------------------------------------------------------------------------------
 
-def read_dppr(dppr_file):
-	#self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
-	#dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:5]
+class TODO(object):
+	"""docstring for TODO"""
+	def __init__(self, dppr_file):
+		
+		self.dppr_file = dppr_file
+		
 
-	dppr_data = pd.read_excel(dppr_file).ix[:, 0:8]
-	# component_names = dppr_data.index.get_values()
+	def read_dppr(self):
+		
+		self.dppr_data = pd.read_excel(self.dppr_file).ix[:, 0:8]
+		
+		return self.dppr_data
 
-	return dppr_data
 
+	def data_name_cal(self):
 
-def data_name_cal(data):
+		components_labels = [x for x in range(0, 13*size_data, 13)]
+		#self.data_name = data.ix[components_labels, 0].get_values()
+		self.data_name = self.read_dppr().ix[components_labels, 0].get_values()
 
-	components_labels = [x for x in range(0, 13*size_data, 13)]
-	data_name = data.ix[components_labels, 0].get_values()
-
-	return data_name
+		return self.data_name
 
 
 
@@ -143,9 +148,12 @@ def main():
 
 	dppr_file = "PureFull_mod_properties.xls"
 	#print(dppr_file)
-	data = read_dppr(dppr_file)
+
+	data_base = TODO(dppr_file)
+
+	#data = data_base.read_dppr()
 		
-	data_name = data_name_cal(data)
+	data_name = data_base.data_name_cal()
 
 	component = 'METHANE'
 	#component = "ETHANE"
