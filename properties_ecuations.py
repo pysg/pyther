@@ -2,8 +2,11 @@ import numpy as np
 import pandas as pd
 import pyther as pt
 
-
+# constan to size of data base of components
 size_data = 30
+
+#----------------------------------------------------------------------------------------------------------------
+
 # properties thermodynamics
 
 Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
@@ -141,9 +144,7 @@ def main():
 	dppr_file = "PureFull_mod_properties.xls"
 	#print(dppr_file)
 	data = read_dppr(dppr_file)
-	#properties_data = pt.Data_parse()
-
-	
+		
 	data_name = data_name_cal(data)
 
 	component = 'METHANE'
