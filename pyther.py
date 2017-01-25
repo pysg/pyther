@@ -5,6 +5,28 @@ from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_ca
 from componente import Control_arguments
 from pure_data import Data_parse
 
+from properties_ecuations import Thermodynamic_correlations
+
+#----------------------------------------------------------------------------------------------------------------
+
+# properties thermodynamics
+
+Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
+Liquid_Density = "Liquid Density", "[kmol/m^3]", "A/B^(1+(1-T/C)^D)", 1
+Vapour_Pressure = "Vapour Pressure", "[Pa]", "exp(A+B/T+C*ln(T)+D*T^E)", 2
+Heat_of_Vaporization = "Heat of Vaporization", "[J/kmol]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 3
+Solid_Heat_Capacity = "Solid Heat Capacity", "[J/(kmol*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 4
+Liquid_Heat_Capacity = "Liquid Heat Capacity", "[J/(kmol*K)]", "A^2/(1-Tr)+B-2*A*C*(1-Tr)-A*D*(1-Tr)^2-C^2*(1-Tr)^3/3-C*D*(1-Tr)^4/2-D^2*(1-Tr)^5/5", 5
+Ideal_Gas_Heat_Capacity = "Ideal Gas Heat Capacity" "[J/(kmol*K)]", "A+B*(C/T/sinh(C/T))^2+D*(E/T/cosh(E/T))^2", 6
+Second_Virial_Coefficient = "Second Virial  Coefficient", "[m^3/kmol]", "A+B/T+C/T^3+D/T^8+E/T^9", 7
+Liquid_Viscosity = "Liquid  Viscosity", "[kg/(m*s)]", "exp(A+B/T+C*ln(T)+D*T^E)", 8
+Vapour_Viscosity = "Vapour  Viscosity", "[kg/(m*s)]", "A*T^B/(1+C/T+D/T^2)", 9
+Liquid_Thermal_Conductivity = "Liquid Thermal Conductivity", "[J/(m*s*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 10
+Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
+Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12 
+
+#----------------------------------------------------------------------------------------------------------------
+
 RGAS = 0.08314472
 # Definir el significado fisicoquímico
 
@@ -258,3 +280,41 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
+
+
+
+def n_main():
+
+    print("-" * 79)
+
+    dppr_file = "PureFull_mod_properties.xls"
+    #print(dppr_file)
+
+    thermodynamic_correlations = Thermodynamic_correlations(dppr_file)
+
+    #data = data_base.read_dppr()       
+    #data_name = data_base.data_name_cal()
+
+    component = 'METHANE'
+    #component = "ETHANE"
+    #component = "3-METHYLHEPTANE"
+    #component = "n-PENTACOSANE"
+    #component = "ISOBUTANE"
+    #component = "n-TETRADECANE"
+
+    #components = ["METHANE", "n-TETRACOSANE"]
+
+    temp = [180.4, 181.4, 185.3, 210, 85]
+    #temp = 180.4
+
+    property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure, temp)
+    #property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
+    #property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
+    #property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
+    print(property_thermodynamics)
+
+    print('-' * 79)
+
+#n_main()
+
