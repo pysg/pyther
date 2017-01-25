@@ -22,17 +22,23 @@ Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12
 
 #----------------------------------------------------------------------------------------------------------------
 
-
 def read_dppr(dppr_file):
-        #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
+	#self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
+	#dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:5]
 
-        #dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:5]
-        dppr_data = pd.read_excel(dppr_file).ix[:, 0:8]
-        
-        # component_names = dppr_data.index.get_values()
-        return dppr_data
+	dppr_data = pd.read_excel(dppr_file).ix[:, 0:8]
+	# component_names = dppr_data.index.get_values()
 
-#print(data)
+	return dppr_data
+
+
+def data_name_cal(data):
+
+	components_labels = [x for x in range(0, 13*size_data, 13)]
+	data_name = data.ix[components_labels, 0].get_values()
+
+	return data_name
+
 
 
 def property_cal(data, data_name, component, property_thermodynamics, temperature = None):
@@ -135,11 +141,10 @@ def main():
 	dppr_file = "PureFull_mod_properties.xls"
 	#print(dppr_file)
 	data = read_dppr(dppr_file)
-	properties_data = pt.Data_parse()
+	#properties_data = pt.Data_parse()
 
-	#size_data = 30
-	components_labels = [x for x in range(0, 13*size_data, 13)]
-	data_name = data.ix[components_labels, 0].get_values()
+	
+	data_name = data_name_cal(data)
 
 	component = 'METHANE'
 	#component = "ETHANE"
@@ -151,7 +156,7 @@ def main():
 	#components = ["METHANE", "n-TETRACOSANE"]
 
 	temp = [180.4, 181.4, 185.3, 210, 85]
-	temp = 180.4
+	#temp = 180.4
 
 	property_thermodynamics = property_cal(data, data_name, component, Vapour_Pressure, temp)
 	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
