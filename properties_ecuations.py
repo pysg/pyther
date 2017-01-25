@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import pyther as pt
+#import pyther as pt
 
 # constan to size of data base of components
 size_data = 30
@@ -25,7 +25,7 @@ Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12
 
 #----------------------------------------------------------------------------------------------------------------
 
-class TODO(object):
+class Thermodynamic_correlations(object):
 	"""docstring for TODO"""
 	def __init__(self, dppr_file):
 		
@@ -150,7 +150,7 @@ def main():
 	dppr_file = "PureFull_mod_properties.xls"
 	#print(dppr_file)
 
-	data_base = TODO(dppr_file)
+	thermodynamic_correlations = Thermodynamic_correlations(dppr_file)
 
 	#data = data_base.read_dppr()		
 	#data_name = data_base.data_name_cal()
@@ -167,10 +167,10 @@ def main():
 	temp = [180.4, 181.4, 185.3, 210, 85]
 	#temp = 180.4
 
-	property_thermodynamics = data_base.property_cal(component, Vapour_Pressure, temp)
+	#property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure, temp)
 	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
 	#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
-	#property_thermodynamics = property_cal(component, Vapour_Pressure)
+	property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
 	print(property_thermodynamics)
 
 	print('-' * 79)
