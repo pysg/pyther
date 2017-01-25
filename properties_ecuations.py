@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import pyther as pt
 
+
+size_data = 30
 # properties thermodynamics
 
 Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
@@ -20,10 +22,6 @@ Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12
 
 #----------------------------------------------------------------------------------------------------------------
 
-dppr_file = "PureFull_mod_properties.xls"
-
-#print(dppr_file)
-properties_data = pt.Data_parse()
 
 def read_dppr(dppr_file):
         #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
@@ -34,14 +32,10 @@ def read_dppr(dppr_file):
         # component_names = dppr_data.index.get_values()
         return dppr_data
 
-data = read_dppr(dppr_file)
 #print(data)
 
-g = 30
-components_labels = [x for x in range(0, 13*g, 13)]
-data_name = data.ix[components_labels, 0].get_values()
 
-def property_cal(component, property_thermodynamics, temperature = None):
+def property_cal(data, data_name, component, property_thermodynamics, temperature = None):
 	"""
 	properties thermodynamics
 
@@ -60,7 +54,7 @@ def property_cal(component, property_thermodynamics, temperature = None):
 	Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 	"""
 
-	select_constans = [x + property_thermodynamics[3] for x in range(0, 13*g, 13)]
+	select_constans = [x + property_thermodynamics[3] for x in range(0, 13*size_data, 13)]
 	values_constans = data.ix[select_constans, 1:8].get_values()
 	table_constans = pd.DataFrame(data=values_constans,index=data_name,
 						 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
@@ -69,18 +63,18 @@ def property_cal(component, property_thermodynamics, temperature = None):
 	component_constans = table_constans.loc[component]
 	print(component_constans)
 
-	Min, Max = np.zeros(2), np.array(2)
+	#Min, Max = np.zeros(2), np.array(2)
 
-	A, B, C, D, E, Min, Max = component_constans
+	A, B, C, D, E, Min, Max = component_constans.get_values()
 
-	print("sss = ",Min, Max)
+	#print("sss = ",Min, Max)
 
-	print(type(temperature))
 
 	if temperature == None:
 		Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 	else:
-		#if type(temperature) != "list": temperature = [temperature]		
+		#print("type of temperature = ", type(temperature))
+		if type(temperature) != list: temperature = [temperature]		
 		
 		Temperature_enter = [i if Min < np.array(i) < Max
 		 else "{0} K is a temperature not valid".format(i) for i in temperature]
@@ -134,22 +128,38 @@ def property_cal(component, property_thermodynamics, temperature = None):
 		return surface_Tension
 
 
-component = 'METHANE'
-#component = "ETHANE"
-#component = "3-METHYLHEPTANE"
-#component = "n-PENTACOSANE"
-#component = "ISOBUTANE"
-#component = "n-TETRADECANE"
+def main():
 
-components = ["METHANE", "n-TETRACOSANE"]
+	print("-" * 79)
 
-temp = [180.4, 181.4, 185.3, 210, 85]
-#temp = 180.4
+	dppr_file = "PureFull_mod_properties.xls"
+	#print(dppr_file)
+	data = read_dppr(dppr_file)
+	properties_data = pt.Data_parse()
 
-property_thermodynamics = property_cal(component, Vapour_Pressure, temp)
-#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
-#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
-#property_thermodynamics = property_cal(component, Vapour_Pressure)
-print(property_thermodynamics)
+	#size_data = 30
+	components_labels = [x for x in range(0, 13*size_data, 13)]
+	data_name = data.ix[components_labels, 0].get_values()
 
- 
+	component = 'METHANE'
+	#component = "ETHANE"
+	#component = "3-METHYLHEPTANE"
+	#component = "n-PENTACOSANE"
+	#component = "ISOBUTANE"
+	#component = "n-TETRADECANE"
+
+	#components = ["METHANE", "n-TETRACOSANE"]
+
+	temp = [180.4, 181.4, 185.3, 210, 85]
+	temp = 180.4
+
+	property_thermodynamics = property_cal(data, data_name, component, Vapour_Pressure, temp)
+	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
+	#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
+	#property_thermodynamics = property_cal(component, Vapour_Pressure)
+	print(property_thermodynamics)
+
+	print('-' * 79)
+
+if __name__ == '__main__':
+	main()
