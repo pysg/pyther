@@ -118,8 +118,7 @@ class Thermodynamic_correlations(object):
 
 		if temperature == None:
 			Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-		else:
-			#print("type of temperature = ", type(temperature))
+		else:			
 			if type(temperature) != list: temperature = [temperature]		
 			
 			Temperature_enter = [i if Min < np.array(i) < Max
@@ -208,8 +207,6 @@ def main():
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
 	print(property_thermodynamics)
 	print(thermodynamic_correlations.table_constans)
-
-	"[ 33382.25795338  33386.53987038  33404.81508022  33591.00924113 33298.00165497]"
 
 	print('-' * 79)
 
