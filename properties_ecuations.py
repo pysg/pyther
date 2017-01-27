@@ -7,7 +7,28 @@ size_data = 30
 
 
 class Thermodynamic_correlations(object):
-	"""docstring for TODO"""
+	
+	"""
+		Thermodynamic_correlations
+
+		This class is used to calculated Thermodynamic_correlations like a function of temperature.
+
+
+
+		1. Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
+		2. Liquid_Density = "Liquid Density", "[kmol/m^3]", "A/B^(1+(1-T/C)^D)", 1
+		3. Vapour_Pressure = "Vapour Pressure", "[Pa]", "exp(A+B/T+C*ln(T)+D*T^E)", 2
+		4. Heat_of_Vaporization = "Heat of Vaporization", "[J/kmol]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 3
+		5. Solid_Heat_Capacity = "Solid Heat Capacity", "[J/(kmol*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 4
+		6. Liquid_Heat_Capacity = "Liquid Heat Capacity", "[J/(kmol*K)]", "A^2/(1-Tr)+B-2*A*C*(1-Tr)-A*D*(1-Tr)^2-C^2*(1-Tr)^3/3-C*D*(1-Tr)^4/2-D^2*(1-Tr)^5/5", 5
+		7. Ideal_Gas_Heat_Capacity = "Ideal Gas Heat Capacity" "[J/(kmol*K)]", "A+B*(C/T/sinh(C/T))^2+D*(E/T/cosh(E/T))^2", 6
+		8. Second_Virial_Coefficient = "Second	Virial	Coefficient", "[m^3/kmol]", "A+B/T+C/T^3+D/T^8+E/T^9", 7
+		9. Liquid_Viscosity = "Liquid	Viscosity", "[kg/(m*s)]", "exp(A+B/T+C*ln(T)+D*T^E)", 8
+		10. Vapour_Viscosity = "Vapour	Viscosity", "[kg/(m*s)]", "A*T^B/(1+C/T+D/T^2)", 9
+		11. Liquid_Thermal_Conductivity = "Liquid Thermal Conductivity", "[J/(m*s*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 10
+		12. Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
+		13. Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
+	"""
 	def __init__(self, dppr_file):
 		
 		self.dppr_file = dppr_file
@@ -31,23 +52,7 @@ class Thermodynamic_correlations(object):
 	# properties thermodynamics
 	def select_property(self, property_thermodynamics):
 
-		"""
-		properties thermodynamics
-
-		Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
-		Liquid_Density = "Liquid Density", "[kmol/m^3]", "A/B^(1+(1-T/C)^D)", 1
-		Vapour_Pressure = "Vapour Pressure", "[Pa]", "exp(A+B/T+C*ln(T)+D*T^E)", 2
-		Heat_of_Vaporization = "Heat of Vaporization", "[J/kmol]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 3
-		Solid_Heat_Capacity = "Solid Heat Capacity", "[J/(kmol*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 4
-		Liquid_Heat_Capacity = "Liquid Heat Capacity", "[J/(kmol*K)]", "A^2/(1-Tr)+B-2*A*C*(1-Tr)-A*D*(1-Tr)^2-C^2*(1-Tr)^3/3-C*D*(1-Tr)^4/2-D^2*(1-Tr)^5/5", 5
-		Ideal_Gas_Heat_Capacity = "Ideal Gas Heat Capacity" "[J/(kmol*K)]", "A+B*(C/T/sinh(C/T))^2+D*(E/T/cosh(E/T))^2", 6
-		Second_Virial_Coefficient = "Second	Virial	Coefficient", "[m^3/kmol]", "A+B/T+C/T^3+D/T^8+E/T^9", 7
-		Liquid_Viscosity = "Liquid	Viscosity", "[kg/(m*s)]", "exp(A+B/T+C*ln(T)+D*T^E)", 8
-		Vapour_Viscosity = "Vapour	Viscosity", "[kg/(m*s)]", "A*T^B/(1+C/T+D/T^2)", 9
-		Liquid_Thermal_Conductivity = "Liquid Thermal Conductivity", "[J/(m*s*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 10
-		Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
-		Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
-		"""
+		
 
 
 		if property_thermodynamics == "Solid_Density":
@@ -98,9 +103,11 @@ class Thermodynamic_correlations(object):
 
 	def property_cal(self, component, property_thermodynamics, temperature = None):
 
-		property_label = self.select_property(property_thermodynamics)
+		self.property_label = self.select_property(property_thermodynamics)
 
-		select_constans = [x + property_label[3] for x in range(0, 13*size_data, 13)]	
+		self.units = self.property_label[1]
+
+		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
 		self.table_constans = pd.DataFrame(data=values_constans,index=self.data_name_cal(),
 							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
@@ -114,7 +121,6 @@ class Thermodynamic_correlations(object):
 		A, B, C, D, E, Min, Max = self.component_constans.get_values()
 
 		#print("sss = ",Min, Max)
-
 
 		if temperature == None:
 			Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
@@ -131,6 +137,8 @@ class Thermodynamic_correlations(object):
 			print("Temperature_valid = {0}".format(Temperature_valid))
 			
 			Temp_vector = np.array(Temperature_valid)
+
+		self.temperature = Temp_vector
 
 		if property_thermodynamics == "Solid_Density":
 			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
@@ -207,6 +215,10 @@ def main():
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
 	print(property_thermodynamics)
 	print(thermodynamic_correlations.table_constans)
+	print(thermodynamic_correlations.units)
+	print(thermodynamic_correlations.temperature)
+
+	print(thermodynamic_correlations.__doc__)
 
 	print('-' * 79)
 
