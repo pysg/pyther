@@ -13,8 +13,6 @@ class Thermodynamic_correlations(object):
 
 		This class is used to calculated Thermodynamic_correlations like a function of temperature.
 
-
-
 		1. Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
 		2. Liquid_Density = "Liquid Density", "[kmol/m^3]", "A/B^(1+(1-T/C)^D)", 1
 		3. Vapour_Pressure = "Vapour Pressure", "[Pa]", "exp(A+B/T+C*ln(T)+D*T^E)", 2
