@@ -181,12 +181,12 @@ class Thermodynamic_correlations(object):
 		C = self.component_constans["C"].get_values()
 		D = self.component_constans["D"].get_values()
 		E = self.component_constans["E"].get_values()
-		Min = self.component_constans["T Min K"]
-		Max = self.component_constans["T Max K"]		
+		Min = self.component_constans["T Min [K]"].get_values()
+		Max = self.component_constans["T Max [K]"].get_values()		
 
 		#A, B, C, D, E, Min, Max = self.component_constans.get_values()
 		
-		print("sss = ",A, Min, Max)
+		print("sss = ",type(A), Min, Max)
 
 
 		Temp_vector = self.control_temperature(temperature, Min, Max)
