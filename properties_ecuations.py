@@ -135,13 +135,13 @@ class Thermodynamic_correlations(object):
 
 		self.temperature = Temp_vector
 
-	def control_temperature(self, temperature, Min, Max):
+	def control_temperature(self, component, temperature, Min, Max):
 
 		if temperature == None:
 			#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 
 			#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-			Temp_vector = [ [Temp_vector for Temp_vector in np.arange(Min[i], Max[i])] for i in range(0, len(self.components))]
+			Temp_vector = [ [Temp_vector for Temp_vector in np.arange(Min[i], Max[i])] for i in range(0, len(component))]
 			
 		else:			
 			if type(temperature) != list: temperature = [temperature]		
@@ -189,7 +189,7 @@ class Thermodynamic_correlations(object):
 		
 		print("sss = ",A, Min, Max)
 
-		Temp_vector = self.control_temperature(temperature, Min, Max)
+		Temp_vector = self.control_temperature(component, temperature, Min, Max)
 
 		self.temperature = Temp_vector
 
