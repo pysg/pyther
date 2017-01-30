@@ -50,9 +50,6 @@ class Thermodynamic_correlations(object):
 	# properties thermodynamics
 	def select_property(self, property_thermodynamics):
 
-		
-
-
 		if property_thermodynamics == "Solid_Density":
 			Solid_Density = "Solid Density", "[kmol/m^3]", "A+B*T+C*T^2+D*T^3+E*T^4", 0
 			return Solid_Density
@@ -99,7 +96,7 @@ class Thermodynamic_correlations(object):
 			Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 			return Surface_Tension
 
-	def property_cal(self, component, property_thermodynamics, temperature = None):
+	def select_constans_cal(self, component, property_thermodynamics, temperature = None):
 
 		self.property_label = self.select_property(property_thermodynamics)
 
@@ -118,7 +115,7 @@ class Thermodynamic_correlations(object):
 
 		A, B, C, D, E, Min, Max = self.component_constans.get_values()
 
-		#print("sss = ",Min, Max)
+		print("sss = ",Min, Max)
 
 		if temperature == None:
 			Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
@@ -135,6 +132,80 @@ class Thermodynamic_correlations(object):
 			print("Temperature_valid = {0}".format(Temperature_valid))
 			
 			Temp_vector = np.array(Temperature_valid)
+
+		self.temperature = Temp_vector
+
+	def control_temperature(self, temperature, Min, Max):
+
+		if temperature == None:
+			Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+		else:			
+			if type(temperature) != list: temperature = [temperature]		
+			
+			Temperature_enter = [i if Min < np.array(i) < Max
+			 else "{0} K is a temperature not valid".format(i) for i in temperature]
+			Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+			Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+
+			print("Temperature_enter = {0}".format(Temperature_enter))
+			print("Temperature_invalid = {0}".format(Temperature_invalid))
+			print("Temperature_valid = {0}".format(Temperature_valid))
+			
+			Temp_vector = np.array(Temperature_valid)
+
+		self.temperature = Temp_vector
+
+		return self.temperature	
+
+
+	def property_cal(self, component, property_thermodynamics, temperature = None):
+
+		self.property_label = self.select_property(property_thermodynamics)
+		self.units = self.property_label[1]
+
+		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
+		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
+		self.table_constans = pd.DataFrame(data=values_constans,index=self.data_name_cal(),
+							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
+
+		print(self.table_constans)
+		self.component_constans = self.table_constans.loc[component]
+		print(self.component_constans)
+
+		#Min, Max = np.zeros(2), np.array(2)
+
+		AAA = self.component_constans.get_values()[0]
+		print(AAA)
+
+		A, B, C, D, E, Min, Max = self.component_constans.get_values()
+		#A, B, C, D, E, Min, Max = self.component_constans.get_values()[1]
+
+		#for elements in self.component_constans.get_values():
+
+		#	A, B, C, D, E, Min, Max = elements
+		
+		# = [i for i in self.component_constans.get_values()]
+
+		print("sss = ",Min, Max)
+
+
+		Temp_vector = self.control_temperature(temperature, Min, Max)
+
+		#if temperature == None:
+		#	Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+		#else:			
+		#	if type(temperature) != list: temperature = [temperature]		
+			
+		#	Temperature_enter = [i if Min < np.array(i) < Max
+		#	 else "{0} K is a temperature not valid".format(i) for i in temperature]
+		#	Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+		#	Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+
+		#	print("Temperature_enter = {0}".format(Temperature_enter))
+		#	print("Temperature_invalid = {0}".format(Temperature_invalid))
+		#	print("Temperature_valid = {0}".format(Temperature_valid))
+			
+		#	Temp_vector = np.array(Temperature_valid)
 
 		self.temperature = Temp_vector
 
@@ -200,23 +271,23 @@ def main():
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	#components = ["METHANE", "n-TETRACOSANE"]
+	components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
 
 	temp = [180.4, 181.4, 185.3, 210, 85]
 	#temp = 180.4
 
-	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Vapour_Pressure", temp)
+	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
 	property_thermodynamics = thermodynamic_correlations.property_cal(component, "Vapour_Pressure", temp)
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Ideal_Gas_Heat_Capacity", temp)
 	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
 	#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
-	print(property_thermodynamics)
+	print("property_thermodynamics = ", property_thermodynamics)
 	print(thermodynamic_correlations.table_constans)
 	print(thermodynamic_correlations.units)
 	print(thermodynamic_correlations.temperature)
 
-	print(thermodynamic_correlations.__doc__)
+	#print(thermodynamic_correlations.__doc__)
 
 	print('-' * 79)
 
