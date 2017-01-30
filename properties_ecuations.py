@@ -168,25 +168,25 @@ class Thermodynamic_correlations(object):
 		self.table_constans = pd.DataFrame(data=values_constans,index=self.data_name_cal(),
 							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
 
-		print(self.table_constans)
+		#print(self.table_constans)
 		self.component_constans = self.table_constans.loc[component]
 		print(self.component_constans)
 
-		#Min, Max = np.zeros(2), np.array(2)
+		print("Min = ", self.component_constans["T Min [K]"])
 
-		AAA = self.component_constans.get_values()[0]
-		print(AAA)
+		#Min, Max = self.component_constans["T Min [K]"]
 
-		A, B, C, D, E, Min, Max = self.component_constans.get_values()
-		#A, B, C, D, E, Min, Max = self.component_constans.get_values()[1]
+		A = self.component_constans["A"].get_values()
+		B = self.component_constans["B"].get_values()
+		C = self.component_constans["C"].get_values()
+		D = self.component_constans["D"].get_values()
+		E = self.component_constans["E"].get_values()
+		Min = self.component_constans["T Min K"]
+		Max = self.component_constans["T Max K"]		
 
-		#for elements in self.component_constans.get_values():
-
-		#	A, B, C, D, E, Min, Max = elements
+		#A, B, C, D, E, Min, Max = self.component_constans.get_values()
 		
-		# = [i for i in self.component_constans.get_values()]
-
-		print("sss = ",Min, Max)
+		print("sss = ",A, Min, Max)
 
 
 		Temp_vector = self.control_temperature(temperature, Min, Max)
@@ -273,18 +273,18 @@ def main():
 
 	components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
 
-	temp = [180.4, 181.4, 185.3, 210, 85]
-	#temp = 180.4
+	#temp = [180.4, 181.4, 185.3, 210, 85]
+	temp = 180.4
 
-	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
-	property_thermodynamics = thermodynamic_correlations.property_cal(component, "Vapour_Pressure", temp)
+	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
+	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Vapour_Pressure", temp)
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Ideal_Gas_Heat_Capacity", temp)
 	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
 	#property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
 	print("property_thermodynamics = ", property_thermodynamics)
-	print(thermodynamic_correlations.table_constans)
-	print(thermodynamic_correlations.units)
+	#print(thermodynamic_correlations.table_constans)
+	#print(thermodynamic_correlations.units)
 	print(thermodynamic_correlations.temperature)
 
 	#print(thermodynamic_correlations.__doc__)
