@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import math
+
 #import pyther as pt
 
 # constan to size of data base of components
@@ -117,31 +119,14 @@ class Thermodynamic_correlations(object):
 
 		print("sss = ",Min, Max)
 
-		if temperature == None:
-			Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-		else:			
-			if type(temperature) != list: temperature = [temperature]		
-			
-			Temperature_enter = [i if Min < np.array(i) < Max
-			 else "{0} K is a temperature not valid".format(i) for i in temperature]
-			Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
-			Temperature_valid = [i for i in Temperature_enter if type(i) != str]
 
-			print("Temperature_enter = {0}".format(Temperature_enter))
-			print("Temperature_invalid = {0}".format(Temperature_invalid))
-			print("Temperature_valid = {0}".format(Temperature_valid))
-			
-			Temp_vector = np.array(Temperature_valid)
-
-		self.temperature = Temp_vector
-
-	def control_temperature(self, component, temperature, Min, Max):
+	def control_temperature(self, components, temperature, Min, Max):
 
 		if temperature == None:
 			#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 
 			#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-			Temp_vector = [ [Temp_vector for Temp_vector in np.arange(Min[i], Max[i])] for i in range(0, len(component))]
+			Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
 			
 		else:			
 			if type(temperature) != list: temperature = [temperature]		
@@ -155,18 +140,18 @@ class Thermodynamic_correlations(object):
 			print("Temperature_invalid = {0}".format(Temperature_invalid))
 			print("Temperature_valid = {0}".format(Temperature_valid))
 			
-			Temp_vector = np.array(Temperature_valid)
+			Temp_vector = Temperature_valid
 
 		self.temperature = Temp_vector
 
 		return self.temperature	
 
 
-	def property_cal(self, component, property_thermodynamics, temperature = None):
+	def property_cal(self, components, property_thermodynamics, temperature = None):
 
 		self.property_label = self.select_property(property_thermodynamics)
 		self.units = self.property_label[1]
-		self.component = component
+		self.components = components
 
 		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
@@ -174,24 +159,31 @@ class Thermodynamic_correlations(object):
 							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
 
 		#print(self.table_constans)
-		self.component_constans = self.table_constans.loc[component]
+		self.component_constans = self.table_constans.loc[components]
 		print(self.component_constans)
 
-		A = self.component_constans["A"].get_values()
-		B = self.component_constans["B"].get_values()
-		C = self.component_constans["C"].get_values()
-		D = self.component_constans["D"].get_values()
-		E = self.component_constans["E"].get_values()
-		Min = self.component_constans["T Min [K]"].get_values()
-		Max = self.component_constans["T Max [K]"].get_values()		
+		A = np.array(self.component_constans["A"].get_values())
+		B = np.array(self.component_constans["B"].get_values())
+		C = np.array(self.component_constans["C"].get_values())
+		D = np.array(self.component_constans["D"].get_values())
+		E = np.array(self.component_constans["E"].get_values())
+		Min = np.array(self.component_constans["T Min [K]"].get_values())
+		Max = np.array(self.component_constans["T Max [K]"].get_values())		
 
 		#A, B, C, D, E, Min, Max = self.component_constans.get_values()
 		
-		print("sss = ",A, Min, Max)
+		print("sss = ",A, Min, type(Max))
 
-		Temp_vector = self.control_temperature(component, temperature, Min, Max)
+		Temp_vector = self.control_temperature(components, temperature, Min, Max)
 
-		self.temperature = Temp_vector
+		self.temperature = np.array(Temp_vector)
+
+		print(type(B[0]), type(Temp_vector))
+		print( np.array(Temp_vector) )
+
+		log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+
+		print(log_tem[1])
 
 		if property_thermodynamics == "Solid_Density":
 			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
@@ -200,7 +192,13 @@ class Thermodynamic_correlations(object):
 			liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)		
 			return liquid_Density
 		elif property_thermodynamics == "Vapour_Pressure":
-			vapour_Pressure = np.exp(A + B/Temp_vector + C * np.log(Temp_vector)+D*Temp_vector **E)		
+			log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+			#vapour_Pressure = np.exp(A + B/Temp_vector + C) #* np.log(Temp_vector) + D*Temp_vector **E)
+			#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+			vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+
+			print(np.size(vapour_Pressure))
+
 			return vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
 			heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)		
@@ -256,18 +254,19 @@ def main():
 	#component = "n-TETRADECANE"
 
 	components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
+	#components = ["METHANE", "n-TETRACOSANE"]
 
 	#temp = [180.4, 181.4, 185.3, 210, 85]
 	temp = 180.4
 
-	ass = np.ones([3,1])
-	oss = np.zeros([3,1])
-	print(ass)
+	#ass = np.ones([3,1])
+	#oss = np.zeros([3,1])
+	#print(ass)
 
-	#zzz = [ [ 1 if item_idx == row_idx else 0 for item_idx in range(0, 3) ] for row_idx in np.array(2)]
-	zzz = [ [row_idx for row_idx in (ass[i], oss[i])] for i in range(0,3)]
+	
+	#zzz = [ [row_idx for row_idx in (ass[i], oss[i])] for i in range(0,3)]
 
-	print(zzz)
+	
 
 	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
 
