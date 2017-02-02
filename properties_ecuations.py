@@ -155,15 +155,17 @@ class Thermodynamic_correlations(object):
 			else:
 				print("this is the number of components = ", len(components))
 
-				Temperature_enter = np.array([([i if Min[j] < np.array(i) < Max[j]
-				 else "{0} K is a temperature not valid".format(i) for i in temperature]) for j in range(0, len(components))])
+				Temperature_enter = [([i if Min[j] < np.array(i) < Max[j]
+				 else "{0} K is a temperature not valid".format(i) for i in temperature]) for j in range(0, len(components))]
 
-				Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
-				Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+				Temperature_invalid = [([i for i in Temperature_enter[j] if type(i) == str]) for j in range(0, len(components))]
+				Temperature_valid = [([i for i in Temperature_enter[j] if type(i) != str]) for j in range(0, len(components))]
 
 				print("Temperature_enter = {0}".format(Temperature_enter))
 				print("Temperature_invalid = {0}".format(Temperature_invalid))
 				print("Temperature_valid = {0}".format(Temperature_valid))
+
+
 				
 				Temp_vector = Temperature_valid
 
@@ -221,7 +223,7 @@ class Thermodynamic_correlations(object):
 
 		log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 
-		print("log_tem", log_tem[1])
+		print("log_tem", log_tem)
 
 		if property_thermodynamics == "Solid_Density":
 			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
@@ -234,9 +236,16 @@ class Thermodynamic_correlations(object):
 			if len(self.components) == 1:
 				vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
 			else:
-				log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-				log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
-				vapour_Pressure = [np.exp(vapour_Pressure) for vapour_Pressure in log_vapour_Pressure]
+
+				if len(temperature) == 1:
+					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+					vapour_Pressure = np.exp(A[1])
+					#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+				else:
+					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+					log_vapour_Pressure = A + B/Temp_vector #+ C * log_tem + D*Temp_vector **E
+					print("log_vapour-pressure = ",log_vapour_Pressure)
+					vapour_Pressure = [np.exp(vapour) for vapour in log_vapour_Pressure]
 
 				print(np.size(vapour_Pressure))
 
@@ -287,18 +296,20 @@ def main():
 	#data = data_base.read_dppr()		
 	#data_name = data_base.data_name_cal()
 
-	component = 'METHANE'
+	#component = 'METHANE'
 	#component = "ETHANE"
 	#component = "3-METHYLHEPTANE"
 	#component = "n-PENTACOSANE"
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
+	#components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
+	components = ["METHANE", "ETHANE"]
 	#components = ["METHANE"]
 
-	temp = [180.4, 181.4, 185.3, 210, 85]
-	#temp = 180.4
+	#temp = [180.4, 181.4, 185.3, 210, 85]
+	#temp = [180.4, 230.4]
+	temp = [180.4]
 
 	#ass = np.ones([3,1])
 	#oss = np.zeros([3,1])
