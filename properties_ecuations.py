@@ -122,12 +122,21 @@ class Thermodynamic_correlations(object):
 
 	def control_temperature(self, components, temperature, Min, Max):
 
-		if temperature == None:
-			#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+		#components = list(components)
 
-			#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-			Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
+		print(len(self.components), self.components)
+
+
+		if temperature == None:
+
+			if len(components) == 1:
+				print("no debo estar aquí")
+				#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
 			
+			else:
+				Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+				
 		else:			
 			if type(temperature) != list: temperature = [temperature]		
 			
@@ -151,7 +160,7 @@ class Thermodynamic_correlations(object):
 
 		self.property_label = self.select_property(property_thermodynamics)
 		self.units = self.property_label[1]
-		self.components = components
+		self.components = [components]
 
 		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
@@ -162,15 +171,20 @@ class Thermodynamic_correlations(object):
 		self.component_constans = self.table_constans.loc[components]
 		print(self.component_constans)
 
-		A = np.array(self.component_constans["A"].get_values())
-		B = np.array(self.component_constans["B"].get_values())
-		C = np.array(self.component_constans["C"].get_values())
-		D = np.array(self.component_constans["D"].get_values())
-		E = np.array(self.component_constans["E"].get_values())
-		Min = np.array(self.component_constans["T Min [K]"].get_values())
-		Max = np.array(self.component_constans["T Max [K]"].get_values())		
+		print(len(self.components), self.components)
+		
+		if len(self.components) == 1:
+			A, B, C, D, E, Min, Max = self.component_constans.get_values()
+		else:
 
-		#A, B, C, D, E, Min, Max = self.component_constans.get_values()
+			A = np.array(self.component_constans["A"].get_values())
+			B = np.array(self.component_constans["B"].get_values())
+			C = np.array(self.component_constans["C"].get_values())
+			D = np.array(self.component_constans["D"].get_values())
+			E = np.array(self.component_constans["E"].get_values())
+			Min = np.array(self.component_constans["T Min [K]"].get_values())
+			Max = np.array(self.component_constans["T Max [K]"].get_values())		
+
 		
 		print("sss = ",A, Min, type(Max))
 
@@ -178,7 +192,7 @@ class Thermodynamic_correlations(object):
 
 		self.temperature = np.array(Temp_vector)
 
-		print(type(B[0]), type(Temp_vector))
+		#print(type(B[0]), type(Temp_vector))
 		print( np.array(Temp_vector) )
 
 		log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
@@ -192,12 +206,14 @@ class Thermodynamic_correlations(object):
 			liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)		
 			return liquid_Density
 		elif property_thermodynamics == "Vapour_Pressure":
-			log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-			#vapour_Pressure = np.exp(A + B/Temp_vector + C) #* np.log(Temp_vector) + D*Temp_vector **E)
-			#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
-			vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+			
+			vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
 
-			print(np.size(vapour_Pressure))
+			#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+			#log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+			#vapour_Pressure = [np.exp(vapour_Pressure) for vapour_Pressure in log_vapour_Pressure]
+
+			#print(np.size(vapour_Pressure))
 
 			return vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
@@ -253,8 +269,8 @@ def main():
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
-	#components = ["METHANE", "n-TETRACOSANE"]
+	#components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
+	components = "METHANE"
 
 	#temp = [180.4, 181.4, 185.3, 210, 85]
 	temp = 180.4
