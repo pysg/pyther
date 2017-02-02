@@ -124,31 +124,49 @@ class Thermodynamic_correlations(object):
 
 		#components = list(components)
 
-		print(len(self.components), self.components)
-
+		print("number of components view temperature = ", len(self.components), self.components, temperature)
 
 		if temperature == None:
 
 			if len(components) == 1:
-				print("sí debo estar aquí")
+				print("one component")
 				Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 			
 			else:
 				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
 				
-		else:			
-			if type(temperature) != list: temperature = [temperature]		
-			
-			Temperature_enter = [i if Min < np.array(i) < Max
-			 else "{0} K is a temperature not valid".format(i) for i in temperature]
-			Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
-			Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+		else:
+			if len(components) == 1:
+				print("one component")
+						
+				if type(temperature) != list: temperature = [temperature]		
+				
+				Temperature_enter = [i if Min < np.array(i) < Max
+				 else "{0} K is a temperature not valid".format(i) for i in temperature]
 
-			print("Temperature_enter = {0}".format(Temperature_enter))
-			print("Temperature_invalid = {0}".format(Temperature_invalid))
-			print("Temperature_valid = {0}".format(Temperature_valid))
-			
-			Temp_vector = Temperature_valid
+				Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+				Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+
+				print("Temperature_enter = {0}".format(Temperature_enter))
+				print("Temperature_invalid = {0}".format(Temperature_invalid))
+				print("Temperature_valid = {0}".format(Temperature_valid))
+				
+				Temp_vector = Temperature_valid
+			else:
+				print("this is the number of components = ", len(components))
+
+				Temperature_enter = np.array([([i if Min[j] < np.array(i) < Max[j]
+				 else "{0} K is a temperature not valid".format(i) for i in temperature]) for j in range(0, len(components))])
+
+				Temperature_invalid = [i for i in Temperature_enter if type(i) == str]
+				Temperature_valid = [i for i in Temperature_enter if type(i) != str]
+
+				print("Temperature_enter = {0}".format(Temperature_enter))
+				print("Temperature_invalid = {0}".format(Temperature_invalid))
+				print("Temperature_valid = {0}".format(Temperature_valid))
+				
+				Temp_vector = Temperature_valid
+
 
 		self.temperature = Temp_vector
 
@@ -199,7 +217,7 @@ class Thermodynamic_correlations(object):
 		self.temperature = np.array(Temp_vector)
 
 		#print(type(B[0]), type(Temp_vector))
-		print( np.array(Temp_vector) )
+		print("temperature = ", np.array(Temp_vector) )
 
 		log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 
@@ -212,14 +230,15 @@ class Thermodynamic_correlations(object):
 			liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)		
 			return liquid_Density
 		elif property_thermodynamics == "Vapour_Pressure":
-			
-			vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
 
-			#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-			#log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
-			#vapour_Pressure = [np.exp(vapour_Pressure) for vapour_Pressure in log_vapour_Pressure]
+			if len(self.components) == 1:
+				vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+			else:
+				log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+				log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+				vapour_Pressure = [np.exp(vapour_Pressure) for vapour_Pressure in log_vapour_Pressure]
 
-			#print(np.size(vapour_Pressure))
+				print(np.size(vapour_Pressure))
 
 			return vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
@@ -275,10 +294,10 @@ def main():
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	#components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
-	components = ["METHANE"]
+	components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
+	#components = ["METHANE"]
 
-	#temp = [180.4, 181.4, 185.3, 210, 85]
+	temp = [180.4, 181.4, 185.3, 210, 85]
 	#temp = 180.4
 
 	#ass = np.ones([3,1])
@@ -290,9 +309,9 @@ def main():
 
 	
 
-	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
+	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
 
-	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
+	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Vapour_Pressure", temp)
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Ideal_Gas_Heat_Capacity", temp)
 	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
