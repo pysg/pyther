@@ -130,12 +130,11 @@ class Thermodynamic_correlations(object):
 		if temperature == None:
 
 			if len(components) == 1:
-				print("no debo estar aquí")
-				#Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
-				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
+				print("sí debo estar aquí")
+				Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
 			
 			else:
-				Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
 				
 		else:			
 			if type(temperature) != list: temperature = [temperature]		
@@ -160,7 +159,7 @@ class Thermodynamic_correlations(object):
 
 		self.property_label = self.select_property(property_thermodynamics)
 		self.units = self.property_label[1]
-		self.components = [components]
+		self.components = components
 
 		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
@@ -174,7 +173,14 @@ class Thermodynamic_correlations(object):
 		print(len(self.components), self.components)
 		
 		if len(self.components) == 1:
-			A, B, C, D, E, Min, Max = self.component_constans.get_values()
+			#A, B, C, D, E, Min, Max = self.component_constans.get_values()
+			A = np.array(self.component_constans["A"].get_values())
+			B = np.array(self.component_constans["B"].get_values())
+			C = np.array(self.component_constans["C"].get_values())
+			D = np.array(self.component_constans["D"].get_values())
+			E = np.array(self.component_constans["E"].get_values())
+			Min = np.array(self.component_constans["T Min [K]"].get_values())
+			Max = np.array(self.component_constans["T Max [K]"].get_values())
 		else:
 
 			A = np.array(self.component_constans["A"].get_values())
@@ -197,7 +203,7 @@ class Thermodynamic_correlations(object):
 
 		log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 
-		print(log_tem[1])
+		print("log_tem", log_tem[1])
 
 		if property_thermodynamics == "Solid_Density":
 			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
@@ -270,10 +276,10 @@ def main():
 	#component = "n-TETRADECANE"
 
 	#components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
-	components = "METHANE"
+	components = ["METHANE"]
 
 	#temp = [180.4, 181.4, 185.3, 210, 85]
-	temp = 180.4
+	#temp = 180.4
 
 	#ass = np.ones([3,1])
 	#oss = np.zeros([3,1])
