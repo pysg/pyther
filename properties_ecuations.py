@@ -312,7 +312,7 @@ def main():
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	components = ["METHANE", "n-TETRACOSANE", "ETHANE", "ISOBUTANE", "PROPANE"]
+	components = ["METHANE", "n-TETRACOSANE", "ETHANE", "ISOBUTANE", "PROPANE", "3-METHYLHEPTANE"]
 	#components = ["METHANE", "ETHANE"]
 	#components = ["METHANE"]
 
@@ -342,6 +342,11 @@ def main():
 	#print(thermodynamic_correlations.table_constans)
 	#print(thermodynamic_correlations.units)
 	print(thermodynamic_correlations.temperature)
+
+	table_components = pd.DataFrame(data=property_thermodynamics,index= components, 
+							 columns=[str(temp)+"K"])
+
+	print(table_components)
 
 	#print(thermodynamic_correlations.__doc__)
 
