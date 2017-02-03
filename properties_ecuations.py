@@ -155,22 +155,30 @@ class Thermodynamic_correlations(object):
 			else:
 				print("this is the number of components = ", len(components))
 
-				Temperature_enter = [([i if Min[j] < np.array(i) < Max[j]
+				Temperature_enter = [([i if Min[j] < i < Max[j]
 				 else "{0} K is a temperature not valid".format(i) for i in temperature]) for j in range(0, len(components))]
 
+				print(temperature)
+
 				Temperature_invalid = [([i for i in Temperature_enter[j] if type(i) == str]) for j in range(0, len(components))]
-				Temperature_valid = [([i for i in Temperature_enter[j] if type(i) != str]) for j in range(0, len(components))]
+				Temperature_valid = [([ i for i in Temperature_enter[j] if type(i) != str]) for j in range(0, len(components))]
 
-				print("Temperature_enter = {0}".format(Temperature_enter))
+				Temperature_valid = [ np.array([ i for i in Temperature_enter[j] if type(i) != str]) for j in range(0, len(components))]
+
+				print("Temperature_enter = {0} {1}".format(Temperature_enter, len(Temperature_enter)))
 				print("Temperature_invalid = {0}".format(Temperature_invalid))
-				print("Temperature_valid = {0}".format(Temperature_valid))
-
-
+				print("Temperature_valid = {0} {1} {2}".format(Temperature_valid, len(Temperature_valid), type(Temperature_valid) ))
 				
-				Temp_vector = Temperature_valid
+				Temp_vector = np.array(Temperature_valid)
+
+				Temp_vector = np.reshape(Temp_vector, len(components))
+
+				print("temperature = ", Temp_vector, len(Temp_vector), np.shape(Temp_vector) )
 
 
 		self.temperature = Temp_vector
+
+		print("temperature = ", Temp_vector.T, len(Temp_vector.T) )
 
 		return self.temperature	
 
@@ -216,14 +224,13 @@ class Thermodynamic_correlations(object):
 
 		Temp_vector = self.control_temperature(components, temperature, Min, Max)
 
-		self.temperature = np.array(Temp_vector)
-
+		
 		#print(type(B[0]), type(Temp_vector))
-		print("temperature = ", np.array(Temp_vector) )
+		print("temperature = ", Temp_vector.T, len(Temp_vector.T) )
 
-		log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+		#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 
-		print("log_tem", log_tem)
+		#print("log_tem", log_tem)
 
 		if property_thermodynamics == "Solid_Density":
 			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
@@ -238,21 +245,27 @@ class Thermodynamic_correlations(object):
 			else:
 
 				if len(temperature) == 1:
-					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
+
+					print("log_tem = ", log_tem.T, np.size(log_tem), len(log_tem.T))
+					print("C = ", C, np.size(C))
+					print("D = ", D)
+					print(C * log_tem.T, np.size(C * log_tem.T))
+					print(B/Temp_vector.T )
 					#vapour_Pressure = [np.exp(a) for a in A]
 					#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
-					vapour = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+					vapour = np.asarray(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
 
-					print("vapour = ", vapour)
+					print("vapour = ", vapour, len(vapour))
 
-					vapour_Pressure = [( [np.exp(vvv) for vvv in vapour[j]] ) for j in range(0, len(components))]
+					vapour_Pressure = np.array([( [np.exp(vvv) for vvv in vapour[j]] ) for j in range(0, len(components))]) * 1e-5
 					print("vapour_Pressure = ", vapour_Pressure)
 					
 				else:
 					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 					log_vapour_Pressure = A + B/Temp_vector #+ C * log_tem + D*Temp_vector **E
 					print("log_vapour-pressure = ",log_vapour_Pressure)
-					vapour_Pressure = [np.exp(vapour) for vapour in log_vapour_Pressure]
+					vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) / 1e-5
 
 				print(np.size(vapour_Pressure))
 
@@ -313,6 +326,12 @@ def main():
 	#components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
 	components = ["METHANE", "ETHANE"]
 	#components = ["METHANE"]
+
+	num = [[23], [45.6], [678.5]]
+	mum = np.array(num).T
+
+
+	print(mum, len(mum))
 
 	#temp = [180.4, 181.4, 185.3, 210, 85]
 	#temp = [180.4, 230.4]
