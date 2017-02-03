@@ -252,9 +252,9 @@ class Thermodynamic_correlations(object):
 					
 				else:
 					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-					log_vapour_Pressure = A + B/Temp_vector #+ C * log_tem + D*Temp_vector **E
+					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
 					print("log_vapour-pressure = ",log_vapour_Pressure)
-					vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) / 1e-5
+					vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
 
 				print(np.size(vapour_Pressure))
 
@@ -317,9 +317,9 @@ def main():
 	#components = ["METHANE"]
 
 	
-	#temp = [180.4, 181.4, 185.3, 210, 85]
+	temp = [180.4, 181.4, 185.3, 210, 85]
 	#temp = [180.4, 230.4]
-	temp = [180.4]
+	#temp = [180.4]
 
 	#ass = np.ones([3,1])
 	#oss = np.zeros([3,1])
