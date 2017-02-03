@@ -239,8 +239,15 @@ class Thermodynamic_correlations(object):
 
 				if len(temperature) == 1:
 					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-					vapour_Pressure = np.exp(A[1])
+					#vapour_Pressure = [np.exp(a) for a in A]
 					#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+					vapour = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+
+					print("vapour = ", vapour)
+
+					vapour_Pressure = [( [np.exp(vvv) for vvv in vapour[j]] ) for j in range(0, len(components))]
+					print("vapour_Pressure = ", vapour_Pressure)
+					
 				else:
 					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 					log_vapour_Pressure = A + B/Temp_vector #+ C * log_tem + D*Temp_vector **E
