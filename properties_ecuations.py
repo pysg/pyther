@@ -244,20 +244,10 @@ class Thermodynamic_correlations(object):
 			else:
 
 				if len(temperature) == 1:
-					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
-
-					print("log_tem = ", log_tem, np.shape(log_tem))
-					print("C = ", C, np.shape(C))
-					print("D = ", D)
-					print(C * log_tem.T, np.shape(C * log_tem))
-					print(B/Temp_vector )
-					#vapour_Pressure = [np.exp(a) for a in A]
-					#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])					
 					vapour = np.array(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
-
+					# used 1 Pa = 1e-5 Bar
 					vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5					
-
-					#vapour_Pressure = np.array([( [np.exp(vvv) for vvv in vapour[j]] ) for j in range(0, len(components))]) * 1e-5
 					print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
 					
 				else:
@@ -322,16 +312,11 @@ def main():
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	#components = ["METHANE", "n-TETRACOSANE", "ETHANE"]
-	components = ["METHANE", "ETHANE"]
+	components = ["METHANE", "n-TETRACOSANE", "ETHANE", "ISOBUTANE", "PROPANE"]
+	#components = ["METHANE", "ETHANE"]
 	#components = ["METHANE"]
 
-	num = [[23], [45.6], [678.5]]
-	mum = np.array(num).T
-
-
-	print(mum, len(mum))
-
+	
 	#temp = [180.4, 181.4, 185.3, 210, 85]
 	#temp = [180.4, 230.4]
 	temp = [180.4]
