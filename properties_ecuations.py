@@ -170,7 +170,6 @@ class Thermodynamic_correlations(object):
 				print("Temperature_valid = {0} {1} {2}".format(Temperature_valid, len(Temperature_valid), type(Temperature_valid) ))
 				
 				Temp_vector = np.array(Temperature_valid)
-
 				Temp_vector = np.reshape(Temp_vector, len(components))
 
 				print("temperature = ", Temp_vector, len(Temp_vector), np.shape(Temp_vector) )
@@ -247,19 +246,19 @@ class Thermodynamic_correlations(object):
 				if len(temperature) == 1:
 					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
 
-					print("log_tem = ", log_tem.T, np.size(log_tem), len(log_tem.T))
-					print("C = ", C, np.size(C))
+					print("log_tem = ", log_tem, np.shape(log_tem))
+					print("C = ", C, np.shape(C))
 					print("D = ", D)
-					print(C * log_tem.T, np.size(C * log_tem.T))
-					print(B/Temp_vector.T )
+					print(C * log_tem.T, np.shape(C * log_tem))
+					print(B/Temp_vector )
 					#vapour_Pressure = [np.exp(a) for a in A]
 					#vapour_Pressure = np.exp(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
-					vapour = np.asarray(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
+					vapour = np.array(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
 
-					print("vapour = ", vapour, len(vapour))
+					vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5					
 
-					vapour_Pressure = np.array([( [np.exp(vvv) for vvv in vapour[j]] ) for j in range(0, len(components))]) * 1e-5
-					print("vapour_Pressure = ", vapour_Pressure)
+					#vapour_Pressure = np.array([( [np.exp(vvv) for vvv in vapour[j]] ) for j in range(0, len(components))]) * 1e-5
+					print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
 					
 				else:
 					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
