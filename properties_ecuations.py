@@ -351,7 +351,7 @@ def main():
 
 	print(table_components)
 
-	#print(thermodynamic_correlations.__doc__)
+	print(thermodynamic_correlations.__doc__)
 
 	print('-' * 79)
 
