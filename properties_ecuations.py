@@ -5,8 +5,8 @@ import math
 #import pyther as pt
 
 # constan to size of data base of components
-size_data = 30
-
+#size_data = 30
+size_data = 115
 
 class Thermodynamic_correlations(object):
 	
@@ -98,7 +98,7 @@ class Thermodynamic_correlations(object):
 			Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 			return Surface_Tension
 
-	def select_constans_cal(self, component, property_thermodynamics, temperature = None):
+	def select_constans_cal(self, component, property_thermodynamics):
 
 		self.property_label = self.select_property(property_thermodynamics)
 
@@ -117,7 +117,7 @@ class Thermodynamic_correlations(object):
 
 		A, B, C, D, E, Min, Max = self.component_constans.get_values()
 
-		print("sss = ",Min, Max)
+		print("sss constans = ",Min, Max)
 
 
 	def control_temperature(self, components, temperature, Min, Max):
@@ -129,8 +129,9 @@ class Thermodynamic_correlations(object):
 		if temperature == None:
 
 			if len(components) == 1:
-				print("one component")
-				Temp_vector = np.array([Temp_vector for Temp_vector in np.arange(Min, Max)])
+				print("one component without temperature especific")
+				Temp_vector = np.array([Temp for Temp in np.arange(Min, Max)])
+
 			
 			else:
 				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
@@ -177,7 +178,7 @@ class Thermodynamic_correlations(object):
 
 		self.temperature = Temp_vector
 
-		print("temperature = ", Temp_vector, len(Temp_vector) )
+		print("temperature = ", self.temperature, len(self.temperature) )
 
 		return self.temperature	
 
@@ -188,12 +189,18 @@ class Thermodynamic_correlations(object):
 		self.units = self.property_label[1]
 		self.components = components
 
+		print(self.components, type(components))
+
 		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
 		self.table_constans = pd.DataFrame(data=values_constans,index=self.data_name_cal(),
 							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
 
-		#print(self.table_constans)
+		#print(self.table_constans.)
+
+		#print(components in self.table_constans.index)
+
+
 		self.component_constans = self.table_constans.loc[components]
 		print(self.component_constans)
 
@@ -224,8 +231,8 @@ class Thermodynamic_correlations(object):
 		Temp_vector = self.control_temperature(components, temperature, Min, Max)
 
 		
-		#print(type(B[0]), type(Temp_vector))
-		print("temperature = ", Temp_vector, len(Temp_vector) )
+		print(type(Temp_vector))
+		#print("temperature = ", Temp_vector, len(Temp_vector) )
 
 		#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 
@@ -239,27 +246,64 @@ class Thermodynamic_correlations(object):
 			return liquid_Density
 		elif property_thermodynamics == "Vapour_Pressure":
 
-			if len(self.components) == 1:
-				log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-				log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
-				print("log_vapour-pressure = ",log_vapour_Pressure)
-				vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
+			if temperature == None:
+				# without temperature especific
+
+				if len(self.components) == 1:
+					# one component
+
+					#Temp_vector = np.array( Temp_vector, dtype=object)
+					#Temp_vector.astype(float)
+					#Temp_vector = np.float64(Temp_vector)
+
+					print("one component with one temperature especific")
+					#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+					log_tem = np.array([ np.log(np.float64(Temp))  for Temp in Temp_vector])
+					#log_tem = map(np.log, Temp_vector)
+
+					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+					print("log_vapour-pressure = ",log_vapour_Pressure)
+					vapour_Pressure = np.array([np.exp(np.float64(vapour)) for vapour in log_vapour_Pressure]) * 1e-5
+				else:
+					# many components 
+					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
+					#log_tem = np.log(Temp_vector)
+					vapour = np.array(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+					# used 1 Pa = 1e-5 Bar
+					vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5				
+					print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
+				
 			else:
 
-				if len(temperature) == 1:
-					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])					
-					vapour = np.array(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
-					# used 1 Pa = 1e-5 Bar
-					vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5					
-					print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
-					
-				else:
-					log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+				if len(self.components) == 1:
+					# one component with one temperature especific 
+					print("one component with one temperature especific")
+					#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
 					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
 					print("log_vapour-pressure = ",log_vapour_Pressure)
 					vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
+				else:
+					# many components
 
-				print(np.size(vapour_Pressure))
+					if len(temperature) == 1:
+						# many components with one temperature especific
+
+						log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
+						vapour = np.array(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
+						# used 1 Pa = 1e-5 Bar
+						vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5				
+						print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
+						
+					else:
+						# many components with many temperatures especific
+
+						log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+						log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+						print("log_vapour-pressure = ",log_vapour_Pressure)
+						vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
+
+					print(np.size(vapour_Pressure))
 
 			return vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
@@ -315,23 +359,34 @@ def main():
 	#component = "ISOBUTANE"
 	#component = "n-TETRADECANE"
 
-	#components = ["METHANE", "n-TETRACOSANE", "ETHANE", "ISOBUTANE", "PROPANE", "3-METHYLHEPTANE"]
+	#components = ["METHANE", "n-TETRACOSANE", "n-PENTACOSANE", "ETHANE", "ISOBUTANE", "PROPANE", "3-METHYLHEPTANE"]
 	#components = ["METHANE", "ETHANE"]
-	components = ["METHANE"]
+	#components = ["METHANE"]
+	components = ["ISOBUTANE"]
+
+	# test
+	# one component without temperature especific
+	# one compoment and one temperature
+	# one component and many temperatures
+	# many components without temperature especific
+	# many components and many temperatures
+
+	# Not test
+
+
+
 
 	
-	temp = [180.4, 181.4, 185.3, 210, 85]
+	#temp = [180.4, 181.4, 185.3, 210, 800]
 	#temp = [180.4, 230.4]
-	#temp = [180.4]
+	temp = [180.4]
 
 	#ass = np.ones([3,1])
 	#oss = np.zeros([3,1])
 	#print(ass)
 
 	
-	#zzz = [ [row_idx for row_idx in (ass[i], oss[i])] for i in range(0,3)]
-
-	
+	#zzz = [ [row_idx for row_idx in (ass[i], oss[i])] for i in range(0,3)]	
 
 	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
 
@@ -344,14 +399,15 @@ def main():
 	print("property_thermodynamics = ", property_thermodynamics)
 	#print(thermodynamic_correlations.table_constans)
 	#print(thermodynamic_correlations.units)
-	print(thermodynamic_correlations.temperature)
+	#print(thermodynamic_correlations.temperature)
+	#print(thermodynamic_correlations.select_constans_cal(components, "Vapour_Pressure"))
 
 	table_components = pd.DataFrame(data=property_thermodynamics,index= components, 
 							 columns=[str(temp)+"K"])
-
+	
 	print(table_components)
 
-	print(thermodynamic_correlations.__doc__)
+	#print(thermodynamic_correlations.__doc__)
 
 	print('-' * 79)
 
