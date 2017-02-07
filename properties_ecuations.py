@@ -252,17 +252,9 @@ class Thermodynamic_correlations(object):
 				if len(self.components) == 1:
 					# one component
 
-					#Temp_vector = np.array( Temp_vector, dtype=object)
-					#Temp_vector.astype(float)
-					#Temp_vector = np.float64(Temp_vector)
-
 					print("one component with one temperature especific")
-					#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
 					log_tem = np.array([ np.log(np.float64(Temp))  for Temp in Temp_vector])
-					#log_tem = map(np.log, Temp_vector)
-
 					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
-					print("log_vapour-pressure = ",log_vapour_Pressure)
 					vapour_Pressure = np.array([np.exp(np.float64(vapour)) for vapour in log_vapour_Pressure]) * 1e-5
 				else:
 					# many components 
