@@ -14,16 +14,14 @@ import numpy as np
 
 # PARAMETER (nco=2, RGAS=0.08314472d0, NA=2)
 nco = 2
-RGAS=0.08314472
-NA=2
-
-
+RGAS = 0.08314472
+RGAS = 0.80324234
+NA = 2
+#----------------------------------------------------------
 Tc = 123
 DC = 0.234
 Pc = 23
-
-RGAS = 0.80324234
-
+#----------------------------------------------------------
 temperature = 0.9999 * Tc
 critical_volume = 1 / DC
 vapor_volume = 1.03 * critical_volume
@@ -31,7 +29,6 @@ Zc = Pc * critical_volume / RGAS / temperature
 liquid_volume = min(0.89 + (Zc - 0.2) / 2, 0.95) * critical_volume
 NS = 2
 delXS = 0.10
-
 #------------------------------------------------------
 XVAR = np.log([temperature, liquid_volume, vapor_volume])
 
@@ -53,15 +50,15 @@ Vv = np.exp(XVAR[2])
 
 print("T = {0}, Vl = {1}, Vv = {2}".format(T, Vl, Vv))
 
-FMAXOLD=8.0
-FMAX=7.0
-DMAXOLD=8.0
-DMAX=7.0
+FMAXOLD = 8.0
+FMAX = 7.0
+DMAXOLD = 8.0
+DMAX = 7.0
 F = np.zeros(3)
 
-F[2]=0.0
-delX=0.0
-NV=0
+F[2] = 0.0
+delX = 0.0
+NV = 0
 #------------------------------------------------------
 
 
@@ -269,56 +266,56 @@ if (Pv > 1e-20 and (T > 0.25 * TCmod or T > 250) and T < TCmod):
 def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 
 	NG = NGR
-    NC = 2    
-    NTEMP = 0
-    IGZ = 0
-    NDER = 1
+	NC = 2
+	NTEMP = 0
+	IGZ = 0
+	NDER = 1
 
-    if INDIC > 2:
-    	NDER =2
+	if INDIC > 2:
+		NDER =2
 
-    if INDIC > 2 or INDIC == 4:
-    	NTEMP = 1
+	if INDIC > 2 or INDIC == 4:
+		NTEMP = 1
 
-    TOTN = sum(rn)
-    RT = RGAS*T
-    call ArVnder(NDER, NTEMP, rn, V, T, Ar, ArV, ArTV, ArV2, Arn, ArVn, ArTn, Arn2)
-    
-    P = TOTN*RT/V - ArV
-    DPDV = -ArV2 - RT * TOTN / V ** 2
-    
-    if INDIC > 4:
-    	print("GOTO 62")
+	TOTN = sum(rn)
+	RT = RGAS*T
+	call ArVnder(NDER, NTEMP, rn, V, T, Ar, ArV, ArTV, ArV2, Arn, ArVn, ArTn, Arn2)
 
-    Z = P * V / (TOTN * RT)
-    DPDT = -ArTV + TOTN * RGAS / V
+	P = TOTN*RT/V - ArV
+	DPDV = -ArV2 - RT * TOTN / V ** 2
 
-    #DO 60 I=1,NC
-    
-    #IF(RN(I).EQ.0.0)GOTO 60
-    if rn[I] == 0:
-    	print("GOTO 60")
+	if INDIC > 4:
+		print("GOTO 62")
 
-    FUGLOG[I] = Arn[I] / RT + log(rn[I]) + log(RT / V)
-    DPDN[I] = RT / V - ArVn[I]
+	Z = P * V / (TOTN * RT)
+	DPDT = -ArTV + TOTN * RGAS / V
 
-    #! term DPDV/P is cancelled out
-    DLFUGV[I] = -DPDN[I] / RT                    
-    
-    if NTEMP == 0:
-    	print("GOTO 60")
+	#DO 60 I=1,NC
 
-    #! term DPDT/P is cancelled out
-    DLFUGT[I] = (ArTn[I] - Arn[I] / T) / RT + 1.0 / T
+	#IF(RN(I).EQ.0.0)GOTO 60
+	if rn[I] == 0:
+		print("GOTO 60")
 
-    if NDER < 2:
-    	DO 63 I=1,NC
-    	DO 61 K=I,NC
+	FUGLOG[I] = Arn[I] / RT + log(rn[I]) + log(RT / V)
+	DPDN[I] = RT / V - ArVn[I]
 
-    #! term 1/TOTN is cancelled out
-    DLFUGX[I, K] = Arn2[I, K] / RT
-    DLFUGX[K, I] = DLFUGX[I, K]
-    DLFUGX[I, I] = DLFUGX[I, I] + 1.0 / rn[I]
+	#! term DPDV/P is cancelled out
+	DLFUGV[I] = -DPDN[I] / RT                    
+
+	if NTEMP == 0:
+		print("GOTO 60")
+
+	#! term DPDT/P is cancelled out
+	DLFUGT[I] = (ArTn[I] - Arn[I] / T) / RT + 1.0 / T
+
+	if NDER < 2:
+		DO 63 I=1,NC
+		DO 61 K=I,NC
+
+	#! term 1/TOTN is cancelled out
+	DLFUGX[I, K] = Arn2[I, K] / RT
+	DLFUGX[K, I] = DLFUGX[I, K]
+	DLFUGX[I, I] = DLFUGX[I, I] + 1.0 / rn[I]
 
 
 

@@ -130,12 +130,10 @@ class Thermodynamic_correlations(object):
 
 			if len(components) == 1:
 				print("one component without temperature especific")
-				Temp_vector = np.array([Temp for Temp in np.arange(Min, Max)])
-
-			
+				Temp_vector = np.arange(Min, Max)
+				#Temp_vector = np.array([Temp for Temp in np.arange(Min, Max)])			
 			else:
-				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])
-				
+				Temp_vector = np.array([ np.array([Temp_vector for Temp_vector in np.arange(Min[i], Max[i])]) for i in range(0, len(components))])				
 		else:
 			if len(components) == 1:
 				print("one component")
@@ -189,7 +187,7 @@ class Thermodynamic_correlations(object):
 		self.units = self.property_label[1]
 		self.components = components
 
-		print(self.components, type(components))
+		#print(self.components, type(components))
 
 		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
@@ -229,13 +227,10 @@ class Thermodynamic_correlations(object):
 		print("sss = ",A, Min, type(Max))
 
 		Temp_vector = self.control_temperature(components, temperature, Min, Max)
-
 		
 		print(type(Temp_vector))
 		#print("temperature = ", Temp_vector, len(Temp_vector) )
-
 		#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-
 		#print("log_tem", log_tem)
 
 		if property_thermodynamics == "Solid_Density":
@@ -245,6 +240,7 @@ class Thermodynamic_correlations(object):
 			liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)		
 			return liquid_Density
 		elif property_thermodynamics == "Vapour_Pressure":
+			# used 1 Pa = 1e-5 Bar
 
 			if temperature == None:
 				# without temperature especific
@@ -252,16 +248,15 @@ class Thermodynamic_correlations(object):
 				if len(self.components) == 1:
 					# one component
 
-					print("one component with one temperature especific")
-					log_tem = np.array([ np.log(np.float64(Temp))  for Temp in Temp_vector])
+					print("one component with one temperature especific")					
+					log_tem = np.log(np.float64(Temp_vector))
 					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
-					vapour_Pressure = np.array([np.exp(np.float64(vapour)) for vapour in log_vapour_Pressure]) * 1e-5
+					vapour_Pressure = np.exp(np.float64(log_vapour_Pressure)) * 1e-5				
+					
 				else:
 					# many components 
 					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
-					#log_tem = np.log(Temp_vector)
 					vapour = np.array(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
-					# used 1 Pa = 1e-5 Bar
 					vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5				
 					print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
 				
@@ -352,9 +347,9 @@ def main():
 	#component = "n-TETRADECANE"
 
 	#components = ["METHANE", "n-TETRACOSANE", "n-PENTACOSANE", "ETHANE", "ISOBUTANE", "PROPANE", "3-METHYLHEPTANE"]
-	#components = ["METHANE", "ETHANE"]
+	components = ["METHANE", "ETHANE"]
 	#components = ["METHANE"]
-	components = ["ISOBUTANE"]
+	#components = ["ISOBUTANE"]
 
 	# test
 	# one component without temperature especific
@@ -364,14 +359,10 @@ def main():
 	# many components and many temperatures
 
 	# Not test
-
-
-
-
 	
-	#temp = [180.4, 181.4, 185.3, 210, 800]
+	temp = [180.4, 181.4, 185.3, 210, 800]
 	#temp = [180.4, 230.4]
-	temp = [180.4]
+	#temp = [180.4]
 
 	#ass = np.ones([3,1])
 	#oss = np.zeros([3,1])
