@@ -356,11 +356,11 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 		call Bnder(nc,rn,Bmix,dBi,dBij)
 		call DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
 	else
-!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
-!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
+#!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
+#!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
 	end if
-!  The f's and g's used here are for Ar, not F (reduced Ar)					***********
-!  This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
+#!  The f's and g's used here are for Ar, not F (reduced Ar)					***********
+#!  This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
 	f=log((V+D1*Bmix)/(V+D2*Bmix))/Bmix/(D1-D2)
 	g=RGAS*log(1-Bmix/V)
 	fv=-1/((V+D1*Bmix)*(V+D2*Bmix))
@@ -368,7 +368,7 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 	gv=RGAS*Bmix/(V*(V-Bmix))
 	fv2=(-1/(V+D1*Bmix)**2+1/(V+D2*Bmix)**2)/Bmix/(D1-D2)
 	gv2=RGAS*(1/V**2-1/(V-Bmix)**2)
-!  DERIVATIVES OF f WITH RESPECT TO DELTA1
+#!  DERIVATIVES OF f WITH RESPECT TO DELTA1
 	auxD2=(1+2/(1+D1)**2)
 	fD1=(1/(V+D1*Bmix)+2/(V+D2*Bmix)/(1+D1)**2)-f*auxD2
 	fD1=fD1/(D1-D2)
@@ -378,7 +378,7 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 	fD1D1=4*(f-1/(V+D2*Bmix))/(1+D1)**3+Bmix*(-1/(V+D1*Bmix)**2+ &
 			4/(V+D2*Bmix)**2/(1+D1)**4)-2*fD1*(1+2/(1+D1)**2)
 	fD1D1=fD1D1/(D1-D2)
-!  Reduced Helmholtz Energy and derivatives
+#!  Reduced Helmholtz Energy and derivatives
 	Ar=-TOTN*g*T-D*f
 	ArV=-TOTN*gv*T-D*fv
 	ArV2=-TOTN*gv2*T-D*fv2
@@ -401,7 +401,7 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 	end do
 	END IF
 	end do
-!  TEMPERATURE DERIVATIVES
+#!  TEMPERATURE DERIVATIVES
 	IF (NTD.EQ.1) THEN
 	ArT=-TOTN*g-dDdT*f
 	ArTV=-TOTN*gv-dDdT*fV
@@ -411,29 +411,18 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 	end do
 	END IF
 	end
+#-----------------------------------------------------------------
 
+def HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
+    # IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+    # PARAMETER (RGAS=0.08314472d0) 
 
+	# dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
+	# dimension dBi(nco),dBij(nco,nco),dD1i(nco),dD1ij(nco,nco)
+	# dimension dDi(nco),dDij(nco,nco),dDiT(nco)
+	# dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
 
-
-
-
-
-
-
-
-
-
-
-SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
-    IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-    PARAMETER (RGAS=0.08314472d0) 
-
-	dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
-	dimension dBi(nco),dBij(nco,nco),dD1i(nco),dD1ij(nco,nco)
-	dimension dDi(nco),dDij(nco,nco),dDiT(nco)
-	dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
-
-	COMMON /rule/ncomb
+	# COMMON /rule/ncomb
 
 	nc = nco
 	TOTN = sum(rn)
@@ -441,17 +430,16 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 	D2 = (1 - D1) / (1 + D1)
 
 
-	if(ncomb.lt.2)then
+	#if(ncomb.lt.2)then
+	if ncomb < 0.2:
 
 		call Bnder(nc,rn,Bmix,dBi,dBij)
 		call DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
 
-	else
+	else:
 
 #!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
-#!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
-
-	end if
+#!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)	
 
 #!  The f's and g's used here are for Ar, not F (reduced Ar)					***********
 #!  This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
@@ -469,13 +457,13 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 #!  DERIVATIVES OF f WITH RESPECT TO DELTA1
 	auxD2 = (1 + 2 / (1 + D1) ** 2)
 
-	fD1=(1/(V+D1*Bmix)+2/(V+D2*Bmix)/(1+D1)**2)-f*auxD2
-	fD1=fD1/(D1-D2)
+	fD1 = (1 / (V + D1 * Bmix) + 2 / (V + D2 * Bmix) / (1 + D1)**2) - f * auxD2
+	fD1 = fD1 / (D1 - D2)
 
 	fBD1 = -(fB * auxD2 + D1 / (V + D1 * Bmix) ** 2 + 2 * D2 / (V + D2 * Bmix) ** 2 / (1 + D1) ** 2)
 	fBD1 = fBD1 / (D1 - D2)
 
-	fVD1=-(fV * auxD2 + 1 / (V + D1 * Bmix) ** 2 + 2 / (V + D2 * Bmix) ** 2 / (1 + D1) ** 2) / (D1 - D2)
+	fVD1 = -(fV * auxD2 + 1 / (V + D1 * Bmix) ** 2 + 2 / (V + D2 * Bmix) ** 2 / (1 + D1) ** 2) / (D1 - D2)
 
 	fD1D1 = 4 * (f - 1 / (V + D2 * Bmix)) / (1 + D1) ** 3 + Bmix * (-1 / (V + D1 * Bmix) ** 2 + &
 			4 / (V + D2 * Bmix)**2 / (1 + D1)**4) - 2 * fD1 * (1 + 2 / (1 + D1)**2)
@@ -489,16 +477,19 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 	AUX = RGAS * T / (V - Bmix)
 	FFB = TOTN * AUX - D * fB
 	FFBV = -TOTN * AUX / (V - Bmix) + D * (2 * fv + V * fv2) / Bmix
-	FFBB=TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
+	FFBB = TOTN * AUX / (V - Bmix) - D*(2 * f + 4 * V * fv + V**2 * fv2) / Bmix**2
 
-	do i=1,nc
+	#do i=1,nc
+	for i in range(nc):
 
-		Arn(i)=-g*T+FFB*dBi(i)-f*dDi(i)-D*fD1*dD1i(i)
-		ArVn(i)=-gv*T+FFBV*dBi(i)-fv*dDi(i)-D*fVD1*dD1i(i)
+		Arn(i) = -g * T + FFB * dBi[i] - f * dDi[i] - D * fD1 * dD1i[i]
+		ArVn[i] = -gv * T + FFBV * dBi[i] - fv * dDi[i] - D * fVD1 * dD1i[i]
 
-		IF (NDE.EQ.2) THEN
-
-			do j=1,i
+		#IF (NDE.EQ.2) THEN
+		if NDE == 2:
+			
+			#do j=1,i
+			for j in range(j):
 
 				Arn2(i,j)=AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i))  &
      				+FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
@@ -507,49 +498,30 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
      				-D*fD1*dD1ij(i,j)-D*fD1D1*dD1i(i)*dD1i(j)
 				Arn2(j,i)=Arn2(i,j)
 
-			end do
+		#	end do
 
-		END IF
+		#END IF
 
-	end do
+	#end do
 
-!  TEMPERATURE DERIVATIVES
-	IF (NTD.EQ.1) THEN
-		ArT=-TOTN*g-dDdT*f
-		ArTV=-TOTN*gv-dDdT*fV
-		ArTT=-dDdT2*f
+#!  TEMPERATURE DERIVATIVES
+	#IF (NTD.EQ.1) THEN
+	if NTD == 0.1:
+		ArT = -TOTN * g - dDdT * f
+		ArTV = -TOTN * gv - dDdT * fV
+		ArTT = -dDdT2 * f
 	
-		do i=1,nc
-			ArTn(i)=-g+(TOTN*AUX/T-dDdT*fB)*dBi(i)-f*dDiT(i)-dDdT*fD1*dD1i(i)
-		end do
+		#do i=1,nc
+		for i in range(nc):
+			ArTn[i] = -g + (TOTN * AUX / T - dDdT * fB) * dBi[i] - f * dDiT[i] - dDdT * fD1 * dD1i[i]
+		#end do
 	
-	END IF
+	#END IF
 	
-	end
+	#end
+	return
 
-
-
-
-#---------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#-----------------------------------------------------------------
 
 
 T = 123
@@ -668,96 +640,5 @@ class Component(object):
 
 component = Component()
 component.function_Ar_cal()
-
-
-
-class Component(object):		
-
-	def function_Ar_cal(self):
-		
-		self.bv = self.B / self.V
-		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
-		self.g = self.R * np.log(1 - self.B / self.V)
-
-		self.AUX = self.R * self.T / (self.V - self.B)
-		self.fB = -(self.f + self.V * self.fv) / self.B
-		self.FFB = self.nT * AUX - self.D * self.fB
-		self.Di = 2 * self.nT * self.ac * self.alfa
-		self.Bi = self.bc
-
-		self.Ar = -self.nT * self.g * self.T - self.D * self.f
-		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
-		self.gv = self.R * self.B / (self.V * (self.V - self.B))
-		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
-		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
-		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
-		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
-		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
-		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
-		''' pressure '''
-		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
-		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
-
-		if self.eq != "RKPR":
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
-		else:
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
-
-		ArT = -nT * g - dDdT * f
-		ArTV = -nT * gv - dDdT * fV
-		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
-		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
-
-		return self.g, self.f, self.Ar
-
-
-component = Component()
-component.function_Ar_cal()
-
-
-
-class Component(object):		
-
-	def function_Ar_cal(self):
-		
-		self.bv = self.B / self.V
-		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
-		self.g = self.R * np.log(1 - self.B / self.V)
-
-		self.AUX = self.R * self.T / (self.V - self.B)
-		self.fB = -(self.f + self.V * self.fv) / self.B
-		self.FFB = self.nT * AUX - self.D * self.fB
-		self.Di = 2 * self.nT * self.ac * self.alfa
-		self.Bi = self.bc
-
-		self.Ar = -self.nT * self.g * self.T - self.D * self.f
-		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
-		self.gv = self.R * self.B / (self.V * (self.V - self.B))
-		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
-		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
-		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
-		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
-		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
-		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
-		''' pressure '''
-		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
-		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
-
-		if self.eq != "RKPR":
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
-		else:
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
-
-		ArT = -nT * g - dDdT * f
-		ArTV = -nT * gv - dDdT * fV
-		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
-		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
-
-		return self.g, self.f, self.Ar
-
-
-component = Component()
-component.function_Ar_cal()
-
 
 
