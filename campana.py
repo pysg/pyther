@@ -344,13 +344,13 @@ def XTVTERMO_cal(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 	call DELTAnder(nc,rn,D1,dD1i,dD1ij)
 	D2=(1-D1)/(1+D1)
 
-!  Comparison to test and debug cubic mixing rules
-!  rn=[0.65,0.35]
-!  T=460.0d0
-!  	call Bnder(nc,rn,Bmix,dBi,dBij)
-!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
-!  	call DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
-!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
+#!  Comparison to test and debug cubic mixing rules
+#!  rn=[0.65,0.35]
+#!  T=460.0d0
+#!  	call Bnder(nc,rn,Bmix,dBi,dBij)
+#!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
+#!  	call DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
+#!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
 
 	if(ncomb.lt.2)then
 		call Bnder(nc,rn,Bmix,dBi,dBij)
@@ -478,17 +478,17 @@ SUBROUTINE HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 	fVD1=-(fV * auxD2 + 1 / (V + D1 * Bmix) ** 2 + 2 / (V + D2 * Bmix) ** 2 / (1 + D1) ** 2) / (D1 - D2)
 
 	fD1D1 = 4 * (f - 1 / (V + D2 * Bmix)) / (1 + D1) ** 3 + Bmix * (-1 / (V + D1 * Bmix) ** 2 + &
-			4/(V+D2*Bmix)**2/(1+D1)**4)-2*fD1*(1+2/(1+D1)**2)
+			4 / (V + D2 * Bmix)**2 / (1 + D1)**4) - 2 * fD1 * (1 + 2 / (1 + D1)**2)
 	fD1D1 = fD1D1 / (D1 - D2)
 
 #!  Reduced Helmholtz Energy and derivatives
-	Ar=-TOTN*g*T-D*f
-	ArV=-TOTN*gv*T-D*fv
-	ArV2=-TOTN*gv2*T-D*fv2
+	Ar = -TOTN * g * T - D * f
+	ArV = -TOTN * gv * T - D * fv
+	ArV2 = -TOTN * gv2 * T - D * fv2
 
-	AUX=RGAS*T/(V-Bmix)
-	FFB=TOTN*AUX-D*fB
-	FFBV=-TOTN*AUX/(V-Bmix)+D*(2*fv+V*fv2)/Bmix
+	AUX = RGAS * T / (V - Bmix)
+	FFB = TOTN * AUX - D * fB
+	FFBV = -TOTN * AUX / (V - Bmix) + D * (2 * fv + V * fv2) / Bmix
 	FFBB=TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
 
 	do i=1,nc
@@ -624,6 +624,96 @@ x = np.linalg.solve(a, b)
 print(x)
 
 print('sm.A = {0}'.format(sm.A))
+
+
+class Component(object):		
+
+	def function_Ar_cal(self):
+		
+		self.bv = self.B / self.V
+		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
+		self.g = self.R * np.log(1 - self.B / self.V)
+
+		self.AUX = self.R * self.T / (self.V - self.B)
+		self.fB = -(self.f + self.V * self.fv) / self.B
+		self.FFB = self.nT * AUX - self.D * self.fB
+		self.Di = 2 * self.nT * self.ac * self.alfa
+		self.Bi = self.bc
+
+		self.Ar = -self.nT * self.g * self.T - self.D * self.f
+		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
+		self.gv = self.R * self.B / (self.V * (self.V - self.B))
+		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
+		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
+		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
+		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
+		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
+		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
+		''' pressure '''
+		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
+		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
+
+		if self.eq != "RKPR":
+			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
+		else:
+			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
+
+		ArT = -nT * g - dDdT * f
+		ArTV = -nT * gv - dDdT * fV
+		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
+		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
+
+		return self.g, self.f, self.Ar
+
+
+component = Component()
+component.function_Ar_cal()
+
+
+
+class Component(object):		
+
+	def function_Ar_cal(self):
+		
+		self.bv = self.B / self.V
+		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
+		self.g = self.R * np.log(1 - self.B / self.V)
+
+		self.AUX = self.R * self.T / (self.V - self.B)
+		self.fB = -(self.f + self.V * self.fv) / self.B
+		self.FFB = self.nT * AUX - self.D * self.fB
+		self.Di = 2 * self.nT * self.ac * self.alfa
+		self.Bi = self.bc
+
+		self.Ar = -self.nT * self.g * self.T - self.D * self.f
+		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
+		self.gv = self.R * self.B / (self.V * (self.V - self.B))
+		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
+		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
+		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
+		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
+		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
+		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
+		''' pressure '''
+		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
+		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
+
+		if self.eq != "RKPR":
+			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
+		else:
+			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
+
+		ArT = -nT * g - dDdT * f
+		ArTV = -nT * gv - dDdT * fV
+		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
+		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
+
+		return self.g, self.f, self.Ar
+
+
+component = Component()
+component.function_Ar_cal()
+
 
 
 class Component(object):		
