@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import math
+#import matplotlib as plt
+import matplotlib.pyplot as plt
 
 #import pyther as pt
 
@@ -102,7 +104,7 @@ class Thermodynamic_correlations(object):
 
 		self.property_label = self.select_property(property_thermodynamics)
 
-		self.units = self.property_label[1]
+		
 
 		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
@@ -119,17 +121,25 @@ class Thermodynamic_correlations(object):
 
 		print("sss constans = ",Min, Max)
 
+	
+	def graphical(self, t, p, pp, u):
+	    plt.plot(t, p)
+	    plt.title(pp)
+	    plt.xlabel(u[0])
+	    plt.ylabel(u[1])
+	    #plt.show()
+
 
 	def control_temperature(self, components, temperature, Min, Max):
 
 		#components = list(components)
 
-		print("number of components view temperature = ", len(self.components), self.components, temperature)
+		#print("number of components view temperature = ", len(self.components), self.components, temperature)
 
 		if temperature == None:
 
 			if len(components) == 1:
-				print("one component without temperature especific")
+				print("One component without temperature especific")
 				Temp_vector = np.arange(Min, Max)
 				#Temp_vector = np.array([Temp for Temp in np.arange(Min, Max)])			
 			else:
@@ -176,7 +186,7 @@ class Thermodynamic_correlations(object):
 
 		self.temperature = Temp_vector
 
-		print("temperature = ", self.temperature, len(self.temperature) )
+		#print("temperature = ", self.temperature, len(self.temperature) )
 
 		return self.temperature	
 
@@ -184,7 +194,8 @@ class Thermodynamic_correlations(object):
 	def property_cal(self, components, property_thermodynamics, temperature = None):
 
 		self.property_label = self.select_property(property_thermodynamics)
-		self.units = self.property_label[1]
+		#self.units = self.property_label[1]
+		self.units = ("K", self.property_label[1])
 		self.components = components
 
 		#print(self.components, type(components))
@@ -200,9 +211,9 @@ class Thermodynamic_correlations(object):
 
 
 		self.component_constans = self.table_constans.loc[components]
-		print(self.component_constans)
-
-		print(len(self.components), self.components)
+		
+		#print(self.component_constans)
+		#print(len(self.components), self.components)
 		
 		if len(self.components) == 1:
 			#A, B, C, D, E, Min, Max = self.component_constans.get_values()
@@ -224,14 +235,11 @@ class Thermodynamic_correlations(object):
 			Max = np.array(self.component_constans["T Max [K]"].get_values())		
 
 		
-		print("sss = ",A, Min, type(Max))
+		#print("sss = ",A, Min, type(Max))
 
 		Temp_vector = self.control_temperature(components, temperature, Min, Max)
 		
-		print(type(Temp_vector))
-		#print("temperature = ", Temp_vector, len(Temp_vector) )
-		#log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-		#print("log_tem", log_tem)
+		
 
 		if property_thermodynamics == "Solid_Density":
 			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
@@ -246,9 +254,8 @@ class Thermodynamic_correlations(object):
 				# without temperature especific
 
 				if len(self.components) == 1:
-					# one component
-
-					print("one component with one temperature especific")					
+					# one component without one temperature especific
+					
 					log_tem = np.log(np.float64(Temp_vector))
 					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
 					vapour_Pressure = np.exp(np.float64(log_vapour_Pressure)) * 1e-5				
@@ -356,6 +363,7 @@ def main():
 	# one compoment and one temperature
 	# one component and many temperatures
 	# many components without temperature especific
+	# many components and one temperatures
 	# many components and many temperatures
 
 	# Not test
@@ -389,6 +397,9 @@ def main():
 							 columns=[str(temp)+"K"])
 	
 	print(table_components)
+
+	print(thermodynamic_correlations.units)
+
 
 	#print(thermodynamic_correlations.__doc__)
 
