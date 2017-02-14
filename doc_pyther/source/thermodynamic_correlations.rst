@@ -1,4 +1,4 @@
-6. Thermodynamics correlations for pure components
+16. Thermodynamics correlations for pure components
 ==================================================
 
 En esta sección se muestra la class *Thermodynamic\_correlations()* la
