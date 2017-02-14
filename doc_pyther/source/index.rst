@@ -19,7 +19,6 @@ Contents:
    Diagrama_clase.rst   
    Volumen.rst
    Hmz.rst
-   thermodynamic_correlations.rst
    pyther_reunion.rst
    IPyTherm_2.rst
    pyther_consistencia.rst   
@@ -33,6 +32,7 @@ Contents:
    Curso_Termodinamica_Python.rst   
    Equipo.rst
    Tutorial_Pyther.rst
+   thermodynamic_correlations.rst
 
 
 
