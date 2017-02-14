@@ -19,6 +19,7 @@ Contents:
    Diagrama_clase.rst   
    Volumen.rst
    Hmz.rst
+   thermodynamic_correlations.rst
    pyther_reunion.rst
    IPyTherm_2.rst
    pyther_consistencia.rst   

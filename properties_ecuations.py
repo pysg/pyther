@@ -139,6 +139,26 @@ class Thermodynamic_correlations(object):
 	        axes[pure].set_ylabel(self.units[1])
 
 
+	def data_temperature(self, components, temperature, property_thermodynamics, temperature_enter):
+    
+	    datas = np.ones([len(components),len(temperature)])
+	    
+	    for k in range(len(components)):
+	        con1 = [type(temperature_enter[k][i])!= str for i in range(len(temperature))]
+	        vap1 = property_thermodynamics[k]
+	        
+	        if len(vap1) == 1:
+	            datas[k] = [vap1 if con1[i]== True else None for i in range(len(temperature))]
+	        else:
+	            datas[k] = [vap1[i] if con1[i]== True else None for i in range(len(temperature))]
+
+	    t = [str(temp)+" K" for temp in temperature]
+	    datas_table = pd.DataFrame(data=datas,index= components, columns=t)
+
+	        
+	    return datas_table
+
+
 	def control_temperature(self, components, temperature, Min, Max):
 
 		#components = list(components)
@@ -310,6 +330,8 @@ class Thermodynamic_correlations(object):
 						#print("log_vapour-pressure = ",log_vapour_Pressure)
 						vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
 
+						
+
 
 					print(np.size(vapour_Pressure))
 
@@ -428,3 +450,32 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
+
+
+
+#dppr_file = "PureFull_mod_properties.xls"
+#thermodynamic_correlations = pt.Thermodynamic_correlations(dppr_file)
+
+#component = ['METHANE']
+#property_thermodynamics = "Liquid_Density"
+
+#Liquid_Density = thermodynamic_correlations.property_cal(component, property_thermodynamics)
+#units = thermodynamic_correlations.units
+#temperature = thermodynamic_correlations.temperature
+
+#temperature_density = thermodynamic_correlations.temperature
+#units = thermodynamic_correlations.units
+#print(units)
+
+#thermodynamic_correlations.graphical(temperature_density, Liquid_Density, property_thermodynamics, units)
+
+
+
+
+
+
+
+
+
+
