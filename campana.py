@@ -1,4 +1,5 @@
 import numpy as np
+
 #import solution_matrix as sm
 
 #c    Starting from critical point    c    c
@@ -421,6 +422,176 @@ def SUBROUTINE HelmRKPR():
 		end
 	#-----------------------------------------------------------------
 
+###########################################################
+	subroutine aTder(ac,Tc,rk,T,a,dadT,dadT2)
+      implicit DOUBLE PRECISION (A-H,O-Z)
+!  Given ac,Tc and the k parameter of the RKPR correlation, as well as the actual T,
+!  this subroutine calculates a(T) and its first and second derivatives with T.
+	COMMON /MODEL/ NMODEL
+	Tr=T/Tc
+	IF(NMODEL.LE.2)THEN
+		rm=rk
+		a=ac*(1+rm*(1-sqrt(Tr)))**2
+		dadT=ac*rm*(rm-(rm+1)/sqrt(Tr))/Tc
+		dadT2=ac*rm*(rm+1)/(2*Tc**2*Tr**1.5D0)
+	ELSE
+		a=ac*(3/(2+Tr))**rk
+		dadT=-rk*a/Tc/(2+Tr)
+		dadT2=-(rk+1)*dadT/Tc/(2+Tr)
+	END IF
+	end
+
+	subroutine aijTder(NTD,nc,T,aij,daijdT,daijdT2)
+      implicit DOUBLE PRECISION (A-H,O-Z)
+      PARAMETER (nco=20)
+	DOUBLE PRECISION Kinf,Kij0(nco,nco),Kij(nco,nco),Tstar(nco,nco)
+	dimension ai(nc),daidT(nc),daidT2(nc)
+	dimension aij(nc,nc),daijdT(nc,nc),daijdT2(nc,nc)
+	dimension aux(nc,nc),ratK(nc,nc)
+    COMMON/CRIT/TC(nco),PC(nco),DCeos(nco),OM(nco)
+	COMMON /COMPONENTS/ ac(nco),b(nco),d1(nco),rk(nco),Kij0,NTDEP
+	COMMON /bcross/bij(nco,nco)
+	COMMON /rule/ncomb
+	COMMON /Tdep/ Kinf,Tstar
+	IF(NTDEP.GE.1)THEN
+		Kij=0.0D0
+	    DO i=1,nc
+    		Kij(:i-1, i)=Kinf+Kij0(:i-1, i)*exp(-T/Tstar(:i-1, i))
+        END DO
+!       Kij(2,1)=Kij(1,2)
+!  ELSE IF(NTDEP.EQ.2)THEN
+!  	Kij=0.0D0
+!  	Kij(1,2)=Kij0(1,2)*exp(-T/Tstar)
+!  	Kij(2,1)=Kij(1,2)
+	ELSE
+		Kij=Kij0
+	END IF
+	DO i=1,nc
+	    call aTder(ac(i),Tc(i),rk(i),T,ai(i),daidT(i),daidT2(i))
+	    aij(i,i)=ai(i)
+	    daijdT(i,i)=daidT(i)
+	    daijdT2(i,i)=daidT2(i)
+	    IF (i.gt.1) THEN
+	    do j=1,i-1
+	        aij(j,i)=sqrt(ai(i)*ai(j))*(1-Kij(j,i))
+	        aij(i,j)=aij(j,i)
+	        if(NTD.EQ.1)then
+		        daijdT(j,i)=(1-Kij(j,i))*(sqrt(ai(i)/ai(j))*daidT(j)+sqrt(ai(j)/ai(i))*daidT(i))/2
+		        daijdT(i,j)=daijdT(j,i)
+		        daijdT2(j,i)=(1-Kij(j,i))*(daidT(j)*daidT(i)/sqrt(ai(i)*ai(j))  &
+     		        +sqrt(ai(i)/ai(j))*(daidT2(j)-daidT(j)**2/(2*ai(j)))        &
+     		        +sqrt(ai(j)/ai(i))*(daidT2(i)-daidT(i)**2/(2*ai(i))))/2
+		        daijdT2(i,j)=daijdT2(j,i)
+	        end if
+	    end do
+	    END IF
+	END DO
+	if (ncomb.eq.1) then
+		DO i=1,nc-1
+		DO j=i+1,nc
+			barrgij=bij(i,j)/sqrt(b(i)*b(j))
+			aij(i,j)=barrgij*aij(i,j)
+			aij(j,i)=aij(i,j)
+			daijdT(i,j)=barrgij*daijdT(i,j)
+			daijdT(j,i)=daijdT(i,j)
+			daijdT2(i,j)=barrgij*daijdT2(i,j)
+			daijdT2(j,i)=daijdT2(i,j)
+		END DO
+		END DO
+	end if
+!    		Kij(:i-1, i)=Kinf+Kij0(:i-1, i)*exp(-T/Tstar(:i-1, i))
+    		
+	IF(NTDEP.ge.1.and.NTD.EQ.1)THEN
+	    DO i=1,nc
+		    aux(:i-1, i)=daijdT(:i-1, i)
+		    ratK(:i-1, i)=Kij(:i-1, i)/(1-Kij(:i-1, i))/Tstar(:i-1, i)
+		    daijdT(:i-1, i)=aux(:i-1, i)+aij(:i-1, i)*ratK(:i-1, i)
+		    daijdT(i, :i-1)=daijdT(:i-1, i)
+		    daijdT2(:i-1, i)=daijdT2(:i-1, i)+(2*aux(:i-1, i)-aij(:i-1, i)/Tstar(:i-1, i))*ratK(:i-1, i)  
+		    daijdT2(i, :i-1)=daijdT2(:i-1, i)
+		END DO
+	END IF
+	end
+
+	subroutine DandTnder(NTD,nco,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
+      implicit DOUBLE PRECISION (A-H,O-Z)
+!      PARAMETER (nco=2)
+	dimension rn(nco),dDiT(nco)
+	dimension dDi(nco),dDij(nco,nco)
+	dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
+	call aijTder(NTD,nc,T,aij,daijdT,daijdT2)
+	nc=nco
+	D=0.0D0
+	dDdT=0.0D0
+	dDdT2=0.0D0
+	DO i=1,nc
+	aux=0.0D0
+	aux2=0.0D0
+	dDi(i)=0.0D0
+	dDiT(i)=0.0D0
+	do j=1,nc
+	dDi(i)=dDi(i)+2*rn(j)*aij(i,j)
+	if(NTD.EQ.1)then
+		dDiT(i)=dDiT(i)+2*rn(j)*daijdT(i,j)
+		aux2=aux2+rn(j)*daijdT2(i,j)
+	end if
+	dDij(i,j)=2*aij(i,j)
+	aux=aux+rn(j)*aij(i,j)
+	end do
+	D=D+rn(i)*aux
+	if(NTD.EQ.1)then
+		dDdT=dDdT+rn(i)*dDiT(i)/2
+		dDdT2=dDdT2+rn(i)*aux2
+	end if
+	END DO
+	end
+
+	subroutine DELTAnder(nc,rn,D1m,dD1i,dD1ij)
+      implicit DOUBLE PRECISION (A-H,O-Z)
+      PARAMETER (nco=20)
+	DOUBLE PRECISION Kij(nco,nco)
+	dimension rn(nc),dD1i(nc),dD1ij(nc,nc)
+	COMMON /COMPONENTS/ ac(nco),b(nco),d1(nco),rk(nco),Kij,NTDEP
+	D1m=0.0D0
+	DO i=1,nc
+	D1m=D1m+rn(i)*d1(i)
+	END DO
+	TOTN = sum(rn)
+	D1m=D1m/totn
+	do i=1,nc
+	dD1i(i)=(d1(i)-D1m)/totn
+	do j=1,nc
+	dD1ij(i,j)=(2.0D0*D1m-d1(i)-d1(j))/totn**2
+	end do
+	end do
+	end
+
+	subroutine Bnder(nc,rn,Bmix,dBi,dBij)
+      implicit DOUBLE PRECISION (A-H,O-Z)
+      PARAMETER (nco=20)
+	dimension rn(nc),dBi(nc),dBij(nc,nc),aux(nc)
+	COMMON /bcross/bij(nco,nco)
+	TOTN = sum(rn)
+	Bmix=0.0D0
+	aux=0.0D0
+	DO i=1,nc
+		do j=1,nc
+			aux(i)=aux(i)+rn(j)*bij(i,j)
+		end do
+		Bmix=Bmix+rn(i)*aux(i)
+	END DO
+	Bmix=Bmix/totn
+	DO i=1,nc
+		dBi(i)=(2*aux(i)-Bmix)/totn
+		do j=1,i
+			dBij(i,j)=(2*bij(i,j)-dBi(i)-dBi(j))/totn
+			dBij(j,i)=dBij(i,j)
+		end do
+	END DO
+	end
+
+
+###########################################################
 
 
 
