@@ -276,7 +276,9 @@ def XTVTERMO_cal(INDIC, T, V, P, rn):
 
 	TOTN = sum(rn)
 	RT = RGAS*T
-	call ArVnder(NDER, NTEMP, rn, V, T, Ar, ArV, ArTV, ArV2, Arn, ArVn, ArTn, Arn2)
+
+	#call ArVnder(NDER, NTEMP, rn, V, T, Ar, ArV, ArTV, ArV2, Arn, ArVn, ArTn, Arn2)
+	ArVnder(NDER, NTEMP, rn, V, T, Ar, ArV, ArTV, ArV2, Arn, ArVn, ArTn, Arn2)
 
 	P = TOTN*RT/V - ArV
 	DPDV = -ArV2 - RT * TOTN / V ** 2
@@ -306,8 +308,12 @@ def XTVTERMO_cal(INDIC, T, V, P, rn):
 	DLFUGT[I] = (ArTn[I] - Arn[I] / T) / RT + 1.0 / T
 
 	if NDER < 2:
-		DO 63 I=1,NC
-		DO 61 K=I,NC
+		#DO 63 I=1,NC
+		for i in range(NC):
+			pass
+		#DO 61 K=I,NC
+		for k in range(NC):
+			pass
 
 	#! term 1/TOTN is cancelled out
 	DLFUGX[I, K] = Arn2[I, K] / RT
@@ -319,17 +325,20 @@ def XTVTERMO_cal(INDIC, T, V, P, rn):
 
 def SUBROUTINE ArVnder(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
     
-    IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-	dimension rn(nc),Arn(nc),ArVn(nc),ArTn(nc),Arn2(nc,nc)
-	COMMON /MODEL/ NMODEL
+    #IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+	#dimension rn(nc),Arn(nc),ArVn(nc),ArTn(nc),Arn2(nc,nc)
+	#COMMON /MODEL/ NMODEL
 	
-	IF(NMODEL.LE.2)THEN	
+	#IF(NMODEL.LE.2)THEN
+	if NMODEL <= 2:
 		#!  SRK or PR
-		CALL HelmSRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)	
-	ELSE IF (NMODEL.EQ.3) THEN
-		CALL HelmRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
- 	
-    END
+		#CALL HelmSRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+		HelmSRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+	#ELSE IF (NMODEL.EQ.3) THEN
+	elif NMODEL == 3:
+		#CALL HelmRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+		HelmRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+	#END
 
 
 
