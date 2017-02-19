@@ -324,12 +324,12 @@ def XTVTERMO_cal(INDIC, T, V, P, rn):
 
 
 def SUBROUTINE ArVnder(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
-    
-    #IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+	#IMPLICIT DOUBLE PRECISION (A-H,O-Z)
 	#dimension rn(nc),Arn(nc),ArVn(nc),ArTn(nc),Arn2(nc,nc)
 	#COMMON /MODEL/ NMODEL
 	
 	#IF(NMODEL.LE.2)THEN
+
 	if NMODEL <= 2:
 		#!  SRK or PR
 		#CALL HelmSRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
@@ -339,6 +339,8 @@ def SUBROUTINE ArVnder(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
 		#CALL HelmRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 		HelmRKPR(nc,NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 	#END
+
+	return 0
 
 
 
