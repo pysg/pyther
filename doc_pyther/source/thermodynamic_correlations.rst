@@ -1,5 +1,6 @@
 16. Thermodynamics correlations for pure components
-==================================================
+===================================================
+===================================================
 
 En esta sección se muestra la class *Thermodynamic\_correlations()* la
 cual permite realizar el cálculo de propiedades termodinámicas de
@@ -86,8 +87,8 @@ generadas se muesten dentro del jupyter notebook
     %matplotlib inline
 
 
-1. Especificar una sustancia pura sin especificar una temperatura.
-==================================================================
+16.1 Especificar una sustancia pura sin especificar una temperatura.
+====================================================================
 
 Luego se carga el archivo que contine las constantes de las
 correlaciones de las propiedades termodinamicas, que se llama en este
@@ -168,8 +169,8 @@ caso.
 .. image:: output_9_1.png
 
 
-2. Especificar una sustancia pura y una temperatura.
-====================================================
+16.2 Especificar una sustancia pura y una temperatura.
+======================================================
 
 Siguiendo con la sustacia pura *METHANE* se tiene el segundo caso en el
 cual ademas de especificiar el componente se especifica también solo un
@@ -206,8 +207,8 @@ propiedad termodinámica seleccionada.
     Vapour Pressure = [ 33.32655377] [Pa]
 
 
-3. Especificar una sustancia pura y especificar varias temperaturas.
-====================================================================
+16.3 Especificar una sustancia pura y especificar varias temperaturas.
+======================================================================
 
 Ahora se tiene la situación de contar con un solo componente "METHANE"
 sin embargo, esta vez se especifica varios valores para la temperatura
@@ -245,8 +246,8 @@ valida la correlación termodinámica. Por tanto, esto se avisa por medio
 del mensaje: *Temperature\_invalid = ['210 K is a temperature not
 valid', '85 K is a temperature not valid']*
 
-4. Especificar varias sustancias puras sin especificar una temperatura.
-=======================================================================
+16.4 Especificar varias sustancias puras sin especificar una temperatura.
+=========================================================================
 
 Otra de las posibilidades que se puede tener es la opción de especificar
 varios componentes para una misma propiedad termodinámica sin que se
@@ -307,8 +308,8 @@ termodinámica de solo: *n-PENTACOSANE, ETHANE y el ISOBUTANE*.
 .. image:: output_24_0.png
 
 
-5. Especificar varias sustancias puras y una temperatura.
-=========================================================
+16.5 Especificar varias sustancias puras y una temperatura.
+===========================================================
 
 Como en el caso anterios, en este ejemplo se espcifican 3 sustancias
 puras pero con la especificación de un solo valor de temperatura. Esta
@@ -418,8 +419,8 @@ sustancias puras que se especifique se utiliza el atributo
 
 
 
-6. Especificar varias sustancias puras y especificar varias temperaturas
-========================================================================
+16.6 Especificar varias sustancias puras y especificar varias temperaturas
+==========================================================================
 
 En esta opción se puede manipular varias sustancias puras de forma
 simultanea con la especificación de varios valores de temperaturas, en
@@ -569,8 +570,8 @@ ejemplo a continuación.
 
 
 
-7. Future work
-==============
+16.7 Future work
+================
 
 -  Actualmente PyTher se encuentra implementando la opción de multiples
    propiedades termodinámicas de forma simultanea para el caso de
@@ -580,8 +581,8 @@ ejemplo a continuación.
    para agregar, modificar, eliminar, renombrar sustancias puras y/o
    correlaciones termodinámicas.
 
-8. References
-=============
+16.8 References
+===============
 
 Numpy
 
