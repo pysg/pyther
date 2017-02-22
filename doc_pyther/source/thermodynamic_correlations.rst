@@ -1,6 +1,7 @@
 16. Thermodynamics correlations for pure components
-===================================================
-===================================================
+***************************************************
+***************************************************
+
 
 En esta sección se muestra la class *Thermodynamic\_correlations()* la
 cual permite realizar el cálculo de propiedades termodinámicas de
