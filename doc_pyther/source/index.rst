@@ -26,8 +26,7 @@ Contents:
    flash.rst
    PuntosCriticos.rst   
    Envolvente.rst
-   Avanzar.rst
-   Repositorio.rst   
+   Avanzar.rst      
    nano.rst
    Curso_Termodinamica_Python.rst   
    Equipo.rst
