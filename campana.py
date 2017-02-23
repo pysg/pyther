@@ -378,6 +378,7 @@ def HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
 		DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
 
 	else:
+		pass
 
 	#!  	call Bcubicnder(nc,rn,Bmix,dBi,dBij)
 	#!  	call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)	
@@ -392,8 +393,8 @@ def HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
 	fB = -(f + V * fv) / Bmix
 	gv = RGAS * Bmix / (V * (V - Bmix))
 
-	fv2=(-1/(V+D1*Bmix)**2+1/(V+D2*Bmix)**2)/Bmix/(D1-D2)
-	gv2=RGAS*(1/V**2-1/(V-Bmix)**2)
+	fv2 = (-1/(V + D1 * Bmix)**2 + 1/(V + D2 * Bmix)**2) / Bmix / (D1 - D2)
+	gv2 = RGAS * (1 / V**2 - 1 / (V - Bmix)**2)
 
 	#!  DERIVATIVES OF f WITH RESPECT TO DELTA1
 	auxD2 = (1 + 2 / (1 + D1) ** 2)
@@ -406,8 +407,7 @@ def HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
 
 	fVD1 = -(fV * auxD2 + 1 / (V + D1 * Bmix) ** 2 + 2 / (V + D2 * Bmix) ** 2 / (1 + D1) ** 2) / (D1 - D2)
 
-	fD1D1 = 4 * (f - 1 / (V + D2 * Bmix)) / (1 + D1) ** 3 + Bmix * (-1 / (V + D1 * Bmix) ** 2 + &
-			4 / (V + D2 * Bmix)**2 / (1 + D1)**4) - 2 * fD1 * (1 + 2 / (1 + D1)**2)
+	fD1D1 = 4 * (f - 1 / (V + D2 * Bmix)) / (1 + D1) ** 3 + Bmix * (-1 / (V + D1 * Bmix) ** 2 + 4 / (V + D2 * Bmix)**2 / (1 + D1)**4) - 2 * fD1 * (1 + 2 / (1 + D1)**2)
 	fD1D1 = fD1D1 / (D1 - D2)
 
 	#!  Reduced Helmholtz Energy and derivatives
@@ -423,26 +423,19 @@ def HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
 	#do i=1,nc
 	for i in range(nc):
 
-		Arn(i) = -g * T + FFB * dBi[i] - f * dDi[i] - D * fD1 * dD1i[i]
+		Arn[i] = -g * T + FFB * dBi[i] - f * dDi[i] - D * fD1 * dD1i[i]
 		ArVn[i] = -gv * T + FFBV * dBi[i] - fv * dDi[i] - D * fVD1 * dD1i[i]
 
 		#IF (NDE.EQ.2) THEN
-		if NDE == 2:
-			
+		if NDE == 2:			
 			#do j=1,i
 			for j in range(j):
-
-				Arn2(i,j)=AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i))  &
-     				+FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
-      			Arn2(i,j)=Arn2(i,j)-D*fBD1*(dBi(i)*dD1i(j)+dBi(j)*dD1i(i))    &
-     				-fD1*(dDi(i)*dD1i(j)+dDi(j)*dD1i(i))        &
-     				-D*fD1*dD1ij(i,j)-D*fD1D1*dD1i(i)*dD1i(j)
-				Arn2(j,i)=Arn2(i,j)
+				Arn2[i,j]=AUX*(dBi[i]+dBi[j])-fB*(dBi[i]*dDi[j]+dBi[j]*dDi[i]) +FFB*dBij[i,j]+FFBB*dBi[i]*dBi[j]-f*dDij[i,j]
+				Arn2[i,j]=Arn2[i,j]-D*fBD1*(dBi[i]*dD1i[j]+dBi[j]*dD1i[i])-fD1*(dDi[i]*dD1i[j]+dDi[j]*dD1i[i])-D*fD1*dD1ij[i,j]-D*fD1D1*dD1i[i]*dD1i[j]
+				Arn2[j,i]=Arn2[i,j]
 
 		#	end do
-
 		#END IF
-
 	#end do
 
 	#!  TEMPERATURE DERIVATIVES
@@ -456,9 +449,7 @@ def HelmRKPR(nco,NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2):
 		for i in range(nc):
 			ArTn[i] = -g + (TOTN * AUX / T - dDdT * fB) * dBi[i] - f * dDiT[i] - dDdT * fD1 * dD1i[i]
 		#end do
-	
 	#END IF
-	
 	#end
 	return
 
