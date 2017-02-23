@@ -356,7 +356,7 @@ def SUBROUTINE_HelmRKPR():
 	#	dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
 	#	dimension dBi(nco),dBij(nco,nco),dD1i(nco),dD1ij(nco,nco)
 	#	dimension dDi(nco),dDij(nco,nco),dDiT(nco)
-		dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
+	dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
 		COMMON /rule/ncomb
 		nc=nco
 		TOTN = sum(rn)
@@ -432,11 +432,11 @@ def SUBROUTINE_HelmRKPR():
 		end
 	#-----------------------------------------------------------------
 
-###########################################################
+	###########################################################
 	subroutine aTder(ac,Tc,rk,T,a,dadT,dadT2)
       implicit DOUBLE PRECISION (A-H,O-Z)
-!  Given ac,Tc and the k parameter of the RKPR correlation, as well as the actual T,
-!  this subroutine calculates a(T) and its first and second derivatives with T.
+	#!  Given ac,Tc and the k parameter of the RKPR correlation, as well as the actual T,
+	#!  this subroutine calculates a(T) and its first and second derivatives with T.
 	COMMON /MODEL/ NMODEL
 	Tr=T/Tc
 	IF(NMODEL.LE.2)THEN
@@ -468,11 +468,11 @@ def SUBROUTINE_HelmRKPR():
 	    DO i=1,nc
     		Kij(:i-1, i)=Kinf+Kij0(:i-1, i)*exp(-T/Tstar(:i-1, i))
         END DO
-!       Kij(2,1)=Kij(1,2)
-!  ELSE IF(NTDEP.EQ.2)THEN
-!  	Kij=0.0D0
-!  	Kij(1,2)=Kij0(1,2)*exp(-T/Tstar)
-!  	Kij(2,1)=Kij(1,2)
+	#!       Kij(2,1)=Kij(1,2)
+	#!  ELSE IF(NTDEP.EQ.2)THEN
+	#!  	Kij=0.0D0
+	#!  	Kij(1,2)=Kij0(1,2)*exp(-T/Tstar)
+	#!  	Kij(2,1)=Kij(1,2)
 	ELSE
 		Kij=Kij0
 	END IF
@@ -509,7 +509,7 @@ def SUBROUTINE_HelmRKPR():
 		END DO
 		END DO
 	end if
-!    		Kij(:i-1, i)=Kinf+Kij0(:i-1, i)*exp(-T/Tstar(:i-1, i))
+	#!    		Kij(:i-1, i)=Kinf+Kij0(:i-1, i)*exp(-T/Tstar(:i-1, i))
     		
 	IF(NTDEP.ge.1.and.NTD.EQ.1)THEN
 	    DO i=1,nc
@@ -525,7 +525,7 @@ def SUBROUTINE_HelmRKPR():
 
 	subroutine DandTnder(NTD,nco,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
       implicit DOUBLE PRECISION (A-H,O-Z)
-!      PARAMETER (nco=2)
+	#!      PARAMETER (nco=2)
 	dimension rn(nco),dDiT(nco)
 	dimension dDi(nco),dDij(nco,nco)
 	dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
@@ -832,49 +832,4 @@ class Component(object):
 
 component = Component()
 component.function_Ar_cal()
-
-
-class Component(object):		
-
-	def function_Ar_cal(self):
-		
-		self.bv = self.B / self.V
-		self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
-		self.g = self.R * np.log(1 - self.B / self.V)
-
-		self.AUX = self.R * self.T / (self.V - self.B)
-		self.fB = -(self.f + self.V * self.fv) / self.B
-		self.FFB = self.nT * AUX - self.D * self.fB
-		self.Di = 2 * self.nT * self.ac * self.alfa
-		self.Bi = self.bc
-
-		self.Ar = -self.nT * self.g * self.T - self.D * self.f
-		'''Primera derivada de F con respecto al volumen Ecu. (68)'''
-		self.gv = self.R * self.B / (self.V * (self.V - self.B))
-		self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
-		self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
-		''' Segunda derivada de F con respecto al volumen Ecu. (74) '''
-		self.gv2 = self.R * (1 / self.V ** 2 - 1 / (self.V - self.B) ** 2)
-		self.fv2 = (- 1 / (self.V + self.s1 * self.B) ** 2 + 1 / (self.V + self.s2 * self.B) ** 2) / self.B / (self.s1 - self.s2)
-		self.ArV2 = - self.nT * self.gv2 * self.T - self.D * self.fv2
-		''' pressure '''
-		self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
-		self.dPdV = -self.ArV2 - self.R * self.T * self.nT / self.V ** 2
-
-		if self.eq != "RKPR":
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
-		else:
-			self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
-
-		ArT = -nT * g - dDdT * f
-		ArTV = -nT * gv - dDdT * fV
-		ArTn = -g + (nT * AUX/T - dDdT * fB) * dBi - f * dDiT - dDdT * fD1 * dD1i
-		ArVn = - gv * T + FFBV * dBi - fv * dDi - D * fVD1 * dD1i
-
-		return self.g, self.f, self.Ar
-
-
-component = Component()
-component.function_Ar_cal()
-
 
