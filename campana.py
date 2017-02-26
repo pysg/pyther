@@ -26,6 +26,9 @@ Pc = 23
 temperature = 0.9999 * Tc
 critical_volume = 1 / DC
 vapor_volume = 1.03 * critical_volume
+
+
+
 Zc = Pc * critical_volume / RGAS / temperature
 liquid_volume = min(0.89 + (Zc - 0.2) / 2, 0.95) * critical_volume
 NS = 2
@@ -81,7 +84,7 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 	delXS = 0.8 * delXS
 	# if(abs(delXS).lt.0.001)return
 	if abs(delXS) < 0.001:
-		return
+		print("return 1")
 		# if(XOLD(1).NE.0.0D0)go to 7
 		if XOLD[0] != 0:
 			pass
@@ -98,7 +101,7 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 
 NSOLD = NS
 
-if VV > 1.1 * VC:
+if Vv > 1.1 * critical_volume:
 	NS = 1
 else:
 	NS = 3
