@@ -471,27 +471,3 @@ if __name__ == '__main__':
 #thermodynamic_correlations.graphical(temperature_density, Liquid_Density, property_thermodynamics, units)
 
 
-
-#dppr_file = "PureFull_mod_properties.xls"
-#thermodynamic_correlations = pt.Thermodynamic_correlations(dppr_file)
-
-#component = ['METHANE']
-#property_thermodynamics = "Liquid_Density"
-
-#Liquid_Density = thermodynamic_correlations.property_cal(component, property_thermodynamics)
-#units = thermodynamic_correlations.units
-#temperature = thermodynamic_correlations.temperature
-
-#temperature_density = thermodynamic_correlations.temperature
-#units = thermodynamic_correlations.units
-#print(units)
-
-#thermodynamic_correlations.graphical(temperature_density, Liquid_Density, property_thermodynamics, units)
-
-
-
-
-
-
-
-
