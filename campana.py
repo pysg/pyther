@@ -119,6 +119,10 @@ else:
 #    delXS=delXS*5/NITER/dXdS(NSOLD)
 
 
+dXdS = 0.6
+print(type(NS))
+print(type(NSOLD))
+
 
 if NS != NSOLD:
 	dSdSold = dXdS[NS]
