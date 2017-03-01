@@ -120,8 +120,9 @@ else:
 
 
 dXdS = [0.6, 3, 4]
-print(type(NS))
-print(type(NSOLD))
+print(NS, type(NS))
+print(NSOLD, type(NSOLD))
+
 
 
 if NS != NSOLD:
