@@ -102,9 +102,9 @@ if FMAX > FMAXOLD and DMAX > DMAXOLD or NITER == 10:
 NSOLD = NS
 
 if Vv > 1.1 * critical_volume:
-	NS = 1
+	NS = 0
 else:
-	NS = 3
+	NS = 2
 
 #----------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ else:
 #    delXS=delXS*5/NITER/dXdS(NSOLD)
 
 
-dXdS = [0.6, 3, 4]
+dXdS = np.array([0.6, 3.2, 4.3])
 print(NS, type(NS))
 print(NSOLD, type(NSOLD))
 
@@ -130,6 +130,9 @@ if NS != NSOLD:
 	dXdS = dXdS / dSdSold
 	RJAC[3, 1:3] = 0.0
 	RJAC[3, NS] = 1.0
+
+
+niter = 12
 
 NITER = min(niter,10)
 delXS = delXS * 5 / NITER / dXdS[NSOLD]
@@ -181,8 +184,11 @@ def comprobar_delXS(delXS, NS):
 
 	return delXS
 
+# valores de variables provicionales
+Pv = 12.2
+RHOV = 12.3
+RHOL = 13.2
 
- 
 XOLD = XVAR
 TOLD = T
 POLD = Pv
@@ -190,19 +196,24 @@ DVOLD = RHOV
 DLOLD = RHOL
 NV = 0
 
-S = XOLD(NS) + delXS
+S = XOLD[NS] + delXS
+
+print(type(XOLD), type(dXdS), type(delXS))
 
 #! Initial estimates for the 3 variables in the next point
 XVAR = XOLD + dXdS * delXS / dXdS[NS]
 
-T = np.exp(XVAR[1])
-Vl = np.exp(XVAR[2])
-Vv = np.exp(XVAR[3])
+
+T = np.exp(XVAR[0])
+Vl = np.exp(XVAR[1])
+Vv = np.exp(XVAR[2])
 
 
 #if(Pv.gt.1.D-20.and.(T.gt.0.25*TCmod(icomp).or.T>250)     ! modified April 6, 2016
 #    1                              .and.T.lt.TCmod(icomp))go to 1
- 
+
+TCmod = Tc
+
 if (Pv > 1e-20 and (T > 0.25 * TCmod or T > 250) and T < TCmod):
 	print("go to 1")
  
@@ -537,7 +548,7 @@ print(a)
 x = np.linalg.solve(a, b)
 print(x)
 
-print('sm.A = {0}'.format(sm.A))
+# print('sm.A = {0}'.format(sm.A))
 
 
 class Component(object):		
@@ -580,9 +591,9 @@ class Component(object):
 		return self.g, self.f, self.Ar
 
 
-component = Component()
-component.function_Ar_cal()
+#component = Component()
+#component.function_Ar_cal()
 
-"""""""""""""""""""""""""""""
+
 
 

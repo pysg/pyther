@@ -380,7 +380,7 @@ def main():
 	print("-" * 79)
 
 	dppr_file = "PureFull_mod_properties.xls"
-	#print(dppr_file)
+	print(dppr_file)
 
 	thermodynamic_correlations = Thermodynamic_correlations(dppr_file)
 
