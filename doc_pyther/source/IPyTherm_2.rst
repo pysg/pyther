@@ -1,4 +1,4 @@
-7. Equilibrio sólido-fluido para sustancias puras
+8. Equilibrio sólido-fluido para sustancias puras
 *************************************************
 *************************************************
 
