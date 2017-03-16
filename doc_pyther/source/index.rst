@@ -18,6 +18,7 @@ Contents:
    instalacion_pyther.rst
    Jupyther_1.rst
    Diagrama_clase.rst   
+   thermodynamic_correlations.rst
    Volumen.rst
    Hmz.rst
    pyther_reunion.rst
@@ -27,12 +28,7 @@ Contents:
    flash.rst
    PuntosCriticos.rst   
    Envolvente.rst
-   Avanzar.rst      
-   nano.rst
    Curso_Termodinamica_Python.rst   
-   Equipo.rst
-   Tutorial_Pyther.rst
-   thermodynamic_correlations.rst
 
 
 

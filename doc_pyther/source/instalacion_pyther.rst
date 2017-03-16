@@ -1,4 +1,4 @@
-# 1. Instalación de PyTher
+1. Instalación de PyTher
 **************************
 **************************
 
