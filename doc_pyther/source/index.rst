@@ -15,6 +15,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
+   instalacion_pyther.rst
    Jupyther_1.rst
    Diagrama_clase.rst   
    Volumen.rst
