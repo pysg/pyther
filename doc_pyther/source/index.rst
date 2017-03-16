@@ -6,7 +6,7 @@
 Documentación PyTher 0.6
 ==========================
 
-.. image:: _static/programando.jpg
+.. image:: _static/pyther.png
 
 **PyTher** (Python to Thermodynamics) es una biblioteca **open source** orientada a cálculos del comportamiento termodinámicos de fases.  
 
