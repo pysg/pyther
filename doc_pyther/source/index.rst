@@ -3,12 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Documentación PyTher 1.0
+Documentación PyTher 0.6
 ==========================
 
 **PyTher** (Python to Thermodynamics) es una biblioteca **open source** orientada a cálculos del comportamiento termodinámicos de fases.  
 
-Última actualización 12/12/16.
+Última actualización 03/15/17.
 
 Contents:
 
