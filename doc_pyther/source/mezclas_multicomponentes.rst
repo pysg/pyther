@@ -1,3 +1,3 @@
-mezclas_multicomponentes.rst 
+13. Mezclas multicomponentes 
 ****************************
 ****************************
