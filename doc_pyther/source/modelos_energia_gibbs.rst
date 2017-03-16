@@ -1,4 +1,4 @@
-13. Modelos para la energía de gibbs de Exceso
+15. Modelos para la energía de gibbs de Exceso
 -----------------------------------------------
 -----------------------------------------------
 

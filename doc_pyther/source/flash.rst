@@ -1,5 +1,5 @@
 **************************************
-10. Cálculo del flash Isotermico (T, P)
+14. Cálculo del flash Isotermico (T, P)
 **************************************
 
 En este documento se presenta el desarrollo básico del comportamiento termodinámico del equilibrio de fases, iniciando con el calculo del flash isotermico bifasico utilizando las ecuaciones de estado como **Soave-Redlich-Kwong (SRK)** [1]_ y **Peng-Robinsong (PR)** [1]_ junto con las reglas de mezclado de **Van Der Waalls** [1]_.
