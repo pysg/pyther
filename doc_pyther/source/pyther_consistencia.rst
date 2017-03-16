@@ -1,6 +1,6 @@
-5b. PyTher: Análisis computacíonal de consistencia termodinámica ELV
-********************************************************************
-********************************************************************
+12. Análisis computacíonal de consistencia termodinámica
+********************************************************
+********************************************************
 
 A. Salazar * , M. Cismondí
 
@@ -14,7 +14,7 @@ para determinar su calidad de forma programática e interactiva.
 
 **Palabras clave**: PyTher, Termodinámica computacional, consistencia termodinámica, Python, Análisis de datos.
 
-1. **Introducción**
+12.1 **Introducción**
 
 Desde hace bastante tiempo se viene trabajando en la generación, recopilación y
 procesamiento de los datos en el ámbito científico en distintas áreas de forma

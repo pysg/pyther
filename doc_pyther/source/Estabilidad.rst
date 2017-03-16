@@ -1,4 +1,4 @@
-6. Estabilidad Material de las Fases
+11. Estabilidad Material de las Fases
 ************************************
 ************************************
 
@@ -21,7 +21,7 @@ donde una cantidad :math:` w_i \delta e` del componentes i es transferido, resul
 para cualquier composición w, este resultado es denominada como la condición del plano tangente de Gibbs para evaluar la estabilidad termodinámica.
 
 
-6.1 Resolución de la condición de estabilidad
+11.1 Resolución de la condición de estabilidad
 ---------------------------------------------
 
 Para iniciar se considera una mezcla de C componentes de composición z a una temperatura T y presión P especificada, para escribir la condición suficiente de estabilidad de la mezcla como la función de la distancia del plano tangente `TPD(w)` por sus siglas en inglés:
@@ -57,7 +57,7 @@ Por tanto, una apromaximación computacional puede ser basada en el hecho de que
 
 2. Verificar que el valor de **tpd** es no negavita en todos los minimos. En caso de encontrar un valor negativo de **tpd** durante el procedimiento en alguno de los minimos locales de la función, la mezcla se evaluara como inestable.
 
-6.1.1 Formas de resolver la función tpd
+11.1.1 Formas de resolver la función tpd
 ---------------------------------------
 
 En primera instancia se puede mencionar los métodos de optimización para encontrar los minimos de la función tpd, sin embargo, en está sección se presentara brevemente la estrategía de expresar este problema como un problema de un sistema de ecuaciónes algebraicas no lineales.

@@ -30,7 +30,7 @@ Contents:
    Estabilidad.rst
    pyther_consistencia.rst   
    PuntosCriticos.rst   
-   Curso_Termodinamica_Python.rst   
+   Curso_Termodinamica.rst   
 
 
 
