@@ -6,9 +6,11 @@
 ------------------------
 
 1. Introducción y presentación del curso.
+
 2. Comportamientos de fases. De sustancias puras a sistemas binarios.
 
 3. Sistemas ternarios. Sistemas multicomponentes.
+
 4. Práctica: con software GPEC y software Fluids o Sur.
 
 5. Ecuaciones generales del equilibrio entre fases. Estabilidad de fases.
@@ -25,7 +27,7 @@
 
 11. Contribución grupal (GC-EOS). Ecuaciones con término asociativo.
 
-12. cálculo de fugacidades. Algoritmo para flash bifásico.
+12. Cálculo de fugacidades. Algoritmo para flash bifásico.
 
 13. Puntos de saturación y construcción de envolventes de fases.
 
@@ -43,7 +45,43 @@
 
 19. Parametrización de compuestos puros.
 
-20. 
+20. Parametrización de interacciones binarias. enfoques y algoritmos.
+
+21. Práctica: Ajuste de sistemas binarios a elección.
+
+22. Fluidos de reservorio. Clasificación. ensayos PVT.
+
+23. Fluidos sintéticos y modelados con EOS cúbicas. Caracterización.
+
+24. Simulación PVT. aseguramiento de flujo: Parafinas y Asfaltenos.
+
+25. Modelos de GE: Empíricos, van Laar, Soluciones regulares.
+
+26. Consistencia termodinámica. Composiciones Locales: Modelos.
+
+27. Equilibrios Sólido-Fluido: Sustancias puras y sistemas binarios.
+
+28. Enfoques de modelado para multicomponentes.
+
+29. Termodinámica de soluciones de polímeros. Regresión de datos.
+
+30. Biorefinerías. Equilibrio entre fases en el procesamiento de biomasa.
+
+31. Aplicaciones de A-UNIFAC y GCA-EoS en biodiesel y fitoquímicos.
+
+32. Práctica: Utilización de programas.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
