@@ -167,7 +167,7 @@ caso.
 
 
 
-.. image:: output_9_1.png
+.. image:: _static/output_9_1.png
 
 
 16.2 Especificar una sustancia pura y una temperatura.
@@ -282,7 +282,7 @@ siguiente figura.
 
 
 
-.. image:: output_21_0.png
+.. image:: _static/output_21_0.png
 
 
 sin embargo como se menciono anteriormente, es posible calcular una
@@ -306,7 +306,7 @@ termodinámica de solo: *n-PENTACOSANE, ETHANE y el ISOBUTANE*.
 
 
 
-.. image:: output_24_0.png
+.. image:: _static/output_24_0.png
 
 
 16.5 Especificar varias sustancias puras y una temperatura.
@@ -571,8 +571,8 @@ ejemplo a continuación.
 
 
 
-16.7 Future work
-================
+16.7 Trabajo futuro
+===================
 
 -  Actualmente PyTher se encuentra implementando la opción de multiples
    propiedades termodinámicas de forma simultanea para el caso de
@@ -582,8 +582,8 @@ ejemplo a continuación.
    para agregar, modificar, eliminar, renombrar sustancias puras y/o
    correlaciones termodinámicas.
 
-16.8 References
-===============
+16.8 Referencias
+================
 
 Numpy
 
