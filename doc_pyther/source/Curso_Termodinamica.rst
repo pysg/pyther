@@ -1,8 +1,8 @@
-13. Curso de postgrado: Termodinámica de fluidos
+16. Curso de postgrado: Termodinámica de fluidos
 ************************************************
 ************************************************
 
-13.1 Contenido del curso
+16.1 Contenido del curso
 ------------------------
 
 
