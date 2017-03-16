@@ -1,5 +1,5 @@
 **************************************
-7. Cálculo del flash Isotermico (T, P)
+10. Cálculo del flash Isotermico (T, P)
 **************************************
 
 En este documento se presenta el desarrollo básico del comportamiento termodinámico del equilibrio de fases, iniciando con el calculo del flash isotermico bifasico utilizando las ecuaciones de estado como **Soave-Redlich-Kwong (SRK)** [1]_ y **Peng-Robinsong (PR)** [1]_ junto con las reglas de mezclado de **Van Der Waalls** [1]_.
@@ -11,7 +11,7 @@ el esqeuma tecnologíco de separación más simple, el que se ingresa una corrie
 	En este capítulo se utiliza el enfoque de sustitución sucesiva para resolver la ecuación de Rachford-Rice [2]_, mientras que en capítulo 3 se presenta el enfoque simultaneo al resolver el sistema de ecuaciones por medio del método de Newton multivariado.
 
 
-7.1 Modelo flash líquido-vapor
+10.1 Modelo flash líquido-vapor
 ******************************
 
 El modelo del flash isotermico bifasico, corresponde al balance de materia global y por componente en el tanque separador que se muestra en la figura (1), junto con la condición de equilibrio de fases líquido-vapor.
@@ -78,7 +78,7 @@ El incumplmiento de las condicones (13) y (14) corresponden a un líquido subenf
 
 Determinar el valor de Beta minimo y máximo. Luego estimar el promedio de estos Beta para usarlo como valor inciial
 
-7.2 Algoritmo
+10.2 Algoritmo
 *************
 
 - Especificar la Presión **P**, Temperatura **T** y número de moles **N** del sistema
@@ -273,7 +273,7 @@ De esta forma el código es de la siguiente forma::
 
         	return flashID
 
-7.3 Resultados
+10.3 Resultados
 **************
 
 A continuación se muestran los resultados numéricos del calculo del flash isotermico bifasico
@@ -337,14 +337,14 @@ De esta forma, se observa que el algoritmo empleando la ecuación de estado **Pe
 
 	3. Se requiere implementar más posibilidades del calculo de flash: Multifase, Volumen constante, Adiabatico, entre otros.
 
-7.4 Conclusiones
+10.4 Conclusiones
 ****************
 
 1. Se implemento en el lenguaje de programación Python 3.x los algoritmos para el calculo de la fugacidad para un componente puro y una mezcla multicomponente siguiendo el enfoque modular de Mollerup-Michelsen para la energía libre de Helmhotlz F usando una ecuación de estado y el calculo del flash isotermico (T, P) multicomponente bifasico.
 
 2. La documentación del trabajo se realizó usando el formato **reStructuredtext** y la librería **Sphinx**, el cual permite combinar eficientemente en un texto plano, código **latex**, código de programación en este caso **Python**, imagenes entre otros, para facilitar el proceso de documentación de un desarrollo de software.
 
-7.5 Referencias
+10.5 Referencias
 ***************
 
 .. [#] Curso de especialización en Termodinámica de fluidos para la industria Petrolera. Ph.D Martín Cismondí. Mayo (2015)
