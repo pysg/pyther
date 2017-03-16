@@ -278,8 +278,8 @@ def main():
     #print(component_eos[0])
     print('-' * 79)
 
-#if __name__ == '__main__':
-#	main()
+if __name__ == '__main__':
+	main()
 
 
 
@@ -296,27 +296,25 @@ def n_main():
     #data = data_base.read_dppr()       
     #data_name = data_base.data_name_cal()
 
-    #component = 'METHANE'
+    component = 'METHANE'
     #component = "ETHANE"
     #component = "3-METHYLHEPTANE"
     #component = "n-PENTACOSANE"
     #component = "ISOBUTANE"
     #component = "n-TETRADECANE"
 
-    components = ["METHANE", "n-TETRACOSANE"]
+    #components = ["METHANE", "n-TETRACOSANE"]
 
     temp = [180.4, 181.4, 185.3, 210, 85]
     #temp = 180.4
 
-    v = "Vapour_Pressure"
-
-    #property_thermodynamics = thermodynamic_correlations.property_cal(component, v, temp)
-    property_thermodynamics = thermodynamic_correlations.property_cal(components, v, temp)
+    property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure, temp)
+    #property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
     #property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
     #property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
     print(property_thermodynamics)
 
     print('-' * 79)
 
-n_main()
+#n_main()
 

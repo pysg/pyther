@@ -1,5 +1,12 @@
 import pandas as pd
+import os
 
+dfile = "PureFull.xls"
+path_file = os.path.dirname(__file__)
+#print("path_file", path_file)
+
+dppr_file = os.path.join(path_file, dfile)
+#print(dppr_file)
 
 class Data_parse(object):
     """
@@ -9,11 +16,12 @@ class Data_parse(object):
     def read_dppr(self, dppr_file):
         #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
 
+        #self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]
         self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]
         # component_names = dppr_data.index.get_values()
         return self.dppr_data
         
-    def selec_component(self, dppr_file, component):
+    def selec_component(self, component):
         self.name = str(component)
         self.properties = self.read_dppr(dppr_file).loc[self.name]
         self.label = {self.name : self.properties}
@@ -47,7 +55,7 @@ def show(component, properties_component):
 
 def main():
     
-    dppr_file = "PureFull.xls"
+    #dppr_file = "PureFull.xls"
     #component = "METHANE"
     #component = "ISOBUTANE"
     component = "TRIPHENYLMETHANE"
@@ -61,7 +69,8 @@ def main():
     #print(properties_component["Omega"])
     #print(component)
 
-    properties_component = properties_table.selec_component(dppr_file, component)
+    #properties_component = properties_table.selec_component(dppr_file, component)
+    properties_component = properties_table.selec_component(component)
 
     print(properties_component)
 

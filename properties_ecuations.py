@@ -3,12 +3,17 @@ import pandas as pd
 import math
 #import matplotlib as plt
 import matplotlib.pyplot as plt
+import os
 
 #import pyther as pt
 
 # constan to size of data base of components
 #size_data = 30
 size_data = 115
+dfile = "PureFull_mod_properties.xls"
+path_file = os.path.dirname(__file__)
+dppr_file = os.path.join(path_file, dfile)
+
 
 class Thermodynamic_correlations(object):
 	
@@ -31,14 +36,16 @@ class Thermodynamic_correlations(object):
 	12. Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
 	13. Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
 	"""
-	def __init__(self, dppr_file):
-		
-		self.dppr_file = dppr_file
-		
+	#def __init__(self, dppr_file):		
+	#	self.dppr_file = dppr_file
+	
+	#def __init__(self):
+	#	pass	
 
 	def read_dppr(self):
 		
-		self.dppr_data = pd.read_excel(self.dppr_file).ix[:, 0:8]
+		#-self.dppr_data = pd.read_excel(self.dppr_file).ix[:, 0:8]
+		self.dppr_data = pd.read_excel(dppr_file).ix[:, 0:8]
 		
 		return self.dppr_data
 
@@ -228,8 +235,11 @@ class Thermodynamic_correlations(object):
 	def property_cal(self, components, property_thermodynamics, temperature = None):
 
 		self.property_label = self.select_property(property_thermodynamics)
-		#self.units = self.property_label[1]
+		
+		#print(self.property_label)
+		
 		self.units = ("K", self.property_label[1])
+		
 		self.components = components
 
 		#print(self.components, type(components))
@@ -379,10 +389,10 @@ def main():
 
 	print("-" * 79)
 
-	dppr_file = "PureFull_mod_properties.xls"
-	print(dppr_file)
+	#-dppr_file = "PureFull_mod_properties.xls"
+	#print(dppr_file)
 
-	thermodynamic_correlations = Thermodynamic_correlations(dppr_file)
+	thermodynamic_correlations = Thermodynamic_correlations()
 
 	#data = data_base.read_dppr()		
 	#data_name = data_base.data_name_cal()
@@ -441,7 +451,7 @@ def main():
 	
 	print(table_components)
 
-	print(thermodynamic_correlations.units)
+	#print(thermodynamic_correlations.units)
 
 
 	#print(thermodynamic_correlations.__doc__)
