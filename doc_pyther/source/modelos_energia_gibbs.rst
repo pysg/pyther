@@ -288,7 +288,7 @@ Es evidente la naturaleza simetríca de estas relaciones. Los
 
 
 
-13.3 Modelos para la energía de gibbs de Exceso: UNIFAC
+15.3 Modelos para la energía de gibbs de Exceso: UNIFAC
 =======================================================
 
 Ejemplo de implementación del modelo de actividad UNIFAC
