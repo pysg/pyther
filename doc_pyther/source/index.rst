@@ -26,9 +26,11 @@ Contents:
    Hmz.rst
    IPyTherm_2.rst
    Envolvente.rst
-   flash.rst
+   sistemas_binarios.rst
    Estabilidad.rst
-   PuntosCriticos.rst   
+   PuntosCriticos.rst
+   mezclas_multicomponentes.rst   
+   flash.rst
    modelos_energia_gibbs.rst
    pyther_consistencia.rst   
    Curso_Termodinamica.rst   
