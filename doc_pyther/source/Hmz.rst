@@ -1,4 +1,4 @@
-6. Propiedades Termodinámicas
+7. Propiedades Termodinámicas
 *****************************
 *****************************
 
@@ -15,7 +15,7 @@ Para desarrollar el trabajo de este documento se utiliza el lenguaje de programa
 .. note::
     En este proyecto, se desarrolla de forma paralela la documentación utilizando la tecnología IPython notebook - Jupyter [4]_.
 
-5.1 Implementación básica
+7.1 Implementación básica
 -------------------------
 
 De esta forma, la parte inicial del código en el lenguaje de programación **Python**, corresponde a la importación de la librería **Numpy** la cual aporta un tipo de datos denominado **array** que facilita la manipulación de la información para realizar cálculos con **Python**. 
@@ -497,7 +497,7 @@ Ahora se procede a instanciar la clase  **fluido = Helmholtz(eq, w, Tc, Pc, Tr, 
  
  flu_1 = fluido.liquido(P)
 
-5.2 Resultados
+7.2 Resultados
 --------------
 
 Mientras se terminan los test para el código implmentado en **Python** para hacerlo de forma programatica, se hace una compración entre los resultados que se obtienen con las rutinas implementadas anteriormente en **FORTRAN** y los obtenidos en esta implmentación en la tabla (1) para un componente puro y en la talba (2) para una mezcla.
@@ -584,7 +584,7 @@ Tabla 3. Comparación de resultados entre IPyTherm y GPEC, Mezcla 3
 |     C24           |2.6217857            |2.62114371407445     |
 +-------------------+---------------------+---------------------+
 
-5.3 Conclusiones
+7.3 Conclusiones
 ----------------
 
 Se implemento en el lenguaje de programación Python el cálculo de la fugacidad de fluidos puros y mezclas multicomponente siguiendo el enfoque modular de la función de la energía de Helmholtz con ecuaciones de estado **(SRK)** **(PR)** con las reglas de mezclado **(VDW)**.
@@ -599,7 +599,7 @@ Este modulo enfocado en el calculo de la fugacidad de fluidos puros y mezclas mu
 
 
 
-5.4 Referencias
+7.4 Referencias
 ---------------
 
 .. [#] Michael L. Michelsen and Jorgen M. Mollerup. Thermodynamics Models: Fundamentals & Computacional aspects. Denmark. Second Edition. 2007.
