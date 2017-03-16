@@ -1,8 +1,8 @@
-5. Cálculo del Volumen(P,T,n) 
+6. Cálculo del Volumen(P,T,n) 
 *****************************
 *****************************
 
-4.1 Introduction
+6.1 Introduction
 ----------------
 
 En esta sección se presenta un ejemplo numérico para calcular propiedades termodinámicas y volumetricas utilizando ecuaciones de estado. Para comenzar se desarrolla el procedimiento que permite determinar el volumen de un sistema cuando se especifica la presión **P**, la temperatura **T** y el número de moles **n**, cuya interdependencia entre estás variables es como se muestra en la ecuación (1) 
@@ -63,7 +63,7 @@ ahora es posible obtener las expresiones de las derivadas parciales de la presi�
 	:label:
 
 
-4.2 Método de Solución
+6.2 Método de Solución
 ----------------------
 
 Luego de presentar las ecuaciones necesarias en la sección 4.1, ahora se formula la función objetivo con la cual se implementa un método numérico para encońtran los ceros de una función no lineal, por tanto al especificar la presión :math:`P_{esp}`, temperatura T y número de moles del sistema n, se quiere encontrar el volumen de la mezcla que cumpla con un valor de la presión determinado usando una ecuación de estado :math:`P_{cal}`. De esta forma, se plantea la función objetivo :math:`h(T,V,n)` que se muestra en la ecuación (12)
@@ -107,7 +107,7 @@ Donde los terminos (g) y (f)de la ecuación (16), se muestran en las ecuaciones 
 .. math:: f = {1 \over RB(\delta_1 - \delta_2)} ln{(1 + \delta_1 B/V) \over (1 + \delta_2 B/V)} = {1 \over RB(\delta_1 - \delta_2)} ln{V + \delta_1 B \over V + \delta_2 B} 
 	:label:
 
-4.3 Derivadas Parciales
+6.3 Derivadas Parciales
 -----------------------
 
 Anteriormente se comentó, el enfoque modular de *Michelsen & Mollerup* permite estructurar los diferentes elementos necesarios para el cálculo de propiedades termidinámicas en forma de bloques, por tanto se presenta la forma modular que resultan para las primeras y segundas derivadas parciales de la función de la energía de Helmholtz. Al iniciar, se presenta en la ecuación (19) la primera derivada parcial de la función F 
@@ -192,7 +192,7 @@ Resolviendo el sistema de las ecuaciones (31) y (32), se obtiene las ecuaciones 
 
 De esta manera, ya se cuenta con las ecuaciones necesarias para obtener las primeras y segundas derivadas de la función F con respecto al V a P, T y ni constantes.
 
-4.4 Ecuación de estado
+6.4 Ecuación de estado
 ----------------------
 
 Hasta acá se ha presentado la manipulaciṕon básica de la función de Herlmhotlz que partiendo de una expresión explicita en la presión como una ecuación de estado, el sistema de ecuaciones se pueda resolver una vez se especificá la presión P, la temperatura T y número de moles n y proceder a la determinación del valor del volumen V correspondiente para un modelo termmodinámico y componentes prestablecidos.
@@ -234,7 +234,7 @@ Tabla 1. Parámetros de ecuaciones de estado utilizadas
 |.. math:: \Omega_{b,SRK} = 0.086640           |.. math:: \Omega_{b,PR} = 0.077796070             |
 +-------------------+--------------------------+--------------------------------------------------+
 
-4.5 Resultados
+6.5 Resultados
 --------------
 
 A continuación se presenta un ejemplo numérico del cálculo del volumen de una mezcla multicomponente con las especificaciones de presión P, temperatura T y número de moles n, que se muestran en la Tabla 2.
@@ -263,7 +263,7 @@ En la tabla 2, se puede observar que para el ejemplo presentado en este document
 
 - Se implmento el algoritmo para el cálculo del volumen en el lenguaje de programación Python en la plataforma Jupyter.  
 
-4.7 Referencias
+6.7 Referencias
 ---------------
 
 .. [#] Michael L. Michelsen and Jorgen M. Mollerup. Thermodynamics Models: Fundamentals & Computacional aspects. Denmark. Second Edition. 2007.
