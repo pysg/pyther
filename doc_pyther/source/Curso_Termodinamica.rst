@@ -41,7 +41,7 @@
 
 18. Métodos de cálculo para sistemas ternarios.
 
-- Examen.
+- Examen: Primer Examen Parcial.
 
 19. Parametrización de compuestos puros.
 
@@ -71,40 +71,7 @@
 
 32. Práctica: Utilización de programas.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Examen: Segundo Examen Parcial.
 
 - **Información**
 -----------------
@@ -115,4 +82,10 @@
 
 **Evaluación:** Los alumnos rendirán 2 examenes.
 
-**Profesores:** Martín Cismondi. Nicolas Gañan.
+**Profesores:** Martín Cismondi. Nicolas Gañan, Andreatta, Rodriguez Reartes, Ramello, Pisoni.
+
+
+
+
+
+
