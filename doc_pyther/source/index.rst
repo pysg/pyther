@@ -27,10 +27,10 @@ Contents:
    IPyTherm_2.rst
    Envolvente.rst
    flash.rst
-   modelos_energia_gibbs.rst
    Estabilidad.rst
-   pyther_consistencia.rst   
    PuntosCriticos.rst   
+   modelos_energia_gibbs.rst
+   pyther_consistencia.rst   
    Curso_Termodinamica.rst   
 
 
