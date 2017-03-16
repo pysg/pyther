@@ -1,6 +1,6 @@
-5a. PyTher: Model, parameters and properties component
-******************************************************
-******************************************************
+5. Modelos y parametros para sustancia puras
+********************************************
+********************************************
 
 * Temperatura critica
 * Presión critica

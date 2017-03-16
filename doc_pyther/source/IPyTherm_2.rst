@@ -1,6 +1,6 @@
-5b. PyTher: graphical interface to solid-fluid equilibrium
-**********************************************************
-**********************************************************
+7. Equilibrio sólido-fluido para sustancias puras
+*************************************************
+*************************************************
 
 
 Importar las librerías
