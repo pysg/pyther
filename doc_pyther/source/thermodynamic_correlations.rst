@@ -3,11 +3,11 @@
 ***************************************************
 
 
-En esta sección se muestra la class *Thermodynamic\_correlations()* la
+En esta sección se muestra la clase *Thermodynamic\_correlations()*, la
 cual permite realizar el cálculo de propiedades termodinámicas de
 sustancias puras como una función de la temperatura. En este caso se
 pueden tener 6 situaciones para cada una de las 13 propiedades
-termofísicas soportadas:
+termofísicas que se pueden utilizar:
 
 1. Especificar una sustancia pura sin especificar una temperatura. En
    este caso por defecto la propiedad termodinámica se calcula entre el

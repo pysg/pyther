@@ -4,11 +4,11 @@
    contain the root `toctree` directive.
 
 Documentación PyTher 0.6
-==========================
+=========================
 
 .. image:: _static/pyther.png
 
-**PyTher** (Python to Thermodynamics) es una biblioteca **open source** orientada a cálculos del comportamiento termodinámicos de fases.  
+**PyTher** (Python to Thermodynamics) es una biblioteca open source orientada a cálculos del comportamiento termodinámicos de fases.  
 
 Contacto: andres.pyther@gmail.com
 
