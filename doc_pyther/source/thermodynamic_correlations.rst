@@ -73,8 +73,8 @@ Las correlaciones termodinámicas implementadas son:
 "A\*(1-Tr):sup:`(B+C*Tr+D*\ Tr`\ 2)", 12
 
 Para empezar se importan las librerías que se van a utilizar, que en
-este caso son numpy, pandas, pyther y especificar que las figuras
-generadas se muesten dentro del jupyter notebook
+este caso son numpy, pandas, pyther ademas de especificar que las figuras
+generadas se muestren dentro de las celdas de Jupyter Notebook
 
 
 
