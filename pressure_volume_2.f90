@@ -245,7 +245,7 @@ C        NS = IDMAX (3, SENS, INCX)
 
 
 
-C
+C                XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
       SUBROUTINE XTVTERMO(INDIC,T,V,P,rn,
     1                    FUGLOG,DLFUGT,DLFUGV,DLFUGX)
 C
