@@ -318,3 +318,38 @@ def n_main():
 
 #n_main()
 
+
+def n_main():
+
+    print("-" * 79)
+
+    dppr_file = "PureFull_mod_properties.xls"
+    #print(dppr_file)
+
+    thermodynamic_correlations = Thermodynamic_correlations(dppr_file)
+
+    #data = data_base.read_dppr()       
+    #data_name = data_base.data_name_cal()
+
+    component = 'METHANE'
+    #component = "ETHANE"
+    #component = "3-METHYLHEPTANE"
+    #component = "n-PENTACOSANE"
+    #component = "ISOBUTANE"
+    #component = "n-TETRADECANE"
+
+    #components = ["METHANE", "n-TETRACOSANE"]
+
+    temp = [180.4, 181.4, 185.3, 210, 85]
+    #temp = 180.4
+
+    property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure, temp)
+    #property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
+    #property_thermodynamics = property_cal(component, Vapour_Pressure, [180.4, 181.4, 185.3, 210, 85])
+    #property_thermodynamics = thermodynamic_correlations.property_cal(component, Vapour_Pressure)
+    print(property_thermodynamics)
+
+    print('-' * 79)
+
+#n_main()
+
