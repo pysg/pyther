@@ -32,4 +32,4 @@ propiedad termodinámica, las unidades de la misma, la correlación
 utilizada y un valor de referencia para etiquetar cada ecuación.
 
 De esta forma, ya se encuentra disponible la librería PyTher para ser
-utilizada con los ejemplos que vienen más adelante.
+utilizada con los ejemplos que vienen más adelante en las diferentes secciones.
