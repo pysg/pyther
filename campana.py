@@ -205,7 +205,7 @@ print(type(XOLD), type(dXdS), type(delXS))
 
 #! Initial estimates for the 3 variables in the next point
 XVAR = XOLD + dXdS * delXS / dXdS[NS]
-
+print("XVAR = ", XVAR)
 
 T = np.exp(XVAR[0])
 Vl = np.exp(XVAR[1])
