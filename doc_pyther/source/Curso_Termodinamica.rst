@@ -82,7 +82,7 @@
 
 **Evaluación:** Los alumnos rendirán 2 examenes.
 
-**Profesores:** Martín Cismondi. Nicolas Gañan, Andreatta, Belén Rodriguez Reartes, Juan Ramello, Gerardo Pisoni.
+**Profesores:** Martín Cismondi. Nicolas Gañan, Gerardo Pisoni, Alfonsina Andreatta, Belén Rodriguez Reartes, Juan Ramello.
 
 
 
