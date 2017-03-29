@@ -73,8 +73,8 @@
 
 - Examen: Segundo Examen Parcial.
 
-- **Información**
------------------
+17.2 **Información**
+--------------------
 
 **Horario de Clases:** Miercoles 10h - 12 h y 14h - 16h en el anfiteatro C de la FCEFyN de la UNC.
 
