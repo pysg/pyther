@@ -27,3 +27,7 @@ new_file.write(information)
 
 file.close()
 new_file.close()
+
+
+#153 91 40 39
+#gerardo

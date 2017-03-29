@@ -2,13 +2,14 @@
 **************************
 **************************
 
-# Requisitos
+1.2 Requisitos
+***************
 
 Para realizar la instalación de *PyTher* se requiere tener pre-instalado
 *Jupyter Notebook* y *Python*.
 
-Instalación de Jupyter utilizando Anaconda
-==========================================
+1.3 Instalación de Jupyter utilizando Anaconda
+==============================================
 
 Se recomienda instalar
 `*Anaconda* <https://www.continuum.io/downloads>`__ porque de forma
@@ -70,3 +71,13 @@ verificar su correcta instalación.
 
 De esta forma, ya se encuentra disponible la librería PyTher para ser
 utilizada con los ejemplos que vienen más adelante.
+
+
+
+
+
+
+
+
+
+
