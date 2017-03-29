@@ -2,21 +2,51 @@
 **************************
 **************************
 
-Para realizar la instalación de la librería **PyTher**, se utiliza PyPi
-en una consola de linea de comandos, con la instrucción:
+# Requisitos
 
-*pip install pyther*
+Para realizar la instalación de *PyTher* se requiere tener pre-instalado
+*Jupyter Notebook* y *Python*.
 
-Windows
-=======
+Instalación de Jupyter utilizando Anaconda
+==========================================
 
-En el caso de la instalación en Windows y no tener Python agregado en la
-PATH del sistema, se utiliza la siquientes instrucción en la consola de
-windows cdm:
+Se recomienda instalar
+`*Anaconda* <https://www.continuum.io/downloads>`__ porque de forma
+simple no solo instala `*Python* <https://www.python.org/>`__ y
+`*Jupyter Notebook* <http://jupyter.org/>`__ sino que también un gran
+número de librerías para computación científica.
 
-C:install pyther
+Pasos de instalación:
 
-Donde XY se refiere a la versión de Python que tiene instalado.
+1. Descargar Anaconda. Se recomienda la descarga de Anaconda superior a
+   Python 3.X.
+
+2. Instalar la versión de Anaconda que descargo, siguiendo las
+   instrucciones según sea el
+   `caso <https://www.continuum.io/downloads#windows>`__
+
+3. Muy bien, ya se instalo Jupyter Notebook. Ahora vamos a probarlo en
+   una `línea de
+   comandos <https://es.wikipedia.org/wiki/S%C3%ADmbolo_del_sistema>`__
+   y se ejecuta:
+
+jupyter notebook
+
+Luego de tener abierto *Jupyter Notebook* se puede realizar la
+instalación de *PyTher* desde una celda del mismo *Jupyter Notebook*
+utilizando *PyPi* con la instrucción:
+
+.. code:: python
+
+    !pip install pyther
+
+
+.. parsed-literal::
+
+    Requirement already satisfied: pyther in ./anaconda3/lib/python3.5/site-packages
+
+
+*NO olvidar el símbolo **!** inicial*
 
 Luego de instalar PyTher, se puede probar con una importación simple de
 la librería con el sigiente ejemplo:
