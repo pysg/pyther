@@ -282,7 +282,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'IPyTherm', u'IPyTherm Documentation',
+  (master_doc, 'IPyTherm', u'PyTher Documentation',
    author, 'PyTher', 'One line description of project.',
    'Miscellaneous'),
 ]
