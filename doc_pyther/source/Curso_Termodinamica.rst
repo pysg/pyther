@@ -76,13 +76,13 @@
 17.2 **Información**
 --------------------
 
-**Horario de Clases:** Miercoles 10h - 12 h y 14h - 16h en el anfiteatro C de la FCEFyN de la UNC.
+**Horario de Clases:** Miercoles 10h - 12 h y 13h - 15h en el anfiteatro A de la FCEFyN de la UNC.
 
 **Modalidad:** Guias de Problemas - Prácticas con computación.
 
 **Evaluación:** Los alumnos rendirán 2 examenes.
 
-**Profesores:** Martín Cismondi. Nicolas Gañan, Andreatta, Rodriguez Reartes, Ramello, Pisoni.
+**Profesores:** Martín Cismondi. Nicolas Gañan, Andreatta, Belén Rodriguez Reartes, Juan Ramello, Gerardo Pisoni.
 
 
 
