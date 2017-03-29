@@ -76,7 +76,7 @@
 17.2 Información
 -----------------
 
-**Horario de Clases:** Miercoles 10h - 12 h y 13h - 15h en el anfiteatro A de la FCEFyN de la UNC.
+**Horario de Clases:** Miercoles 10h - 12 h y 13h - 15h en el anfiteatro A de la FCEFyN de la UNC. Marzo 29 - Julio 26 de 2017.
 
 **Modalidad:** Guias de Problemas - Prácticas con computación.
 
