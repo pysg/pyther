@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'IPyTherm'
+project = u'PyTher'
 copyright = u'2015, Andrés'
 author = u'Andrés'
 
