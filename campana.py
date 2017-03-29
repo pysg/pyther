@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 
-
+# inclusión del algoritmo de lectura de sustancias puras al cálculo de 
+# la envolvente de equilibrio de fases.
 
 #import solution_matrix as sm
 
