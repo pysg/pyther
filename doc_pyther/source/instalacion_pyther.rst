@@ -3,7 +3,7 @@
 **************************
 
 1.2 Requisitos
-***************
+==============
 
 Para realizar la instalación de *PyTher* se requiere tener pre-instalado
 *Jupyter Notebook* y *Python*.
