@@ -1,6 +1,6 @@
 import PyPDF2
 
-#file = open('experimento_1.pdf', 'rb')
+# file = open('experimento_1.pdf', 'rb')
 #file = open('experimento_2.pdf', 'rb')
 #file = open('sample.pdf', 'rb')
 #file = open('Curso_Termodinamica_Python.pdf', 'rb')
@@ -29,5 +29,5 @@ file.close()
 new_file.close()
 
 
-#153 91 40 39
-#gerardo
+
+
