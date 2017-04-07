@@ -310,3 +310,31 @@ C
 
 
 
+
+RJAC[1,1] = T * (DPDTx/Pl - DPDTy/Pv)
+RJAC[1,2] = Vl * DPDVx/Pl
+RJAC[1,3] = -Vv * DPDVy/Pv
+
+RJAC[2,1] = T * (FUGTx[i] - FUGTy[i])
+RJAC[2,2] = Vl * FUGVx[i]
+RJAC[2,3] = -Vv * FUGVy[i]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
