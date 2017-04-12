@@ -65,10 +65,10 @@ c
 c    c    c    c    c    c    c    c    c    c    c
 c
  2    XVAR = log([T, Vl, Vv])
-    DFDS=0.0D0
-    DFDS(3)=1.0D0
-    RJAC=0.0D0
-    RJAC(3,NS)=1.0D0
+    DFDS = 0.0D0
+    DFDS(3) = 1.0D0
+    RJAC = 0.0D0
+    RJAC(3,NS) = 1.0D0
  1    NITER=0
     T=exp(XVAR(1))
     Vl=exp(XVAR(2))
@@ -93,6 +93,7 @@ c    Newton procedure for solving the present point
         if(Pl.eq.0.0d0)Pl=1.0D-17
         DPDTx=DPDT
         DPDVx=DPDV
+
         CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
         DPDTy=DPDT
         DPDVy=DPDV
@@ -105,21 +106,25 @@ c    Newton procedure for solving the present point
             XVAR(2)=log(Vl)
             go to 21
         end if
+        
+        
         if(Pl.lt.0)then
             F(1)=-TOLF
         else
             F(1)=log(Pl/Pv)
         end if
-        F(2)=FUGx(icomp)-FUGy(icomp)
-        RJAC(1,1)=DPDTx/Pl-DPDTy/Pv
-        RJAC(1,1)=T*RJAC(1,1)
-        RJAC(1,2)=Vl*DPDVx/Pl
-        RJAC(1,3)=-Vv*DPDVy/Pv
+        
+        F(2) = FUGx(icomp) - FUGy(icomp)
+        
+        RJAC(1,1) = DPDTx/Pl-DPDTy/Pv
+        RJAC(1,1) = T*RJAC(1,1)
+        RJAC(1,2) = Vl*DPDVx/Pl
+        RJAC(1,3) = -Vv*DPDVy/Pv
 C
-        RJAC(2,1)=FUGTx(icomp)-FUGTy(icomp)
-        RJAC(2,1)=T*RJAC(2,1)
-        RJAC(2,2)=Vl*FUGVx(icomp)
-        RJAC(2,3)=-Vv*FUGVy(icomp)
+        RJAC(2,1) = FUGTx(icomp)-FUGTy(icomp)
+        RJAC(2,1) = T*RJAC(2,1)
+        RJAC(2,2) = Vl*FUGVx(icomp)
+        RJAC(2,3) = -Vv*FUGVy(icomp)
 C
         dold=delx
 c        CALL DLSARG (N, RJAC, LDA, -F, IPATH, delX)
@@ -245,7 +250,42 @@ C        NS = IDMAX (3, SENS, INCX)
 
 
 
-C                XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
+! --------------------------------------------
+CALL XTVTERMO(INDIC,T,V, P, rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX)
+CALL XTVTERMO(2,    T,Vl,Pl,rn, FUGx,  FUGTx, FUGVx, DFGN)       
+CALL XTVTERMO(2,    T,Vv,Pv,rn, FUGy,  FUGTy, FUGVy, DFGN)
+
+! Aquí "x" ademas de "y" se refieren a la fase de líqudio y vapor, respectivamente.
+! A continuación se muestran los nombre que se le dan a las variables de salidad en XTVTERMO,
+! que son confusos ademas.
+
+FUGLOG = FUGx  = FUGy
+DLFUGT = FUGTx = FUGTy
+DLFUGV = FUGVx = FUGVy
+DLFUGX = DFGN  = DFGN
+
+! En el caso de sustancias puras DFGN no se utiliza, puesto que DFGN es:
+! DLFUGX    comp-derivative of FUGLOG (const t & v)
+
+! --------------------------------------------
+DPDV = -ArV2 - RT * TOTN / V ** 2
+DPDT = -ArTV + TOTN * RGAS / V
+! --------------------------------------------
+DPDT = DPDTx = DPDTy
+DPDV = DPDVx = DPDVy
+! --------------------------------------------
+RJAC[1, 1] = T * (DPDTx / Pl - DPDTy / Pv)
+RJAC[1, 2] = Vl * DPDVx / Pl
+RJAC[1, 3] = -Vv * DPDVy / Pv
+
+RJAC[2, 1] = T * (FUGTx[i] - FUGTy[i])
+RJAC[2, 2] = Vl * FUGVx[i]
+RJAC[2, 3] = -Vv * FUGVy[i]
+! --------------------------------------------
+
+
+
+
       SUBROUTINE XTVTERMO(INDIC,T,V,P,rn,
     1                    FUGLOG,DLFUGT,DLFUGV,DLFUGX)
 C
@@ -263,14 +303,14 @@ C---------------------------------------------------
 C---  MODIFIED AND CORRECTED july 2005
 C---
 C---------------------------------------------------
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER (MAXC=2,nco=2,RGAS=0.08314472d0)
-      DIMENSION DLFUGX(MAXC,MAXC)
-      DIMENSION FUGLOG(MAXC),DLFUGT(MAXC),DLFUGV(MAXC)
+    IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+    PARAMETER (MAXC=2,nco=2,RGAS=0.08314472d0)
+    DIMENSION DLFUGX(MAXC,MAXC)
+    DIMENSION FUGLOG(MAXC),DLFUGT(MAXC),DLFUGV(MAXC)
     dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
-    COMMON /MODEL/ NMODEL
-    COMMON/NG/NGR
-    COMMON /Pder/ DPDN(nco),DPDT,DPDV
+    COMMON / MODEL / NMODEL
+    COMMON / NG / NGR
+    COMMON / Pder / DPDN(nco),DPDT,DPDV
     NG=NGR
     NC=2
     IF(NMODEL.EQ.5.OR.NMODEL.EQ.7) CALL PARAGC(T,NC,NG,1)      
@@ -309,6 +349,17 @@ C        FUGLOG(I)=Arn(I)/RT + log(rn(I)/TOTN) + log(P/Z) this crashes at very l
 C
 
 
+CALL XTVTERMO(2,T,Vl,Pl,rn,FUGx,FUGTx,FUGVx,DFGN)
+
+
+if(Pl.eq.0.0d0)Pl=1.0D-17
+DPDTx = DPDT
+DPDVx = DPDV
+        
+CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
+DPDTy = DPDT
+DPDVy = DPDV
+        
 
 
 RJAC[1,1] = T * (DPDTx/Pl - DPDTy/Pv)
