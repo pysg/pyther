@@ -428,6 +428,7 @@ c
     FFB=TOTN*AUX-D*fB
     FFBV=-TOTN*AUX/(V-Bmix)+D*(2*fv+V*fv2)/Bmix
     FFBB=TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
+
     do i=1,nc
         Arn(i)=-g*T+FFB*dBi(i)-f*dDi(i)-D*fD1*dD1i(i)
         ArVn(i)=-gv*T+FFBV*dBi(i)-fv*dDi(i)-D*fVD1*dD1i(i)
@@ -474,12 +475,10 @@ DPDV = -ArV2-RT*TOTN/V**2
 
 IF(NTEMP == 0) GOTO 60
 
-! 60 CONTINUE
-! 62 IF(NDER.LT.2) GOTO 64
-DO 63 I=1,NC
-    DO 61 K=I,NC
+DO I = 1 , NC
+    DO K = I , NC
         DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
-        61        DLFUGX(K,I)=DLFUGX(I,K)
+        DLFUGX(K,I)=DLFUGX(I,K)
         DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
 
 
