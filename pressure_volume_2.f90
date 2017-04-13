@@ -457,6 +457,9 @@ end
 
 
 
+SUBROUTINE XTVTERMO(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX)
+
+
 ! p      = pressure    (bar)                        (output)
 ! FUGLOG = vector of log. of fugacities (x*phi*P)   (output)    INDIC < 5
 ! DLFUGT = t-derivative of FUGLOG (const. vol,n)    (output)    INDIC = 2 or 4
@@ -473,16 +476,17 @@ DPDT = -ArTV+TOTN*RGAS/V
 DPDV = -ArV2-RT*TOTN/V**2
 
 
-IF(NTEMP == 0) GOTO 60
-
-DO I = 1 , NC
-    DO K = I , NC
+do I = 1 , NC
+    do K = I , NC
+    
         DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
         DLFUGX(K,I)=DLFUGX(I,K)
         DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
 
+    end do
+end
 
-
+end SUBROUTINE XTVTERMO
 
 
 
