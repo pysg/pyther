@@ -468,22 +468,17 @@ c
 ! DLFUGX = comp-derivative of FUGLOG (const t & v)  (output)    INDIC > 2
 
 P = TOTN*RT/V - ArV
+FUGLOG(I)=Arn(I)/RT + log(rn(I)) + log(RT/V)
+DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
+! DPDN(I) = RT/V-ArVn(I)
+DLFUGV(I)=-(RT/V-ArVn(I))/RT                     ! term DPDV/P is cancelled out
+
+DPDT = -ArTV+TOTN*RGAS/V
 DPDV = -ArV2-RT*TOTN/V**2
 
 
-DPDT = -ArTV+TOTN*RGAS/V
-
-DO 60 I = 1 , NC
-
-IF(RN(I) == 0.0)GOTO 60
-
-FUGLOG(I)=Arn(I)/RT + log(rn(I)) + log(RT/V)
-DLFUGV(I)=-DPDN(I)/RT                    ! term DPDV/P is cancelled out
-DPDN(I) = RT/V-ArVn(I)
-
 IF(NTEMP == 0) GOTO 60
 
-DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
 ! 60 CONTINUE
 ! 62 IF(NDER.LT.2) GOTO 64
 DO 63 I=1,NC
