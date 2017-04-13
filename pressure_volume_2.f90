@@ -461,11 +461,11 @@ C   TEMPERATURE DERIVATIVES
 c
 
 
-!       p            pressure    (bar)                     (output)
-!       FUGLOG    vector of log. of fugacities (x*phi*P)   (output)    INDIC < 5
-!       DLFUGT    t-derivative of FUGLOG (const. vol,n)    (output)    INDIC = 2 or 4
-!       DLFUGV    vol-derivative of FUGLOG (const temp,n)  (output)    INDIC < 5
-!       DLFUGX    comp-derivative of FUGLOG (const t & v)  (output)    INDIC > 2
+! p      = pressure    (bar)                        (output)
+! FUGLOG = vector of log. of fugacities (x*phi*P)   (output)    INDIC < 5
+! DLFUGT = t-derivative of FUGLOG (const. vol,n)    (output)    INDIC = 2 or 4
+! DLFUGV = vol-derivative of FUGLOG (const temp,n)  (output)    INDIC < 5
+! DLFUGX = comp-derivative of FUGLOG (const t & v)  (output)    INDIC > 2
 
 
 
