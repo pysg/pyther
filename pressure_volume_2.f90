@@ -467,8 +467,6 @@ c
 ! DLFUGV = vol-derivative of FUGLOG (const temp,n)  (output)    INDIC < 5
 ! DLFUGX = comp-derivative of FUGLOG (const t & v)  (output)    INDIC > 2
 
-
-
 P = TOTN*RT/V - ArV
 DPDV = -ArV2-RT*TOTN/V**2
 ! IF(INDIC.GT.4)GOTO 62
