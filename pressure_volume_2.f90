@@ -464,22 +464,23 @@ c
 
 P = TOTN*RT/V - ArV
 DPDV = -ArV2-RT*TOTN/V**2
-IF(INDIC.GT.4)GOTO 62
+! IF(INDIC.GT.4)GOTO 62
 
 DPDT = -ArTV+TOTN*RGAS/V
+
 DO 60 I = 1 , NC
 
 IF(RN(I) == 0.0)GOTO 60
 
 FUGLOG(I)=Arn(I)/RT + log(rn(I)) + log(RT/V)
-DPDN(I) = RT/V-ArVn(I)
 DLFUGV(I)=-DPDN(I)/RT                    ! term DPDV/P is cancelled out
+DPDN(I) = RT/V-ArVn(I)
 
 IF(NTEMP == 0) GOTO 60
 
 DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
-60 CONTINUE
-62 IF(NDER.LT.2) GOTO 64
+! 60 CONTINUE
+! 62 IF(NDER.LT.2) GOTO 64
 DO 63 I=1,NC
     DO 61 K=I,NC
         DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
