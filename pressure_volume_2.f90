@@ -113,6 +113,11 @@ c    Newton procedure for solving the present point
         condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
 
         if( condition_1 or condition_2):    ! Pv.lt.1.0D-8.or.
+            NV = NV + 1
+            V1 = Vl + (Pv - Pl) / DPDVx    ! very important for convergence and accuracy of P at low T
+            V2 = (Vl + B) / 2
+            Vl = max(V1, V2)
+            XVAR[2] = log(Vl)
 
         if((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8))then    ! Pv.lt.1.0D-8.or.
             NV=NV+1
