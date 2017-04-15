@@ -107,7 +107,7 @@ c    Newton procedure for solving the present point
             go to 21
         end if
         
-
+! --------------------------------------------------------------------------------------------------------
         if((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8))then    ! Pv.lt.1.0D-8.or.
             NV=NV+1
             V1=Vl+(Pv-Pl)/DPDVx    ! very important for convergence and accuracy of P at low T
@@ -125,7 +125,7 @@ c    Newton procedure for solving the present point
                CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
                DPDTy=DPDT
                DPDVy=DPDV
-        
+! --------------------------------------------------------------------------------------------------------        
 
 
 
