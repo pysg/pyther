@@ -107,6 +107,30 @@ c    Newton procedure for solving the present point
             go to 21
         end if
         
+
+        if((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8))then    ! Pv.lt.1.0D-8.or.
+            NV=NV+1
+            V1=Vl+(Pv-Pl)/DPDVx    ! very important for convergence and accuracy of P at low T
+            V2=(Vl+B)/2
+            Vl=max(V1,V2)
+            XVAR(2)=log(Vl)
+            go to 21
+        end if
+
+        WHILE ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
+               CALL XTVTERMO(2,T,Vl,Pl,rn,FUGx,FUGTx,FUGVx,DFGN)
+               if(Pl.eq.0.0d0)Pl=1.0D-17
+               DPDTx=DPDT
+               DPDVx=DPDV
+               CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
+               DPDTy=DPDT
+               DPDVy=DPDV
+        
+
+
+
+
+        
         
         if(Pl.lt.0)then
             F(1)=-TOLF
@@ -286,8 +310,7 @@ RJAC[2, 3] = -Vv * FUGVy[i]
 
 
 
-      SUBROUTINE XTVTERMO(INDIC,T,V,P,rn,
-    1                    FUGLOG,DLFUGT,DLFUGV,DLFUGX)
+SUBROUTINE XTVTERMO(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX)
 C
 C-------parameters of XTVTERMO (crit. point, LLV and CEP calculations)
 C
