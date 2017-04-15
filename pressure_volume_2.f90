@@ -109,8 +109,10 @@ c    Newton procedure for solving the present point
         
 ! --------------------------------------------------------------------------------------------------------
         
-        condition_1 = (Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8)
-        condition_2 = (Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)
+        condition_1 = (Pl < Pv/2 and (Pv-Pl) > 1.d-8)
+        condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
+
+        if( condition_1 or condition_2):    ! Pv.lt.1.0D-8.or.
 
         if((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8))then    ! Pv.lt.1.0D-8.or.
             NV=NV+1
