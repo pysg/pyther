@@ -128,14 +128,15 @@ c    Newton procedure for solving the present point
             go to 21
         end if
 
-        while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
-               CALL XTVTERMO(2,T,Vl,Pl,rn,FUGx,FUGTx,FUGVx,DFGN)
-               if(Pl.eq.0.0d0)Pl=1.0D-17
-               DPDTx=DPDT
-               DPDVx=DPDV
-               CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
-               DPDTy=DPDT
-               DPDVy=DPDV
+        ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
+        while condition_1 or condition_2:
+            CALL XTVTERMO(2,T,Vl,Pl,rn,FUGx,FUGTx,FUGVx,DFGN)
+            if(Pl.eq.0.0d0)Pl=1.0D-17
+            DPDTx=DPDT
+            DPDVx=DPDV
+            CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
+            DPDTy=DPDT
+            DPDVy=DPDV
 
 
 ! --------------------------------------------------------------------------------------------------------        
