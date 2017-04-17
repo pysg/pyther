@@ -129,7 +129,16 @@ c    Newton procedure for solving the present point
         end if
 
         ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
-        while condition_1 or condition_2:
+        while True:
+
+            condition_1 or condition_2:
+
+            NV = NV + 1
+            V1 = Vl + (Pv - Pl) / DPDVx    ! very important for convergence and accuracy of P at low T
+            V2 = (Vl + B) / 2
+            Vl = max(V1, V2)
+            XVAR[2] = log(Vl)
+
             CALL XTVTERMO(2,T,Vl,Pl,rn,FUGx,FUGTx,FUGVx,DFGN)
             if(Pl.eq.0.0d0)Pl=1.0D-17
             DPDTx=DPDT
@@ -137,6 +146,12 @@ c    Newton procedure for solving the present point
             CALL XTVTERMO(2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN)
             DPDTy=DPDT
             DPDVy=DPDV
+
+            condition_1 = (Pl < Pv/2 and (Pv-Pl) > 1.d-8)
+            condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
+
+            
+
 
 
 ! --------------------------------------------------------------------------------------------------------        
