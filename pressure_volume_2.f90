@@ -580,8 +580,19 @@ end
 end SUBROUTINE XTVTERMO
 
 
+def XTVTERMO(INDIC,T,V,P,rn, FUGLOG,DLFUGT,DLFUGV,DLFUGX):
 
 
 
+
+do I = 1 , NC
+    do K = I , NC
+    
+        DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
+        DLFUGX(K,I)=DLFUGX(I,K)
+        DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
+
+
+return P, FUGLOG, DLFUGT, DLFUGV, DPDT, DPDV
 
 
