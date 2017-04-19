@@ -129,7 +129,14 @@ c    Newton procedure for solving the present point
         end if
 
         
+        def evaluar_volumen_liquido(Pl, Pv):
+        
+            condition_1 = (Pl < Pv/2 and (Pv-Pl) > 1.d-8)
+            condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
 
+            condition_3 = condition_1 condition_2
+
+            return condition_3
 
 
         ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
