@@ -171,6 +171,19 @@ DPDTx, DPDVx, DPDTy, DPDVy = np.array(list(map(XTVTERMO, vector_1, vector_2 )))
             condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
 
             
+        ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
+        while condition_1 or condition_2:
+
+            NV = NV + 1
+            V1 = Vl + (Pv - Pl) / DPDVx    ! very important for convergence and accuracy of P at low T
+            V2 = (Vl + B) / 2
+            Vl = max(V1, V2)
+            XVAR[2] = log(Vl)
+
+            DPDTx, DPDVx, DPDTy, DPDVy = np.array(list(map(XTVTERMO, vector_1, vector_2 )))
+
+            condition_1 = (Pl < Pv/2 and (Pv-Pl) > 1.d-8)
+            condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
         
 
 
