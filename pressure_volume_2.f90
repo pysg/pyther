@@ -138,6 +138,10 @@ c    Newton procedure for solving the present point
 
             return condition_3
 
+resultados = np.array(list(map(sumar_n, vector_1, vector_2 )))
+
+XTVTERMO
+
 
         ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
         while condition_1 or condition_2:
