@@ -431,6 +431,7 @@ c   Z = P*V/(TOTN*RT)
     
     DO 60 I=1,NC
     IF(RN(I).EQ.0.0)GOTO 60
+
 C   FUGLOG(I)=-LOG(Z)+Arn(I)/RT + log(rn(I)/TOTN) + log(P)
 C   FUGLOG(I)=Arn(I)/RT + log(rn(I)/TOTN) + log(P/Z) this crashes at very low T LLV when Z=P=0.000000...
     
@@ -439,9 +440,11 @@ C   FUGLOG(I)=Arn(I)/RT + log(rn(I)/TOTN) + log(P/Z) this crashes at very low T 
     DLFUGV(I)=-DPDN(I)/RT                    ! term DPDV/P is cancelled out
     
     IF(NTEMP.EQ.0) GOTO 60
+    
     DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
     
     60 CONTINUE
+
     62 IF(NDER.LT.2) GOTO 64
       DO 63 I=1,NC
       DO 61 K=I,NC
@@ -491,9 +494,10 @@ SUBROUTINE HelmRKPR(NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
     dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
     COMMON /rule/ncomb
 
-    NC=2
+    NC = 2
     TOTN = sum(rn)
     call DELTAnder(nc,rn,D1,dD1i,dD1ij)
+    
     D2=(1-D1)/(1+D1)
 
     if(ncomb.lt.2)then
@@ -503,35 +507,37 @@ SUBROUTINE HelmRKPR(NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 c       call Bcubicnder(nc,rn,Bmix,dBi,dBij)
 c       call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
     end if
+
 c   The f's and g's used here are for Ar, not F (reduced Ar)                    ***********
 c   This requires to multiply by R all g, f and its derivatives as defined by Mollerup ****
 
-    f=log((V+D1*Bmix)/(V+D2*Bmix))/Bmix/(D1-D2)
-    g=RGAS*log(1-Bmix/V)
-    fv=-1/((V+D1*Bmix)*(V+D2*Bmix))
-    fB=-(f+V*fv)/Bmix
-    gv=RGAS*Bmix/(V*(V-Bmix))
-    fv2=(-1/(V+D1*Bmix)**2+1/(V+D2*Bmix)**2)/Bmix/(D1-D2)
-    gv2=RGAS*(1/V**2-1/(V-Bmix)**2)
+    f = log((V+D1*Bmix)/(V+D2*Bmix))/Bmix/(D1-D2)
+    g = RGAS*log(1-Bmix/V)
+    fv = -1/((V+D1*Bmix)*(V+D2*Bmix))
+    fB = -(f+V*fv)/Bmix
+    gv = RGAS*Bmix/(V*(V-Bmix))
+    fv2 = (-1/(V+D1*Bmix)**2+1/(V+D2*Bmix)**2)/Bmix/(D1-D2)
+    gv2 = RGAS*(1/V**2-1/(V-Bmix)**2)
 
 C   DERIVATIVES OF f WITH RESPECT TO DELTA1
-    auxD2=(1+2/(1+D1)**2)
-    fD1=(1/(V+D1*Bmix)+2/(V+D2*Bmix)/(1+D1)**2)-f*auxD2
-    fD1=fD1/(D1-D2)
-    fBD1=-(fB*auxD2+D1/(V+D1*Bmix)**2+2*D2/(V+D2*Bmix)**2/(1+D1)**2)
-    fBD1=fBD1/(D1-D2)
-    fVD1=-(fV*auxD2+1/(V+D1*Bmix)**2+2/(V+D2*Bmix)**2/(1+D1)**2)/(D1-D2)
-    fD1D1=4*(f-1/(V+D2*Bmix))/(1+D1)**3+Bmix*(-1/(V+D1*Bmix)**2+
-    1       4/(V+D2*Bmix)**2/(1+D1)**4)-2*fD1*(1+2/(1+D1)**2)
-    fD1D1=fD1D1/(D1-D2)
+    
+    auxD2 = (1+2/(1+D1)**2)
+    fD1 = (1/(V+D1*Bmix)+2/(V+D2*Bmix)/(1+D1)**2)-f*auxD2
+    fD1 = fD1/(D1-D2)
+    fBD1 = -(fB*auxD2+D1/(V+D1*Bmix)**2+2*D2/(V+D2*Bmix)**2/(1+D1)**2)
+    fBD1 = fBD1/(D1-D2)
+    fVD1 = -(fV*auxD2+1/(V+D1*Bmix)**2+2/(V+D2*Bmix)**2/(1+D1)**2)/(D1-D2)
+    fD1D1 = 4*(f-1/(V+D2*Bmix))/(1+D1)**3+Bmix*(-1/(V+D1*Bmix)**2 + 4/(V+D2*Bmix)**2/(1+D1)**4)-2*fD1*(1+2/(1+D1)**2)
+    fD1D1 = fD1D1/(D1-D2)
 
 c   Reduced Helmholtz Energy and derivatives
-    Ar=-TOTN*g*T-D*f
-    ArV=-TOTN*gv*T-D*fv
-    ArV2=-TOTN*gv2*T-D*fv2
+    
+    Ar = -TOTN*g*T-D*f
+    ArV = -TOTN*gv*T-D*fv
+    ArV2 = -TOTN*gv2*T-D*fv2
 
 c
-    AUX=RGAS*T/(V-Bmix)
+    AUX = RGAS*T/(V-Bmix)
     FFB=TOTN*AUX-D*fB
     FFBV=-TOTN*AUX/(V-Bmix)+D*(2*fv+V*fv2)/Bmix
     FFBB=TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
