@@ -538,9 +538,9 @@ c   Reduced Helmholtz Energy and derivatives
 
 c
     AUX = RGAS*T/(V-Bmix)
-    FFB=TOTN*AUX-D*fB
-    FFBV=-TOTN*AUX/(V-Bmix)+D*(2*fv+V*fv2)/Bmix
-    FFBB=TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
+    FFB = TOTN*AUX-D*fB
+    FFBV = -TOTN*AUX/(V-Bmix)+D*(2*fv+V*fv2)/Bmix
+    FFBB = TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
 
     do i=1,nc
         Arn(i)=-g*T+FFB*dBi(i)-f*dDi(i)-D*fD1*dD1i(i)
