@@ -140,7 +140,14 @@ c    Newton procedure for solving the present point
 
 resultados = np.array(list(map(sumar_n, vector_1, vector_2 )))
 
-XTVTERMO
+vector_1 = 2,T,Vl,Pl,rn,FUGx,FUGTx,FUGVx,DFGN
+vector_2 = 2,T,Vv,Pv,rn,FUGy,FUGTy,FUGVy,DFGN
+
+
+DPDTx, DPDVx, DPDTy, DPDVy = np.array(list(map(XTVTERMO, vector_1, vector_2 )))
+            
+
+
 
 
         ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
