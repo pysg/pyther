@@ -402,41 +402,57 @@ C---------------------------------------------------
     COMMON / MODEL / NMODEL
     COMMON / NG / NGR
     COMMON / Pder / DPDN(nco),DPDT,DPDV
+    
     NG=NGR
     NC=2
+    
     IF(NMODEL.EQ.5.OR.NMODEL.EQ.7) CALL PARAGC(T,NC,NG,1)      
+    
     NTEMP=0
-      IGZ=0
-      NDER=1
-      IF (INDIC.GT.2) NDER=2
-      IF (INDIC.EQ.2 .OR. INDIC.EQ.4) NTEMP=1
+    IGZ=0
+    NDER=1
+    
+    IF (INDIC.GT.2) NDER=2
+    
+    IF (INDIC.EQ.2 .OR. INDIC.EQ.4) NTEMP=1
+    
     TOTN = sum(rn)
-      RT = RGAS*T
+    RT = RGAS*T
+    
     call ArVnder(NDER,NTEMP,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
-      P = TOTN*RT/V - ArV
-      DPDV = -ArV2-RT*TOTN/V**2
-      IF(INDIC.GT.4)GOTO 62
-c      Z = P*V/(TOTN*RT)
+    
+    P = TOTN*RT/V - ArV
+    DPDV = -ArV2-RT*TOTN/V**2
+    
+    IF(INDIC.GT.4)GOTO 62
+c   Z = P*V/(TOTN*RT)
+    
     DPDT = -ArTV+TOTN*RGAS/V
+    
     DO 60 I=1,NC
     IF(RN(I).EQ.0.0)GOTO 60
-C        FUGLOG(I)=-LOG(Z)+Arn(I)/RT + log(rn(I)/TOTN) + log(P)
-C        FUGLOG(I)=Arn(I)/RT + log(rn(I)/TOTN) + log(P/Z) this crashes at very low T LLV when Z=P=0.000000...
-        FUGLOG(I)=Arn(I)/RT + log(rn(I)) + log(RT/V)
-        DPDN(I) = RT/V-ArVn(I)
-        DLFUGV(I)=-DPDN(I)/RT                    ! term DPDV/P is cancelled out
-        IF(NTEMP.EQ.0) GOTO 60
-        DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
-   60 CONTINUE
-   62 IF(NDER.LT.2) GOTO 64
+C   FUGLOG(I)=-LOG(Z)+Arn(I)/RT + log(rn(I)/TOTN) + log(P)
+C   FUGLOG(I)=Arn(I)/RT + log(rn(I)/TOTN) + log(P/Z) this crashes at very low T LLV when Z=P=0.000000...
+    
+    FUGLOG(I)=Arn(I)/RT + log(rn(I)) + log(RT/V)
+    DPDN(I) = RT/V-ArVn(I)
+    DLFUGV(I)=-DPDN(I)/RT                    ! term DPDV/P is cancelled out
+    
+    IF(NTEMP.EQ.0) GOTO 60
+    DLFUGT(I)=(ArTn(I)-Arn(I)/T)/RT+1.D0/T    ! term DPDT/P is cancelled out
+    
+    60 CONTINUE
+    62 IF(NDER.LT.2) GOTO 64
       DO 63 I=1,NC
       DO 61 K=I,NC
-        DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
-   61        DLFUGX(K,I)=DLFUGX(I,K)
-        DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
-   63 CONTINUE
-   64 RETURN
-      END
+    
+    DLFUGX(I,K)=Arn2(I,K)/RT        ! term 1/TOTN is cancelled out
+    61        DLFUGX(K,I)=DLFUGX(I,K)
+              DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
+    63 CONTINUE
+    64 RETURN
+   
+   END
 C
 
 
