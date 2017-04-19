@@ -128,10 +128,12 @@ c    Newton procedure for solving the present point
             go to 21
         end if
 
-        ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
-        while True:
+        
 
-            condition_1 or condition_2:
+
+
+        ! while ((Pl.lt.Pv/2.and.Pv-Pl.gt.1.d-8).or.(Pl.gt.1.5*Pv.and.Pl-Pv.gt.1.d-8)):
+        while condition_1 or condition_2:
 
             NV = NV + 1
             V1 = Vl + (Pv - Pl) / DPDVx    ! very important for convergence and accuracy of P at low T
@@ -151,6 +153,12 @@ c    Newton procedure for solving the present point
             condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
 
             
+        
+
+
+
+
+
 
 
 
