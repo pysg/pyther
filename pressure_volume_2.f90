@@ -542,30 +542,31 @@ c
     FFBV = -TOTN*AUX/(V-Bmix)+D*(2*fv+V*fv2)/Bmix
     FFBB = TOTN*AUX/(V-Bmix)-D*(2*f+4*V*fv+V**2*fv2)/Bmix**2
 
-    do i=1,nc
-        Arn(i)=-g*T+FFB*dBi(i)-f*dDi(i)-D*fD1*dD1i(i)
-        ArVn(i)=-gv*T+FFBV*dBi(i)-fv*dDi(i)-D*fVD1*dD1i(i)
+    do i = 1, nc
+        Arn(i) = -g*T+FFB*dBi(i)-f*dDi(i)-D*fD1*dD1i(i)
+        ArVn(i) = -gv*T+FFBV*dBi(i)-fv*dDi(i)-D*fVD1*dD1i(i)
         IF (NDE.EQ.2) THEN
-            do j=1,i
-                Arn2(i,j)=AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i))
-                &      +FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
-                Arn2(i,j)=Arn2(i,j)-D*fBD1*(dBi(i)*dD1i(j)+dBi(j)*dD1i(i))
-                &      -fD1*(dDi(i)*dD1i(j)+dDi(j)*dD1i(i))
+            do j = 1, i
+                Arn2(i, j) = AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i)) + FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
+                Arn2(i, j) = Arn2(i,j)-D*fBD1*(dBi(i)*dD1i(j)+dBi(j)*dD1i(i)) - fD1*(dDi(i)*dD1i(j)+dDi(j)*dD1i(i))
                 &      -D*fD1*dD1ij(i,j)-D*fD1D1*dD1i(i)*dD1i(j)
-                Arn2(j,i)=Arn2(i,j)
+                Arn2(j, i) = Arn2(i, j)
             end do
         END IF
     end do
 
 C   TEMPERATURE DERIVATIVES
+
     IF (NTD.EQ.1) THEN
-    ArT=-TOTN*g-dDdT*f
-    ArTV=-TOTN*gv-dDdT*fV
-    ArTT=-dDdT2*f
-    do i=1,nc
-    ArTn(i)=-g+(TOTN*AUX/T-dDdT*fB)*dBi(i)-f*dDiT(i)-dDdT*fD1*dD1i(i)
+        ArT = -TOTN*g-dDdT*f
+        ArTV = -TOTN*gv-dDdT*fV
+        ArTT = -dDdT2*f
+    
+    do i = 1, nc
+        ArTn(i)=-g+(TOTN*AUX/T-dDdT*fB)*dBi(i)-f*dDiT(i)-dDdT*fD1*dD1i(i)
     end do
     END IF
+    
 end
 
 
