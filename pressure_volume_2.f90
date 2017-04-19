@@ -593,6 +593,6 @@ do I = 1 , NC
         DLFUGX(I,I)=DLFUGX(I,I)+1.0/rn(I)
 
 
-return P, FUGLOG, DLFUGT, DLFUGV, DPDT, DPDV
+return P ,DPDT, DPDV, FUGLOG, DLFUGT, DLFUGV 
 
 
