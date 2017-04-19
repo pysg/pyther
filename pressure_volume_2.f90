@@ -130,11 +130,11 @@ c    Newton procedure for solving the present point
 
         
         def evaluar_volumen_liquido(Pl, Pv):
-        
+
             condition_1 = (Pl < Pv/2 and (Pv-Pl) > 1.d-8)
             condition_2 = (Pl > 1.5 * Pv and (Pl-Pv) > 1.d-8)
 
-            condition_3 = condition_1 condition_2
+            condition_3 = condition_1 or condition_2
 
             return condition_3
 
