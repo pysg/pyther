@@ -585,7 +585,7 @@ def HelmRKPR(NDE,NTD,rn,V,T):
     
     D2 = (1 - D1) / (1 + D1)
 
-    if(ncomb.lt.2)then
+    if ncomb < 2:
         call Bnder(nc,rn,Bmix,dBi,dBij)
         call DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
     end if
