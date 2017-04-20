@@ -583,7 +583,7 @@ def HelmRKPR(NDE,NTD,rn,V,T):
     TOTN = sum(rn)
     call DELTAnder(nc,rn,D1,dD1i,dD1ij)
     
-    D2=(1-D1)/(1+D1)
+    D2 = (1 - D1) / (1 + D1)
 
     if(ncomb.lt.2)then
         call Bnder(nc,rn,Bmix,dBi,dBij)
