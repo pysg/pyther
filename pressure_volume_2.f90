@@ -588,9 +588,6 @@ def HelmRKPR(NDE,NTD,rn,V,T):
     if(ncomb.lt.2)then
         call Bnder(nc,rn,Bmix,dBi,dBij)
         call DandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
-    else
-c       call Bcubicnder(nc,rn,Bmix,dBi,dBij)
-c       call DCubicandTnder(NTD,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
     end if
 
 c   The f's and g's used here are for Ar, not F (reduced Ar)                    ***********
