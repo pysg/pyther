@@ -640,9 +640,9 @@ c
 C   TEMPERATURE DERIVATIVES
 
     IF (NTD.EQ.1) THEN
-        ArT = -TOTN*g-dDdT*f
-        ArTV = -TOTN*gv-dDdT*fV
-        ArTT = -dDdT2*f
+        ArT = - TOTN * g - dDdT * f
+        ArTV = - TOTN * gv - dDdT * fV
+        ArTT = - dDdT2 * f
 
 C number of moles DERIVATIVES    
 
