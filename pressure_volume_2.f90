@@ -486,6 +486,7 @@ RJAC[2,3] = -Vv * FUGVy[i]
 
 
 SUBROUTINE HelmRKPR(NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+
     IMPLICIT DOUBLE PRECISION (A-H,O-Z)
     PARAMETER (nco=2,RGAS=0.08314472d0)
     dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
@@ -561,12 +562,14 @@ C   TEMPERATURE DERIVATIVES
         ArT = -TOTN*g-dDdT*f
         ArTV = -TOTN*gv-dDdT*fV
         ArTT = -dDdT2*f
-    
+
+C number of moles DERIVATIVES    
+
     do i = 1, nc
         ArTn(i)=-g+(TOTN*AUX/T-dDdT*fB)*dBi(i)-f*dDiT(i)-dDdT*fD1*dD1i(i)
     end do
     END IF
-    
+
 end
 
 
