@@ -627,6 +627,7 @@ c
     do i = 1, nc
         Arn(i) = -g*T+FFB*dBi(i)-f*dDi(i)-D*fD1*dD1i(i)
         ArVn(i) = -gv*T+FFBV*dBi(i)-fv*dDi(i)-D*fVD1*dD1i(i)
+        
         IF (NDE.EQ.2) THEN
             do j = 1, i
                 Arn2(i, j) = AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i)) + FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
@@ -647,8 +648,10 @@ C   TEMPERATURE DERIVATIVES
 C number of moles DERIVATIVES    
 
     do i = 1, nc
-        ArTn(i)=-g+(TOTN*AUX/T-dDdT*fB)*dBi(i)-f*dDiT(i)-dDdT*fD1*dD1i(i)
+
+        ArTn[i] = - g + (TOTN * AUX / T - dDdT * fB) * dBi[i] - f * dDiT[i] - dDdT * fD1 * dD1i[i]
     end do
+    
     END IF
 
 end
