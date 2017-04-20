@@ -575,13 +575,9 @@ end
 ! def HelmRKPR(NDE,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
 def HelmRKPR(NDE,NTD,rn,V,T):
 
-    IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-    PARAMETER (nco=2,RGAS=0.08314472d0)
-    dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
-    dimension dBi(nco),dBij(nco,nco),dD1i(nco),dD1ij(nco,nco)
-    dimension dDi(nco),dDij(nco,nco),dDiT(nco)
-    dimension aij(nco,nco),daijdT(nco,nco),daijdT2(nco,nco)
-    COMMON /rule/ncomb
+
+    nco = 2
+    RGAS = 0.08314472
 
     NC = 2
     TOTN = sum(rn)
