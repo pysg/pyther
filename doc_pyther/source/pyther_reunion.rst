@@ -2,6 +2,23 @@
 ********************************************
 ********************************************
 
+
+En todos los casos se realiza el calculo (o el reclaculo) del parametro *rk* de la ecuación RKPR.
+
+Se tiene la posibilidad de especificar un par (presión de vapor, temperatura) para realizar los calculos,
+en caso contrario de no hacer esta especificación, se toma por defecto el valor de la presión de vapor
+correspondiente a una temperatura reducida *Tr = 0.7* junto con el correspondiente valor del factor
+acentrico según cada sustancia pura.
+
+
+
+
+
+
+
+
+
+
 * Temperatura critica
 * Presión critica
 * factor acentrico Omega
