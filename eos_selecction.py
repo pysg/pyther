@@ -115,6 +115,9 @@ def eos(prueba):
         dinputs = np.array([Tc, Pc, OM])
         del1 = 1
     elif prueba == "PR_1":
+
+        # se requiere valores para los parámetros ac, b y rm.
+        
         pass
 
     return dinputs, NMODEL, ICALC
