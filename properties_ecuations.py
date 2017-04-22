@@ -1,14 +1,14 @@
 import numpy as np
 import pandas as pd
 import math
-#import matplotlib as plt
+# import matplotlib as plt
 import matplotlib.pyplot as plt
 import os
 
-#import pyther as pt
+# import pyther as pt
 
 # constan to size of data base of components
-#size_data = 30
+# size_data = 30
 size_data = 115
 dfile = "PureFull_mod_properties.xls"
 path_file = os.path.dirname(__file__)
