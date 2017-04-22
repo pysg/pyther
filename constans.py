@@ -1,5 +1,6 @@
 import numpy as np
 
+# Constante universal de los gases R [=] definir las unidades #####
 RGAS = 0.08314472
 # Definir el significado fisicoquímico
 
