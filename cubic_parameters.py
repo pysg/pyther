@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import fsolve
 from eos_selecction import eos, convert_argument
-from models_eos import models_eos_cal
+from .models_eos import models_eos_cal
 
 '''
 This module calculate parameters necessary to use the equations of state:
@@ -467,7 +467,7 @@ print("-" * 79)
 eos_calculation = Parameter_eos()
 
 # functions import from eos_selection
-dinputs, NMODEL, ICALC = eos('RKPR_2')
+dinputs, NMODEL, ICALC = eos('RKPR_0')
 NMODEL, ICALC = convert_argument(NMODEL, ICALC)
 
 resultado = models_eos_cal(NMODEL, ICALC, dinputs)

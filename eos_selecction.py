@@ -117,7 +117,7 @@ def eos(prueba):
     elif prueba == "PR_1":
 
         # se requiere valores para los parámetros ac, b y rm.
-        
+
         pass
 
     return dinputs, NMODEL, ICALC
@@ -125,7 +125,8 @@ def eos(prueba):
 
 def convert_argument(NMODEL, ICALC):
 
-    if ICALC == 0: ICALC = "constants_eps"
+    if ICALC == 0:
+        ICALC = "constants_eps"
     elif ICALC == 1: ICALC = "parameters_eps"
     elif ICALC == 2: ICALC = "rk_param"
     elif ICALC == 3: ICALC = "density"
