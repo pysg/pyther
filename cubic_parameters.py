@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import fsolve
 from eos_selecction import eos, convert_argument
-from .models_eos import models_eos_cal
+from models_eos import models_eos_cal
 
 '''
 This module calculate parameters necessary to use the equations of state:
