@@ -75,6 +75,9 @@ def get_del_1(Zcin, del_1_init):
         del1 = del1 - (Zc - Zcin) * (del1 - dold) / (Zc - Zold)
         dold = aux
         error_Z_critico = abs(Zc - Zcin)
+    
+    else:
+        print()
 
         if error_Z_critico <= 1e-6:
             break
