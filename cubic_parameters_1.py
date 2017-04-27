@@ -84,6 +84,7 @@ def get_del_1(Zcin, del_1_init):
 
     return del1, error_Z_critico
 
+
 def compressibility_factor_cal(del1):
     d1 = (1 + del1 ** 2) / (1 + del1)
     y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
