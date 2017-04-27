@@ -77,7 +77,7 @@ def get_del_1(Zcin, del_1_init):
         error_Z_critico = abs(Zc - Zcin)
     
     else:
-        print()
+        print("delta_1 = {0} with a error of = {1}".format(del1, error_Z_critico))
 
         if error_Z_critico <= 1e-6:
             break
