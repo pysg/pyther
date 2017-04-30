@@ -134,7 +134,8 @@ def convert_argument(NMODEL, ICALC):
     elif ICALC == 3:
         ICALC = "density"
 
-    if NMODEL == 1: NMODEL = "SRK"
+    if NMODEL == 1:
+        NMODEL = "SRK"
     elif NMODEL == 2: NMODEL = "PR"
     elif NMODEL == 3: NMODEL = "RKPR"
 
