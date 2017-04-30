@@ -136,7 +136,8 @@ def convert_argument(NMODEL, ICALC):
 
     if NMODEL == 1:
         NMODEL = "SRK"
-    elif NMODEL == 2: NMODEL = "PR"
+    elif NMODEL == 2:
+        NMODEL = "PR"
     elif NMODEL == 3: NMODEL = "RKPR"
 
     print('NMODEL = {0} and ICALC = {1}'.format(NMODEL, ICALC))
