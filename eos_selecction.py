@@ -129,7 +129,8 @@ def convert_argument(NMODEL, ICALC):
         ICALC = "constants_eps"
     elif ICALC == 1:
         ICALC = "parameters_eps"
-    elif ICALC == 2: ICALC = "rk_param"
+    elif ICALC == 2:
+        ICALC = "rk_param"
     elif ICALC == 3: ICALC = "density"
 
     if NMODEL == 1: NMODEL = "SRK"
