@@ -114,6 +114,7 @@ def eos(prueba):
         print("componente = {0} \nTc = {1} \nPc = {2} \nOM = {3}".format(componente, Tc, Pc, OM))
         dinputs = np.array([Tc, Pc, OM])
         del1 = 1
+
     elif prueba == "PR_1":
 
         # se requiere valores para los parámetros ac, b y rm.
