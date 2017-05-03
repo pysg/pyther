@@ -218,5 +218,7 @@ def call_eos(NMODEL, ICALC, dinputs):
             # PARAMETERS SPECIFICATION READ [ac, b, rk, del1]
             call_rkpr_parameters(NMODEL, ICALC, dinputs)
 
+# -----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 print(34)
