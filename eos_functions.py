@@ -204,6 +204,7 @@ def call_eos(NMODEL, ICALC, dinputs):
     elif ICALC == "RKPR":
 
         if ICALC == 'constants_eps':
+            
             # CONSTANTS SPECIFICATION READ [Tc, Pc, OM, Vceos]
             call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs)
         elif ICALC == 'rk_param':
