@@ -212,12 +212,13 @@ def call_eos(NMODEL, ICALC, dinputs):
             # CONSTANTS SPECIFICATION and del1 READ [Tc, Pc, OM, del1]
             call_rkpr_constans_delta_1()
         elif ICALC == 'density':
-            
+
             # CONSTANTS SPECIFICATION and (T, RhoLsat)
             # READ [Tc, Pc, OM, del1, T, RHOLsat]
             # Trho = T / Tc,  read initial value of del1
             call_rkpr_constans_density()
         elif ICALC == 'parameters_eps':
+            
             # PARAMETERS SPECIFICATION READ [ac, b, rk, del1]
             call_rkpr_parameters(NMODEL, ICALC, dinputs)
 
