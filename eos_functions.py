@@ -191,6 +191,9 @@ def call_rkpr_constans_density(NMODEL, ICALC, dinputs):
 
 
 def call_eos(NMODEL, ICALC, dinputs):
+    """
+    this function
+    """
 
     if NMODEL == 'SRK' or NMODEL == 'PR':
 
