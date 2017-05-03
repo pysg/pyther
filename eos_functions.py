@@ -195,6 +195,7 @@ def call_eos(NMODEL, ICALC, dinputs):
     if NMODEL == 'SRK' or NMODEL == 'PR':
 
         if ICALC == 'constants_eps':
+            
             # CONSTANTS SPECIFICATION READ [Tc, Pc, OM]
             constans_criticals(NMODEL, ICALC, dinputs)
         elif ICALC == 'parameters_eps':
@@ -218,7 +219,7 @@ def call_eos(NMODEL, ICALC, dinputs):
             # Trho = T / Tc,  read initial value of del1
             call_rkpr_constans_density()
         elif ICALC == 'parameters_eps':
-            
+
             # PARAMETERS SPECIFICATION READ [ac, b, rk, del1]
             call_rkpr_parameters(NMODEL, ICALC, dinputs)
 
