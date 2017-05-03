@@ -40,6 +40,10 @@ def constans_criticals(NMODEL, ICALC, dinputs):
     return params
 
 
+# -----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+
+
 def parameters_criticals(NMODEL, ICALC, dinputs):
 
     # PARAMETERS SPECIFICATION READ [ac, b, rm]
@@ -98,6 +102,9 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
 
     return constants
 
+# -----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+
 
 def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
@@ -134,6 +141,8 @@ def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
     return params
 
+# -----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 def call_rkpr_constans_delta_1(NMODEL, ICALC, dinputs):
 
