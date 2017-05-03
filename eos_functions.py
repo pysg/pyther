@@ -195,10 +195,11 @@ def call_eos(NMODEL, ICALC, dinputs):
     if NMODEL == 'SRK' or NMODEL == 'PR':
 
         if ICALC == 'constants_eps':
-            
+
             # CONSTANTS SPECIFICATION READ [Tc, Pc, OM]
             constans_criticals(NMODEL, ICALC, dinputs)
         elif ICALC == 'parameters_eps':
+
             # PARAMETERS SPECIFICATION READ [ac, b, rm]
             parameters_criticals(NMODEL, ICALC, dinputs)
 
