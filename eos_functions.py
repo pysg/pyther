@@ -192,7 +192,7 @@ def call_rkpr_constans_density(NMODEL, ICALC, dinputs):
 
 def call_eos(NMODEL, ICALC, dinputs):
     """
-    this function
+    This function allow to calculate the eos paramaters for (SRK, PR, RKPR)
     """
 
     if NMODEL == 'SRK' or NMODEL == 'PR':
