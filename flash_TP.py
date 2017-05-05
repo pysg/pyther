@@ -17,9 +17,9 @@ class Flash_TP(object):
         self.w = arg[2]
         self.T = arg[3]
 
-    def wilson(self, Pc, Tc, w, T):
-        # Ecuación de wilson
-        lnKi = np.log(Pc / self.P) + 5.373 * (1 + w) * (1 - Tc / self.T)
+    def wilson(self):
+        """Equation of wilson for to calculate the Ki(T,P)"""
+        lnKi = np.log(self.Pc / self.P) + 5.373 * (1 + self.w) * (1 - self.Tc / self.T)
         self.Ki = np.exp(lnKi)
         return self.Ki
 
