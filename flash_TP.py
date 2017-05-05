@@ -79,7 +79,7 @@ class Flash_TP(object):
         flashID = self.flash_ideal()
         print("flash (P, T, zi)")
         print("g, dg, B = ", flashID)
-        print("---------------------------------------------------------------")
+        print("-" * 20)
 
         self.Bini = flashID[2]
         print("Beta_r ini = ", self.Bini)
