@@ -2,7 +2,13 @@ import numpy as np
 
 
 class Flash_TP(object):
-    """docstring for ClassName"""
+    """
+    Flash_TP is a Class for to calculate the flash with a temperature T and
+    pressure P for a specified composition zi. In this case, the algorithm
+    used, is a combination between the ideal flash with Ki(T,P) without
+    dependence of the composition and the flash with Ki(T,P,zi) with dependence
+    of the composition from the two phases in equilibrium.
+    """
 
     def __init__(self, arg):
         # super(ClassName, self).__init__()
