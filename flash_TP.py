@@ -28,15 +28,16 @@ class Flash_TP(object):
         self.zi = zi
         self.Bini = Bini
         self.Ki = Ki
-        self.fg = np.sum(self.zi * (self.Ki - 1) / (1 - self.Bini + self.Bini * self.Ki))
-        self.dfg = - np.sum(self.zi * (self.Ki - 1) ** 2 / (1 - self.Bini + self.Bini * self.Ki) ** 2)
+        denominador = (1 - self.Bini + self.Bini * self.Ki)
+        self.fg = np.sum(self.zi * (self.Ki - 1) / denominador)
+        self.dfg = - np.sum(self.zi * (self.Ki - 1) ** 2 / denominador ** 2)
         # print g, dg
         return self.fg, self.dfg
 
     def flash_ideal(self):
         self.Bini = self.beta(zi)
         self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
-        print("Ki_(P, T) = ", self.Ki)
+        print("Ki_(P,T) = ", self.Ki)
         Eg = self.rice(zi, self.Ki, self.Bini)
         errorEq = abs(Eg[0])
         i, s = 0, 1
@@ -75,6 +76,106 @@ class Flash_TP(object):
         return self.xi, self.yi, self.li, self.vi
 
     def flash_PT(self):
+        flashID = self.flash_ideal()
+        print("flash (P, T, zi)")
+        print("g, dg, B = ", flashID)
+        print("---------------------------------------------------------------")
+
+        self.Bini = flashID[2]
+        print("Beta_r ini = ", self.Bini)
+        moles = self.composicion_xy(zi, self.Ki, self.Bini)
+
+        self.xi, self.yi = moles[0], moles[1]
+        nil, niv = moles[2], moles[3]
+
+        fi_F = self.fugac()
+
+        self.Ki = fi_F[0] / fi_F[1]
+
+        L = 1.0
+
+        self.Ki = self.Ki * L
+
+        Ki_1 = self.Ki
+        print("Ki_(P, T, ni) primera = ", self.Ki)
+
+        print("-" * 20)
+
+        while 1:
+            i, s = 0, 0.1
+
+            while 1:
+                Eg = self.rice(zi, self.Ki, self.Bini)
+                print(Eg)
+                self.Bini = self.Bini - s * Eg[0] / Eg[1]
+                print(self.Bini)
+                errorEq = abs(Eg[0])
+                i += 1
+                # print i
+
+                #if self. Bini < 0 or self.Bini > 1:
+                    #break
+                #    self.Bini = 0.5
+                if i >= 50:
+                    pass
+                    # break
+                if errorEq < 1e-5:
+                    break
+
+            print("Resultado Real = ", Eg)
+            print(" Beta r = ", self.Bini)
+
+            moles = self.composicion_xy(zi, self.Ki, self.Bini)
+            self.xi, self.yi = moles[0], moles[1]
+
+            # xy = self.composicion_xy(zi, self.Ki, self.Bini)
+
+            print("C1 -i-C4 n-C4")
+            print("----------Composición de fase líquida----------")
+            print("xi = ", moles[0])
+            print("Sxi = ", np.sum(moles[0]))
+            print("----------Composición de fase vapor----------")
+            print("yi = ", moles[1])
+            print("Syi = ", np.sum(moles[1]))
+
+            fi_F = self.fugac()
+
+            self.Ki = fi_F[0] / fi_F[1]
+            Ki_2 = self.Ki
+            dKi = abs(Ki_1 - Ki_2)
+            Ki_1 = Ki_2
+            print("Ki_(P, T, ni) = ", self.Ki)
+
+            fun_Ki = np.sum(dKi)
+            print("fun_Ki = ", fun_Ki)
+
+            if fun_Ki < 1e-5:
+                break
+
+        return flashID
+
+
+def etiquetar():
+
+    rotulo_Liquido = "Composición de fase líquido"
+    rotulo_Vapor = "Composición de fase vapor"
+    rotulo_Separador = "-" * 11
+
+    etiqueta_liquido = "{0}{1}{0}".format(rotulo_Separador, rotulo_Liquido)
+    etiqueta_vapor = "{0}{1}{0}".format(rotulo_Vapor, rotulo_Vapor)
+
+    return etiqueta_liquido, etiqueta_vapor
+
+
+print(etiquetar()[0])
+
+
+
+
+
+
+
+def flash_PT(self):
         flashID = self.flash_ideal()
         print("flash (P, T, zi)")
         print("g, dg, B = ", flashID)
@@ -179,18 +280,3 @@ class Flash_TP(object):
                 break
 
         return flashID
-
-
-def etiquetar():
-
-    rotulo_Liquido = "Composición de fase líquido"
-    rotulo_Vapor = "Composición de fase vapor"
-    rotulo_Separador = "-" * 11
-
-    etiqueta_liquido = "{0}{1}{0}".format(rotulo_Separador, rotulo_Liquido)
-    etiqueta_vapor = "{0}{1}{0}".format(rotulo_Vapor, rotulo_Vapor)
-
-    return etiqueta_liquido, etiqueta_vapor
-
-
-print(etiquetar()[0])
