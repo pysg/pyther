@@ -60,6 +60,17 @@ class Flash_TP(object):
 
         return Eg[0], Eg[1], self.Bini
 
+    def composicion_xy(self, zi, Ki, Bini):
+        self.zi = zi
+        self.Ki = Ki
+        self.Bini = Bini
+        self.xi = zi / (1 - self.Bini + self.Bini * self.Ki)
+        self.yi = (zi * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
+        self.li = (zi * (1 - self.Bini)) / (1 - self.Bini + self.Bini * self.Ki)
+        self.vi = (zi * self.Bini * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
+
+        return self.xi, self.yi, self.li, self.vi
+
     def flash_PT(self):
         flashID = self.flash_ideal()
         print ("flash (P, T, zi)")
@@ -168,13 +179,3 @@ class Flash_TP(object):
 
 
 
-    def composicion_xy(self, zi, Ki, Bini):
-        self.zi = zi
-        self.Ki = Ki
-        self.Bini = Bini
-        self.xi = zi / (1 - self.Bini + self.Bini * self.Ki)
-        self.yi = (zi * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
-        self.li = (zi * (1 - self.Bini)) / (1 - self.Bini + self.Bini * self.Ki)
-        self.vi = (zi * self.Bini * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
-
-        return self.xi, self.yi, self.li, self.vi
