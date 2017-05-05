@@ -1,5 +1,10 @@
 import numpy as np
 
+class Flash_TP(object):
+    """docstring for ClassName"""
+    def __init__(self, arg):
+        super(ClassName, self).__init__()
+        self.arg = arg
 
     def wilson(self, Pc, Tc, w, T):
         # Ecuación wilson
