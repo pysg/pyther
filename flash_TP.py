@@ -25,7 +25,6 @@ class Flash_TP(object):
         return self.Ki
 
     def beta_initial(self):
-        # self.zi = zi
         self.Ki = self.Ki_wilson()
         self.Bmin = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
         # print (("Bmin_inter = ", Bmin))
@@ -37,10 +36,11 @@ class Flash_TP(object):
     def rice(self):
 
         denominador = (1 - self.Binit + self.Binit * self.Ki)
-        self.fg = np.sum(self.zi * (self.Ki - 1) / denominador)
-        self.dfg = - np.sum(self.zi * (self.Ki - 1) ** 2 / denominador ** 2)
+        self.function_rice = np.sum(self.zi * (self.Ki - 1) / denominador)
+        # Derivate of function_rice with respect to Beta
+        self.d_functions_rice = - np.sum(self.zi * (self.Ki - 1) ** 2 / denominador ** 2)
         # print g, dg
-        return self.fg, self.dfg
+        return self.function_rice, self.d_functions_rice
 
     def flash_ideal(self):
         self.Binit = self.beta_initial(zi)
@@ -174,3 +174,26 @@ def etiquetar():
 
 
 print(etiquetar()[0])
+
+
+
+
+class ClassName(object):
+    """docstring for ClassName"""
+    def __init__(self, arg):
+        super(ClassName, self).__init__()
+        self.arg = arg
+        
+    def function_0():
+        pass
+    def function_1():
+        pass
+
+
+
+
+
+
+
+
+
