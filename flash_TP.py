@@ -6,7 +6,9 @@ class Flash_TP(object):
 
     def __init__(self, arg):
         # super(ClassName, self).__init__()
-        self.arg = arg
+        self.Tc = arg[0]
+        self.Pc = arg[1]
+        self.w = arg[2]
 
     def wilson(self, Pc, Tc, w, T):
         # Ecuación de wilson
