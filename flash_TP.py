@@ -53,7 +53,8 @@ class Flash_TP(object):
         print("Metano, Butano, Hexano")
         etiqueta_liquido = "Composición de fase líquida"
         etiqueta_vapor = "Composición de fase vapor"
-        print("-"*11, "Composición de fase líquida----------------------")
+
+        print(" -*{} {etiqueta_liquido}".format(etiqueta_liquido) )
         print("xi = ", xy[0])
         print("Sxi = ", np.sum(xy[0]))
         print("-----------------------------------")
