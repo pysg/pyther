@@ -68,10 +68,11 @@ class Flash_TP(object):
         self.zi = zi
         self.Ki = Ki
         self.Bini = Bini
-        self.xi = zi / (1 - self.Bini + self.Bini * self.Ki)
-        self.yi = (zi * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
-        self.li = (zi * (1 - self.Bini)) / (1 - self.Bini + self.Bini * self.Ki)
-        self.vi = (zi * self.Bini * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
+        denominador = (1 - self.Bini + self.Bini * self.Ki)
+        self.xi = zi / denominador
+        self.yi = (zi * self.Ki) / denominador
+        self.li = (zi * (1 - self.Bini)) / denominador
+        self.vi = (zi * self.Bini * self.Ki) / denominador
 
         return self.xi, self.yi, self.li, self.vi
 
@@ -165,7 +166,3 @@ def etiquetar():
 
 
 print(etiquetar()[0])
-
-
-
-
