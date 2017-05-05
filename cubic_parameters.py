@@ -85,14 +85,14 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc):
 
     # initial guess for k parameter
     rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
-    #rk = rk * 1.2 # 1.1 #5.2 #3.2
+    # rk = rk * 1.2 # 1.1 #5.2 #3.2
     # if ICALC == 1 or ICALC == 2:
     if ICALC == 'parameters_eps' or ICALC == 'rk_param':
         rk = rk * 1.2
         Tr = 0.7
-        Pvdat = Pc * 10 ** -(1.0 + omega)         
+        Pvdat = Pc * 10 ** -(1.0 + omega)
     elif ICALC == 'density':
-        rk = rk * 5.2 
+        rk = rk * 5.2
         Tr_calculada = dinputs[4] / dinputs[0]
         Tr = Tr_calculada
         Pvdat = Pc * 10 ** -((1.0 / Tr - 1.0) * 7 * (1.0 + omega) / 3)
@@ -246,8 +246,8 @@ class Parameter_eos(object):
         return self.rk_calculated
 
     def parameter_ab_cal(self, delta_1_initial, Pc, Tc):
-        #RT = RGAS * T_especific
-        #RT = RGAS * dinputs[0]
+        # RT = RGAS * T_especific
+        # RT = RGAS * dinputs[0]
         d1 = (1 + delta_1_initial ** 2) / (1 + delta_1_initial)
         y = 1 + (2 * (1 + delta_1_initial)) ** (1.0 / 3) \
         + (4.0 / (1 + delta_1_initial)) ** (1.0 / 3.0)
@@ -258,7 +258,7 @@ class Parameter_eos(object):
         dc = Pc / Zc / (RGAS * Tc)
         Vceos = 1.0 / dc
 
-        #self.ac = OMa * RT**2 / Pc
+        # self.ac = OMa * RT**2 / Pc
         self.ac = OMa * (RGAS * Tc)**2 / Pc
         self.b = OMb * (RGAS * Tc) / Pc
 

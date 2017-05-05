@@ -124,7 +124,7 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
 
             Zc = Pc * Vceos / (RGAS * Tc)
 
-            del1ini = D[0] + D[1] * (D[2] - Zc) ** D[3] + D[4] * (D[2] - Zc)** D[5]
+            del1ini = D[0] + D[1] * (D[2] - Zc) ** D[3] + D[4] * (D[2] - Zc) ** D[5]
             print('del1ini = {0}'.format(del1ini))
 
             delta_1 = getdel1(Zc, del1ini)[0]
