@@ -54,7 +54,7 @@ class Flash_TP(object):
         etiqueta_liquido = "Composición de fase líquida"
         etiqueta_vapor = "Composición de fase vapor"
 
-        print(" -*{} {etiqueta_liquido}".format(etiqueta_liquido) )
+        print(" -*{} {etiqueta_liquido}".format(etiqueta_liquido))
         print("xi = ", xy[0])
         print("Sxi = ", np.sum(xy[0]))
         print("-----------------------------------")
@@ -76,12 +76,12 @@ class Flash_TP(object):
 
     def flash_PT(self):
         flashID = self.flash_ideal()
-        print ("flash (P, T, zi)")
-        print ("g, dg, B = ", flashID)
-        print ("---------------------------------------------------------------")
+        print("flash (P, T, zi)")
+        print("g, dg, B = ", flashID)
+        print("---------------------------------------------------------------")
 
         self.Bini = flashID[2]
-        print ("Beta_r ini = ", self.Bini)
+        print("Beta_r ini = ", self.Bini)
         moles = self.composicion_xy(zi, self.Ki, self.Bini)
 
         self.xi, self.yi = moles[0], moles[1]
@@ -89,13 +89,13 @@ class Flash_TP(object):
 
         fi_F = self.fugac()
 
-        #print "nil = ", nil, np.sum(nil)
-        #print "Snil = ", np.sum(nil)
-        #print "niv", niv, np.sum(niv)
-        #print "Sniv = ", np.sum(niv)
+        # print "nil = ", nil, np.sum(nil)
+        # print "Snil = ", np.sum(nil)
+        # print "niv", niv, np.sum(niv)
+        # print "Sniv = ", np.sum(niv)
 
-        #nF = 2
-        #CoeFugi = np.ones((nF, nC))
+        # nF = 2
+        # CoeFugi = np.ones((nF, nC))
 
         #for i in range(nF):
         #    if i == 1:
@@ -108,8 +108,8 @@ class Flash_TP(object):
         #    Flug_i = self.fluido(self.P)
         #    CoeFugi[i, :] = Flug_i[1]
 
-        #print CoeFugi
-        #self.Ki = CoeFugi[0, :] / CoeFugi[1, :]
+        # print CoeFugi
+        # self.Ki = CoeFugi[0, :] / CoeFugi[1, :]
 
         self.Ki = fi_F[0] / fi_F[1]
 
@@ -118,14 +118,14 @@ class Flash_TP(object):
         self.Ki = self.Ki * L
 
         Ki_1 = self.Ki
-        print ("Ki_(P, T, ni) primera = ", self.Ki)
+        print("Ki_(P, T, ni) primera = ", self.Ki)
 
-        print ("----------------------------------------------------------------")
+        print("----------------------------------------------------------------")
 
-        #self.Ki = np.array([1.729, 0.832, 0.640])
+        # self.Ki = np.array([1.729, 0.832, 0.640])
 
-        #self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
-        #print "Ki_(P, T) = ", self.Ki
+        # self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
+        # print "Ki_(P, T) = ", self.Ki
 
         while 1:
             i, s = 0, 0.1
@@ -137,14 +137,14 @@ class Flash_TP(object):
                 print(self.Bini)
                 errorEq = abs(Eg[0])
                 i += 1
-                #print i
+                # print i
 
                 #if self. Bini < 0 or self.Bini > 1:
                     #break
                 #    self.Bini = 0.5
                 if i >= 50:
                     pass
-                    #break
+                    # break
                 if errorEq < 1e-5:
                     break
 
@@ -154,7 +154,7 @@ class Flash_TP(object):
             moles = self.composicion_xy(zi, self.Ki, self.Bini)
             self.xi, self.yi = moles[0], moles[1]
 
-            #xy = self.composicion_xy(zi, self.Ki, self.Bini)
+            # xy = self.composicion_xy(zi, self.Ki, self.Bini)
 
             print("C1 -i-C4 n-C4")
             print("-----------Composición de fase líquida----------------------")
