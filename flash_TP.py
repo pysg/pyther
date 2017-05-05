@@ -9,7 +9,7 @@ class Flash_TP(object):
         self.arg = arg
 
     def wilson(self, Pc, Tc, w, T):
-        # Ecuación wilson
+        # Ecuación de wilson
         lnKi = np.log(Pc / self.P) + 5.373 * (1 + w) * (1 - Tc / self.T)
         self.Ki = np.exp(lnKi)
         return self.Ki
@@ -18,9 +18,9 @@ class Flash_TP(object):
         self.zi = zi
         self.Ki = self.wilson(Pc, Tc, w, T)
         Bmin = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
-        #print (("Bmin_inter = ", Bmin))
+        # print (("Bmin_inter = ", Bmin))
         Bmax = np.divide((1 - self.zi), (1 - self.Ki))
-        #print (("Bmax_inter = ", Bmax))
+        # print (("Bmax_inter = ", Bmax))
         self.Bini = (np.max(Bmin) + np.min(Bmax)) / 2
         return self.Bini
 
@@ -30,13 +30,13 @@ class Flash_TP(object):
         self.Ki = Ki
         self.fg = np.sum(self.zi * (self.Ki - 1) / (1 - self.Bini + self.Bini * self.Ki))
         self.dfg = - np.sum(self.zi * (self.Ki - 1) ** 2 / (1 - self.Bini + self.Bini * self.Ki) ** 2)
-        #print g, dg
+        # print g, dg
         return self.fg, self.dfg
 
     def flash_ideal(self):
         self.Bini = self.beta(zi)
         self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
-        print ("Ki_(P, T) = ", self.Ki)
+        print("Ki_(P, T) = ", self.Ki)
         Eg = self.rice(zi, self.Ki, self.Bini)
         errorEq = abs(Eg[0])
         i, s = 0, 1
@@ -50,13 +50,13 @@ class Flash_TP(object):
                 break
 
         xy = self.composicion_xy(zi, self.Ki, self.Bini)
-        print ("Metano, Butano, Hexano")
-        print ("-------------Composición de fase líquida------------------------")
-        print ("xi = ", xy[0])
-        print ("Sxi = ", np.sum(xy[0]))
-        print ("-------------Composición de fase vapor------------------------")
-        print ("yi = ", xy[1])
-        print ("Syi = ", np.sum(xy[1]))
+        print("Metano, Butano, Hexano")
+        print("-------------Composición de fase líquida------------------------")
+        print("xi = ", xy[0])
+        print("Sxi = ", np.sum(xy[0]))
+        print("-------------Composición de fase vapor------------------------")
+        print("yi = ", xy[1])
+        print("Syi = ", np.sum(xy[1]))
 
         return Eg[0], Eg[1], self.Bini
 
@@ -129,9 +129,9 @@ class Flash_TP(object):
 
             while 1:
                 Eg = self.rice(zi, self.Ki, self.Bini)
-                print (Eg)
+                print(Eg)
                 self.Bini = self.Bini - s * Eg[0] / Eg[1]
-                print (self.Bini)
+                print(self.Bini)
                 errorEq = abs(Eg[0])
                 i += 1
                 #print i
@@ -145,21 +145,21 @@ class Flash_TP(object):
                 if errorEq < 1e-5:
                     break
 
-            print ("Resultado Real = ", Eg)
-            print (" Beta r = ", self.Bini)
+            print("Resultado Real = ", Eg)
+            print(" Beta r = ", self.Bini)
 
             moles = self.composicion_xy(zi, self.Ki, self.Bini)
             self.xi, self.yi = moles[0], moles[1]
 
             #xy = self.composicion_xy(zi, self.Ki, self.Bini)
 
-            print ("C1 -i-C4 n-C4")
-            print ("-----------Composición de fase líquida----------------------")
-            print ("xi = ", moles[0])
-            print ("Sxi = ", np.sum(moles[0]))
-            print ("-----------Composición de fase vapor------------------------")
-            print ("yi = ", moles[1])
-            print ("Syi = ", np.sum(moles[1]))
+            print("C1 -i-C4 n-C4")
+            print("-----------Composición de fase líquida----------------------")
+            print("xi = ", moles[0])
+            print("Sxi = ", np.sum(moles[0]))
+            print("-----------Composición de fase vapor------------------------")
+            print("yi = ", moles[1])
+            print("Syi = ", np.sum(moles[1]))
 
             fi_F = self.fugac()
 
@@ -167,10 +167,10 @@ class Flash_TP(object):
             Ki_2 = self.Ki
             dKi = abs(Ki_1 - Ki_2)
             Ki_1 = Ki_2
-            print ("Ki_(P, T, ni) = ", self.Ki)
+            print("Ki_(P, T, ni) = ", self.Ki)
 
             fun_Ki = np.sum(dKi)
-            print ("fun_Ki = ", fun_Ki)
+            print("fun_Ki = ", fun_Ki)
 
             if fun_Ki < 1e-5:
                 break
