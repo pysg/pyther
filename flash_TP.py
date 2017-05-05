@@ -24,43 +24,41 @@ class Flash_TP(object):
         self.Ki = np.exp(lnKi)
         return self.Ki
 
-    def beta(self):
+    def beta_initial(self):
         # self.zi = zi
         self.Ki = self.Ki_wilson()
-        Bmin = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
+        self.Bmin = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
         # print (("Bmin_inter = ", Bmin))
-        Bmax = np.divide((1 - self.zi), (1 - self.Ki))
+        self.Bmax = np.divide((1 - self.zi), (1 - self.Ki))
         # print (("Bmax_inter = ", Bmax))
-        self.Bini = (np.max(Bmin) + np.min(Bmax)) / 2
-        return self.Bini
+        self.Binit = (np.max(self.Bmin) + np.min(self.Bmax)) / 2
+        return self.Binit
 
-    def rice(self, zi, Ki, Bini):
-        self.zi = zi
-        self.Bini = Bini
-        self.Ki = Ki
-        denominador = (1 - self.Bini + self.Bini * self.Ki)
+    def rice(self):
+
+        denominador = (1 - self.Binit + self.Binit * self.Ki)
         self.fg = np.sum(self.zi * (self.Ki - 1) / denominador)
         self.dfg = - np.sum(self.zi * (self.Ki - 1) ** 2 / denominador ** 2)
         # print g, dg
         return self.fg, self.dfg
 
     def flash_ideal(self):
-        self.Bini = self.beta(zi)
+        self.Binit = self.beta_initial(zi)
         self.Ki = self.Ki_wilson()
         print("Ki_(P,T) = ", self.Ki)
-        Eg = self.rice(zi, self.Ki, self.Bini)
+        Eg = self.rice(zi, self.Ki, self.Binit)
         errorEq = abs(Eg[0])
         i, s = 0, 1
 
         while errorEq > ep:
-            Eg = self.rice(zi, self.Ki, self.Bini)
-            self.Bini = self.Bini - s * Eg[0] / Eg[1]
+            Eg = self.rice(zi, self.Ki, self.Binit)
+            self.Binit = self.Binit - s * Eg[0] / Eg[1]
             errorEq = abs(Eg[0])
             i += 1
             if i >= 50:
                 break
 
-        xy = self.composicion_xy(zi, self.Ki, self.Bini)
+        xy = self.composicion_xy(zi, self.Ki, self.Binit)
         print("Metano, Butano, Hexano")
         etiqueta_liquido = "Composición de fase líquida"
         etiqueta_vapor = "Composición de fase vapor"
@@ -72,17 +70,17 @@ class Flash_TP(object):
         print("yi = ", xy[1])
         print("Syi = ", np.sum(xy[1]))
 
-        return Eg[0], Eg[1], self.Bini
+        return Eg[0], Eg[1], self.Binit
 
-    def composicion_xy(self, zi, Ki, Bini):
+    def composicion_xy(self, zi, Ki, Binit):
         self.zi = zi
         self.Ki = Ki
-        self.Bini = Bini
-        denominador = (1 - self.Bini + self.Bini * self.Ki)
+        self.Binit = Binit
+        denominador = (1 - self.Binit + self.Binit * self.Ki)
         self.xi = zi / denominador
         self.yi = (zi * self.Ki) / denominador
-        self.li = (zi * (1 - self.Bini)) / denominador
-        self.vi = (zi * self.Bini * self.Ki) / denominador
+        self.li = (zi * (1 - self.Binit)) / denominador
+        self.vi = (zi * self.Binit * self.Ki) / denominador
 
         return self.xi, self.yi, self.li, self.vi
 
@@ -92,9 +90,9 @@ class Flash_TP(object):
         print("g, dg, B = ", flashID)
         print("-" * 20)
 
-        self.Bini = flashID[2]
-        print("Beta_r ini = ", self.Bini)
-        moles = self.composicion_xy(zi, self.Ki, self.Bini)
+        self.Binit = flashID[2]
+        print("beta_initial_r ini = ", self.Binit)
+        moles = self.composicion_xy(zi, self.Ki, self.Binit)
 
         self.xi, self.yi = moles[0], moles[1]
         nil, niv = moles[2], moles[3]
@@ -113,17 +111,17 @@ class Flash_TP(object):
             i, s = 0, 0.1
 
             while 1:
-                Eg = self.rice(zi, self.Ki, self.Bini)
+                Eg = self.rice(zi, self.Ki, self.Binit)
                 print(Eg)
-                self.Bini = self.Bini - s * Eg[0] / Eg[1]
-                print(self.Bini)
+                self.Binit = self.Binit - s * Eg[0] / Eg[1]
+                print(self.Binit)
                 errorEq = abs(Eg[0])
                 i += 1
                 # print i
 
-                #if self. Bini < 0 or self.Bini > 1:
+                #if self. Binit < 0 or self.Binit > 1:
                     #break
-                #    self.Bini = 0.5
+                #    self.Binit = 0.5
                 if i >= 50:
                     pass
                     # break
@@ -131,12 +129,12 @@ class Flash_TP(object):
                     break
 
             print("Resultado Real = ", Eg)
-            print(" Beta r = ", self.Bini)
+            print(" beta_initial r = ", self.Binit)
 
-            moles = self.composicion_xy(zi, self.Ki, self.Bini)
+            moles = self.composicion_xy(zi, self.Ki, self.Binit)
             self.xi, self.yi = moles[0], moles[1]
 
-            # xy = self.composicion_xy(zi, self.Ki, self.Bini)
+            # xy = self.composicion_xy(zi, self.Ki, self.Binit)
 
             print("C1 -i-C4 n-C4")
             print("----------Composición de fase líquida----------")
