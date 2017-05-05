@@ -16,16 +16,17 @@ class Flash_TP(object):
         self.Pc = arg[1]
         self.w = arg[2]
         self.T = arg[3]
+        self.zi = arg[4]
 
-    def wilson(self):
+    def Ki_wilson(self):
         """Equation of wilson for to calculate the Ki(T,P)"""
         lnKi = np.log(self.Pc / self.P) + 5.373 * (1 + self.w) * (1 - self.Tc / self.T)
         self.Ki = np.exp(lnKi)
         return self.Ki
 
-    def beta(self, zi):
-        self.zi = zi
-        self.Ki = self.wilson(Pc, Tc, w, T)
+    def beta(self):
+        # self.zi = zi
+        self.Ki = self.Ki_wilson()
         Bmin = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
         # print (("Bmin_inter = ", Bmin))
         Bmax = np.divide((1 - self.zi), (1 - self.Ki))
@@ -45,7 +46,7 @@ class Flash_TP(object):
 
     def flash_ideal(self):
         self.Bini = self.beta(zi)
-        self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
+        self.Ki = self.Ki_wilson()
         print("Ki_(P,T) = ", self.Ki)
         Eg = self.rice(zi, self.Ki, self.Bini)
         errorEq = abs(Eg[0])
