@@ -157,10 +157,10 @@ class Flash_TP(object):
             # xy = self.composicion_xy(zi, self.Ki, self.Bini)
 
             print("C1 -i-C4 n-C4")
-            print("-----------Composición de fase líquida----------------------")
+            print("----------Composición de fase líquida----------")
             print("xi = ", moles[0])
             print("Sxi = ", np.sum(moles[0]))
-            print("-----------Composición de fase vapor------------------------")
+            print("----------Composición de fase vapor----------")
             print("yi = ", moles[1])
             print("Syi = ", np.sum(moles[1]))
 
