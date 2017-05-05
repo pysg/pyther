@@ -183,14 +183,14 @@ class Flash_TP(object):
 
 def etiquetar():
 
-    etiqueta_liquido = "Composición de fase líquida"
-    etiqueta_vapor = "Composición de fase vapor"
-    etiqueta_separador = "-" * 11
+    rotulo_Liquido = "Composición de fase líquido"
+    rotulo_Vapor = "Composición de fase vapor"
+    rotulo_Separador = "-" * 11
 
-    el = "{0}{1}{0}".format(etiqueta_separador, etiqueta_liquido)
-    ev = "{0}{1}{0}".format(etiqueta_separador, etiqueta_vapor)
+    etiqueta_liquido = "{0}{1}{0}".format(rotulo_Separador, rotulo_Liquido)
+    etiqueta_vapor = "{0}{1}{0}".format(rotulo_Vapor, rotulo_Vapor)
 
-    return el, ev
+    return etiqueta_liquido, etiqueta_vapor
 
 
 print(etiquetar()[0])
