@@ -9,6 +9,7 @@ class Flash_TP(object):
         self.Tc = arg[0]
         self.Pc = arg[1]
         self.w = arg[2]
+        self.T = arg[3]
 
     def wilson(self, Pc, Tc, w, T):
         # Ecuación de wilson
