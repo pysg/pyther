@@ -181,8 +181,17 @@ class Flash_TP(object):
         return flashID
 
 
-etiqueta_liquido = "Composición de fase líquida"
-etiqueta_vapor = "Composición de fase vapor"
-etiqueta_separador = "-" * 11
+def etiquetar():
 
-print("{0}{1}{0}".format(etiqueta_separador, etiqueta_liquido))
+    etiqueta_liquido = "Composición de fase líquida"
+    etiqueta_vapor = "Composición de fase vapor"
+    etiqueta_separador = "-" * 11
+    
+    el = "{0}{1}{0}".format(etiqueta_separador, etiqueta_liquido)
+    ev = "{0}{1}{0}".format(etiqueta_separador, etiqueta_vapor)
+
+    return el,ev
+
+print(etiquetar()[0])
+
+
