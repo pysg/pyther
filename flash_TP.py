@@ -89,11 +89,8 @@ class Flash_TP(object):
         nil, niv = moles[2], moles[3]
 
         fi_F = self.fugac()
-
         self.Ki = fi_F[0] / fi_F[1]
-
         L = 1.0
-
         self.Ki = self.Ki * L
 
         Ki_1 = self.Ki
@@ -172,111 +169,3 @@ print(etiquetar()[0])
 
 
 
-
-
-
-def flash_PT(self):
-        flashID = self.flash_ideal()
-        print("flash (P, T, zi)")
-        print("g, dg, B = ", flashID)
-        print("---------------------------------------------------------------")
-
-        self.Bini = flashID[2]
-        print("Beta_r ini = ", self.Bini)
-        moles = self.composicion_xy(zi, self.Ki, self.Bini)
-
-        self.xi, self.yi = moles[0], moles[1]
-        nil, niv = moles[2], moles[3]
-
-        fi_F = self.fugac()
-
-        # print "nil = ", nil, np.sum(nil)
-        # print "Snil = ", np.sum(nil)
-        # print "niv", niv, np.sum(niv)
-        # print "Sniv = ", np.sum(niv)
-
-        # nF = 2
-        # CoeFugi = np.ones((nF, nC))
-
-        #for i in range(nF):
-        #    if i == 1:
-        #        self.ni = nil
-        #        self.nT = np.sum(self.ni)
-        #    elif i == 2:
-        #        self.ni = niv
-        #        self.nT = np.sum(self.ni)
-
-        #    Flug_i = self.fluido(self.P)
-        #    CoeFugi[i, :] = Flug_i[1]
-
-        # print CoeFugi
-        # self.Ki = CoeFugi[0, :] / CoeFugi[1, :]
-
-        self.Ki = fi_F[0] / fi_F[1]
-
-        L = 1.0
-
-        self.Ki = self.Ki * L
-
-        Ki_1 = self.Ki
-        print("Ki_(P, T, ni) primera = ", self.Ki)
-
-        print("----------------------------------------------------------------")
-
-        # self.Ki = np.array([1.729, 0.832, 0.640])
-
-        # self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
-        # print "Ki_(P, T) = ", self.Ki
-
-        while 1:
-            i, s = 0, 0.1
-
-            while 1:
-                Eg = self.rice(zi, self.Ki, self.Bini)
-                print(Eg)
-                self.Bini = self.Bini - s * Eg[0] / Eg[1]
-                print(self.Bini)
-                errorEq = abs(Eg[0])
-                i += 1
-                # print i
-
-                #if self. Bini < 0 or self.Bini > 1:
-                    #break
-                #    self.Bini = 0.5
-                if i >= 50:
-                    pass
-                    # break
-                if errorEq < 1e-5:
-                    break
-
-            print("Resultado Real = ", Eg)
-            print(" Beta r = ", self.Bini)
-
-            moles = self.composicion_xy(zi, self.Ki, self.Bini)
-            self.xi, self.yi = moles[0], moles[1]
-
-            # xy = self.composicion_xy(zi, self.Ki, self.Bini)
-
-            print("C1 -i-C4 n-C4")
-            print("----------Composición de fase líquida----------")
-            print("xi = ", moles[0])
-            print("Sxi = ", np.sum(moles[0]))
-            print("----------Composición de fase vapor----------")
-            print("yi = ", moles[1])
-            print("Syi = ", np.sum(moles[1]))
-
-            fi_F = self.fugac()
-
-            self.Ki = fi_F[0] / fi_F[1]
-            Ki_2 = self.Ki
-            dKi = abs(Ki_1 - Ki_2)
-            Ki_1 = Ki_2
-            print("Ki_(P, T, ni) = ", self.Ki)
-
-            fun_Ki = np.sum(dKi)
-            print("fun_Ki = ", fun_Ki)
-
-            if fun_Ki < 1e-5:
-                break
-
-        return flashID
