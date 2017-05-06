@@ -198,27 +198,6 @@ class ClassName(object):
 
 
 
-class ClassName(object):
-    """docstring for ClassName"""
-    def __init__(self, arg):
-        super(ClassName, self).__init__()
-        self.arg = arg
-        
-    def function_0():
-        pass
-    def function_1():
-        pass
-
-class ClassName(object):
-    """docstring for ClassName"""
-    def __init__(self, arg):
-        super(ClassName, self).__init__()
-        self.arg = arg
-        
-    def function_0():
-        pass
-    def function_1():
-        pass
 
 
 
