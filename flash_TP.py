@@ -20,7 +20,8 @@ class Flash_TP(object):
 
     def Ki_wilson(self):
         """Equation of wilson for to calculate the Ki(T,P)"""
-        lnKi = np.log(self.Pc / self.P) + 5.373 * (1 + self.w) * (1 - self.Tc / self.T)
+        variable_0 = 5.373 * (1 + self.w) * (1 - self.Tc / self.T)
+        lnKi = np.log(self.Pc / self.P) + variable_0
         self.Ki = np.exp(lnKi)
         return self.Ki
 
@@ -33,25 +34,27 @@ class Flash_TP(object):
         self.Binit = (np.max(self.Bmin) + np.min(self.Bmax)) / 2
         return self.Binit
 
-    def rice(self):
+    def rachford_rice(self):
 
         denominador = (1 - self.Binit + self.Binit * self.Ki)
-        self.function_rice = np.sum(self.zi * (self.Ki - 1) / denominador)
-        # Derivate of function_rice with respect to Beta
-        self.d_functions_rice = - np.sum(self.zi * (self.Ki - 1) ** 2 / denominador ** 2)
+        numerador = self.zi * (self.Ki - 1)
+        self.function_rachford_rice = np.sum(numerador / denominador)
+        # Derivate of function_rachford_rice with respect to Beta
+        variable_1 = self.zi * (self.Ki - 1) ** 2 / denominador ** 2
+        self.d_functions_rachford_rice = - np.sum(variable_1)
         # print g, dg
-        return self.function_rice, self.d_functions_rice
+        return self.function_rachford_rice, self.d_functions_rachford_rice
 
     def flash_ideal(self):
-        self.Binit = self.beta_initial(zi)
+        self.Binit = self.beta_initial()
         self.Ki = self.Ki_wilson()
         print("Ki_(P,T) = ", self.Ki)
-        Eg = self.rice(zi, self.Ki, self.Binit)
+        Eg = self.rachford_rice()
         errorEq = abs(Eg[0])
         i, s = 0, 1
 
         while errorEq > ep:
-            Eg = self.rice(zi, self.Ki, self.Binit)
+            Eg = self.rachford_rice(zi, self.Ki, self.Binit)
             self.Binit = self.Binit - s * Eg[0] / Eg[1]
             errorEq = abs(Eg[0])
             i += 1
@@ -59,16 +62,7 @@ class Flash_TP(object):
                 break
 
         xy = self.composicion_xy(zi, self.Ki, self.Binit)
-        print("Metano, Butano, Hexano")
-        etiqueta_liquido = "Composición de fase líquida"
-        etiqueta_vapor = "Composición de fase vapor"
 
-        print(" -*{} {etiqueta_liquido}".format(etiqueta_liquido))
-        print("xi = ", xy[0])
-        print("Sxi = ", np.sum(xy[0]))
-        print("-----------------------------------")
-        print("yi = ", xy[1])
-        print("Syi = ", np.sum(xy[1]))
 
         return Eg[0], Eg[1], self.Binit
 
@@ -111,7 +105,7 @@ class Flash_TP(object):
             i, s = 0, 0.1
 
             while 1:
-                Eg = self.rice(zi, self.Ki, self.Binit)
+                Eg = self.rachford_rice(zi, self.Ki, self.Binit)
                 print(Eg)
                 self.Binit = self.Binit - s * Eg[0] / Eg[1]
                 print(self.Binit)
@@ -175,6 +169,19 @@ def etiquetar():
 
 print(etiquetar()[0])
 
+
+def function():
+    print("Metano, Butano, Hexano")
+    etiqueta_liquido = "Composición de fase líquida"
+    etiqueta_vapor = "Composición de fase vapor"
+
+    print(" -*{} {etiqueta_liquido}".format(etiqueta_liquido))
+    print("xi = ", xy[0])
+    print("Sxi = ", np.sum(xy[0]))
+    print("-" * 20)
+    print("yi = ", xy[1])
+    print("Syi = ", np.sum(xy[1]))
+    pass
 
 
 
