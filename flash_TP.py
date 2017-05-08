@@ -45,6 +45,19 @@ class Flash_TP(object):
         # print g, dg
         return self.function_rachford_rice, self.d_functions_rachford_rice
 
+
+    def composition_xy(self):
+        # self.zi = zi
+        # self.Ki = Ki
+        # self.Binit = Binit
+        denominador = (1 - self.Binit + self.Binit * self.Ki)
+        self.xi = zi / denominador
+        self.yi = (zi * self.Ki) / denominador
+        self.li = (zi * (1 - self.Binit)) / denominador
+        self.vi = (zi * self.Binit * self.Ki) / denominador
+
+        return self.xi, self.yi, self.li, self.vi
+
     def flash_ideal(self):
         self.Binit = self.beta_initial()
         self.Ki = self.Ki_wilson()
@@ -65,18 +78,6 @@ class Flash_TP(object):
 
 
         return Eg[0], Eg[1], self.Binit
-
-    def composition_xy(self):
-        # self.zi = zi
-        # self.Ki = Ki
-        # self.Binit = Binit
-        denominador = (1 - self.Binit + self.Binit * self.Ki)
-        self.xi = zi / denominador
-        self.yi = (zi * self.Ki) / denominador
-        self.li = (zi * (1 - self.Binit)) / denominador
-        self.vi = (zi * self.Binit * self.Ki) / denominador
-
-        return self.xi, self.yi, self.li, self.vi
 
     def flash_PT(self):
         flashID = self.flash_ideal()
