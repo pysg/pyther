@@ -66,7 +66,7 @@ class Flash_TP(object):
 
         return Eg[0], Eg[1], self.Binit
 
-    def composicion_xy(self, zi, Ki, Binit):
+    def composition_xy(self, zi, Ki, Binit):
         self.zi = zi
         self.Ki = Ki
         self.Binit = Binit
