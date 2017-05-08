@@ -46,7 +46,7 @@ class Flash_TP(object):
         return self.function_rachford_rice, self.d_functions_rachford_rice
 
     def composition_xy(self):
-        
+
         denominador = (1 - self.Binit + self.Binit * self.Ki)
         self.xi = zi / denominador
         self.yi = (zi * self.Ki) / denominador
