@@ -63,7 +63,7 @@ class Flash_TP(object):
         errorEq = abs(Eg[0])
         i, s = 0, 1
 
-        while errorEq > ep:
+        while errorEq >= ep:
             Eg = self.rachford_rice(zi, self.Ki, self.Binit)
             self.Binit = self.Binit - s * Eg[0] / Eg[1]
             errorEq = abs(Eg[0])
@@ -72,7 +72,6 @@ class Flash_TP(object):
                 break
 
         xy = self.composicion_xy(zi, self.Ki, self.Binit)
-
 
         return Eg[0], Eg[1], self.Binit
 
