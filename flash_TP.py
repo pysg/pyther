@@ -45,7 +45,6 @@ class Flash_TP(object):
         # print g, dg
         return self.function_rachford_rice, self.d_functions_rachford_rice
 
-
     def composition_xy(self):
         # self.zi = zi
         # self.Ki = Ki
