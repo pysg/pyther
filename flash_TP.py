@@ -67,9 +67,9 @@ class Flash_TP(object):
         return Eg[0], Eg[1], self.Binit
 
     def composition_xy(self, zi, Ki, Binit):
-        self.zi = zi
-        self.Ki = Ki
-        self.Binit = Binit
+        # self.zi = zi
+        # self.Ki = Ki
+        # self.Binit = Binit
         denominador = (1 - self.Binit + self.Binit * self.Ki)
         self.xi = zi / denominador
         self.yi = (zi * self.Ki) / denominador
