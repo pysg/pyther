@@ -12,7 +12,6 @@ class Flash_TP(object):
     """
 
     def __init__(self, arg):
-        # super(ClassName, self).__init__()
         self.Tc = arg[0]
         self.Pc = arg[1]
         self.w = arg[2]
@@ -44,7 +43,6 @@ class Flash_TP(object):
         # Derivate of function_rachford_rice with respect to Beta
         variable_1 = self.zi * (self.Ki - 1) ** 2 / denominador ** 2
         self.d_functions_rachford_rice = - np.sum(variable_1)
-        # print g, dg
         return self.function_rachford_rice, self.d_functions_rachford_rice
 
     def composition_xy(self):
@@ -79,14 +77,11 @@ class Flash_TP(object):
 
         self.Binit = self.flash_ideal()[2]
         self.Ki = self.flash_ideal()[4]
-
         Ki_1 = self.Ki
         print("Ki_(P, T) inicial = ", self.Ki)
-
         tolerance = 1e-5
 
         while True:
-
             self.xi, self.yi, nil, niv = self.composicion_xy()
             self.Ki = self.fugac()[0] / self.fugac()[1]
             self.Binit = self.beta_newton()
@@ -97,13 +92,6 @@ class Flash_TP(object):
 
             if np.sum(dKi) <= tolerance:
                 break
-
-        print("C1 -i-C4 n-C4")
-        print("----------Composición de fase líquida----------")
-        print("xi = {0} and Sxi ={1}". format(self.xi, np.sum(self.xi)))
-        print("----------Composición de fase vapor----------")
-        print("yi = {0} and Syi ={1}". format(self.yi, np.sum(self.yi)))
-        print("Ki_(P, T, ni) final =", self.Ki)
 
         return self.xi, self.yi, self.Binit
 
@@ -210,12 +198,13 @@ y = q[1]
 print(x)
 print(y)
 
-
-
-
-
 # (-1.3325942660458168e-06, -5.1253037025537775, 0.6577960750582591)
 # (-1.3325942660458168e-06, -5.1253037025537775, 0.65779633506124491)
 
 
-
+print("C1 -i-C4 n-C4")
+print("----------Composición de fase líquida----------")
+# print("xi = {0} and Sxi ={1}". format(xi, np.sum(xi)))
+print("----------Composición de fase vapor----------")
+# print("yi = {0} and Syi ={1}". format(yi, np.sum(yi)))
+# print("Ki_(P, T, ni) final =", Ki)
