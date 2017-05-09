@@ -72,59 +72,37 @@ class Flash_TP(object):
         self.Binit = self.beta_initial()
         self.Ki = self.Ki_wilson()
         self.Binit = self.beta_newton()
-        xy = self.composition_xy()
-        return self.rachford_rice()[0], self.rachford_rice()[1], self.Binit, xy
+        self.xy = self.composition_xy()
+        return self.rachford_rice()[0], self.rachford_rice()[1], self.Binit, self.xy, self.Ki
 
     def flash_PT(self):
 
         self.Binit = self.flash_ideal()[2]
-        print("beta_initial_r ini = ", self.Binit)
-        self.xi, self.yi, nil, niv = self.composicion_xy()
-
-        fi_F = self.fugac()
-        self.Ki = fi_F[0] / fi_F[1]
-        L = 1.0
-        self.Ki = self.Ki * L
+        self.Ki = self.flash_ideal()[4]
 
         Ki_1 = self.Ki
-        print("Ki_(P, T, ni) primera = ", self.Ki)
+        print("Ki_(P, T) inicial = ", self.Ki)
 
-        print("-" * 20)
+        while True:
 
-        while 1:
-            # i, s = 0, 0.1
-
+            self.xi, self.yi, nil, niv = self.composicion_xy()
+            self.Ki = self.fugac()[0] / self.fugac()[1]
             self.Binit = self.beta_newton()
 
-            print("Resultado Real = ", Eg)
-            print(" beta_initial r = ", self.Binit)
-
-            moles = self.composicion_xy(zi, self.Ki, self.Binit)
-            self.xi, self.yi = moles[0], moles[1]
-
-            # xy = self.composicion_xy(zi, self.Ki, self.Binit)
-
-            print("C1 -i-C4 n-C4")
-            print("----------Composición de fase líquida----------")
-            print("xi = ", moles[0])
-            print("Sxi = ", np.sum(moles[0]))
-            print("----------Composición de fase vapor----------")
-            print("yi = ", moles[1])
-            print("Syi = ", np.sum(moles[1]))
-
-            fi_F = self.fugac()
-
-            self.Ki = fi_F[0] / fi_F[1]
             Ki_2 = self.Ki
             dKi = abs(Ki_1 - Ki_2)
             Ki_1 = Ki_2
-            print("Ki_(P, T, ni) = ", self.Ki)
 
-            fun_Ki = np.sum(dKi)
-            print("fun_Ki = ", fun_Ki)
-
-            if fun_Ki < 1e-5:
+            if np.sum(dKi) <= 1e-5:
                 break
+
+        print("C1 -i-C4 n-C4")
+        print(" beta_initial r = ", self.Binit)
+        print("----------Composición de fase líquida----------")
+        print("xi = {0} and Sxi ={1}". format(self.xi, np.sum(self.xi)))
+        print("----------Composición de fase vapor----------")
+        print("yi = {0} and Syi ={1}". format(self.yi, np.sum(self.yi)))
+        print("Ki_(P, T, ni) = ", self.Ki)
 
         return flashID
 
