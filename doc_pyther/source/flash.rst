@@ -8,7 +8,7 @@ El cálculo del flash isotermico bifasico es un cálculo básico en la introducc
 el esqeuma tecnologíco de separación más simple, el que se ingresa una corriente de fluido a un "tanque" calentado por un flujo de calor en el que se obtiene una corriente de salida por cada fase presente en el sistema. En el caso bifasico, una corriente de líquido y otra de vapor. 
 
 .. note::
-	En este capítulo se utiliza el enfoque de sustitución sucesiva para resolver la ecuación de Rachford-Rice [2]_, mientras que en capítulo 3 se presenta el enfoque simultaneo al resolver el sistema de ecuaciones por medio del método de Newton multivariado.
+	En este capítulo se utiliza el enfoque de sustitución sucesiva para resolver la ecuación de Rachford-Rice [2]_, mientras que en capítulo 3 se presenta el enfoque simultaneo al resolver el sistema de ecuaciones por medio del método numérico de Newton.
 
 
 14.1 Modelo flash líquido-vapor
