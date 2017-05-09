@@ -676,7 +676,8 @@ temp = np.array(t_exp)
 
 p_exp = [1, 101.0, 136.9, 183.8, 266.2, 266.8, 426.9, 480.3, 718.9, 912.5,
          1010.6, 1277.8, 1778.0, 1825.1, 2323.4, 2736.1]
-pres= np.array(p_exp)
+
+pres = np.array(p_exp)
 
 pos = np.arange(len(pres))
 Tcal = np.ones((len(pres)))

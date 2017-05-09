@@ -1,3 +1,43 @@
+def etiquetar():
+
+    rotulo_Liquido = "Composición de fase líquido"
+    rotulo_Vapor = "Composición de fase vapor"
+    rotulo_Separador = "-" * 11
+
+    etiqueta_liquido = "{0}{1}{0}".format(rotulo_Separador, rotulo_Liquido)
+    etiqueta_vapor = "{0}{1}{0}".format(rotulo_Vapor, rotulo_Vapor)
+
+    return etiqueta_liquido, etiqueta_vapor
+
+
+print(etiquetar()[0])
+
+
+def function():
+    print("Metano, Butano, Hexano")
+    etiqueta_liquido = "Composición de fase líquida"
+    etiqueta_vapor = "Composición de fase vapor"
+
+    print(" -*{} {etiqueta_liquido}".format(etiqueta_liquido))
+    print("xi = ", xy[0])
+    print("Sxi = ", np.sum(xy[0]))
+    print("-" * 20)
+    print("yi = ", xy[1])
+    print("Syi = ", np.sum(xy[1]))
+    pass
+
+
+
+class ClassName(object):
+    """docstring for ClassName"""
+    def __init__(self, arg):
+        super(ClassName, self).__init__()
+        self.arg = arg
+        
+    def function_0():
+        pass
+    def function_1():
+        pass
 
 
     def wilson(self, Pc, Tc, w, T):

@@ -277,7 +277,7 @@ De esta forma el código es de la siguiente forma::
 **************
 
 A continuación se muestran los resultados numéricos del calculo del flash isotermico bifasico
-para una mezcla de los componentes C2-C3-C4. En la tabla 1, se muestra las especificaciones de
+para una mezcla de los componentes C3-Ci4-C4. En la tabla 1, se muestra las especificaciones de
 la presión P, temperatura T y flujo F junto con las fracciones molares del líquido, del vapor 
 y la fracción de fase resultanten usando como modelo termodinámico la ecuación de estado 
 *Peng-robinson (PR)* y las reglas de mezclado de **Van Der Waalls**. 
@@ -292,11 +292,11 @@ Tabla.1 flash isotermico Ki(T, P) Mezcla ideal
 +------------+------------+------------+------------+
 | Componente | Ingresa zi | líquido xi |  Vapor yi  |
 +------------+------------+------------+------------+
-|     C2     |    0.23    |0.18357118  |0.37209837  |
+|     C3     |    0.23    |0.18357118  |0.37209837  |
 +------------+------------+------------+------------+
-|     C3     |    0.67    |0.70479988  |0.56349276  |
+|     Ci4    |    0.67    |0.70479988  |0.56349276  |
 +------------+------------+------------+------------+
-|    C4      |    0.10    |0.11162895  |0.06440887  |
+|     C4     |    0.10    |0.11162895  |0.06440887  |
 +------------+------------+------------+------------+
 |      g     |     6.1017797856749434e-07           |
 +------------+--------------------------------------+
@@ -315,9 +315,9 @@ Tabla.2 Flash isotermico Ki(T, P, nil, niv) **(PR)**
 +------------+------------+------------+------------+
 | Componente | Ingresa zi | líquido xi |  Vapor yi  |
 +------------+------------+------------+------------+
-|     C2     |    0.23    |0.20070242  |0.35071046  |
+|     C3     |    0.23    |0.20070242  |0.35071046  |
 +------------+------------+------------+------------+
-|     C3     |    0.67    |0.69183981  |0.5800167   |
+|     Ci4    |    0.67    |0.69183981  |0.5800167   |
 +------------+------------+------------+------------+
 |     C4     |    0.10    |0.10745949  |0.06926579  |
 +------------+------------+------------+------------+
