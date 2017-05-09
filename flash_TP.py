@@ -73,22 +73,13 @@ class Flash_TP(object):
         self.Ki = self.Ki_wilson()
         self.Binit = self.beta_newton()
         xy = self.composition_xy()
-
         return self.rachford_rice()[0], self.rachford_rice()[1], self.Binit, xy
 
-
     def flash_PT(self):
-        flashID = self.flash_ideal()
-        print("flash (P, T, zi)")
-        print("g, dg, B = ", flashID)
-        print("-" * 20)
 
-        self.Binit = flashID[2]
+        self.Binit = self.flash_ideal()[2]
         print("beta_initial_r ini = ", self.Binit)
-        moles = self.composicion_xy(zi, self.Ki, self.Binit)
-
-        self.xi, self.yi = moles[0], moles[1]
-        nil, niv = moles[2], moles[3]
+        self.xi, self.yi, nil, niv = self.composicion_xy()
 
         fi_F = self.fugac()
         self.Ki = fi_F[0] / fi_F[1]
@@ -101,25 +92,9 @@ class Flash_TP(object):
         print("-" * 20)
 
         while 1:
-            i, s = 0, 0.1
+            # i, s = 0, 0.1
 
-            while 1:
-                Eg = self.rachford_rice(zi, self.Ki, self.Binit)
-                print(Eg)
-                self.Binit = self.Binit - s * Eg[0] / Eg[1]
-                print(self.Binit)
-                errorEq = abs(Eg[0])
-                i += 1
-                # print i
-
-                #if self. Binit < 0 or self.Binit > 1:
-                    #break
-                #    self.Binit = 0.5
-                if i >= 50:
-                    pass
-                    # break
-                if errorEq < 1e-5:
-                    break
+            self.Binit = self.beta_newton()
 
             print("Resultado Real = ", Eg)
             print(" beta_initial r = ", self.Binit)
