@@ -1,4 +1,5 @@
 import numpy as np
+import pyther as pt
 
 
 class Flash_TP(object):
@@ -16,7 +17,8 @@ class Flash_TP(object):
         self.Pc = arg[1]
         self.w = arg[2]
         self.T = arg[3]
-        self.zi = arg[4]
+        self.P = arg[4]
+        self.zi = arg[5]
 
     def Ki_wilson(self):
         """Equation of wilson for to calculate the Ki(T,P)"""
@@ -55,25 +57,25 @@ class Flash_TP(object):
 
         return self.xi, self.yi, self.li, self.vi
 
+    def beta_newton(self):
+        iteration, step, tolerance = 0, 1, 1e-5
+        while True:
+            self.Binit = self.Binit - step * self.rachford_rice()[0] / self.rachford_rice()[1]
+            iteration += 1
+            if abs(self.rachford_rice()[0]) <= tolerance or (iteration >= 50):
+                break
+        print(iteration)
+
+        return self.Binit
+
     def flash_ideal(self):
         self.Binit = self.beta_initial()
         self.Ki = self.Ki_wilson()
-        print("Ki_(P,T) = ", self.Ki)
-        Eg = self.rachford_rice()
-        errorEq = abs(Eg[0])
-        i, s = 0, 1
+        self.Binit = self.beta_newton()
+        xy = self.composition_xy()
 
-        while errorEq >= ep:
-            Eg = self.rachford_rice(zi, self.Ki, self.Binit)
-            self.Binit = self.Binit - s * Eg[0] / Eg[1]
-            errorEq = abs(Eg[0])
-            i += 1
-            if i >= 50:
-                break
+        return self.rachford_rice()[0], self.rachford_rice()[1], self.Binit, xy
 
-        xy = self.composicion_xy(zi, self.Ki, self.Binit)
-
-        return Eg[0], Eg[1], self.Binit
 
     def flash_PT(self):
         flashID = self.flash_ideal()
@@ -194,11 +196,72 @@ class ClassName(object):
         pass
 
 
+def main():
+
+    print("-" * 79)
+
+    #component = 'METHANE'
+    #component = "ETHANE"
+    #component = "3-METHYLHEPTANE"
+    #component = "n-PENTACOSANE"
+    
+    #component = "ISOBUTANE"
+
+    #component = ["METHANE", "n-TETRACOSANE", "n-PENTACOSANE", "ETHANE", "ISOBUTANE", "PROPANE", "3-METHYLHEPTANE"]
+
+    #component = "METHANE"
+    #component =  "ETHANE"
+    component = "n-TETRACOSANE"
+
+    
+    properties_data = pt.Data_parse()
+    #properties_component = properties_data.selec_component(dppr_file, component)
+    properties_component = properties_data.selec_component(component)
+
+    pt.print_properties_component(component, properties_component)
+
+    dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
+                        properties_component[1]['Omega'], properties_component[1]['Vc']])
+
+    #print(dinputs)
+    print('-' * 79)
+
+
+main()
+
+
+c1 = np.array([1.90564000e+02, 4.53890000e+01, 1.15000000e-02, 9.86000000e-02])
+c2 = np.array([3.05320000e+02, 4.80830000e+01, 9.95000000e-02, 1.45500000e-01])
+c24 = np.array([804.0, 9.672, 1.071, 1.41])
+
+
+Tc = np.array([c1[0], c2[0], c24[0]])
+Pc = np.array([c1[1], c2[1], c24[1]])
+w = np.array([c1[2], c2[2], c24[2]])
+T = 300.0
+P = 2.0
+zi = np.array([0.4, 0.4, 0.4])
+
+argumentos = [Tc, Pc, w, T, P, zi]
+
+flash = Flash_TP(argumentos)
+
+b = flash.flash_ideal()
+
+print(b[0:3])
+
+q = b[3]
+x = q[0]
+y = q[1]
+print(x)
+print(y)
 
 
 
 
 
+# (-1.3325942660458168e-06, -5.1253037025537775, 0.6577960750582591)
+# (-1.3325942660458168e-06, -5.1253037025537775, 0.65779633506124491)
 
 
 
