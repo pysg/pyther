@@ -83,6 +83,8 @@ class Flash_TP(object):
         Ki_1 = self.Ki
         print("Ki_(P, T) inicial = ", self.Ki)
 
+        tolerance = 1e-5
+
         while True:
 
             self.xi, self.yi, nil, niv = self.composicion_xy()
@@ -93,18 +95,17 @@ class Flash_TP(object):
             dKi = abs(Ki_1 - Ki_2)
             Ki_1 = Ki_2
 
-            if np.sum(dKi) <= 1e-5:
+            if np.sum(dKi) <= tolerance:
                 break
 
         print("C1 -i-C4 n-C4")
-        print(" beta_initial r = ", self.Binit)
         print("----------Composición de fase líquida----------")
         print("xi = {0} and Sxi ={1}". format(self.xi, np.sum(self.xi)))
         print("----------Composición de fase vapor----------")
         print("yi = {0} and Syi ={1}". format(self.yi, np.sum(self.yi)))
-        print("Ki_(P, T, ni) = ", self.Ki)
+        print("Ki_(P, T, ni) final =", self.Ki)
 
-        return flashID
+        return self.xi, self.yi, self.Binit
 
 
 def etiquetar():
