@@ -813,18 +813,17 @@ def diagramaSolidoFluido():
     pyplot.scatter(Tres,pres, color = 'red', label = 'PR')
     pyplot.scatter(temp,pres, label = 'Datos')
     pyplot.title('Temperatura Equilibrio sólido-Líquido')
-    pyplot.legend(loc="upper left") 
-    pyplot.xlabel('Temperatura [=] K')  
+    pyplot.legend(loc="upper left")
+    pyplot.xlabel('Temperatura [=] K')
     pyplot.ylabel('Presión [=] bar')
-    
 
 
-#diagramaSolidoFluido()
+# diagramaSolidoFluido()
 
 
 # In[30]:
 
-C4 = 325.74196687 
+C4 = 325.74196687
 C5 = 325.74761488
 C6 = 325.75368989
 C7 = 325.75989348
@@ -843,19 +842,12 @@ Tcomp
 # In[31]:
 
 
-
-def DiagramaSerieSF():    
-   
+def DiagramaSerieSF():
     pyplot.scatter(Ccomp,Tcomp, color = 'red', label = 'PR')
     pyplot.title('Serie C4-C11 Temp. Equilibrio SF')
-    pyplot.legend(loc="upper left")      
+    pyplot.legend(loc="upper left")
     pyplot.xlabel('Número de Carbonos')
     pyplot.ylabel('Temperatura [=] K')
-    
+
 
 #DiagramaSerieSF()
-
-
-
-
-
