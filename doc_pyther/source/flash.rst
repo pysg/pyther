@@ -340,9 +340,8 @@ De esta forma, se observa que el algoritmo empleando la ecuación de estado **Pe
 14.4 Conclusiones
 ****************
 
-1. Se implemento en el lenguaje de programación Python 3.x los algoritmos para el calculo de la fugacidad para un componente puro y una mezcla multicomponente siguiendo el enfoque modular de Mollerup-Michelsen para la energía libre de Helmhotlz F usando una ecuación de estado y el calculo del flash isotermico (T, P) multicomponente bifasico.
+- Se implemento en el lenguaje de programación Python 3.x los algoritmos para el calculo de la fugacidad para un componente puro y una mezcla multicomponente siguiendo el enfoque modular de Mollerup-Michelsen para la energía libre de Helmhotlz F usando una ecuación de estado y el calculo del flash isotermico (T, P) multicomponente bifasico.
 
-2. La documentación del trabajo se realizó usando el formato **reStructuredtext** y la librería **Sphinx**, el cual permite combinar eficientemente en un texto plano, código **latex**, código de programación en este caso **Python**, imagenes entre otros, para facilitar el proceso de documentación de un desarrollo de software.
 
 14.5 Referencias
 ***************
