@@ -22,9 +22,10 @@ class Data_parse(object):
         return self.dppr_data
         
     def selec_component(self, component):
-        self.name = str(component)
+        #self.name = str(component)
+        self.name = component
         self.properties = self.read_dppr(dppr_file).loc[self.name]
-        self.label = {self.name : self.properties}
+        ## self.label = {self.name : self.properties}
 
         #print(self.properties.index)
         #print ('name = {0}'.format(self.name))
@@ -44,12 +45,12 @@ class Data_parse(object):
 
 
 def show(component, properties_component):
-    print ('Component = {0}'.format(component))
-    print ('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
-    print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
-    print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
-    print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
-    print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
+    print('Component = {0}'.format(component))
+    print('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
+    print('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
+    print('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
+    print('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
+    print('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
     
         
 
@@ -62,6 +63,8 @@ def main():
     #component = "PYRENE"
     component = "CARBON DIOXIDE"
     #component = "CARBON"
+
+    component = ["METHANE", "ISOBUTANE", "TRIPHENYLMETHANE", "CARBON DIOXIDE"]
     
     properties_table = Data_parse()    
     #component, properties_component = properties_table.selec_component(dppr_file, component)
