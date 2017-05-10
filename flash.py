@@ -271,3 +271,55 @@ class ClassName(object):
         self.vi = (zi * self.Bini * self.Ki) / (1 - self.Bini + self.Bini * self.Ki)
 
         return self.xi, self.yi, self.li, self.vi
+
+
+
+
+
+
+
+
+
+
+
+
+
+def fugacity(self):
+
+        self.Fw = 0.48 + (1.574 * self.w) - (0.176 * self.w ** 2)
+        a = ((0.42748 * (self.R * self.Tc) ** 2) / self.Pc) * ((1 + self.Fw * (1 - (self.Tr ** 0.5))) ** 2)
+        b = (0.08664 * self.R * self.Tc) / self.Pc
+
+        Yf = self.yi
+        Xf = self.xi
+
+        # vapor
+        amv = np.sum(Yf * a ** 0.5) ** 2
+        bmv = np.sum(Yf * b)
+
+        Av = (amv * self.P) / ((self.R * self.T) ** 2)
+        Bv = (bmv * self.P) / (self.R * self.T)
+
+        Zfv = [1, -1, (Av - Bv - Bv ** 2), (- Av * Bv)]
+        ZfvR = np.roots(Zfv)
+        Zv = np.max(ZfvR)
+
+        # líquido
+        aml = np.sum(Xf * a ** 0.5) ** 2
+        bml = np.sum(Xf * b)
+        Al = (aml * self.P) / ((self.R * self.T) ** 2)
+        Bl = (bml * self.P) / (self.R * self.T)
+
+        Zfl = [1, -1, (Al - Bl - Bl ** 2), (- Al * Bl)]
+        ZflR = np.roots(Zfl)
+        Zl = np.min(ZflR)
+
+        # coeficiente de fugacidad
+        lnfiv = (b / bmv) * (Zv - 1) - np.log(Zv - Bv) + (Av / Bv)  * ((b / bmv) - (2 * ((a / amv) ** 0.5))) * np.log((Zv + Bv) / Zv)
+        self.fiv = np.exp(lnfiv)
+        print("fiv = ", self.fiv)
+        lnfil = (b / bml) * (Zl - 1) - np.log(Zl - Bl) + (Al / Bl)  * ((b / bml) - (2 * ((a / aml) ** 0.5))) * np.log((Zl + Bl) / Zl)
+        self.fil = np.exp(lnfil)
+        print("fil = ", self.fil)
+
+        return self.fil, self.fiv
