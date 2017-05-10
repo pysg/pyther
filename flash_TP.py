@@ -18,6 +18,7 @@ class Flash(object):
         self.T = arg[3]
         self.P = arg[4]
         self.zi = arg[5]
+        self.R = pt.RGAS
 
     def Ki_wilson(self):
         """Equation of wilson for to calculate the Ki(T,P)"""
@@ -99,6 +100,7 @@ class Flash(object):
     def fugacity(self):
 
         self.m = 0.48 + (1.574 * self.w) - (0.176 * self.w ** 2)
+        self.Tr = self.T / self.Tc
         alpha = (1 + self.m * (1 - (self.Tr ** 0.5))) ** 2
         ac = 0.42748 * (self.R * self.Tc) ** 2 / self.Pc
         a = ac * alpha
@@ -139,13 +141,12 @@ class Flash(object):
         ln_phi_l = bbl * (Zl - 1) - np.log(Zl - Bl) + (Al / Bl) * factor_2
         self.phi_l = np.exp(ln_phi_l)
 
-        print("fiv = ", self.fiv)
-        print("fil = ", self.fil)
+        print("phi_v = ", self.phi_v)
+        print("phi_l = ", self.phi_l)
 
-        return self.fil, self.fiv
+        return self.phi_l, self.phi_v
 
-    def flash_PT(self):
-
+    def flash_real(self):
         self.Binit = self.flash_ideal()[2]
         self.Ki = self.flash_ideal()[4]
         Ki_1 = self.Ki
@@ -153,8 +154,8 @@ class Flash(object):
         tolerance = 1e-5
 
         while True:
-            self.xi, self.yi = self.composicion_xy()
-            self.Ki = self.fugac()[0] / self.fugac()[1]
+            self.xi, self.yi = self.composition_xy()
+            self.Ki = self.fugacity()[0] / self.fugacity()[1]
             self.Binit = self.beta_newton()
 
             Ki_2 = self.Ki
@@ -242,7 +243,7 @@ zi = np.array([0.23, 0.67, 0.10])
 argumentos = [Tc, Pc, w, T, P, zi]
 flash = Flash(argumentos)
 b = flash.flash_ideal()
-
+d = flash.flash_real()
 
 beta = b[2]
 
@@ -260,6 +261,6 @@ print("-" * 70)
 print("Beta(P, T) =", beta)
 print("*" * 70)
 
-
+print(d)
 
 
