@@ -36,7 +36,7 @@ En el caso de la ecuación de estado RKPR se tiene 2 parámetros adicionales a l
 ac y b. Son los parámetros d1 y k, que se muestran en las siguientes ecuaciones:
 
 
-.. image:: _static/rkpr.png
+.. image:: _static/rkpr_paramters_latex.png
 
 
 
