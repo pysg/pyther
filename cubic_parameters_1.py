@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import fsolve
 from .eos_selecction import eos, convert_argument
 
-from constants import RGAS, A0, B0, C0, A1, B1, C1, D
+#from constants import RGAS, A0, B0, C0, A1, B1, C1, D
 
 '''
 This module calculate parameters necessary to use the equations of state:
