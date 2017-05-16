@@ -5,10 +5,10 @@ import math
 import matplotlib.pyplot as plt
 import os
 
-fromega pure_data import Data_parse
-# fromega .cubic_parameters_1 import Parameter_eos, getdel1, comegapressibility_factor_cal, acentric_factor_cal
-fromega cubic_parameters_1 import Parameter_eos, getdel1, comegapressibility_factor_cal, acentric_factor_cal
-fromega constans import RGAS, A0, B0, C0, A1, B1, C1, D
+from pure_data import Data_parse
+# from .cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+from constans import RGAS, A0, B0, C0, A1, B1, C1, D
 
 # -----------------------------------------------------------------------
 # -----------------------------------------------------------------------
@@ -29,11 +29,11 @@ def constans_criticals(NMODEL, ICALC, dinputs):
         rm = 0.37464 + 1.54226 * omega - 0.26992 * omega ** 2
         del1 = 1.0 + np.sqrt(2.0)
 
-    Zc, omegaa, omegab = comegapressibility_factor_cal(del1)
+    Zc, OMa, OMb = compressibility_factor_cal(del1)
     Vceos = (Zc * RGAS * Tc) / Pc
 
-    ac = omegaa * (RGAS * Tc) ** 2 / Pc
-    b = omegab * (RGAS * Tc) / Pc
+    ac = OMa * (RGAS * Tc) ** 2 / Pc
+    b = OMb * (RGAS * Tc) / Pc
 
     params = [ac, b, rm, del1]
 
@@ -63,9 +63,9 @@ def parameters_criticals(NMODEL, ICALC, dinputs):
         be = 1.54226
         ga = 0.37464 - rm
 
-    Zc, omegaa, omegab = comegapressibility_factor_cal(del1)
-    Tc = (omegab * ac) / (omegaa * RGAS * b)
-    Pc = omegab * RGAS * Tc / b
+    Zc, OMa, OMb = compressibility_factor_cal(del1)
+    Tc = (OMb * ac) / (OMa * RGAS * b)
+    Pc = OMb * RGAS * Tc / b
     omega = acentric_factor_cal(al, be, ga)
     Vceos = Zc * RGAS * Tc / Pc
 
@@ -86,10 +86,10 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
     del1 = dinputs[2]
     rk = dinputs[3]
 
-    Zc, omegaa, omegab = comegapressibility_factor_cal(del1)
+    Zc, OMa, OMb = compressibility_factor_cal(del1)
 
-    Tc = omegab * ac / (omegaa * RGAS * b)
-    Pc = omegab * RGAS * Tc / b
+    Tc = OMb * ac / (OMa * RGAS * b)
+    Pc = OMb * RGAS * Tc / b
     Vceos = Zc * RGAS * Tc / Pc
 
     al = A1 * Zc + A0
@@ -108,8 +108,8 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
 
 def parameters_cal():
 
-    ac = omegaa * (RGAS * Tc) ** 2 / Pc
-    b = omegab * (RGAS * Tc) / Pc
+    ac = OMa * (RGAS * Tc) ** 2 / Pc
+    b = OMb * (RGAS * Tc) / Pc
 
     return ac, b
 
@@ -132,12 +132,12 @@ def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
     delta_1 = getdel1(Zc, del1ini)[0]
 
-    Zc, omegaa, omegab = comegapressibility_factor_cal(delta_1)
+    Zc, OMa, OMb = compressibility_factor_cal(delta_1)
 
     print('Zc = {0}'.format(Zc))
 
-    ac = omegaa * (RGAS * Tc) ** 2 / Pc
-    b = omegab * (RGAS * Tc) / Pc
+    ac = OMa * (RGAS * Tc) ** 2 / Pc
+    b = OMb * (RGAS * Tc) / Pc
 
     # calcular rk
     rk, Pvdat, Tr = initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs)
