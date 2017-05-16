@@ -106,6 +106,15 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
 # -----------------------------------------------------------------------
 
 
+def parameters_cal():
+    ac = OMa * (RGAS * Tc) ** 2 / Pc
+    b = OMb * (RGAS * Tc) / Pc
+
+    return ac, b
+
+
+
+
 def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
     # CONSTANTS SPECIFICATION READ [Tc, Pc, OM, Vceos]
