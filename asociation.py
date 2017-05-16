@@ -9,7 +9,6 @@
 
 energy_asociation != 0
 volume_asociation != 0
-
 force_asociation != 0
 
 
