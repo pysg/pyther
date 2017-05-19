@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
-
-from .pure_data import Data_parse
-from .constans import RGAS
+import pyther as pt
 
 
 class Flash(object):
@@ -24,7 +22,7 @@ class Flash(object):
         self.T = args[1]
         self.P = args[2]
         self.zi = args[3]
-        self.R = RGAS
+        self.R = pt.RGAS
 
     def Ki_wilson(self):
         """Equation of wilson for to calculate the Ki(T,P)"""
@@ -33,18 +31,56 @@ class Flash(object):
         self.Ki = np.exp(lnKi)
         return self.Ki
 
-    def beta_initial(self):
+    def Ki_wilson_add(self):
+
         self.Ki = self.Ki_wilson()
-        self.Bmin = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
-        # print (("Bmin_inter = ", Bmin))
-        self.Bmax = np.divide((1 - self.zi), (1 - self.Ki))
-        # print (("Bmax_inter = ", Bmax))
-        self.Binit = (np.max(self.Bmin) + np.min(self.Bmax)) / 2
+
+        i = 0
+
+        while True:
+
+            g0 = np.sum(self.zi * self.Ki) - 1.0
+            g1 = 1.0 - np.sum(self.zi / self.Ki)
+
+            if (g0 < 0):
+                self.Ki = 1.1 * self.Ki
+            elif (g1 > 0):
+                self.Ki = 0.9 * self.Ki
+
+            i += 1
+            print(i)
+            print("go = {0} and g1 = {1}".format(g0, g1))
+
+            if (g0 > 0 or g1 < 0):
+                break
+
+            if i >= 190:
+                break
+
+        return self.Ki
+
+    def beta_initial(self):
+        self.Ki = self.Ki_wilson_add()
+
+        self.Bmin_values = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
+        self.Bmin_values = np.array(list(filter(lambda x: 0 < x < 1, self.Bmin_values)))
+        print(self.Bmin_values)
+        if len(self.Bmin_values) == 0:
+            self.Bmax_values = np.array([0])
+        self.Bmin = np.max(self.Bmin_values)
+
+        self.Bmax_values = np.divide((1 - self.zi), (1 - self.Ki))
+        self.Bmax_values = np.array(list(filter(lambda x: 0 < x < 1, self.Bmax_values)))
+        print(self.Bmax_values)
+        if len(self.Bmax_values) == 0:
+            self.Bmax_values = np.array([1])
+        self.Bmax = np.min(self.Bmax_values)
+
+        self.Binit = (self.Bmin + self.Bmax) / 2
         return self.Binit
 
     def rachford_rice(self):
-
-        denominador = (1 - self.Binit + self.Binit * self.Ki)
+        denominador = 1 + self.Binit * (self.Ki - 1)
         numerador = self.zi * (self.Ki - 1)
         self.function_rachford_rice = np.sum(numerador / denominador)
         # Derivate of function_rachford_rice with respect to Beta
@@ -53,23 +89,40 @@ class Flash(object):
         return self.function_rachford_rice, self.d_functions_rachford_rice
 
     def composition_xy(self):
-        denominador = (1 - self.Binit + self.Binit * self.Ki)
-        self.xi = self.zi / denominador
-        self.yi = (self.zi * self.Ki) / denominador
+        denominador = 1 + self.Binit * (self.Ki - 1)
+        self.yi = self.zi * self.Ki / denominador
+        # self.xi = self.zi / denominador
+        self.xi = self.yi / self.Ki
         return self.xi, self.yi
 
     def beta_newton(self):
-        iteration, step, tolerance = 0, 1, 1e-5
+        iteration, step, tolerance = 0, 0.1, 1e-6
+
+        #while self.Beta < self.Bmin or self.Beta > self.Bmax:
+        #    step = step / 2
+        #    self.Beta = self.Beta - step
+
         while True:
             self.Binit = self.Binit - step * self.rachford_rice()[0] / self.rachford_rice()[1]
+
+            self.advance = self.rachford_rice()[0] / self.rachford_rice()[1]
+
+            i = 0
+            while (self.Binit < self.Bmin) or (self.Binit > self.Bmax):
+                self.Binit = self.Binit - self.advance / 2
+                print(self.Bmin, self.Binit, self.Bmax)
+                i += 1
+                if i >= 50:
+                    break
+
             iteration += 1
-            if abs(self.rachford_rice()[0]) <= tolerance or (iteration >= 50):
+            if abs(self.rachford_rice()[0]) <= tolerance or (iteration >= 2000):
                 break
         return self.Binit
 
     def isothermal_ideal(self):
         self.Binit = self.beta_initial()
-        self.Ki = self.Ki_wilson()
+        #self.Ki = self.Ki_wilson()
         self.Binit = self.beta_newton()
         self.xy = self.composition_xy()
         return self.rachford_rice()[0], self.rachford_rice()[1], self.Binit, self.xy, self.Ki
@@ -87,7 +140,12 @@ class Flash(object):
         bmv = np.sum(self.yi * b)
         Av = (amv * self.P) / ((self.R * self.T) ** 2)
         Bv = (bmv * self.P) / (self.R * self.T)
+        print("a = ", a)
+        print("yi =", self.yi)
+        print("amv = ", amv)
+
         Zv = np.max(np.roots([1, -1, (Av - Bv - Bv ** 2), (- Av * Bv)]))
+        #Zv = np.max(np.roots([1, -(1 - Bv), (Av - 3*Bv**2 - 2*Bv), (- Av * Bv - Bv**2-Bv**3)]))
 
         aav = (a / amv)
         bbv = (b / bmv)
@@ -95,9 +153,12 @@ class Flash(object):
         # Liquid
         aml = np.sum(self.xi * a ** 0.5) ** 2
         bml = np.sum(self.xi * b)
+
+        print("xi =", self.xi)
         Al = (aml * self.P) / ((self.R * self.T) ** 2)
         Bl = (bml * self.P) / (self.R * self.T)
         Zl = np.min(np.roots([1, -1, (Al - Bl - Bl ** 2), (- Al * Bl)]))
+        #Zl = np.max(np.roots([1, -(1 - Bl), (Al - 3*Bl**2 - 2*Bl), (- Al * Bl - Bl**2-Bl**3)]))
 
         aal = (a / aml)
         bbl = (b / bml)
@@ -115,37 +176,34 @@ class Flash(object):
         return self.phi_l, self.phi_v
 
     def isothermal(self):
-        self.Binit = self.isothermal_ideal()[2]
-        self.Ki = self.isothermal_ideal()[4]
+        self.Binit, self.Ki = self.isothermal_ideal()[2], self.isothermal_ideal()[4]
         Ki_1 = self.Ki
         tolerance = 1e-5
 
         while True:
             self.xi, self.yi = self.composition_xy()
+            print("xi_iso = ", self.xi)
+            print("yi_iso = ", self.yi)
+
             self.Ki = self.fugacity()[0] / self.fugacity()[1]
+            print("Ki_iso = ", self.Ki)
             self.Binit = self.beta_newton()
+
+            print("Beta_iso = ", self.Binit)
+            print("avance_iso = ", self.advance)
 
             Ki_2 = self.Ki
             dKi = abs(Ki_1 - Ki_2)
             Ki_1 = Ki_2
 
-            if np.sum(dKi) <= tolerance:
+            if np.max(dKi) <= tolerance:
                 break
 
         return self.xi, self.yi, self.Binit
 
-    def table_flash(self):
-        self.datos = np.array([self.zi, self.isothermal()[0], self.isothermal()[1]]).T
-        self.etiqueta_colums = ["zi", "xi", "yi"]
-
-        self.resultados_flash = pd.DataFrame(self.datos, self.components, self.etiqueta_colums)
-
-        return self.resultados_flash
-
-
     def constans_to_flash(self):
 
-        properties_data = Data_parse()
+        properties_data = pt.Data_parse()
         properties_component = properties_data.selec_component(self.components)
 
         constans = properties_component[1].loc[:, ["Omega", "Tc", "Pc"]]
@@ -155,16 +213,35 @@ class Flash(object):
 
 def main():
 
-    components = ["PROPANE", "ISOBUTANE", "n-BUTANE"]
+    # components = ["PROPANE", "ISOBUTANE", "n-BUTANE"]
+    components = ["METHANE", "PROPANE", "n-PENTANE", "n-DECANE", "n-HEXADECANE"]
 
-    T = 320.0
-    P = 8.0
-    zi = np.array([0.23, 0.67, 0.10])
+    T = 400.0
+    #T = 383.15
+    P = 30.0
+    zi = np.array([0.822, 0.088, 0.050, 0.020, 0.020])
+
+    #components = ["METHANE", "ETHANE", "PROPANE", "ISOBUTANE", "n-BUTANE"]
+    #T = 320.0
+    #P = 9.0
+    #zi = np.array([0.05, 0.1, 0.23, 0.52, 0.10])
 
     flash_1 = Flash(components, T, P, zi)
 
+    fk = flash_1.Ki_wilson()
+    fkk = flash_1.Ki_wilson_add()
+
+    print(fk, fkk)
+
+    bk = flash_1.beta_initial()
+
+    print(flash_1.Bmin, bk, flash_1.Bmax)
+    print(flash_1.Bmin_values, flash_1.Bmax_values)
+
     b = flash_1.isothermal_ideal()
-    d = flash_1.isothermal()
+
+    #print(b)
+
 
     beta = b[2]
 
@@ -182,9 +259,21 @@ def main():
     print("Beta(P, T) =", beta)
     print("*" * 70)
 
-    print(d)
+    d = flash_1.isothermal()
+    print("Beta_real = ", d[2])
 
-    print(flash_1.table_flash())
+    datos = np.array([zi, xi, yi]).T
+    etiqueta_col = ["zi", "xi", "yi"]
+
+    resultados_flash = pd.DataFrame(datos, components, etiqueta_col)
+
+    print(resultados_flash)
+
+    frames = [resultados_flash, resultados_flash]
+
+    result = pd.concat(frames)
+
+    print(result)
 
 
 if __name__ == '__main__':
