@@ -218,7 +218,9 @@ def call_rkpr_constans_density(NMODEL, ICALC, dinputs):
 
     rk, Pvdat, Tr = initial_data(OM, delta_1, NMODEL, ICALC, Pc, dinputs)
     eos_calculation = Parameter_eos()
-    delta_1_parameter = eos_calculation.resolver_delta_1_cal(delta_1, rk, Pvdat, RHOLSat_esp, Pc, Tc, Tr)
+    list_args = [delta_1, rk, Pvdat, RHOLSat_esp, Pc, Tc, Tr]
+    # delta_1_parameter = eos_calculation.resolver_delta_1_cal(delta_1, rk, Pvdat, RHOLSat_esp, Pc, Tc, Tr)
+    delta_1_parameter = eos_calculation.resolver_delta_1_cal(list_args)
 
     params = [ac, b, rk, delta_1]
 
