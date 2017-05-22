@@ -203,7 +203,8 @@ def call_rkpr_constans_delta_1(NMODEL, ICALC, dinputs):
 
 def call_rkpr_constans_density(NMODEL, ICALC, dinputs):
 
-    # CONSTANTS SPECIFICATION and (T, RhoLsat) READ [Tc, Pc, OM, del1, T, RHOLsat]
+    # CONSTANTS SPECIFICATION and (T, RhoLsat)
+    # READ [Tc, Pc, OM, del1, T, RHOLsat]
     # Trho = T / Tc,  read initial value of del1
 
     Tc = dinputs[0]
