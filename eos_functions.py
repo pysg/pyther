@@ -69,18 +69,18 @@ def constans_criticals(NMODEL, ICALC, dinputs):
 
     if NMODEL == 'SRK':
         rm = 0.48 + 1.574 * OM - 0.175 * OM**2
-        del1 = 1.0
+        delta_1 = 1.0
     elif NMODEL == 'PR':
         rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
-        del1 = 1.0 + np.sqrt(2.0)
+        delta_1 = 1.0 + np.sqrt(2.0)
 
-    Zc, OMa, OMb = compressibility_factor_cal(del1)
+    Zc, OMa, OMb = compressibility_factor_cal(delta_1)
     Vceos = (Zc * RGAS * Tc) / Pc
 
     ac = OMa * (RGAS * Tc) ** 2 / Pc
     b = OMb * (RGAS * Tc) / Pc
 
-    params = [ac, b, rm, del1]
+    params = [ac, b, rm, delta_1]
 
     return params
 
