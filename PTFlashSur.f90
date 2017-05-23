@@ -269,14 +269,14 @@ subroutine flash(model, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
 	Zcin=Zc/Zrat
 	Vc(i)=Vceos(i)/Zrat
 	dceos(i)=1/Vceos(i)
-	READ(NIN,*)ac(i),b(i),del1(i),rk(i)
+	READ(NIN,*)ac(i),b(i),del1(i),rk(i) 
 ! 4	bb1(i)=b(i)
 	write(nout,'(A)')fluid(i)
 	write(nout,1)Tc(i),Pc(i),Vc(i),OM(i)
 	write(nout,3)Zcin,Zrat,Zc,Vceos(i)
 	write(nout,2)ac(i),b(i),del1(i),rk(i)
 	Kij(i,i)=0.0D0
-	Lij(i,i)=0.0D0
+	Lij(i,i)=0.0D0857 339 1356
 	IF(i.gt.1)then
 		if(ncomb.lt.2)then
 			READ(NIN,*) (Kij(j,i),j=1,i-1)
