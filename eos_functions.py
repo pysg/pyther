@@ -141,17 +141,12 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
     return constants
 
 
-def func_ac_b(Tc, Pc, delta_1):
-
-    Zc, OMa, OMb = compressibility_factor_cal(delta_1)
-
-    print('Zc = {0}'.format(Zc))
+def func_ac_b(Tc, Pc, Zc, OMa, OMb):
 
     ac = OMa * (RGAS * Tc) ** 2 / Pc
     b = OMb * (RGAS * Tc) / Pc
 
     return ac, b
-
 
 
 def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
