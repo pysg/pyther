@@ -66,7 +66,7 @@ def data_in(ICALC, dinputs):
 
 def constans_criticals(NMODEL, ICALC, dinputs):
 
-    # CONSTANTS SPECIFICATION READ [Tc, Pc, OM]
+    # SPECIFICATION [Tc, Pc, OM]
 
     Tc = dinputs[0]
     Pc = dinputs[1]
