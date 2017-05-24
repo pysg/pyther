@@ -172,9 +172,9 @@ def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
     # rk = 1
 
-    params = [ac, b, rk, delta_1]
+    parameters = [ac, b, rk_cal, delta_1]
 
-    return params
+    return parameters
 
 
 def call_rkpr_constans_delta_1(NMODEL, ICALC, dinputs):
@@ -192,9 +192,9 @@ def call_rkpr_constans_delta_1(NMODEL, ICALC, dinputs):
     eos_calculation = Parameter_eos()
     rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
 
-    params = [ac, b, rk, delta_1]
+    parameters = [ac, b, rk_cal, delta_1]
 
-    return params
+    return parameters
 
 
 def call_rkpr_constans_density(NMODEL, ICALC, dinputs):
