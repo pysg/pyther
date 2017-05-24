@@ -14,7 +14,7 @@ from constans import RGAS, A0, B0, C0, A1, B1, C1, D
 # -----------------------------------------------------------------------
 
 
-def initial_data(omega, delta_1, MODEL_eos, ICALC, Pc, dinputs):
+def initial_data(omega, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs):
 
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
 
@@ -27,11 +27,11 @@ def initial_data(omega, delta_1, MODEL_eos, ICALC, Pc, dinputs):
     argumen_3 = "rk_param"
     argumen_4 = "density"
 
-    if ICALC == argumen_1 or ICALC == argumen_2 or ICALC == argumen_3:
+    if SPECIFICATION_cal == argumen_1 or SPECIFICATION_cal == argumen_2 or SPECIFICATION_cal == argumen_3:
         rk *= 1.5
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)
-    elif ICALC == argumen_4:
+    elif SPECIFICATION_cal == argumen_4:
         # 5.2 es otro valor que se puede usar en lugar de 1.5
         rk = rk * 1.5
         Tr_calculada = dinputs[4] / dinputs[0]
@@ -41,19 +41,19 @@ def initial_data(omega, delta_1, MODEL_eos, ICALC, Pc, dinputs):
     return rk, Pvdat, Tr
 
 
-def data_in(ICALC, dinputs):
-	if ICALC == 'constants_eps':
+def data_in(SPECIFICATION_cal, dinputs):
+	if SPECIFICATION_cal == 'constants_eps':
 		# CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
 		Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
 
-    if ICALC == 'parameters_eps':
+    if SPECIFICATION_cal == 'parameters_eps':
         ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
 
-    if ICALC == 'rk_param':
+    if SPECIFICATION_cal == 'rk_param':
         # dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
         Tc, Pc, OM, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[7]
 
-    if ICALC == 'density':
+    if SPECIFICATION_cal == 'density':
 
         Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
         T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
@@ -82,7 +82,7 @@ def func_zc_ac_b(Tc, Pc, delta_1):
 
     return Zc, ac, b
 
-def constans_criticals(MODEL_eos, ICALC, dinputs):
+def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # SPECIFICATION [Tc, Pc, OM]
 
@@ -119,7 +119,7 @@ def func_constans(del1, al, be, ga):
 
     return Tc, Pc, OM, Vceos, Zc
 
-def parameters_criticals(MODEL_eos, ICALC, dinputs):
+def parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # PARAMETERS SPECIFICATION [ac, b, rm]
 
@@ -148,7 +148,7 @@ def parameters_criticals(MODEL_eos, ICALC, dinputs):
 # -----------------------------------------------------------------------------
 
 
-def call_rkpr_parameters(MODEL_eos, ICALC, dinputs):
+def call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # SPECIFICATION [ac, b, rk, del1]
 
@@ -174,7 +174,7 @@ def call_rkpr_parameters(MODEL_eos, ICALC, dinputs):
 
 
 
-def call_rkpr_constans_v_critic(MODEL_eos, ICALC, dinputs):
+def call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # CONSTANTS SPECIFICATION READ [Tc, Pc, OM, Vceos]
 
@@ -197,7 +197,7 @@ def call_rkpr_constans_v_critic(MODEL_eos, ICALC, dinputs):
     ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
     # calcular rk
-    rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, ICALC, Pc, dinputs)
+    rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs)
 
     eos_calculation = Parameter_eos()
     rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
@@ -209,7 +209,7 @@ def call_rkpr_constans_v_critic(MODEL_eos, ICALC, dinputs):
     return parameters
 
 
-def call_rkpr_constans_delta_1(MODEL_eos, ICALC, dinputs):
+def call_rkpr_constans_delta_1(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # SPECIFICATION [Tc, Pc, OM, del1]
 
@@ -225,7 +225,7 @@ def call_rkpr_constans_delta_1(MODEL_eos, ICALC, dinputs):
 
     ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
-    rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, ICALC, Pc, dinputs)
+    rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs)
 
     eos_calculation = Parameter_eos()
     rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
@@ -235,7 +235,7 @@ def call_rkpr_constans_delta_1(MODEL_eos, ICALC, dinputs):
     return parameters
 
 
-def call_rkpr_constans_density(MODEL_eos, ICALC, dinputs):
+def call_rkpr_constans_density(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # SPECIFICATION [Tc, Pc, OM, del1, Tspec, RHOLsat]
     # Trho = Tspec / Tc,  read initial value of del1
@@ -255,7 +255,7 @@ def call_rkpr_constans_density(MODEL_eos, ICALC, dinputs):
 
     ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
-    rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, ICALC, Pc, dinputs)
+    rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs)
     eos_calculation = Parameter_eos()
     list_args = [delta_1, rk, Pvdat, RHOLSat_esp, Pc, Tc, Tr]
     delta_1_parameter = eos_calculation.resolver_delta_1_cal(list_args)
@@ -267,31 +267,31 @@ def call_rkpr_constans_density(MODEL_eos, ICALC, dinputs):
 # ------------------------------------------------------------------------
 
 
-def call_eos(MODEL_eos, ICALC, dinputs):
+def call_eos(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     if MODEL_eos == "SRK" or MODEL_eos == "PR":
 
-        if ICALC == 'constants_eps':
+        if SPECIFICATION_cal == 'constants_eps':
             # SPECIFICATION [Tc, Pc, OM]
-            constans_criticals(MODEL_eos, ICALC, dinputs)
-        elif ICALC == 'parameters_eps':
+            constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
+        elif SPECIFICATION_cal == 'parameters_eps':
             # SPECIFICATION [ac, b, rm]
-            parameters_criticals(MODEL_eos, ICALC, dinputs)
+            parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
 
     elif MODEL_eos == "RKPR":
 
-        if ICALC == 'constants_eps':
+        if SPECIFICATION_cal == 'constants_eps':
             # SPECIFICATION [Tc, Pc, OM, Vceos]
-            call_rkpr_constans_v_critic(MODEL_eos, ICALC, dinputs)
-        elif ICALC == 'rk_param':
+            call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs)
+        elif SPECIFICATION_cal == 'rk_param':
             # SPECIFICATION [Tc, Pc, OM, del1]
             call_rkpr_constans_delta_1()
-        elif ICALC == 'density':
+        elif SPECIFICATION_cal == 'density':
             # SPECIFICATION [Tc, Pc, OM, del1, Tspec, RHOLsat]
             call_rkpr_constans_density()
-        elif ICALC == 'parameters_eps':
+        elif SPECIFICATION_cal == 'parameters_eps':
             # SPECIFICATION [ac, b, rk, del1]
-            call_rkpr_parameters(MODEL_eos, ICALC, dinputs)
+            call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs)
 
     return variables
 
