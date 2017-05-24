@@ -106,12 +106,12 @@ def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
         rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
         delta_1 = 1.0 + np.sqrt(2.0)
 
-    Zc, OMa, OMb = compressibility_factor_cal(delta_1)
+    # Zc, OMa, OMb = compressibility_factor_cal(delta_1)
     # Vceos = (Zc * RGAS * Tc) / Pc
 
-    ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
+    # ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
-    # Zc, ac, b = func_zc_ac_b(Tc, Pc, delta_1)
+    Zc, ac, b = func_zc_ac_b(Tc, Pc, delta_1)
 
     params = [ac, b, rm, delta_1]
 
