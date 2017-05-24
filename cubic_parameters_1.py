@@ -1,10 +1,12 @@
 import numpy as np
 from scipy.optimize import fsolve
 # from .eos_selecction import eos, convert_argument
-from eos_selecction import eos, convert_argument
+# from eos_selecction import eos, convert_argument
 # from .constants import RGAS
 from constants import RGAS
-from eos_functions import compressibility_factor_cal
+#from eos_functions import compressibility_factor_cal
+
+from eos_pure import compressibility_factor_cal
 
 '''
 This module calculate parameters necessary to use the equations of state:
