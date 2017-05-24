@@ -33,9 +33,7 @@ def getdel1(Zcin, del_1_init):
 
 
 def acentric_factor_cal(*arg):
-    al = arg[0]
-    be = arg[1]
-    ga = arg[2]
+    al, be, ga = arg[0], arg[1], arg[2]
     try:
         OM = 0.5 * (- be + np.sqrt(be ** 2 - 4 * al * ga)) / al
     except RuntimeWarning:
