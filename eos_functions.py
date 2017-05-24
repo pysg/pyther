@@ -8,7 +8,7 @@ import os
 from pure_data import Data_parse
 # from .cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 
-#   from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 from constans import RGAS, A0, B0, C0, A1, B1, C1, D
 
 # -----------------------------------------------------------------------
@@ -91,13 +91,7 @@ def func_zc_ac_b(Tc, Pc, Zc, delta_1):
     return Zc, ac, b
 
 
-def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
-
-    # SPECIFICATION [Tc, Pc, OM]
-
-    Tc = dinputs[0]
-    Pc = dinputs[1]
-    OM = dinputs[2]
+def func_rm_delta_1(MODEL_eos, OM):
 
     if MODEL_eos == 'SRK':
         rm = 0.48 + 1.574 * OM - 0.175 * OM**2
@@ -106,14 +100,25 @@ def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
         rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
         delta_1 = 1.0 + np.sqrt(2.0)
 
-    # Zc, OMa, OMb = compressibility_factor_cal(delta_1)
-    # Vceos = (Zc * RGAS * Tc) / Pc
+    return rm, delta_1
 
-    # ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
+# ----------------------------------------------------------------------------
+
+
+def spec_constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
+
+    # SPECIFICATION [Tc, Pc, OM]
+
+    Tc = dinputs[0]
+    Pc = dinputs[1]
+    OM = dinputs[2]
+
+    # SRK and PR
+    rm, delta_1 = func_rm_delta_1(MODEL_eos, OM)
 
     Zc, ac, b = func_zc_ac_b(Tc, Pc, delta_1)
 
-    params = [ac, b, rm, delta_1]
+    params = np.array([ac, b, rm, delta_1])
 
     return params
 
@@ -128,6 +133,9 @@ def func_constans(MODEL_eos, dinputs):
             del1, al, be, ga = 1.0, -0.175, 1.574, 0.48 - rm
         elif MODEL_eos == "PR":
             del1, al, be, ga = 1.0 + np.sqrt(2.0), -0.26992, 1.54226, 0.37464 - rm
+
+        Zc, OMa, OMb = compressibility_factor_cal(del1)
+
     elif MODEL_eos == "RKPR":
         # RKPR
         ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
@@ -143,7 +151,7 @@ def func_constans(MODEL_eos, dinputs):
     return Tc, Pc, OM, Vceos, Zc
 
 
-def parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
+def spec_parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # PARAMETERS SPECIFICATION [ac, b, rm]
 
@@ -151,18 +159,13 @@ def parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
     b = dinputs[1]
     rm = dinputs[2]
 
-    if MODEL_eos == 'SRK':
-        del1, al, be, ga = 1.0, -0.175, 1.574, 0.48 - rm
-    elif MODEL_eos == 'PR':
-        del1, al, be, ga = 1.0 + np.sqrt(2.0), -0.26992, 1.54226, 0.37464 - rm
+    # Zc, OMa, OMb = compressibility_factor_cal(del1)
+    # Tc = (OMb * ac) / (OMa * RGAS * b)
+    # Pc = OMb * RGAS * Tc / b
+    # OM = acentric_factor_cal(al, be, ga)
+    # Vceos = Zc * RGAS * Tc / Pc
 
-    Zc, OMa, OMb = compressibility_factor_cal(del1)
-    Tc = (OMb * ac) / (OMa * RGAS * b)
-    Pc = OMb * RGAS * Tc / b
-    OM = acentric_factor_cal(al, be, ga)
-    Vceos = Zc * RGAS * Tc / Pc
-
-    # Tc, Pc, OM, Vceos, Zc = func_constans(del1, ac, b, al, be, ga)
+    Tc, Pc, OM, Vceos, Zc = func_constans(MODEL_eos, dinputs)
 
     constants = [Tc, Pc, OM, Vceos]
 
@@ -304,10 +307,10 @@ def call_eos(MODEL_eos, SPECIFICATION_cal, dinputs):
 
         if SPECIFICATION_cal == 'constants_eps':
             # SPECIFICATION [Tc, Pc, OM]
-            constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
+            spec_constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
         elif SPECIFICATION_cal == 'parameters_eps':
             # SPECIFICATION [ac, b, rm]
-            parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
+            spec_parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
 
     elif MODEL_eos == "RKPR":
 
