@@ -102,6 +102,8 @@ def constans_criticals(NMODEL, ICALC, dinputs):
 
     ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
+    # Zc, ac, b = func_zc_ac_b(Tc, Pc, delta_1)
+
     params = [ac, b, rm, delta_1]
 
     return params
