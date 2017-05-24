@@ -120,6 +120,7 @@ def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 def func_constans(del1, ac, b, al, be, ga):
 
     Zc, OMa, OMb = compressibility_factor_cal(del1)
+
     Tc = (OMb * ac) / (OMa * RGAS * b)
     Pc = OMb * RGAS * Tc / b
     OM = acentric_factor_cal(al, be, ga)
