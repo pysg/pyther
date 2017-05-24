@@ -30,12 +30,13 @@ def initial_data(omega, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs):
     condition_1 = SPECIFICATION_cal == argumen_1
     condition_2 = SPECIFICATION_cal == argumen_2
     condition_3 = SPECIFICATION_cal == argumen_3
+    condition_4 = SPECIFICATION_cal == argumen_4
 
     if condition_1 or condition_2 or condition_3:
         rk *= 1.5
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)
-    elif SPECIFICATION_cal == argumen_4:
+    elif condition_4:
         # 5.2 es otro valor que se puede usar en lugar de 1.5
         rk = rk * 1.5
         Tr_calculada = dinputs[4] / dinputs[0]
