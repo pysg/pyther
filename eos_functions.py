@@ -176,6 +176,8 @@ def call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     OM = acentric_factor_cal(al, be, ga)
 
+    # Tc, Pc, OM, Vceos, Zc = func_constans(del1, ac, b, al, be, ga)
+
     constants = [Tc, Pc, OM, Vceos]
 
     return constants
