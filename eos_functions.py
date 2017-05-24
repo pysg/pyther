@@ -100,6 +100,16 @@ def func_rm_delta_1(MODEL_eos, OM):
         rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
         delta_1 = 1.0 + np.sqrt(2.0)
 
+    elif MODEL_eos == "RKPR":
+        Zc = Pc * Vceos / (RGAS * Tc)
+        del1_init = func_delta_init(Zc)
+        delta_1 = getdel1(Zc, del1_init)[0]
+
+        # calcular rk
+        rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs)
+        eos_calculation = Parameter_eos()
+        rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
+
     return rm, delta_1
 
 # ----------------------------------------------------------------------------
