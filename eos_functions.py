@@ -102,10 +102,7 @@ def parameters_criticals(NMODEL, ICALC, dinputs):
     if NMODEL == 'SRK':
         del1, al, be, ga = 1.0, -0.175, 1.574, 0.48 - rm
     elif NMODEL == 'PR':
-        del1 = 1.0 + np.sqrt(2.0)
-        al = -0.26992
-        be = 1.54226
-        ga = 0.37464 - rm
+        del1, al, be, ga = 1.0 + np.sqrt(2.0), -0.26992, 1.54226, 0.37464 - rm
 
     Zc, OMa, OMb = compressibility_factor_cal(del1)
     Tc = (OMb * ac) / (OMa * RGAS * b)
