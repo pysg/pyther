@@ -78,15 +78,17 @@ def func_ac_b(Tc, Pc, Zc, OMa, OMb):
 
 # --------------------------------------------------------------------------
 
+
 def func_zc_ac_b(Tc, Pc, delta_1):
-    
+
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
-    
+
     # Vceos = (Zc * RGAS * Tc) / Pc
 
     ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
     return Zc, ac, b
+
 
 def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
