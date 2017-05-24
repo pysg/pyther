@@ -293,6 +293,8 @@ def call_eos(NMODEL, ICALC, dinputs):
             # SPECIFICATION [ac, b, rk, del1]
             call_rkpr_parameters(NMODEL, ICALC, dinputs)
 
+    return variables
+
 
 print(34)
 
