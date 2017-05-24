@@ -117,9 +117,22 @@ def constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
     return params
 
 
-def func_constans(del1, ac, b, al, be, ga):
+def func_constans(MODEL_eos, dinputs):
 
-    Zc, OMa, OMb = compressibility_factor_cal(del1)
+    if MODEL_eos == "SRK" and MODEL_eos == "PR":
+        # SRK and PR
+        ac, b, rm = dinputs[0], dinputs[1], dinputs[2]
+
+        if MODEL_eos == "SRK":
+            del1, al, be, ga = 1.0, -0.175, 1.574, 0.48 - rm
+        elif MODEL_eos == "PR":
+            del1, al, be, ga = 1.0 + np.sqrt(2.0), -0.26992, 1.54226, 0.37464 - rm
+    elif MODEL_eos == "RKPR":
+        # RKPR
+        ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+        Zc, OMa, OMb = compressibility_factor_cal(del1)
+        if MODEL_eos == "RKPR":
+            al, be, ga = A1 * Zc + A0, B1 * Zc + B0, C1 * Zc + C0 - rk
 
     Tc = (OMb * ac) / (OMa * RGAS * b)
     Pc = OMb * RGAS * Tc / b
@@ -127,6 +140,14 @@ def func_constans(del1, ac, b, al, be, ga):
     Vceos = Zc * RGAS * Tc / Pc
 
     return Tc, Pc, OM, Vceos, Zc
+
+
+#    if MODEL_eos == "SRK":
+#        del1, al, be, ga = 1.0, -0.175, 1.574, 0.48 - rm
+#    elif MODEL_eos == "PR":
+#        del1, al, be, ga = 1.0 + np.sqrt(2.0), -0.26992, 1.54226, 0.37464 - rm
+#    elif MODEL_eos == "RKPR":
+#        al, be, ga = A1 * Zc + A0, B1 * Zc + B0, C1 * Zc + C0 - rk
 
 
 def parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
