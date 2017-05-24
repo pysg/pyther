@@ -46,23 +46,29 @@ def data_in(ICALC, dinputs):
 		# CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
 		Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
 
-	if ICALC == 'parameters_eps':
-		ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+    if ICALC == 'parameters_eps':
+        ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
 
-	if ICALC == 'rk_param':
-		# dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
-		Tc, Pc, OM, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[7]
+    if ICALC == 'rk_param':
+        # dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
+        Tc, Pc, OM, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[7]
 
-	if ICALC == 'density':
+    if ICALC == 'density':
 
-		Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
-		T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
+        Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
+        T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
 
 # --------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------
 # -----------------------------------------------------------------------
 
+def func_ac_b(Tc, Pc, Zc, OMa, OMb):
+
+    ac = OMa * (RGAS * Tc) ** 2 / Pc
+    b = OMb * (RGAS * Tc) / Pc
+
+    return ac, b
 
 def constans_criticals(NMODEL, ICALC, dinputs):
 
@@ -141,12 +147,6 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
     return constants
 
 
-def func_ac_b(Tc, Pc, Zc, OMa, OMb):
-
-    ac = OMa * (RGAS * Tc) ** 2 / Pc
-    b = OMb * (RGAS * Tc) / Pc
-
-    return ac, b
 
 
 def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
