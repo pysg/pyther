@@ -120,7 +120,7 @@ def parameters_criticals(NMODEL, ICALC, dinputs):
 
 def call_rkpr_parameters(NMODEL, ICALC, dinputs):
 
-    # PARAMETERS SPECIFICATION READ [ac, b, rk, del1]
+    # PARAMETERS SPECIFICATION [ac, b, rk, del1]
 
     ac = dinputs[0]
     b = dinputs[1]
