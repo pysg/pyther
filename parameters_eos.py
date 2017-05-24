@@ -6,7 +6,7 @@ import numpy as np
 # import os
 
 from pure_data import Data_parse
-# from .cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+#from .cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 from constans import RGAS, A0, B0, C0, A1, B1, C1, D
 

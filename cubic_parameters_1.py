@@ -1,7 +1,10 @@
 import numpy as np
 from scipy.optimize import fsolve
-from .eos_selecction import eos, convert_argument
-from .constants import RGAS
+# from .eos_selecction import eos, convert_argument
+from eos_selecction import eos, convert_argument
+# from .constants import RGAS
+from constants import RGAS
+
 
 '''
 This module calculate parameters necessary to use the equations of state:
@@ -77,8 +80,8 @@ def get_del_1(Zcin, del_1_init):
         dold = aux
         error_Z_critico = abs(Zc - Zcin)
     
-    else:
-        print("delta_1 = {0} with a error of = {1}".format(del1, error_Z_critico))
+    # else:
+        # print("delta_1 = {0} with a error of = {1}".format(del1, error_Z_critico))
 
         if error_Z_critico <= 1e-6:
             break
