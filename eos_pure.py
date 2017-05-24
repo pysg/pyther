@@ -32,38 +32,6 @@ def getdel1(Zcin, del_1_init):
     return del1, error_Z_critico
 
 
-def get_del_1(Zcin, del_1_init):
-    del1 = del_1_init
-    d1 = (1 + del1 ** 2) / (1 + del1)
-    y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
-    Zc = y / (3 * y + d1 - 1.0)
-    dold = del1
-
-    if Zc > Zcin:
-        del1 = 1.01 * del1
-    else:
-        del1 = 0.99 * del1
-
-    error_Z_critico = abs(Zc - Zcin)
-
-    while error_Z_critico >= 1e-6:
-
-        d1 = (1 + del1 ** 2) / (1 + del1)
-        y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
-        Zold = Zc
-        Zc = y / (3 * y + d1 - 1.0)
-        aux = del1
-        del1 = del1 - (Zc - Zcin) * (del1 - dold) / (Zc - Zold)
-        dold = aux
-        error_Z_critico = abs(Zc - Zcin)
-        # print("delta_1 = {0} with a error of = {1}".format(del1, error_Z_critico))
-
-        if error_Z_critico <= 1e-6:
-            break
-
-    return del1, error_Z_critico
-
-
 def acentric_factor_cal(*arg):
     al = arg[0]
     be = arg[1]

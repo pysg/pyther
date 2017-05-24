@@ -3,7 +3,6 @@ from scipy.optimize import fsolve
 # from .eos_selecction import eos, convert_argument
 # from .constants import RGAS
 from constants import RGAS
-
 from eos_pure import compressibility_factor_cal
 
 '''
@@ -34,7 +33,7 @@ class Parameter_eos(object):
         self.d = delta_1_initial
 
         c = (1 - self.d) / (1 + self.d)
-        #aRT = self.a / (RGAS * T_especific)
+        # aRT = self.a / (RGAS * T_especific)
         aRT = self.a / (RGAS * Tr * Tc)
         relation_covolume = 0.25 * b / Volume
         SUMC = c * b + Volume
@@ -100,15 +99,15 @@ class Parameter_eos(object):
         F_N = vdWg[0]
         phi_fugacity = np.exp(F_N) / Z
 
-        #print(T, T_especific)
-        #print(T)
+        # print(T, T_especific)
+        # print(T)
         return phi_fugacity
 
     def saturation_pressure_cal(self, PV_supuesta, rk_inicial, delta_1_initial, Pc, Tc, Tr):
         self.Tsat = Tr * Tc
         P_sur = PV_supuesta
 
-        #print(self.Tsat)
+        # print(self.Tsat)
 
         self.a = self.energetic_parameter_cal(rk_inicial, delta_1_initial, Pc, Tc, Tr)
         self.b = self.parameter_ab_cal(delta_1_initial, Pc, Tc)[1]
@@ -169,7 +168,7 @@ class Parameter_eos(object):
 
         self.a = self.energetic_parameter_cal(rk_inicial, delta_1_initial, Pc, Tc, Tr)
         self.b = self.parameter_ab_cal(delta_1_initial, Pc, Tc)[1]
-        
+
         self.rk_calculated = self.resolver_rk_cal(rk_inicial, delta_1_initial, Pvdat, Pc, Tc, Tr)
 
         self.volume_liquid_delta = self.volume_liquid
@@ -183,7 +182,7 @@ class Parameter_eos(object):
         self.density_function = abs(RHOLSat_cal - RHOLSat_esp)
         self.density_function = self.density_function / RHOLSat_esp
 
-        #print(self.density_function)
+        # print(self.density_function)
 
         return self.density_function
 
