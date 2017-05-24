@@ -27,7 +27,11 @@ def initial_data(omega, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs):
     argumen_3 = "rk_param"
     argumen_4 = "density"
 
-    if SPECIFICATION_cal == argumen_1 or SPECIFICATION_cal == argumen_2 or SPECIFICATION_cal == argumen_3:
+    condition_1 = SPECIFICATION_cal == argumen_1
+    condition_2 = SPECIFICATION_cal == argumen_2
+    condition_3 = SPECIFICATION_cal == argumen_3
+
+    if condition_1 or condition_2 or condition_3:
         rk *= 1.5
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)
