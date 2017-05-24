@@ -109,6 +109,16 @@ def constans_criticals(NMODEL, ICALC, dinputs):
     return params
 
 
+def func_constans(del1, al, be, ga):
+
+    Zc, OMa, OMb = compressibility_factor_cal(del1)
+    Tc = (OMb * ac) / (OMa * RGAS * b)
+    Pc = OMb * RGAS * Tc / b
+    OM = acentric_factor_cal(al, be, ga)
+    Vceos = Zc * RGAS * Tc / Pc
+
+    return Tc, Pc, OM, Vceos, Zc
+
 def parameters_criticals(NMODEL, ICALC, dinputs):
 
     # PARAMETERS SPECIFICATION [ac, b, rm]
