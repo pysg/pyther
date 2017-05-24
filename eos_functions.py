@@ -93,7 +93,7 @@ def constans_criticals(NMODEL, ICALC, dinputs):
 
 def parameters_criticals(NMODEL, ICALC, dinputs):
 
-    # PARAMETERS SPECIFICATION READ [ac, b, rm]
+    # PARAMETERS SPECIFICATION [ac, b, rm]
 
     ac = dinputs[0]
     b = dinputs[1]
