@@ -88,8 +88,7 @@ def constans_criticals(NMODEL, ICALC, dinputs):
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
     # Vceos = (Zc * RGAS * Tc) / Pc
 
-    ac = OMa * (RGAS * Tc) ** 2 / Pc
-    b = OMb * (RGAS * Tc) / Pc
+    ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
     params = [ac, b, rm, delta_1]
 
