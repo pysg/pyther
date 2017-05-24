@@ -189,7 +189,7 @@ def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
 def call_rkpr_constans_delta_1(NMODEL, ICALC, dinputs):
 
-    # CONSTANTS SPECIFICATION and del1 READ [Tc, Pc, OM, del1]
+    # SPECIFICATION [Tc, Pc, OM, del1]
 
     Tc = dinputs[0]
     Pc = dinputs[1]
