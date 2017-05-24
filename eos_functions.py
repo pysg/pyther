@@ -142,14 +142,6 @@ def func_constans(MODEL_eos, dinputs):
     return Tc, Pc, OM, Vceos, Zc
 
 
-#    if MODEL_eos == "SRK":
-#        del1, al, be, ga = 1.0, -0.175, 1.574, 0.48 - rm
-#    elif MODEL_eos == "PR":
-#        del1, al, be, ga = 1.0 + np.sqrt(2.0), -0.26992, 1.54226, 0.37464 - rm
-#    elif MODEL_eos == "RKPR":
-#        al, be, ga = A1 * Zc + A0, B1 * Zc + B0, C1 * Zc + C0 - rk
-
-
 def parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # PARAMETERS SPECIFICATION [ac, b, rm]
