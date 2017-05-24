@@ -31,7 +31,6 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
         rk *= 1.5
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)
-    # elif ICALC == 'density':
     elif ICALC == argumen_4:
         # 5.2 es otro valor que se puede usar en lugar de 1.5
         rk = rk * 1.5
