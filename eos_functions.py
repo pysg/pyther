@@ -181,6 +181,14 @@ def call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs):
     return constants
 
 
+def func_delta_init(Zc):
+
+    del1_init = D[0] + D[1] * (D[2] - Zc) ** D[3] + D[4] * (D[2] - Zc) ** D[5]
+    print('del1ini = {0}'.format(del1_init))
+
+    return del1_init
+
+
 def call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # CONSTANTS SPECIFICATION READ [Tc, Pc, OM, Vceos]
@@ -192,8 +200,7 @@ def call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     Zc = Pc * Vceos / (RGAS * Tc)
 
-    del1ini = D[0] + D[1] * (D[2] - Zc) ** D[3] + D[4] * (D[2] - Zc) ** D[5]
-    print('del1ini = {0}'.format(del1ini))
+    del1ini = func_delta_init(Zc)
 
     delta_1 = getdel1(Zc, del1ini)[0]
 
