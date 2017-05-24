@@ -200,9 +200,9 @@ def call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     Zc = Pc * Vceos / (RGAS * Tc)
 
-    del1ini = func_delta_init(Zc)
+    del1_init = func_delta_init(Zc)
 
-    delta_1 = getdel1(Zc, del1ini)[0]
+    delta_1 = getdel1(Zc, del1_init)[0]
 
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
 
