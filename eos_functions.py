@@ -169,8 +169,10 @@ def call_rkpr_constans_v_critic(NMODEL, ICALC, dinputs):
 
     print('Zc = {0}'.format(Zc))
 
-    ac = OMa * (RGAS * Tc) ** 2 / Pc
-    b = OMb * (RGAS * Tc) / Pc
+    # ac = OMa * (RGAS * Tc) ** 2 / Pc
+    # b = OMb * (RGAS * Tc) / Pc
+
+    ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
 
     # calcular rk
     rk, Pvdat, Tr = initial_data(OM, delta_1, NMODEL, ICALC, Pc, dinputs)
