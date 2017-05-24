@@ -288,7 +288,6 @@ def call_eos(NMODEL, ICALC, dinputs):
             call_rkpr_constans_delta_1()
         elif ICALC == 'density':
             # SPECIFICATION [Tc, Pc, OM, del1, Tspec, RHOLsat]
-            # Trho = Tspec / Tc,  read initial value of del1
             call_rkpr_constans_density()
         elif ICALC == 'parameters_eps':
             # SPECIFICATION [ac, b, rk, del1]
