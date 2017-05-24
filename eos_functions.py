@@ -197,6 +197,15 @@ def call_rkpr_constans_delta_1(NMODEL, ICALC, dinputs):
 
     delta_1 = dinputs[7]
 
+    Zc, OMa, OMb = compressibility_factor_cal(delta_1)
+
+    print('Zc = {0}'.format(Zc))
+
+    # ac = OMa * (RGAS * Tc) ** 2 / Pc
+    # b = OMb * (RGAS * Tc) / Pc
+
+    ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
+
     rk, Pvdat, Tr = initial_data(OM, delta_1, NMODEL, ICALC, Pc, dinputs)
 
     eos_calculation = Parameter_eos()
