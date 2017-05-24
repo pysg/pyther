@@ -27,7 +27,6 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
     argumen_3 = "rk_param"
     argumen_4 = "density"
 
-    # if ICALC == 'constants_eps' or ICALC == 'parameters_eps' or ICALC == 'rk_param':
     if ICALC == argumen_1 or ICALC == argumen_2 or ICALC == argumen_3:
         rk *= 1.5
         Tr = 0.7
