@@ -19,7 +19,7 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
 
     # initial guess for k parameter
-    rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
+    rk = (A1 * Zc + A0) * omega ** 2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
     # rk = rk * 1.2 # 1.1 #5.2 #3.2
 
     argumen_1 = "constants_eps"
