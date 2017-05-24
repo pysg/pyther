@@ -70,6 +70,8 @@ def func_ac_b(Tc, Pc, Zc, OMa, OMb):
 
     return ac, b
 
+# --------------------------------------------------------------------------
+
 def constans_criticals(NMODEL, ICALC, dinputs):
 
     # SPECIFICATION [Tc, Pc, OM]
