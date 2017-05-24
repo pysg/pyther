@@ -24,15 +24,6 @@ SRK, PR and RKPR
 # D = np.array([0.428363, 18.496215, 0.338426, 0.660, 789.723105, 2.512392])
 
 
-#def compressibility_factor_cal(del1):
-#    d1 = (1 + del1 ** 2) / (1 + del1)
-#    y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
-#    OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) / (3 * y + d1 - 1.0) ** 2
-#    OMb = 1 / (3 * y + d1 - 1.0)
-#    Zc = y / (3 * y + d1 - 1.0)
-#    return Zc, OMa, OMb
-
-
 class Parameter_eos(object):
     '''
     Parameter_eos contains the methods to adjust the parameters
