@@ -278,7 +278,7 @@ def call_eos(NMODEL, ICALC, dinputs):
             # SPECIFICATION [ac, b, rm]
             parameters_criticals(NMODEL, ICALC, dinputs)
 
-    elif ICALC == "RKPR":
+    elif NMODEL == "RKPR":
 
         if ICALC == 'constants_eps':
             # SPECIFICATION [Tc, Pc, OM, Vceos]
