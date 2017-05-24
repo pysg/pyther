@@ -22,11 +22,18 @@ def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
     rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
     # rk = rk * 1.2 # 1.1 #5.2 #3.2
 
-    if ICALC == 'constants_eps' or ICALC == 'parameters_eps' or ICALC == 'rk_param':
+    argumen_1 = "constants_eps"
+    argumen_2 = "parameters_eps"
+    argumen_3 = "rk_param"
+    argumen_4 = "density"
+
+    # if ICALC == 'constants_eps' or ICALC == 'parameters_eps' or ICALC == 'rk_param':
+    if ICALC == argumen_1 or ICALC == argumen_2 or ICALC == argumen_3:
         rk *= 1.5
         Tr = 0.7
         Pvdat = Pc * 10 ** -(1.0 + omega)
-    elif ICALC == 'density':
+    # elif ICALC == 'density':
+    elif ICALC == argumen_4:
         # 5.2 es otro valor que se puede usar en lugar de 1.5
         rk = rk * 1.5
         Tr_calculada = dinputs[4] / dinputs[0]
