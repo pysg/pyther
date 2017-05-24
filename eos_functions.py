@@ -47,6 +47,21 @@ def initial_data(omega, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs):
 
 
 def data_in(SPECIFICATION_cal, dinputs):
+    if SPECIFICATION_cal == 'constants_eps':
+        # CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
+        Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+    if SPECIFICATION_cal == 'parameters_eps':
+        ac, b, del1, rk = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
+    if SPECIFICATION_cal == 'rk_param':
+        # dinputs = np.array([Tc, Pc, OM, dc, zrat, ac, b, d, rk])
+        Tc, Pc, OM, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[7]
+    if SPECIFICATION_cal == 'density':
+        Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
+        T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
+
+
+
+def data_in(SPECIFICATION_cal, dinputs):
 	if SPECIFICATION_cal == 'constants_eps':
 		# CONSTANTS SPECIFICATION (Tc,Pc,OM,Vceos)
 		Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
