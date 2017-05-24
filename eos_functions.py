@@ -138,6 +138,8 @@ def parameters_criticals(NMODEL, ICALC, dinputs):
     OM = acentric_factor_cal(al, be, ga)
     Vceos = Zc * RGAS * Tc / Pc
 
+    # Tc, Pc, OM, Vceos, Zc = func_constans(del1, al, be, ga)
+
     constants = [Tc, Pc, OM, Vceos]
 
     return constants
