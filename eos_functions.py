@@ -133,10 +133,6 @@ def call_rkpr_parameters(NMODEL, ICALC, dinputs):
     Pc = OMb * RGAS * Tc / b
     Vceos = Zc * RGAS * Tc / Pc
 
-    # al = A1 * Zc + A0
-    # be = B1 * Zc + B0
-    # ga = C1 * Zc + C0 - rk
-
     al, be, ga = A1 * Zc + A0, B1 * Zc + B0, C1 * Zc + C0 - rk
 
     OM = acentric_factor_cal(al, be, ga)
