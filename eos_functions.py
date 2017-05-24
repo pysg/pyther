@@ -72,7 +72,7 @@ def func_ac_b(Tc, Pc, Zc, OMa, OMb):
 
 # --------------------------------------------------------------------------
 
-def func_zc_ac_b(delta_1):
+def func_zc_ac_b(Tc, Pc, delta_1):
     
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
     
