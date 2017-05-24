@@ -7,7 +7,8 @@ import os
 
 from pure_data import Data_parse
 # from .cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
-from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+
+#   from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
 from constans import RGAS, A0, B0, C0, A1, B1, C1, D
 
 # -----------------------------------------------------------------------
@@ -79,13 +80,13 @@ def func_ac_b(Tc, Pc, Zc, OMa, OMb):
 # --------------------------------------------------------------------------
 
 
-def func_zc_ac_b(Tc, Pc, delta_1):
+def func_zc_ac_b(Tc, Pc, Zc, delta_1):
 
     Zc, OMa, OMb = compressibility_factor_cal(delta_1)
 
     # Vceos = (Zc * RGAS * Tc) / Pc
 
-    ac, b = func_ac_b(Tc, Pc, Zc, OMa, OMb)
+    ac, b = func_ac_b(Tc, Pc, OMa, OMb)
 
     return Zc, ac, b
 
@@ -327,5 +328,20 @@ def call_eos(MODEL_eos, SPECIFICATION_cal, dinputs):
 
 
 print(34)
+
+
+SRK = "SRK"
+PR = None #"PR"
+RKPR = "RKPR"
+
+if SRK:
+    print(SRK)
+if PR:
+    print(PR)
+if RKPR:
+    print(RKPR)
+
+
+
 
 
