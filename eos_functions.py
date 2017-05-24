@@ -127,6 +127,7 @@ def func_constans(del1, al, be, ga):
 
     return Tc, Pc, OM, Vceos, Zc
 
+
 def parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # PARAMETERS SPECIFICATION [ac, b, rm]
@@ -178,8 +179,6 @@ def call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs):
     constants = [Tc, Pc, OM, Vceos]
 
     return constants
-
-
 
 
 def call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs):
