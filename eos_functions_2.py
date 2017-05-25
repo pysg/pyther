@@ -9,7 +9,7 @@ from pure_data import Data_parse
 
 from eos_pure import getdel1, acentric_factor_cal, compressibility_factor_cal
 from cubic_parameters_1 import Parameter_eos
-from constans import RGAS, A0, B0, C0, A1, B1, C1, D
+from constants_physicochemicals import RGAS, A0, B0, C0, A1, B1, C1, D
 
 # -----------------------------------------------------------------------
 # -----------------------------------------------------------------------
@@ -122,7 +122,7 @@ def func_rm_rk_delta_1(MODEL_eos, OM, dinputs):
 # ----------------------------------------------------------------------------
 
 
-def spec_constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
+def spec_constans(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     # SPECIFICATION [Tc, Pc, OM, Veos]
 
@@ -135,10 +135,19 @@ def spec_constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
 
     Zc, ac, b = func_zc_ac_b(Tc, Pc, delta_1)
 
-    params = np.array([ac, b, rm, delta_1])
+    parameters_eos = np.array([ac, b, rm, delta_1])
 
-    return params
+    return parameters_eos
 
+
+def func_constans_eos():
+
+	Tc = (OMb * ac) / (OMa * RGAS * b)
+    Pc = OMb * RGAS * Tc / b
+    OM = acentric_factor_cal(al, be, ga)
+    Vceos = Zc * RGAS * Tc / Pc
+	
+	return constants_eos
 
 def func_constans(MODEL_eos, dinputs):
 
@@ -168,19 +177,13 @@ def func_constans(MODEL_eos, dinputs):
     return Tc, Pc, OM, Vceos, Zc
 
 
-def spec_parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs):
+def spec_parameters(MODEL_eos, dinputs):
 
     # PARAMETERS SPECIFICATION [ac, b, rm]
 
     ac = dinputs[0]
     b = dinputs[1]
     rm = dinputs[2]
-
-    # Zc, OMa, OMb = compressibility_factor_cal(del1)
-    # Tc = (OMb * ac) / (OMa * RGAS * b)
-    # Pc = OMb * RGAS * Tc / b
-    # OM = acentric_factor_cal(al, be, ga)
-    # Vceos = Zc * RGAS * Tc / Pc
 
     Tc, Pc, OM, Vceos, Zc = func_constans(MODEL_eos, dinputs)
 
@@ -324,10 +327,10 @@ def call_eos(MODEL_eos, SPECIFICATION_cal, dinputs):
 
         if SPECIFICATION_cal == 'constants_eps':
             # SPECIFICATION [Tc, Pc, OM]
-            spec_constans_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
+            spec_constans(MODEL_eos, SPECIFICATION_cal, dinputs)
         elif SPECIFICATION_cal == 'parameters_eps':
             # SPECIFICATION [ac, b, rm]
-            spec_parameters_criticals(MODEL_eos, SPECIFICATION_cal, dinputs)
+            spec_parameters(MODEL_eos, SPECIFICATION_cal, dinputs)
 
     elif MODEL_eos == "RKPR":
 
