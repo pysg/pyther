@@ -67,8 +67,6 @@ def initial_data(omega, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs):
     return rk, Pvdat, Tr
 
 
-# --------------------------------------------------------------------------
-
 # -----------------------------------------------------------------------
 # -----------------------------------------------------------------------
 
@@ -79,7 +77,7 @@ def func_ac_b(Tc, Pc, Zc, OMa, OMb):
 
     return ac, b
 
-# --------------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 
 def func_zc_ac_b(Tc, Pc, Zc, delta_1):
@@ -102,21 +100,18 @@ def func_rm_rk_delta_1(MODEL_eos, OM, dinputs):
 		delta_1 = 1.0
 		return rm, delta_1
 	elif MODEL_eos == 'PR':
-        rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
-        delta_1 = 1.0 + np.sqrt(2.0)
-        return rm, delta_1
-
-    elif MODEL_eos == "RKPR":
-        Zc = Pc * Vceos / (RGAS * Tc)
-        del1_init = func_delta_init(Zc)
-        delta_1 = getdel1(Zc, del1_init)[0]
-
-        # calcular rk
-        rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs)
-        eos_calculation = Parameter_eos()
-        rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
-
-        return rk, delta_1
+		rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
+		delta_1 = 1.0 + np.sqrt(2.0)
+		return rm, delta_1
+	elif MODEL_eos == "RKPR":
+		Zc = Pc * Vceos / (RGAS * Tc)
+		del1_init = func_delta_init(Zc)
+		delta_1 = getdel1(Zc, del1_init)[0]
+		# calcular rk
+		rk, Pvdat, Tr = initial_data(OM, delta_1, MODEL_eos, SPECIFICATION_cal, Pc, dinputs)
+		eos_calculation = Parameter_eos()
+		rk_cal = eos_calculation.resolver_rk_cal(rk, delta_1, Pvdat, Pc, Tc, Tr)
+		return rk, delta_1
 
 
 # ----------------------------------------------------------------------------
@@ -143,11 +138,12 @@ def spec_constans(MODEL_eos, SPECIFICATION_cal, dinputs):
 def func_constans_eos():
 
 	Tc = (OMb * ac) / (OMa * RGAS * b)
-    Pc = OMb * RGAS * Tc / b
-    OM = acentric_factor_cal(al, be, ga)
-    Vceos = Zc * RGAS * Tc / Pc
-	
+	Pc = OMb * RGAS * Tc / b
+	OM = acentric_factor_cal(al, be, ga)
+	Vceos = Zc * RGAS * Tc / Pc
+
 	return constants_eos
+
 
 def func_constans(MODEL_eos, dinputs):
 
@@ -350,6 +346,26 @@ def call_eos(MODEL_eos, SPECIFICATION_cal, dinputs):
     return variables
 
 
+def call_eos_new(MODEL_eos, SPECIFICATION_cal, dinputs):
+
+    if SPECIFICATION_cal == 'constants_eps':
+        # SPECIFICATION [Tc, Pc, OM, Vceos]
+        call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs)
+    elif SPECIFICATION_cal == 'rk_param':
+        # SPECIFICATION [Tc, Pc, OM, del1]
+        call_rkpr_constans_delta_1()
+    elif SPECIFICATION_cal == 'density':
+        # SPECIFICATION [Tc, Pc, OM, del1, Tspec, RHOLsat]
+        call_rkpr_constans_density()
+    elif SPECIFICATION_cal == 'parameters_eps':
+        # SPECIFICATION [ac, b, rk, del1]
+        call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs)
+
+    return variables
+
+
+
+
 def main():
 
 	SRK = "SRK"
@@ -366,9 +382,5 @@ def main():
 	print(34)
 
 
-
-
 if __name__ == '__main__':
 	main()
-
-
