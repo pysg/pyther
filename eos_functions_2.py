@@ -352,13 +352,14 @@ def call_eos_new(MODEL_eos, SPECIFICATION_cal, dinputs):
         # SPECIFICATION [Tc, Pc, OM, Vceos]
         call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs)
     elif SPECIFICATION_cal == 'rk_param':
-        # SPECIFICATION [Tc, Pc, OM, del1]
+        # SPECIFICATION [Tc, Pc, OM, Vceos, del1]
         call_rkpr_constans_delta_1()
     elif SPECIFICATION_cal == 'density':
-        # SPECIFICATION [Tc, Pc, OM, del1, Tspec, RHOLsat]
+        # SPECIFICATION [Tc, Pc, OM, Vceos, del1, Tspec, RHOLsat]
         call_rkpr_constans_density()
     elif SPECIFICATION_cal == 'parameters_eps':
         # SPECIFICATION [ac, b, rk, del1]
+        # SPECIFICATION [ac, b, rm]
         call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs)
 
     return variables
