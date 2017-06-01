@@ -136,6 +136,10 @@ def spec_constans(MODEL_eos, SPECIFICATION_cal, dinputs):
 
 
 def func_constans_eos():
+	
+	return constants_eos
+
+def func_constans_eos():
 
 	Tc = (OMb * ac) / (OMa * RGAS * b)
 	Pc = OMb * RGAS * Tc / b
