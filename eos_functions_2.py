@@ -362,6 +362,7 @@ def call_eos_new(MODEL_eos, SPECIFICATION_cal, dinputs):
         # SPECIFICATION [ac, b, rm]
         call_rkpr_parameters(MODEL_eos, SPECIFICATION_cal, dinputs)
     elif case_1 = True:
+
     	SPECIFICATION_cal == 'constants_eps':
         # SPECIFICATION [Tc, Pc, OM, Vceos]
         call_rkpr_constans_v_critic(MODEL_eos, SPECIFICATION_cal, dinputs)
