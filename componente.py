@@ -66,7 +66,7 @@ def control_arguments_gpec(gpec_data):
 
 def main():
     dppr_file = "PureFull.xls"
-    component = 'METHANE'
+    # component = 'METHANE'
     component = "ETHANE"
 
     component_eos = Data_parse()
