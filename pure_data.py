@@ -61,7 +61,7 @@ def main():
     #component = "ISOBUTANE"
     # component = "TRIPHENYLMETHANE"
     #component = "PYRENE"
-    component = "CARBON DIOXIDE"
+    # component = "CARBON DIOXIDE"
     #component = "CARBON"
 
     component = ["METHANE", "ISOBUTANE", "TRIPHENYLMETHANE", "CARBON DIOXIDE"]
