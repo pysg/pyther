@@ -59,7 +59,7 @@ def main():
     #dppr_file = "PureFull.xls"
     #component = "METHANE"
     #component = "ISOBUTANE"
-    component = "TRIPHENYLMETHANE"
+    # component = "TRIPHENYLMETHANE"
     #component = "PYRENE"
     component = "CARBON DIOXIDE"
     #component = "CARBON"
