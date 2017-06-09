@@ -56,28 +56,28 @@ def show(component, properties_component):
 
 def main():
     
-    #dppr_file = "PureFull.xls"
-    #component = "METHANE"
-    #component = "ISOBUTANE"
+    # dppr_file = "PureFull.xls"
+    # component = "METHANE"
+    # component = "ISOBUTANE"
     # component = "TRIPHENYLMETHANE"
-    #component = "PYRENE"
+    # component = "PYRENE"
     # component = "CARBON DIOXIDE"
-    #component = "CARBON"
+    # component = "CARBON"
 
     component = ["METHANE", "ISOBUTANE", "TRIPHENYLMETHANE", "CARBON DIOXIDE"]
-    
+
     properties_table = Data_parse()    
-    #component, properties_component = properties_table.selec_component(dppr_file, component)
+    # component, properties_component = properties_table.selec_component(dppr_file, component)
 
-    #print(properties_component["Omega"])
-    #print(component)
+    # print(properties_component["Omega"])
+    # print(component)
 
-    #properties_component = properties_table.selec_component(dppr_file, component)
+    # properties_component = properties_table.selec_component(dppr_file, component)
     properties_component = properties_table.selec_component(component)
 
     print(properties_component)
 
-    #show_properti(component, properties_component)
+    # show_properti(component, properties_component)
 
 
 if __name__ == "__main__":
