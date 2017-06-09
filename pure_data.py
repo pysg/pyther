@@ -3,10 +3,10 @@ import os
 
 dfile = "PureFull.xls"
 path_file = os.path.dirname(__file__)
-#print("path_file", path_file)
+# print("path_file", path_file)
 
 dppr_file = os.path.join(path_file, dfile)
-#print(dppr_file)
+# print(dppr_file)
 
 class Data_parse(object):
     """
