@@ -826,3 +826,78 @@ SUBROUTINE TERMO(nc,MTYP,INDIC,T,P,rn,V,PHILOG,DLPHIP, DLPHIT,FUGN)
 	end if
 	BMIX=B
       END
+
+
+
+
+
+
+
+
+
+
+        !-----------------------------------------------------------
+        ! This algorithm assumes that the specified T and P correspond to
+        ! vapor-liquid separation predicted by the provided model (0<beta<1)
+
+        KFACT = (PCn/P) *EXP(5.373*(1+omgn)*(1-TCn/T))
+        do while (g0<0.or.g1>0)
+            g0 = sum(z*KFACT) - 1.D0
+            g1 = 1.D0 - sum(z/KFACT)
+            if (g0<0) then
+                KFACT = 1.1*KFACT  ! increased volatiliy will bring the solution from subcooled liquid into VLE
+            else if (g1>0) then
+                KFACT = 0.9*KFACT  ! decreased volatiliy will bring the solution from superheated vapor into VLE
+            end if
+        end do
+        LOG_K = LOG(KFACT)
+        ! now we must have  g0>0 and g1<0 and therefore 0<beta<1 (M&M page 252)
+        call betalimits (n,z,KFACT,bmin,bmax)
+        beta = (bmin+bmax)/2  ! first guess for beta
+        ! Succesive sustitution loop starts here
+        var_K=1.0
+        do while (maxval(abs(var_K)) > 1.d-4)
+            ! Newton starts here
+            g = 1.0
+            do while (abs(g)>1.d-4)
+                denom = 1+beta*(KFACT-1.D0)
+                g = sum(z*(KFACT-1.D0) / denom)
+                dg = -sum(z*(KFACT-1.D0)**2 / denom**2)
+                beta = beta - g/dg
+            end do
+            denom = 1+beta*(KFACT-1.D0)
+            y = z * KFACT / denom
+            x = y / KFACT
+            ! nc,MTYP,INDIC,T,P,rn,V,PHILOG,DLPHI
+            call TERMO(n,-1,1,T,P,y,Vy,PHILOGy,DLPHIP,DLPHIT,FUGN)
+            call TERMO(n, 1,1,T,P,x,Vx,PHILOGx,DLPHIP,DLPHIT,FUGN)
+            var_K = PHILOGx - PHILOGy - LOG_K  ! variation in LOG_K = new - old
+            LOG_K = PHILOGx - PHILOGy
+            KFACT = exp(LOG_K)
+        end do
+        rho_x = 1/Vx
+        rho_y = 1/Vy
+        !-----------------------------------------------------------
+
+        print *, x
+ 		print *, y
+ 		print *, rho_x
+ 		print *, rho_y
+ 		print *, beta
+    end subroutine flash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
