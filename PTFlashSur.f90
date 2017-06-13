@@ -913,7 +913,7 @@ subroutine betalimits (n,z,KFACT,bmin,bmax)
         bmin = maxval(vmin)
         bmax = minval(vmax)
 
-    end subroutine betalimits
+end subroutine betalimits
 
 
 
