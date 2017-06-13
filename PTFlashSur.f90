@@ -899,6 +899,7 @@ subroutine betalimits (n,z,KFACT,bmin,bmax)
 
         vmin=0.d0
         vmax=1.d0
+
         do i=1,n
             if (KFACT(i)*z(i)>1)then
                 in = in+1
@@ -908,6 +909,7 @@ subroutine betalimits (n,z,KFACT,bmin,bmax)
                 vmax(ix) = (1.d0-z(i))/(1.d0-KFACT(i))
             end if
         end do
+
         bmin = maxval(vmin)
         bmax = minval(vmax)
 
