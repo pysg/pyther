@@ -887,6 +887,31 @@ SUBROUTINE TERMO(nc,MTYP,INDIC,T,P,rn,V,PHILOG,DLPHIP, DLPHIT,FUGN)
     end subroutine flash
 
 
+subroutine betalimits (n,z,KFACT,bmin,bmax)
+
+      implicit none
+
+        integer, intent(in) :: n  ! number of compounds in the system
+        real*8, dimension(n), intent(in) :: z, KFACT  ! composition of the system and K factors
+        real*8, intent(out) :: bmin, bmax
+        real*8, dimension(n) :: vmin, vmax
+        integer :: i, in=0, ix=0
+
+        vmin=0.d0
+        vmax=1.d0
+        do i=1,n
+            if (KFACT(i)*z(i)>1)then
+                in = in+1
+                vmin(in) = (KFACT(i)*z(i)-1.d0)/(KFACT(i)-1.d0)
+            else if (KFACT(i)<z(i))then
+                ix = ix+1
+                vmax(ix) = (1.d0-z(i))/(1.d0-KFACT(i))
+            end if
+        end do
+        bmin = maxval(vmin)
+        bmax = minval(vmax)
+
+    end subroutine betalimits
 
 
 
