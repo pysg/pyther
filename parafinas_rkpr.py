@@ -710,10 +710,10 @@ Pe = 136.9 # [=] bar
 
 
 dppr_file = "PureFull_mod.xls"
-#component = 'METHANE'
-#component = "ETHANE"
-#component = "3-METHYLHEPTANE"
-#component = "n-PENTACOSANE"
+# component = 'METHANE'
+# component = "ETHANE"
+# component = "3-METHYLHEPTANE"
+# component = "n-PENTACOSANE"
 component = "ISOBUTANE"
 
 components = ["METHANE", "n-TETRACOSANE"]
@@ -761,7 +761,7 @@ def calcularSolidoFluido():
     TemEquilibrioSF = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
     print ("-"*100)
     print("Temperatura de Equilibrio SF = ", TemEquilibrioSF, "K")
-    
+
 
 #button.on_click(calcularSolidoFluido)
 #display(button)
@@ -773,12 +773,12 @@ calcularSolidoFluido()
 
 for x, Pes, i in zip(temp, pres, pos):
     print ("Temperatura inicial = ", x, "K", "Presión = ", Pes, "bar", "Datos experimental = ", i+1)
-    
+
     guess = x # T [=] K
     Pe = Pes # [=] bar
-    #Tcal[i] = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
+    # Tcal[i] = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
     Tcal[i] = fsolve(equilibrioSF,guess,args=(Pe, 1, 2), xtol=1e-4)
-    
+
 
 #ErrorT = np.abs(Tcal - temp)
 #ErrorT
@@ -802,13 +802,10 @@ Tcal - temp
 
 
 # In[26]:
-
 fig= pyplot.scatter(Tres,p_exp)
 
 
 # In[27]:
-
-
 def diagramaSolidoFluido():
 
     pyplot.scatter(Tres,pres, color = 'red', label = 'PR')
@@ -821,9 +818,7 @@ def diagramaSolidoFluido():
 
 # diagramaSolidoFluido()
 
-
 # In[30]:
-
 C4 = 325.74196687
 C5 = 325.74761488
 C6 = 325.75368989
@@ -841,8 +836,6 @@ Tcomp
 
 
 # In[31]:
-
-
 def DiagramaSerieSF():
     pyplot.scatter(Ccomp,Tcomp, color = 'red', label = 'PR')
     pyplot.title('Serie C4-C11 Temp. Equilibrio SF')
