@@ -687,20 +687,20 @@ Tcal
 # In[22]:
 
 def equilibrioSF(x, Pe, n1, n2):
-    
+
     # fugacidad del sólido puro
     FugS = calculaFugacidad(x, Pe, n1, eq, TcmDato, PcmDato, wcmDato)
     #print(eq, TcmDato, PcmDato, wcmDato)
     # fugacidad del fluido pesado en la mezcla fluida
     FugF = calculaFugacidad(x, Pe, n2, eq, TcmDato, PcmDato, wcmDato)
-    
+
     # Función de igualdad de fugacidades del sólido y el fluido
     eqSF = np.abs(np.abs(np.log(FugS)) - np.abs(np.log(FugF[1])))
     #print ("-"*100)
     #print ("ln(Fugacidad Sólido) = ", np.log(FugS))
     #print ("ln(Fugacidad Fluido) = ", np.log(FugF[1]))
     #print ("ln(Fugacidad Sólido) - ln(Fugacidad Fluido) = ", eqSF)   
-    
+
     return eqSF
 
 
