@@ -29,7 +29,7 @@ class Fugacidad():
         self.lij = lij
         self.delta_1 = delta_1
         self.k = k
-        
+
         if self.eq == "SRK":
             # Soave-Redlich-Kwong (SRK)
             self.s1, self.s2 = 1, 2
@@ -41,40 +41,39 @@ class Fugacidad():
             self.s1, self.s2 = 1 + 2 ** 0.5, 1 - (2 ** 0.5)
             self.m = 0.37464 + 1.54226 * self.w - 0.26992 * self.w ** 2
             self.ac = 0.45723553 * self.R ** 2 * self.Tc ** 2 / self.Pc
-            self.bc = 0.077796070 * self.R * self.Tc / self.Pc            
-           
+            self.bc = 0.077796070 * self.R * self.Tc / self.Pc
+
             self.alfa = (1 + self.m * (1 - (self.T / self.Tc) ** 0.5)) ** 2
             self.dalfadT = - (self.m / self.T) * (self.T / self.Tc) ** 0.5 * (self.m * (- (self.T / self.Tc) ** 0.5 + 1) + 1)
             ter_1 = 0.5 * self.m ** 2 * (self.T / self.Tc) ** 1.0 / self.T ** 2
             ter_2 = 0.5 * self.m * (self.T / self.Tc) ** 0.5 * (self.m * (- (self.T / self.Tc) ** 0.5 + 1) + 1) / self.T ** 2
-            
+
             self.d2alfaT2 = ter_1 + ter_2
             self.a_ii = self.ac * self.alfa
             self.b_ii = self.bc
-            
+
             self.da_iidT = self.ac * self.dalfadT
             d2adT2_puros = self.ac * self.d2alfaT2
 
         elif self.eq == "RKPR":
             # (RKPR)
-            
+
             self.delta_1m = sum(self.ni * self.delta_1)
-            
+
             self.s1, self.s2 = self.delta_1m, (1-self.delta_1m)/(1+self.delta_1m)
 
-            #datos C1 - C24
+            # datos C1 - C24
             self.ac = np.array([2.3213, 208.3471])
             self.bc = np.array([0.030088, 0.531299])
-                        
+
             self.a_ii = self.ac * (3/(2+(self.T / self.Tc))) ** self.k
             self.b_ii = self.bc
             self.da_iidT = -self.k * self.a_ii / self.Tc/(2+(self.T / self.Tc))
-            dadT2=-(self.k+1)*self.da_iidT/self.Tc/(2+(self.T / self.Tc))  
+            dadT2 = -(self.k + 1) * self.da_iidT / self.Tc / (2 + (self.T / self.Tc))
         else:
-            print ("Che boludo... Modelo no valido, intentalo de nuevo !!! ")
+            print("Che boludo... Modelo no valido, intentalo de nuevo !!! ")
 
-
-    def parametros(self):           
+    def parametros(self):
 
         if self.nC > 1:
             self.aij = np.ones((len(self.ni), len(self.ni)))
@@ -89,20 +88,20 @@ class Fugacidad():
                     self.daijdT[i, j] = (self.da_iidT[i] * self.da_iidT[j]) ** 0.5
 
             for i in range(self.nC):
-                for  j in range(self.nC):
+                for j in range(self.nC):
                     if i == j:
                         self.aij[i, j] = self.a_ii[i] * (1 - self.kij[i, j])
                         self.daijdT[i, j] = self.da_iidT[i] * (1 - self.kij[i, j])
                     elif i != j:
                         self.aij[i, j] = self.aij[i, j] * (1 - self.kij[i, j])
                         self.daijdT[i, j] = self.daijdT[i, j] * (1 - self.kij[i, j])
-                   
+
         if self.nC == 1:
             return self.a_ii, self.b_ii, self.da_iidT
         else:
-            #print("inicial aij = ", self.aij)
-            #print("bij = ", self.bij)
-            #print("daijT = ", self.daijdT)
+            # print("inicial aij = ", self.aij)
+            # print("bij = ", self.bij)
+            # print("daijT = ", self.daijdT)
             return self.aij, self.bij, self.daijdT
 
     def parametro_D(self):
