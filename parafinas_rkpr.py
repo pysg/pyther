@@ -622,16 +622,16 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
         #print ("Factor Acentrico = ", w)
         #print ("...............................................................")
 
-    #---------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------
     # Tempertura reducidad
     Tr = T / Tc
     # C24 puro
     V = 0.141604834257319
     nT = np.sum(ni)
 
-    #print ("...................................................................")
+    # print ("...................................................................")
     fugacidad = Fugacidad(eq, w, Tc, Pc, Tr, R, ep, ni, nT, nC, V, T, P, kij, lij, delta_1, k)
-    
+
     #print(fugacidad.parametro_delta_1())
     #print(fugacidad.ac)
     #print(fugacidad.bc)
@@ -640,20 +640,19 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
     #print("B = ",fugacidad.parametro_B())
     #print("tomar B = ", fugacidad.tomar_B())
     #print("fD1 = ", fugacidad.derivadas_delta_1())
-        
+
     if nC == 1:
         SOL = fugacidad.solido()
         #print ("...................................................................")
         #print ("FUG_SOLID = ", SOL)
         #print ("lnFUG_SOLID = ", np.log(SOL))
         #print ("...................................................................")
-        
+
         return SOL
     else:
         flu_1 = fugacidad.fluido()
-        return flu_1    
+        return flu_1
 
-    
 
 # In[20]:
 
