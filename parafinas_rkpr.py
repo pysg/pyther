@@ -704,9 +704,10 @@ def equilibrioSF(x, Pe, n1, n2):
     return eqSF
 
 
-
-guess = [346.5] # T [=] K
-Pe = 136.9 # [=] bar
+# T [=] K
+guess = [346.5]
+# Pe [=] bar
+Pe = 136.9
 
 
 dppr_file = "PureFull_mod.xls"
