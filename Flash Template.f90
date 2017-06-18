@@ -1,4 +1,4 @@
-
+2
  program calc_flash
 
     implicit DOUBLE PRECISION (A-H,O-Z)
@@ -109,6 +109,11 @@ subroutine readcase(n)
  1	FORMAT('  x  ', 30E12.4)
  2	FORMAT('  y  ', 30E12.4)
  end subroutine readcase
+
+subroutine flash(model, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
+                     Kij_or_K0n, Tstarn, Lijn, t, p, v, x, y, rho_x, rho_y, beta, iter)
+
+
 
 subroutine flash(model, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
                      Kij_or_K0n, Tstarn, Lijn, t, p, v, x, y, rho_x, rho_y, beta, iter)
