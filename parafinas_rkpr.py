@@ -334,15 +334,13 @@ class Fugacidad():
 
         return self.Arn, self.Arn, self.Arn
 
-    
-
     def coeficientes_fugacidad(self):
         self.Z = self.Z_factor()
         self.lnOi = self.Arn / (self.R * self.T) - np.log(self.Z)
         self.Oi = np.exp(self.lnOi)
 
-        #print("lnOi = ", self.lnOi)
-        #print("Oi = ", self.Oi)
+        # print("lnOi = ", self.lnOi)
+        # print("Oi = ", self.Oi)
 
         return self.Oi
 
@@ -355,16 +353,16 @@ class Fugacidad():
         self.PHILOG_i = self.Arn - np.log(self.Z)
         self.FUGLOG = self.Arn / (self.R * self.T) + np.log(self.ni) + np.log((self.nT * self.R * self.T) / self.V)
 
-        #print ("Z = ", self.Z)
-        #print ("Arn = ", self.Arn)
-        #print ("Arn/RT = ", self.Arn / (self.R * self.T))
-        #print ("ln(ni) = ", np.log(self.ni))
-        #print ("ln (nT*R*T/V) = ", np.log((self.nT * self.R * self.T) / self.V))
-        #print ("lnFi = ", self.lnFi)
-        #print ("Fi = ", self.Fi)
-        #print ("PHILOG = ", self.PHILOG)
-        #print ("PHILOG_i = ", self.PHILOG_i)
-        #print ("FUGLOG = ", self.FUGLOG)
+        # print ("Z = ", self.Z)
+        # print ("Arn = ", self.Arn)
+        # print ("Arn/RT = ", self.Arn / (self.R * self.T))
+        # print ("ln(ni) = ", np.log(self.ni))
+        # print ("ln (nT*R*T/V) = ", np.log((self.nT * self.R * self.T) / self.V))
+        # print ("lnFi = ", self.lnFi)
+        # print ("Fi = ", self.Fi)
+        # print ("PHILOG = ", self.PHILOG)
+        # print ("PHILOG_i = ", self.PHILOG_i)
+        # print ("FUGLOG = ", self.FUGLOG)
 
         return self.Fi
 
