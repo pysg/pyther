@@ -290,7 +290,7 @@ class Fugacidad():
         return self.fD1
 
     def primeras_derivadas1(self):
-        #print ("# compo = .......", self.nC)
+        # print ("# compo = .......", self.nC)
 
         if self.nC == 1:
             AUX = self.R * self.T / (self.V - self.B)
@@ -298,7 +298,7 @@ class Fugacidad():
             self.FFB = self.nT * AUX - self.D * self.fB
             self.Di = 2 * self.nT * self.ac * self.alfa
             self.Bi = self.bc
-            
+
             if self.eq != "RKPR":
                 self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
             else:
@@ -312,25 +312,25 @@ class Fugacidad():
             AUX = self.R * self.T / (self.V - self.B)
             self.fB = -(self.f + self.V * self.fv) / self.B
             self.FFB = self.nT * AUX - self.D * self.fB
-            
+
             if self.eq != "RKPR":
                 self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di
             else:
-                #DERIVATIVES OF f WITH RESPECT TO DELTA1
+                # DERIVATIVES OF f WITH RESPECT TO DELTA1
                 auxD2 = (1 + 2 / (1 + self.s1) ** 2)
                 print("B delta1 = ", self.B)
                 co_1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2)
                 co_2 = self.f * auxD2
                 self.fD1 = co_1 - co_2
-                #self.fD1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2) - self.f * auxD2
+                # self.fD1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2) - self.f * auxD2
                 self.fD1 = self.fD1/(self.s1 - self.s2)
                 self.Arn = -self.g * self.T + self.FFB * self.Bi - self.f * self.Di - self.D * self.fD1 * self.dD1i
 
-        #print("Bi = ", self.Bi)
-        #print ("Di = ", self.Di)
-        #print ("fB = ", self.fB)
-        #print ("FFB = ", self.FFB)
-        #print ("Arn cal = ", self.Arn)
+        # print("Bi = ", self.Bi)
+        # print ("Di = ", self.Di)
+        # print ("fB = ", self.fB)
+        # print ("FFB = ", self.FFB)
+        # print ("Arn cal = ", self.Arn)
 
         return self.Arn, self.Arn, self.Arn
 
