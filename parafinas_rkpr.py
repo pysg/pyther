@@ -119,20 +119,20 @@ class Fugacidad():
             self.D = 0.5 * np.sum(self.ni * self.Di)
 
         return self.D
-    
+
     def parametro_delta_1(self):
-        
+
         if self.nC == 1:
-            self.D1m = np.zeros((len(self.ni)-1))
+            self.D1m = np.zeros((len(self.ni) - 1))
             self.dD1i = np.ones((len(self.ni)))
             self.dD1ij = np.ones((len(self.ni), len(self.ni)))
-            
+
             for i in range(self.nC):
                 self.D1m = self.D1m + self.ni[i] * self.delta_1[i]
-            
+
             self.D1m = self.D1m / self.nT
-            
-            #for i in range(self.nC):
+
+            # for i in range(self.nC):
             #    self.dD1i[i] = (self.delta_1[i] - self.D1m) / self.nT
             #    for j in range(self.nC):
             #        self.dD1ij[i,j] = (2.0 * self.D1m - self.delta_1[i] - self.delta_1[j]) / self.nT ** 2
