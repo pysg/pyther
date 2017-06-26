@@ -221,19 +221,19 @@ class Fugacidad():
         Se utiliza el método de Newton con derivada de la función analitica.
         Pendiente cambiar por una función de Scipy.
         '''
-        #self.P = P
+        # self.P = P
         self.V = 1.05 * self.B  # SRK y PR
-        #self.V = 1.10 * self.B  # RKPR
-        
+        # self.V = 1.10 * self.B  # RKPR
+
         lnP = np.log(self.P)
-        #print ("P_esp = ", self.P)
-        #print ("V_ini = ", self.V)
+        # print ("P_esp = ", self.P)
+        # print ("V_ini = ", self.V)
         Pite = self.presion()
         lnPcal = np.log(Pite)
-        #h = self.P - Pite
+        # h = self.P - Pite
         h = lnP - lnPcal
         errorEq = abs(h)
-        #print ("ErrorP = ", errorEq)
+        # print ("ErrorP = ", errorEq)
         i = 0
         s = 1.0
 
@@ -245,20 +245,20 @@ class Fugacidad():
             dPite = self.dP_dV()
             Pite = self.presion()
             lnPcal = np.log(Pite)
-            #h = self.P - Pite
+            # h = self.P - Pite
             h = lnP - lnPcal
             dh = -dPite
-            #print self.nT
+            # print self.nT
             self.V = self.V - s * h / dh
             errorEq = abs(h)
-            #print "ErrorP = ", errorEq
-            #print "V = ", self.V
-            #print "Pite = ", Pite
+            # print "ErrorP = ", errorEq
+            # print "V = ", self.V
+            # print "Pite = ", Pite
             i += 1
             if i >= 900:
                 pass
-                #break
-        #print ("FV = ", dPite)
+                # break
+        # print ("FV = ", dPite)
 
         return self.V
 
@@ -267,26 +267,26 @@ class Fugacidad():
         self.bv = self.B / self.V
         self.f = np.log((self.V + self.s1 * self.B) / (self.V + self.s2 * self.B)) / self.B / (self.s1 - self.s2)
         self.Ar = -self.nT * self.g * self.T - self.D * self.f
-        #print (("g = ", self.g))
-        #print (("f: ", self.f))
-        #print (("Ar: ", self.Ar))
+        # print (("g = ", self.g))
+        # print (("f: ", self.f))
+        # print (("Ar: ", self.Ar))
         return self.g, self.f, self.Ar, self.bv
-    
+
     def tomar_B(self):
-        #print ("tomando B =", self.B)
+        # print ("tomando B =", self.B)
         return self.B + 10
-    
+
     def derivadas_delta_1(self):
-        #DERIVATIVES OF f WITH RESPECT TO DELTA1
+        # DERIVATIVES OF f WITH RESPECT TO DELTA1
         auxD2 = (1 + 2 / (1 + self.s1) ** 2)
-        #print("B delta1 = ", self.B)
-        
+        # print("B delta1 = ", self.B)
+
         como_1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2)
         como_2 = self.f * auxD2
         self.fD1 = como_1 - como_2
-        #self.fD1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2) - self.f * auxD2
+        # self.fD1 = (1 / (self.V + self.s1 * self.B) + 2 / (self.V + self.s2 * self.B) / (1 + self.s1) ** 2) - self.f * auxD2
         self.fD1 = self.fD1/(self.s1 - self.s2)
-        
+
         return self.fD1
 
     def primeras_derivadas1(self):
