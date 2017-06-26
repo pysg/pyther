@@ -137,22 +137,22 @@ class Fugacidad():
             #    for j in range(self.nC):
             #        self.dD1ij[i,j] = (2.0 * self.D1m - self.delta_1[i] - self.delta_1[j]) / self.nT ** 2
         else:
-            self.D1m = np.zeros((len(self.ni)-1))
+            self.D1m = np.zeros((len(self.ni) - 1))
             self.dD1i = np.ones((len(self.ni)))
             self.dD1ij = np.ones((len(self.ni), len(self.ni)))
-            
+
             for i in range(self.nC):
                 self.D1m = self.D1m + self.ni[i] * self.delta_1[i]
-            
+
             self.D1m = self.D1m / self.nT
-            
+
             for i in range(self.nC):
                 self.dD1i[i] = (self.delta_1[i] - self.D1m) / self.nT
                 for j in range(self.nC):
                     self.dD1ij[i,j] = (2.0 * self.D1m - self.delta_1[i] - self.delta_1[j]) / self.nT ** 2
-                    
+
         return self.D1m, self.dD1i, self.dD1ij
-                    
+
     def parametro_B(self):
         if self.nC == 1:
             self.B = self.ni * self.b_ii
@@ -163,7 +163,7 @@ class Fugacidad():
                     self.aux[i] = self.aux[i] + self.ni[j] * self.bij[i, j]
 
             self.B = np.sum(self.ni * self.b_ii)
-            #print("B = ", self.B)
+            # print("B = ", self.B)
 
         return self.B
 
@@ -174,8 +174,8 @@ class Fugacidad():
         R = Constante universal de los gases
         nT = Número total de moles en el sistema
         Pcal = Peos = Presión calculada con la ecuación de estado
-        Arv = Primera derivada parcial de la energía de Helmholz con respecto al
-        volumen V, a T y N constantes
+        Arv = Primera derivada parcial de la energía de Helmholz con respecto
+        al volumen V, a T y N constantes
         '''
         self.gv = self.R * self.B / (self.V * (self.V - self.B))
         self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
