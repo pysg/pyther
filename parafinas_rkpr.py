@@ -180,7 +180,7 @@ class Fugacidad():
         self.gv = self.R * self.B / (self.V * (self.V - self.B))
         self.fv = - 1 / ((self.V + self.s1 * self.B) * (self.V + self.s2 * self.B))
         self.ArV = -self.nT * self.gv * self.T - self.D * self.fv
-        self.Pcal = self.nT * self.R * self.T / self.V - self.ArV   
+        self.Pcal = self.nT * self.R * self.T / self.V - self.ArV
 
         return self.Pcal
 
