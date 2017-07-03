@@ -875,13 +875,3 @@ Tcomp = np.array([C4, C5, C6, C7, C8, C9, C10, C11, C12, C13])
 Tcomp
 
 
-# In[31]:
-def DiagramaSerieSF():
-    pyplot.scatter(Ccomp,Tcomp, color = 'red', label = 'PR')
-    pyplot.title('Serie C4-C11 Temp. Equilibrio SF')
-    pyplot.legend(loc="upper left")
-    pyplot.xlabel('Número de Carbonos')
-    pyplot.ylabel('Temperatura [=] K')
-
-
-#DiagramaSerieSF()
