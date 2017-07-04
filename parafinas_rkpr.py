@@ -9,7 +9,7 @@ from matplotlib import pyplot
 import matplotlib.pyplot as plt
 
 
-class Fugacidad():
+class Eos_equations():
 
     def __init__(self, eq, w, Tc, Pc, Tr, R, ep, ni, nT, nC, V, T, P, kij, lij, delta_1, k):
         self.eq = eq
@@ -627,7 +627,7 @@ def calculaFugacidad(x, Pe, nCf, eq, TcmDato, PcmDato, wmDAto):
     nT = np.sum(ni)
 
     # print ("...................................................................")
-    fugacidad = Fugacidad(eq, w, Tc, Pc, Tr, R, ep, ni, nT, nC, V, T, P, kij, lij, delta_1, k)
+    fugacidad = Eos_equations(eq, w, Tc, Pc, Tr, R, ep, ni, nT, nC, V, T, P, kij, lij, delta_1, k)
 
     #print(fugacidad.parametro_delta_1())
     #print(fugacidad.ac)
