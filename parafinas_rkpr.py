@@ -872,7 +872,6 @@ C13 = 325.773858
 
 Ccomp = np.array([4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
 Tcomp = np.array([C4, C5, C6, C7, C8, C9, C10, C11, C12, C13])
-Tcomp
 
 
 def volumen_1(self):
