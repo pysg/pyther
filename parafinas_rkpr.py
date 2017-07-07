@@ -905,10 +905,8 @@ def volumen_1(self):
         dPite = self.dP_dV()
         Pite = self.presion()
         lnPcal = np.log(Pite)
-        # h = self.P - Pite
         h = lnP - lnPcal
         dh = -dPite
-        # print self.nT
         self.V = self.V - s * h / dh
         errorEq = abs(h)
 
