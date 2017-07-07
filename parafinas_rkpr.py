@@ -911,9 +911,7 @@ def volumen_1(self):
         # print self.nT
         self.V = self.V - s * h / dh
         errorEq = abs(h)
-        # print "ErrorP = ", errorEq
-        # print "V = ", self.V
-        # print "Pite = ", Pite
+
         i += 1
         if i >= 900:
             pass
