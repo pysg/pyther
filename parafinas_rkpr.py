@@ -905,7 +905,6 @@ def volumen_1(self):
         if i >= 900:
             pass
             # break
-    # print ("FV = ", dPite)
 
     return self.V
 
