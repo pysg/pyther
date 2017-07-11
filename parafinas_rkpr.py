@@ -880,8 +880,7 @@ def volumen_1(self):
     # self.V = 1.10 * self.B  # RKPR
 
     lnP = np.log(self.P)
-    # print ("P_esp = ", self.P)
-    # print ("V_ini = ", self.V)
+
     Pite = self.presion()
     lnPcal = np.log(Pite)
     # h = self.P - Pite
