@@ -875,13 +875,7 @@ Tcomp = np.array([C4, C5, C6, C7, C8, C9, C10, C11, C12, C13])
 
 
 def volumen_1(self):
-    '''
-    Calculo del volumen V(T,P,n) del fluido a una temperatura T, presión P
-    y número de moles totales nT especificados.
-    Se utiliza el método de Newton con derivada de la función analitica.
-    Pendiente cambiar por una función de Scipy.
-    '''
-    # self.P = P
+
     self.V = 1.05 * self.B  # SRK y PR
     # self.V = 1.10 * self.B  # RKPR
 
