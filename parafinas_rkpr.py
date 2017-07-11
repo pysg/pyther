@@ -885,7 +885,6 @@ def volumen_1(self):
     lnPcal = np.log(Pite)
     h = lnP - lnPcal
     errorEq = abs(h)
-    # print ("ErrorP = ", errorEq)
     i = 0
     s = 1.0
 
