@@ -883,7 +883,6 @@ def volumen_1(self):
 
     Pite = self.presion()
     lnPcal = np.log(Pite)
-    # h = self.P - Pite
     h = lnP - lnPcal
     errorEq = abs(h)
     # print ("ErrorP = ", errorEq)
