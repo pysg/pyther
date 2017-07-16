@@ -888,6 +888,7 @@ def volumen_1(self):
     i, s = 0, 1.0
 
     while errorEq > self.ep:
+
         self.parametro_D()
         self.parametro_B()
         self.dF_dV()
