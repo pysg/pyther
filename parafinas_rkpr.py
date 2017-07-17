@@ -922,7 +922,7 @@ def volumen_1_cal(self):
     errorEq = abs(h)
     i, s = 0, 1.0
 
-    while errorEq > self.ep:
+    while True:
 
         self.parametro_D()
         self.parametro_B()
