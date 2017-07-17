@@ -909,4 +909,36 @@ def volumen_1(self):
     return self.V
 
 
+def volumen_1_cal(self):
 
+    self.V = 1.05 * self.B  # SRK y PR
+    # self.V = 1.10 * self.B  # RKPR
+
+    lnP = np.log(self.P)
+
+    Pite = self.presion()
+    lnPcal = np.log(Pite)
+    h = lnP - lnPcal
+    errorEq = abs(h)
+    i, s = 0, 1.0
+
+    while errorEq > self.ep:
+
+        self.parametro_D()
+        self.parametro_B()
+        self.dF_dV()
+        self.dF_dVV()
+        dPite = self.dP_dV()
+        Pite = self.presion()
+        lnPcal = np.log(Pite)
+        h = lnP - lnPcal
+        dh = -dPite
+        self.V = self.V - s * h / dh
+        errorEq = abs(h)
+
+        i += 1
+        if i >= 900:
+            pass
+            # break
+
+    return self.V
