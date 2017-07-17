@@ -937,7 +937,7 @@ def volumen_1_cal(self):
         errorEq = abs(h)
 
         i += 1
-        if i >= 900:
+        if i >= 900 or errorEq > self.ep:
             pass
             # break
 
