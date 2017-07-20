@@ -942,3 +942,7 @@ def volumen_1_cal(self):
             # break
 
     return self.V
+
+volume_liquid = volumen_1_cal()
+
+
