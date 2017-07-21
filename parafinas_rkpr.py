@@ -946,3 +946,11 @@ def volumen_1_cal(self):
 volume_liquid = volumen_1_cal()
 
 
+class properties_data(object):
+    """docstring for properties_data"""
+    def __init__(self, arg):
+        super(properties_data, self).__init__()
+        self.arg = arg
+
+
+
