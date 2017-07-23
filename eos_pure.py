@@ -102,7 +102,8 @@ def compressibility_factor_cal(del1):
 
     d1 = (1 + del1 ** 2) / (1 + del1)
     y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
-    numerator_OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0)
+    # numerator_OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0)
+    numerator_OMa = (3 * y **2 + 3 * y * d1 + d1 ** 2 + d1 - 1.0)
     denominator_OMa = (3 * y + d1 - 1.0) ** 2
     OMa = numerator_OMa / denominator_OMa
     OMb = 1 / (3 * y + d1 - 1.0)
