@@ -99,6 +99,7 @@ def acentric_factor_cal(*arg):
 
 
 def compressibility_factor_cal(del1):
+	
 
     d1 = (1 + del1 ** 2) / (1 + del1)
     y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
