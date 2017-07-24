@@ -90,7 +90,7 @@ def acentric_factor_cal(*arg):
 
     al, be, ga = arg[0], arg[1], arg[2]
     try:
-        OM = 0.5 * (- be + np.sqrt(be ** 2 - 4 * al * ga)) / al
+        OM = 0.5 * (- be + np.sqrt(be ** 2 - 4 * al * ga)) / (2*al)
     except RuntimeWarning:
         raise RuntimeWarning
     else:
@@ -99,7 +99,6 @@ def acentric_factor_cal(*arg):
 
 
 def compressibility_factor_cal(del1):
-	
 
     d1 = (1 + del1 ** 2) / (1 + del1)
     y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
