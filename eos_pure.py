@@ -90,7 +90,7 @@ def acentric_factor_cal(*arg):
 
     al, be, ga = arg[0], arg[1], arg[2]
     try:
-        OM = 0.5 * (- be + np.sqrt(be ** 2 - 4 * al * ga)) / (2*al)
+        OM = 0.5 * (- be + np.sqrt(be ** 2 - 4 * al * ga)) / (2 * al)
     except RuntimeWarning:
         raise RuntimeWarning
     else:
