@@ -10,6 +10,15 @@ def func_zc_d1(del1):
     return Zc
 
 
+
+def func_zc_d1(del1):
+
+    d1 = (1 + del1 ** 2) / (1 + del1)
+    y = 1 + (2 * (1 + del1)) ** (1.0 / 3) + (4 / (1 + del1)) ** (1.0 / 3)
+    Zc = y / (3 * y + d1 - 1.0)
+
+    return Zc
+
 def get_del_1(Zcin, del1):
 
     # del1 = del_1_init
