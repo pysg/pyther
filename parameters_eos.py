@@ -491,7 +491,7 @@ def main():
     # component = "3-METHYLHEPTANE"
     # component = "n-PENTACOSANE"
     component = "ISOBUTANE"
-    NMODEL = "RKPR"
+    #NMODEL = "RKPR"
     NMODEL = "PR"
     ICALC = "constants_eps"
     # ICALC = "density"
