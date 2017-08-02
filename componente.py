@@ -1,4 +1,4 @@
-from .pure_data import Data_parse
+from pure_data import Data_parse
 
 
 def argument_gpec(func):

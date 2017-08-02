@@ -1,9 +1,12 @@
 import numpy as np
 from eos_selecction import eos, convert_argument
-from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+#from cubic_parameters_1 import Parameter_eos, getdel1, compressibility_factor_cal, acentric_factor_cal
+from cubic_parameters_1 import Parameter_eos
 
 from componente import Control_arguments
 from pure_data import Data_parse
+from eos_pure import getdel1, compressibility_factor_cal, acentric_factor_cal
+
 
 from properties_ecuations import Thermodynamic_correlations
 

@@ -96,7 +96,7 @@ class Flash(object):
         return self.xi, self.yi
 
     def beta_newton(self):
-        iteration, step, tolerance = 0, 0.1, 1e-6
+        iteration, step, tolerance = 0, 0.1, 1e-4
 
         #while self.Beta < self.Bmin or self.Beta > self.Bmax:
         #    step = step / 2
@@ -107,13 +107,13 @@ class Flash(object):
 
             self.advance = self.rachford_rice()[0] / self.rachford_rice()[1]
 
-            i = 0
-            while (self.Binit < self.Bmin) or (self.Binit > self.Bmax):
-                self.Binit = self.Binit - self.advance / 2
-                print(self.Bmin, self.Binit, self.Bmax)
-                i += 1
-                if i >= 50:
-                    break
+            #i = 0
+            #while (self.Binit < self.Bmin) or (self.Binit > self.Bmax):
+            #    self.Binit = self.Binit - self.advance / 2
+            #    print("bmin = {0}, binit = {1}, bmax = {2} ".format(self.Bmin, self.Binit, self.Bmax))
+            #    i += 1
+            #    if i >= 50:
+            #        break
 
             iteration += 1
             if abs(self.rachford_rice()[0]) <= tolerance or (iteration >= 2000):
@@ -144,8 +144,8 @@ class Flash(object):
         print("yi =", self.yi)
         print("amv = ", amv)
 
-        Zv = np.max(np.roots([1, -1, (Av - Bv - Bv ** 2), (- Av * Bv)]))
-        #Zv = np.max(np.roots([1, -(1 - Bv), (Av - 3*Bv**2 - 2*Bv), (- Av * Bv - Bv**2-Bv**3)]))
+        # Zv = np.max(np.roots([1, -1, (Av - Bv - Bv ** 2), (- Av * Bv)]))
+        Zv = np.max(np.roots([1, -(1 - Bv), (Av - 3*Bv**2 - 2*Bv), (- Av * Bv - Bv**2-Bv**3)]))
 
         aav = (a / amv)
         bbv = (b / bmv)
@@ -157,8 +157,8 @@ class Flash(object):
         print("xi =", self.xi)
         Al = (aml * self.P) / ((self.R * self.T) ** 2)
         Bl = (bml * self.P) / (self.R * self.T)
-        Zl = np.min(np.roots([1, -1, (Al - Bl - Bl ** 2), (- Al * Bl)]))
-        #Zl = np.max(np.roots([1, -(1 - Bl), (Al - 3*Bl**2 - 2*Bl), (- Al * Bl - Bl**2-Bl**3)]))
+        # Zl = np.min(np.roots([1, -1, (Al - Bl - Bl ** 2), (- Al * Bl)]))
+        Zl = np.max(np.roots([1, -(1 - Bl), (Al - 3*Bl**2 - 2*Bl), (- Al * Bl - Bl**2-Bl**3)]))
 
         aal = (a / aml)
         bbl = (b / bml)
@@ -178,7 +178,7 @@ class Flash(object):
     def isothermal(self):
         self.Binit, self.Ki = self.isothermal_ideal()[2], self.isothermal_ideal()[4]
         Ki_1 = self.Ki
-        tolerance = 1e-5
+        tolerance = 1e-3
 
         while True:
             self.xi, self.yi = self.composition_xy()
@@ -216,15 +216,15 @@ def main():
     # components = ["PROPANE", "ISOBUTANE", "n-BUTANE"]
     components = ["METHANE", "PROPANE", "n-PENTANE", "n-DECANE", "n-HEXADECANE"]
 
-    T = 400.0
-    #T = 383.15
-    P = 30.0
+    #T = 400.0
+    T = 278.15
+    P = 200.0
     zi = np.array([0.822, 0.088, 0.050, 0.020, 0.020])
 
-    #components = ["METHANE", "ETHANE", "PROPANE", "ISOBUTANE", "n-BUTANE"]
-    #T = 320.0
-    #P = 9.0
-    #zi = np.array([0.05, 0.1, 0.23, 0.52, 0.10])
+    # components = ["METHANE", "ETHANE", "PROPANE", "ISOBUTANE", "n-BUTANE"]
+    # T = 320.0
+    # P = 9.0
+    # zi = np.array([0.05, 0.1, 0.23, 0.52, 0.10])
 
     flash_1 = Flash(components, T, P, zi)
 
@@ -240,8 +240,7 @@ def main():
 
     b = flash_1.isothermal_ideal()
 
-    #print(b)
-
+    # print(b)
 
     beta = b[2]
 
@@ -250,7 +249,7 @@ def main():
     yi = q[1]
 
     print("*" * 70)
-    print("C3 -i-C4 n-C4")
+    print(components)
     print("---------- Composition of liquid phase ----------")
     print("xi = {0} and Sxi ={1}". format(xi, np.sum(xi)))
     print("---------- Composition dof vapor phase ----------")
@@ -276,5 +275,131 @@ def main():
     print(result)
 
 
+def main_m():
+
+    # components = ["PROPANE", "ISOBUTANE", "n-BUTANE"]
+    components = ["METHANE", "PROPANE", "n-PENTANE", "n-DECANE", "n-HEXADECANE"]
+
+    #T = 400.0
+    T = 278.15
+    P = 200.0
+    zi = np.array([0.822, 0.088, 0.050, 0.020, 0.020])
+
+    # components = ["METHANE", "ETHANE", "PROPANE", "ISOBUTANE", "n-BUTANE"]
+    # T = 320.0
+    # P = 9.0
+    # zi = np.array([0.05, 0.1, 0.23, 0.52, 0.10])
+
+    flash_1 = Flash(components, T, P, zi)
+
+    print(flash_1.Tc)
+    print(flash_1.Pc)
+    print(flash_1.w)
+
+    fk = flash_1.Ki_wilson()
+    fkk = flash_1.Ki_wilson_add()
+
+    print("Ki_wilson = {0}, Ki_wilson_add = {1}".format(fk, fkk))
+
+    bk = flash_1.beta_initial()
+
+    print("Bmin = {0}, Bk = {1}, Bmax = {2}".format(flash_1.Bmin, bk, flash_1.Bmax))
+    print(flash_1.Bmin_values, flash_1.Bmax_values)
+
+    b = flash_1.isothermal_ideal()
+
+    # print(b)
+
+    beta = b[2]
+
+    q = b[3]
+    xi = q[0]
+    yi = q[1]
+
+    print("*" * 70)
+    print(components)
+    print("---------- Composition of liquid phase ----------")
+    print("xi = {0} and Sxi ={1}". format(xi, np.sum(xi)))
+    print("---------- Composition of vapor phase ----------")
+    print("yi = {0} and Syi ={1}". format(yi, np.sum(yi)))
+    print("-" * 70)
+    print("Beta(P, T) =", beta)
+    print("*" * 70)
+
+
 if __name__ == '__main__':
     main()
+    #main_m()
+
+
+# **********************************************************************
+# T = 278.15
+# P = 200.0
+# zi = np.array([0.822, 0.088, 0.050, 0.020, 0.020])
+# ['METHANE', 'PROPANE', 'n-PENTANE', 'n-DECANE', 'n-HEXADECANE']
+# ---------- Composition of liquid phase ----------
+# xi = [0.79360247  0.10181944  0.05809219  0.02324296  0.02324299] and Sxi =1.0000000559188709
+# ---------- Composition of vapor phase ----------
+# yi = [9.97132026e-01   2.77332761e-03   9.41651806e-05   1.35804811e-07 6.25787257e-10] and Syi =0.999999655139537
+# ----------------------------------------------------------------------
+# Beta(P, T) = 0.139525335078
+# **********************************************************************
+
+
+###
+#**********************************************************************
+#C3 -i-C4 n-C4
+#---------- Composition of liquid phase ----------
+#xi = [ 0.75337191  0.12125998  0.06962828  0.02786994  0.02787001] and Sxi =1.0000001256201274
+#---------- Composition dof vapor phase ----------
+#yi = [  9.96404027e-01   3.47667694e-03   1.18804973e-04   1.71409999e-07
+#   7.89856780e-10] and Syi =0.9999996807625394
+#----------------------------------------------------------------------
+#Beta(P, T) = 0.282382791307
+#**********************************************************************
+###
+
+
+
+
+
+
+#T = 400.0
+#P = 30.0
+#    zi = np.array([0.822, 0.088, 0.050, 0.020, 0.020])
+
+#---------- Composition of liquid phase ----------
+#xi = [ 0.03304125  0.04051371  0.13369456  0.36449104  0.42825854] and Sxi =0.9999991098772641
+#---------- Composition dof vapor phase ----------
+#yi = [  8.60428613e-01   9.03129626e-02   4.59234044e-02   3.22052587e-03
+#   1.14537881e-04] and Syi =1.0000000433561091
+#----------------------------------------------------------------------
+#Beta(P, T) = 0.953554266819
+
+#Beta_real =  (0.939951895017+8.73976530651e-19j)
+#                 zi        xi        yi
+#METHANE       0.822  0.033041  0.860429
+#PROPANE       0.088  0.040514  0.090313
+#n-PENTANE     0.050  0.133695  0.045923
+#n-DECANE      0.020  0.364491  0.003221
+#n-HEXADECANE  0.020  0.428259  0.000115
+
+#Beta_real =  (0.952152663254-1.2650539815e-19j)
+#                 zi        xi        yi
+#METHANE       0.822  0.033041  0.860429
+#PROPANE       0.088  0.040514  0.090313
+#n-PENTANE     0.050  0.133695  0.045923
+#n-DECANE      0.020  0.364491  0.003221
+#n-HEXADECANE  0.020  0.428259  0.000115
+
+
+
+
+
+
+
+
+
+
+
+
