@@ -12,7 +12,7 @@ Documentación PyTher 0.6
 
 Contacto: andres.pyther@gmail.com
 
-Última actualización 03/29/17.
+Última actualización 03/08/17
 
 Contents:
 
