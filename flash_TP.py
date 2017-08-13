@@ -2,6 +2,11 @@ import numpy as np
 import pandas as pd
 import pyther as pt
 
+from scipy.optimize import bisect
+from scipy.optimize import newton
+from scipy.optimize import fsolve
+import scipy as sp
+
 
 class Flash(object):
     """
@@ -88,6 +93,15 @@ class Flash(object):
         self.d_functions_rachford_rice = - np.sum(variable_1)
         return self.function_rachford_rice, self.d_functions_rachford_rice
 
+    def rachford_rice_sp(self):
+        denominador = 1 + self.Binit * (self.Ki - 1)
+        numerador = self.zi * (self.Ki - 1)
+        self.function_rachford_rice = np.sum(numerador / denominador)
+        # Derivate of function_rachford_rice with respect to Beta
+        variable_1 = self.zi * (self.Ki - 1) ** 2 / denominador ** 2
+        self.d_functions_rachford_rice = - np.sum(variable_1)
+        return self.function_rachford_rice
+
     def composition_xy(self):
         denominador = 1 + self.Binit * (self.Ki - 1)
         self.yi = self.zi * self.Ki / denominador
@@ -120,12 +134,44 @@ class Flash(object):
                 break
         return self.Binit
 
+    def beta_newton_fs(cls):
+
+        guess = cls.Binit
+        result_n = fsolve(cls.rachford_rice_sp)
+        print("result_n = ", result_n)
+
+        return result_n
+
     def isothermal_ideal(self):
         self.Binit = self.beta_initial()
         #self.Ki = self.Ki_wilson()
         self.Binit = self.beta_newton()
+        # self.Binit = self.beta_newton_fs()
         self.xy = self.composition_xy()
+
+        g0 = np.sum(self.zi * self.Ki) - 1.0
+        g1 = 1.0 - np.sum(self.zi / self.Ki)
+
+        print("Ideal go = {0} and g1 = {1}".format(g0, g1))
+
         return self.rachford_rice()[0], self.rachford_rice()[1], self.Binit, self.xy, self.Ki
+
+    def parametros(self):
+
+        self.aij = np.ones((len(self.ni), len(self.ni)))
+
+        for j in range(self.nC):
+            for i in range(self.nC):
+                self.aij[i, j] = (self.a_ii[i] * self.a_ii[j]) ** 0.5
+
+        for i in range(self.nC):
+            for j in range(self.nC):
+                if i == j:
+                    self.aij[i, j] = self.a_ii[i] * (1 - self.kij[i, j])
+                elif i != j:
+                    self.aij[i, j] = self.aij[i, j] * (1 - self.kij[i, j])
+
+        return am
 
     def fugacity(self):
         self.m = 0.48 + (1.574 * self.w) - (0.176 * self.w ** 2)
@@ -140,12 +186,13 @@ class Flash(object):
         bmv = np.sum(self.yi * b)
         Av = (amv * self.P) / ((self.R * self.T) ** 2)
         Bv = (bmv * self.P) / (self.R * self.T)
-        print("a = ", a)
         print("yi =", self.yi)
         print("amv = ", amv)
 
         # Zv = np.max(np.roots([1, -1, (Av - Bv - Bv ** 2), (- Av * Bv)]))
-        Zv = np.max(np.roots([1, -(1 - Bv), (Av - 3*Bv**2 - 2*Bv), (- Av * Bv - Bv**2-Bv**3)]))
+
+        z_v = np.roots([1, -(1 - Bv), (Av - 3 * Bv**2 - 2 * Bv), -(Av * Bv - Bv**2 - Bv**3)])
+        Zv = np.max(z_v)
 
         aav = (a / amv)
         bbv = (b / bmv)
@@ -155,10 +202,12 @@ class Flash(object):
         bml = np.sum(self.xi * b)
 
         print("xi =", self.xi)
+        print("aml = ", aml)
         Al = (aml * self.P) / ((self.R * self.T) ** 2)
         Bl = (bml * self.P) / (self.R * self.T)
         # Zl = np.min(np.roots([1, -1, (Al - Bl - Bl ** 2), (- Al * Bl)]))
-        Zl = np.max(np.roots([1, -(1 - Bl), (Al - 3*Bl**2 - 2*Bl), (- Al * Bl - Bl**2-Bl**3)]))
+        z_l = np.roots([1, -(1 - Bl), (Al - 3 * Bl**2 - 2 * Bl), -(Al * Bl - Bl**2 - Bl**3)])
+        Zl = np.min(z_l)
 
         aal = (a / aml)
         bbl = (b / bml)
@@ -173,12 +222,30 @@ class Flash(object):
         ln_phi_l = bbl * (Zl - 1) - np.log(Zl - Bl) + (Al / Bl) * factor_2
         self.phi_l = np.exp(ln_phi_l)
 
+        print("yi =", self.yi)
+        print("amv = ", amv)
+        print("xi =", self.xi)
+        print("aml = ", aml)
+
+        print("z_v =", z_v)
+        print("z_l =", z_l)
+
+        print("Zv =", Zv)
+        print("Zl =", Zl)
+
+        print("phi_v =", self.phi_v)
+        print("phi_l =", self.phi_l)
+
+
+
         return self.phi_l, self.phi_v
 
     def isothermal(self):
         self.Binit, self.Ki = self.isothermal_ideal()[2], self.isothermal_ideal()[4]
         Ki_1 = self.Ki
         tolerance = 1e-3
+
+        print("B initial (T,P)", self.Binit)
 
         while True:
             self.xi, self.yi = self.composition_xy()
@@ -191,6 +258,11 @@ class Flash(object):
 
             print("Beta_iso = ", self.Binit)
             print("avance_iso = ", self.advance)
+
+            g0 = np.sum(self.zi * self.Ki) - 1.0
+            g1 = 1.0 - np.sum(self.zi / self.Ki)
+
+            print("REAL go = {0} and g1 = {1}".format(g0, g1))
 
             Ki_2 = self.Ki
             dKi = abs(Ki_1 - Ki_2)
@@ -303,6 +375,23 @@ def main_m():
 
     bk = flash_1.beta_initial()
 
+    print("bk = ", bk)
+
+    def rachford_rice_sp(Binit, Ki):
+
+        denominador = 1 + Binit * (Ki - 1)
+        numerador = zi * (Ki - 1)
+        function_rachford_rice = np.sum(numerador / denominador)
+        # Derivate of function_rachford_rice with respect to Beta
+        variable_1 = zi * (Ki - 1) ** 2 / denominador ** 2
+        d_functions_rachford_rice = - np.sum(variable_1)
+        return function_rachford_rice
+
+    # result_n = newton(rachford_rice_sp, 0.2, args=[fk])
+    guess = 0.00046
+    result_n = fsolve(rachford_rice_sp,guess,args=(fk))
+    print("result_n = ", result_n)
+
     print("Bmin = {0}, Bk = {1}, Bmax = {2}".format(flash_1.Bmin, bk, flash_1.Bmax))
     print(flash_1.Bmin_values, flash_1.Bmax_values)
 
@@ -329,8 +418,16 @@ def main_m():
 
 if __name__ == '__main__':
     main()
-    #main_m()
+    # main_m()
+    
 
+
+f = lambda x: np.sin(4 * (x - 0.25)) + x + x**20 - 1
+result_b = bisect(f, 0, 1)
+result_n = newton(f, 0.2)
+
+print(result_b)
+print(result_n)
 
 # **********************************************************************
 # T = 278.15
