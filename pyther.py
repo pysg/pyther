@@ -247,42 +247,41 @@ def models_eos_cal(NMODEL, ICALC, dinputs):
 
 
 def print_properties_component(component, properties_component):
-    print ('Component = {0}'.format(component))
-    print ('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
-    print ('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
-    print ('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
-    print ('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
-    print ('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
-    print ("\n")
-
+    print('Component = {0}'.format(component))
+    print('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
+    print('Critical_Temperature = {0} K'.format(properties_component[1]['Tc']))
+    print('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
+    print('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
+    print('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
+    print("\n")
 
 
 def main():
 
     print("-" * 79)
 
-    dppr_file = "PureFull.xls"
-    #component = 'METHANE'
-    #component = "ETHANE"
-    #component = "3-METHYLHEPTANE"
-    #component = "n-PENTACOSANE"
+    # component = 'METHANE'
+    # component = "ETHANE"
+    # component = "3-METHYLHEPTANE"
+    # component = "n-PENTACOSANE"
     component = "ISOBUTANE"
     NMODEL = "RKPR"
     ICALC = "constants_eps"
-    #ICALC = "density"
+    # ICALC = "density"
 
     properties_data = Data_parse()
-    properties_component = properties_data.selec_component(dppr_file, component)
+    properties_component = properties_data.selec_component(component)
     print_properties_component(component, properties_component)
     dinputs = np.array([properties_component[1]['Tc'], properties_component[1]['Pc'],
                         properties_component[1]['Omega'], properties_component[1]['Vc']])
-    
+
     component_eos = models_eos_cal(NMODEL, ICALC, dinputs)
-    #print(component_eos[0])
+    print(component_eos[0])
     print('-' * 79)
 
+
 if __name__ == '__main__':
-	main()
+    main()
 
 
 

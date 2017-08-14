@@ -93,14 +93,13 @@ def func_zc_ac_b(Tc, Pc, Zc, delta_1):
 
 
 def func_rm_rk_delta_1(MODEL_eos, OM, dinputs):
+    Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
 
-	Tc, Pc, OM, Vceos = dinputs[0], dinputs[1], dinputs[2], dinputs[3]
-
-	if MODEL_eos == 'SRK':
-		rm = 0.48 + 1.574 * OM - 0.175 * OM**2
-		delta_1 = 1.0
-		return rm, delta_1
-	elif MODEL_eos == 'PR':
+    if MODEL_eos == 'SRK':
+        rm = 0.48 + 1.574 * OM - 0.175 * OM**2
+        delta_1 = 1.0
+        return rm, delta_1
+    elif MODEL_eos == 'PR':
         rm = 0.37464 + 1.54226 * OM - 0.26992 * OM ** 2
         delta_1 = 1.0 + np.sqrt(2.0)
         return rm, delta_1
@@ -348,23 +347,19 @@ def call_eos(MODEL_eos, SPECIFICATION_cal, dinputs):
 
 def main():
 
-	SRK = "SRK"
-	PR = None #"PR"
-	RKPR = "RKPR"
+    SRK = "SRK"
+    PR = None # "PR"
+    RKPR = "RKPR"
 
-	if SRK:
-	    print(SRK)
-	if PR:
-	    print(PR)
-	if RKPR:
-	    print(RKPR)
+    if SRK:
+        print(SRK)
+    if PR:
+        print(PR)
+    if RKPR:
+        print(RKPR)
 
-	print(34)
-
-
+    print(34)
 
 
 if __name__ == '__main__':
-	main()
-
-
+    main()
