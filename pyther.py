@@ -7,10 +7,9 @@ from componente import Control_arguments
 from pure_data import Data_parse
 from eos_pure import getdel1, compressibility_factor_cal, acentric_factor_cal
 
-
 from properties_ecuations import Thermodynamic_correlations
 
-#----------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 # properties thermodynamics
 
@@ -28,18 +27,19 @@ Liquid_Thermal_Conductivity = "Liquid Thermal Conductivity", "[J/(m*s*K)]", "A+B
 Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
 Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12 
 
-#----------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 RGAS = 0.08314472
-# Definir el significado fisicoquímico
 
+# Definir el significado fisicoquímico
 A0, B0, C0 = 0.0017, 1.9681, -2.7238
-# Definir el significado fisicoquímico
 
+# Definir el significado fisicoquímico
 A1, B1, C1 = -2.4407, 7.4513, 12.504
-# Definir el significado fisicoquímico
 
+# Definir el significado fisicoquímico
 D = np.array([0.428363, 18.496215, 0.338426, 0.660, 789.723105, 2.512392])
+
 
 def initial_data(omega, delta_1, NMODEL, ICALC, Pc, dinputs):
 
@@ -78,8 +78,6 @@ def data_in(dinputs):
 
 		Tc, Pc, omega, Vceos, delta_1 = dinputs[0], dinputs[1], dinputs[2], dinputs[3], dinputs[4]
 		T_especific, RHOLSat_esp = dinputs[5], dinputs[6]
-
-
 
 
 def require_ID (func):
@@ -259,7 +257,6 @@ def print_properties_component(component, properties_component):
 def main():
 
     print("-" * 79)
-
     # component = 'METHANE'
     # component = "ETHANE"
     # component = "3-METHYLHEPTANE"
@@ -282,8 +279,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
 
 
 def n_main():
