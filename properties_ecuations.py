@@ -16,7 +16,6 @@ dppr_file = os.path.join(path_file, dfile)
 
 
 class Thermodynamic_correlations(object):
-	
 	"""
 	Thermodynamic_correlations
 
@@ -40,7 +39,8 @@ class Thermodynamic_correlations(object):
 	#	self.dppr_file = dppr_file
 	
 	#def __init__(self):
-	#	pass	
+	#	pass
+
 
 	def read_dppr(self):
 		
@@ -126,15 +126,15 @@ class Thermodynamic_correlations(object):
 
 		print("sss constans = ",Min, Max)
 
-	
-	def graphical(self, t, p, pp, u):
-	    plt.plot(t, p)
-	    plt.title(pp)
-	    plt.xlabel(u[0])
-	    plt.ylabel(u[1])
-	    #plt.show()
 
-	    return
+	def graphical(self, t, p, pp, u):
+		plt.plot(t, p)
+		plt.title(pp)
+		plt.xlabel(u[0])
+		plt.ylabel(u[1])
+		# plt.show()
+
+		return 0
 
 	def multi_graphical(self, components, temperature, property_thermodynamics):
     
