@@ -162,7 +162,6 @@ class Thermodynamic_correlations(object):
 	    t = [str(temp)+" K" for temp in temperature]
 	    datas_table = pd.DataFrame(data=datas,index= components, columns=t)
 
-	        
 	    return datas_table
 
 
@@ -224,12 +223,11 @@ class Thermodynamic_correlations(object):
 
 				#print("temperature = ", Temp_vector, len(Temp_vector), np.shape(Temp_vector) )
 
-
 		self.temperature = Temp_vector
 
-		#print("temperature = ", self.temperature, len(self.temperature) )
+		# print("temperature = ", self.temperature, len(self.temperature) )
 
-		return self.temperature	
+		return self.temperature
 
 
 	def property_cal(self, components, property_thermodynamics, temperature = None):
