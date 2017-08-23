@@ -338,9 +338,6 @@ class Thermodynamic_correlations(object):
 						#print("log_vapour-pressure = ",log_vapour_Pressure)
 						vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
 
-						
-
-
 					print(np.size(vapour_Pressure))
 
 			return vapour_Pressure
@@ -380,7 +377,6 @@ class Thermodynamic_correlations(object):
 							 columns=[str(self.temperature)+"K"])
 		return table_components
 
-	
 
 
 def main():
@@ -416,7 +412,7 @@ def main():
 	# many components and many temperatures
 
 	# Not test
-	
+
 	temp = [180.4, 181.4, 185.3, 210, 800]
 	#temp = [180.4, 230.4]	
 	#temp = [180.4]
@@ -425,7 +421,6 @@ def main():
 	#oss = np.zeros([3,1])
 	#print(ass)
 
-	
 	#zzz = [ [row_idx for row_idx in (ass[i], oss[i])] for i in range(0,3)]	
 
 	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
@@ -455,6 +450,7 @@ def main():
 	#print(thermodynamic_correlations.__doc__)
 
 	print('-' * 79)
+
 
 if __name__ == '__main__':
 	main()
