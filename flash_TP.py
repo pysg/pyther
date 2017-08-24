@@ -142,6 +142,9 @@ class Flash(object):
 
         return result_n
 
+    def solution(self):
+        pass
+
     def isothermal_ideal(self):
         self.Binit = self.beta_initial()
         #self.Ki = self.Ki_wilson()
