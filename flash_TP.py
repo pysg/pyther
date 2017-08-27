@@ -144,7 +144,7 @@ class Flash(object):
 
     def solution(self):
 
-        solved
+        solved = self.rachford_rice()
 
 
         return solved
