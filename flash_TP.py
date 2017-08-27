@@ -143,7 +143,11 @@ class Flash(object):
         return result_n
 
     def solution(self):
-        pass
+
+        solved
+
+
+        return solved
 
     def isothermal_ideal(self):
         self.Binit = self.beta_initial()
