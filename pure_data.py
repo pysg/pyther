@@ -8,6 +8,7 @@ path_file = os.path.dirname(__file__)
 dppr_file = os.path.join(path_file, dfile)
 # print(dppr_file)
 
+
 class Data_parse(object):
     """
     Data_parse read the dppr_file to get_values properties from a component
@@ -71,6 +72,9 @@ def main():
 
     # print(properties_component["Omega"])
     # print(component)
+
+    datos = properties_table.read_dppr(dppr_file)
+    print(datos)
 
     # properties_component = properties_table.selec_component(dppr_file, component)
     properties_component = properties_table.selec_component(component)
