@@ -13,7 +13,7 @@ class Data_parse(object):
     """
     Data_parse read the dppr_file to get_values properties from a component
     """
-    
+
     def read_dppr(self, dppr_file):
         #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
 
@@ -21,7 +21,7 @@ class Data_parse(object):
         self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]
         # component_names = dppr_data.index.get_values()
         return self.dppr_data
-        
+
     def selec_component(self, component):
         #self.name = str(component)
         self.name = component
@@ -42,7 +42,7 @@ class Data_parse(object):
         def fun(self):
             pass
 
-    
+
 
 
 def show(component, properties_component):
@@ -52,11 +52,10 @@ def show(component, properties_component):
     print('Critical_Pressure = {0} Bar'.format(properties_component[1]['Pc']))
     print('Critical_Volume = {0} cm3/mol'.format(properties_component[1]['Vc']))
     print('Compressibility_factor_Z = {0}'.format(properties_component[1]['Zc']))
-    
-        
+
 
 def main():
-    
+
     # dppr_file = "PureFull.xls"
     # component = "METHANE"
     # component = "ISOBUTANE"
