@@ -53,8 +53,8 @@ class Flash(object):
                 self.Ki = 0.9 * self.Ki
 
             i += 1
-            print(i)
-            print("go = {0} and g1 = {1}".format(g0, g1))
+            print("iteración i = ", i)
+            print("funciones go = {0} and g1 = {1}".format(g0, g1))
 
             if (g0 > 0 or g1 < 0):
                 break
@@ -69,14 +69,14 @@ class Flash(object):
 
         self.Bmin_values = np.divide((self.Ki * self.zi - 1), (self.Ki - 1))
         self.Bmin_values = np.array(list(filter(lambda x: 0 < x < 1, self.Bmin_values)))
-        print(self.Bmin_values)
+        print("Valores Bmin = ", self.Bmin_values)
         if len(self.Bmin_values) == 0:
             self.Bmax_values = np.array([0])
         self.Bmin = np.max(self.Bmin_values)
 
         self.Bmax_values = np.divide((1 - self.zi), (1 - self.Ki))
         self.Bmax_values = np.array(list(filter(lambda x: 0 < x < 1, self.Bmax_values)))
-        print(self.Bmax_values)
+        print("Valores Bmax = ", self.Bmax_values)
         if len(self.Bmax_values) == 0:
             self.Bmax_values = np.array([1])
         self.Bmax = np.min(self.Bmax_values)
@@ -146,7 +146,6 @@ class Flash(object):
 
         solved = self.rachford_rice()
 
-
         return solved
 
     def isothermal_ideal(self):
@@ -177,7 +176,8 @@ class Flash(object):
                 if i == j:
                     aij[i, j] = ai[i]
                 else:
-                    aij[i, j] = (ai[i] * ai[j]) ** 0.5 * (1 - self.kij[i, j])
+                    # aij[i, j] = (ai[i] * ai[j]) ** 0.5 * (1 - self.kij[i, j])
+                    aij[i, j] = ai[i] ** 0.5 * ai[j] ** 0.5 * (1 - self.kij[i, j])
 
         print("aij = ", aij)
 
@@ -287,7 +287,6 @@ class Flash(object):
 
         # Zl = np.min([Z0l, Z1l, Z2l])
 
-
         aal = (a / aml)
         bbl = (b / bml)
 
@@ -316,6 +315,18 @@ class Flash(object):
         print("Zv =", Zv)
         print("Zl =", Zl)
 
+        print("aal = ", aal)
+        print("bbl = ", bbl)
+        print("aav = ", aav)
+        print("bbv = ", bbv)
+        print("Al = ", Al)
+        print("Bl = ", Bl)
+        print("Av = ", Av)
+        print("Bv = ", Bv)
+
+        print("Suma xi = ", np.sum(self.xi))
+        print("Suma yi = ", np.sum(self.yi))
+
         print("phi_v =", self.phi_v)
         print("phi_l =", self.phi_l)
 
@@ -330,7 +341,7 @@ class Flash(object):
         Ki_1 = self.Ki
         tolerance = 1e-3
 
-        print("B initial (T,P)", self.Binit)
+        print("B initial (T,P) = ", self.Binit)
 
         while True:
             self.xi, self.yi = self.composition_xy()
@@ -370,14 +381,21 @@ class Flash(object):
 
 def main():
 
-    # components = ["PROPANE", "ISOBUTANE", "n-BUTANE"]
-    components = ["METHANE", "PROPANE", "n-PENTANE", "n-DECANE", "n-HEXADECANE"]
+    components = ["PROPANE", "ISOBUTANE", "n-BUTANE"]
+    # components = ["METHANE", "PROPANE", "n-PENTANE", "n-DECANE", "n-HEXADECANE"]
+    #components = ["METHANE", "PROPANE", "n-PENTANE", "n-DECANE"]
+    # components = ["METHANE", "PROPANE", "n-PENTANE"]
 
     #T = 400.0
     #T = 278.15
-    T = 300.15
-    P = 200.0
+    T = 320.0
+    P = 8.0
     zi = np.array([0.822, 0.088, 0.050, 0.020, 0.020])
+    zi = np.array([0.822, 0.088, 0.050, 0.040])
+    zi = np.array([0.822, 0.088, 0.090])
+    zi = np.array([0.23, 0.67, 0.10])
+    #zi = np.array([0.522, 0.188, 0.150, 0.220, 0.520])
+    print("Suma Zi = ", np.sum(zi))
 
     kij = np.array([[0.0000000, 0.0167150, 0.0265439, 0.0472163, 0.0660805],
                     [0.0167150, 0.0000000, 0.0063422, 0.0139953, 0.0223493],
@@ -395,7 +413,8 @@ def main():
     fk = flash_1.Ki_wilson()
     fkk = flash_1.Ki_wilson_add()
 
-    print(fk, fkk)
+    print("Ki wilson = ", fk)
+    print("Ki wilson_add = ", fkk)
 
     bk = flash_1.beta_initial()
 

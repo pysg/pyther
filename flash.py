@@ -68,7 +68,7 @@ class ClassName(object):
     def flash_ideal(self):
         self.Bini = self.beta(zi)
         self.Ki = self.wilson(self.Pc, self.Tc, self.w, self.T)
-        print ("Ki_(P, T) = ", self.Ki)
+        print("Ki_(P, T) = ", self.Ki)
         Eg = self.rice(zi, self.Ki, self.Bini)
         errorEq = abs(Eg[0])
         i, s = 0, 1
