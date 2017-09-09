@@ -39,8 +39,6 @@ class Data_parse(object):
 
         return self.name, self.properties
 
-        def fun(self):
-            pass
 
 
 
