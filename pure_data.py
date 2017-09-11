@@ -40,9 +40,6 @@ class Data_parse(object):
         return self.name, self.properties
 
 
-
-
-
 def show(component, properties_component):
     print('Component = {0}'.format(component))
     print('Acentric_factor = {0}'.format(properties_component[1]['Omega']))
