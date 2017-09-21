@@ -546,7 +546,7 @@ def main_m():
 if __name__ == '__main__':
     main()
     # main_m()
-    
+
 
 
 f = lambda x: np.sin(4 * (x - 0.25)) + x + x**20 - 1
