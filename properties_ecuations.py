@@ -111,18 +111,18 @@ class Thermodynamic_correlations(object):
 
 	def select_constans_cal(self, component, property_thermodynamics):
 
-		self.property_label = self.select_property(property_thermodynamics)		
+		self.property_label = self.select_property(property_thermodynamics)
 
-		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
+		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
 		self.table_constans = pd.DataFrame(data=values_constans,index=self.data_name_cal(),
 							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
 
-		#print(table_constans)
+		# print(table_constans)
 		self.component_constans = self.table_constans.loc[component]
-		#print(component_constans)
+		# print(component_constans)
 
-		#Min, Max = np.zeros(2), np.array(2)
+		# Min, Max = np.zeros(2), np.array(2)
 
 		A, B, C, D, E, Min, Max = self.component_constans.get_values()
 
@@ -344,7 +344,7 @@ class Thermodynamic_correlations(object):
 
 			return vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
-			heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)		
+			heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)
 			return heat_of_Vaporization
 		elif property_thermodynamics == "Solid_Heat_Capacity":
 			solid_Heat_Capacity = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector ** 4
