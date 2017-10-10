@@ -1,3 +1,4 @@
+import numpy as np
 
 
 if property_thermodynamics == "Solid_Density":
@@ -58,8 +59,19 @@ elif property_thermodynamics == "Vapour_Pressure":
 			print(np.size(vapour_Pressure))
 
 	return vapour_Pressure
+
+
+
+
+
+
+
+
+
+
+
 elif property_thermodynamics == "Heat_of_Vaporization":
-	heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)		
+	heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)
 	return heat_of_Vaporization
 elif property_thermodynamics == "Solid_Heat_Capacity":
 	solid_Heat_Capacity = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector ** 4
