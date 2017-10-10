@@ -126,7 +126,7 @@ class Thermodynamic_correlations(object):
 
 		A, B, C, D, E, Min, Max = self.component_constans.get_values()
 
-		print("sss constans = ",Min, Max)
+		print("sss constans = ", Min, Max)
 
 
 	def graphical(self, t, p, pp, u):
@@ -139,7 +139,7 @@ class Thermodynamic_correlations(object):
 		return 0
 
 	def multi_graphical(self, components, temperature, property_thermodynamics):
-    
+
 	    fig, axes = plt.subplots(1, len(components), figsize=(10, 4))
 	    for pure, label in zip(range(len(components)), components):
 	        axes[pure].plot(temperature[pure], property_thermodynamics[pure])
@@ -149,9 +149,9 @@ class Thermodynamic_correlations(object):
 
 
 	def data_temperature(self, components, temperature, property_thermodynamics, temperature_enter):
-    
+
 	    datas = np.ones([len(components),len(temperature)])
-	    
+
 	    for k in range(len(components)):
 	        con1 = [type(temperature_enter[k][i])!= str for i in range(len(temperature))]
 	        vap1 = property_thermodynamics[k]
