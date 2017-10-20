@@ -67,9 +67,6 @@ elif property_thermodynamics == "Vapour_Pressure":
 
 
 
-
-
-
 elif property_thermodynamics == "Heat_of_Vaporization":
 	heat_of_Vaporization = A * (1 - Tr) ** (B + C * Tr + D * Tr ** 2)
 	return heat_of_Vaporization

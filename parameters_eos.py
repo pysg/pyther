@@ -282,7 +282,6 @@ class ClassName(Data_parse):
 
         return rk, Pvdat, Tr
 
-
     def models_eos_cal(self, NMODEL, ICALC, dinputs):
 
 	    if NMODEL == 'SRK' or NMODEL == 'PR':

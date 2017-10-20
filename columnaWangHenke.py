@@ -1,8 +1,5 @@
 import numpy as np
 from scipy import optimize
-import numpy as np
-
-
 from pyther import Data_parse
 from sympy import *
 
@@ -39,7 +36,7 @@ Te = np.array([350, 355, 360, 365, 370])
 
 P = 1
 
-components = ["ISOPROPANOL", "3-METHYL-1-BUTANOL","1-BUTANOL"]
+components = ["ISOPROPANOL", "3-METHYL-1-BUTANOL", "1-BUTANOL"]
 
 properties_data = Data_parse()
 properties_component = properties_data.selec_component(components)
@@ -50,6 +47,7 @@ w = np.float64(constans["Omega"])
 Tc = np.float64(constans["Tc"])
 Pc = np.float64(constans["Pc"])
 
+
 def Ki_wilson(T, P):
     """Equation of wilson for to calculate the Ki(T,P)"""
     variable_0 = 5.373 * (1 + w) * (1 - Tc / T)
@@ -57,6 +55,7 @@ def Ki_wilson(T, P):
     Ki = np.exp(lnKi)
 
     return Ki
+
 
 def fugacity(T, P, yi, xi):
     m = 0.48 + (1.574 * w) - (0.176 * w ** 2)
@@ -105,7 +104,6 @@ Kij = np.transpose(Kij)
 Kij_N = np.zeros([3, 1])
 Kij = np.append(Kij, Kij_N, axis=1)
 
-
 Aj = np.zeros([NUMERO_COMPONENTES, ETAPAS])
 Bj = np.zeros([NUMERO_COMPONENTES, ETAPAS])
 Cj = np.zeros([NUMERO_COMPONENTES, ETAPAS])
@@ -126,7 +124,7 @@ def fraccionesMolares(ETAPAS, NUMERO_COMPONENTES, Vj, Kij):
             Dj[i, j] = -(Fj[j] * Z[i, j])
 
             # Calculo de las variable que se reemplazan en la Matriz Tridiagonal
-            pj[i, j] = Cj[i, j] / (Bj[i, j] - Aj[i, j] * pj[i, j-1])
+            pj[i, j] = Cj[i, j] / (Bj[i, j] - Aj[i, j] * pj[i, j - 1])
             qj[i, j] = (Dj[i, j] - Aj[i, j] * qj[i, j - 1]) / (Bj[i, j] - Aj[i, j] * pj[i, j - 1])
 
     # Calculo de las fracciones molares del liquido
@@ -144,11 +142,8 @@ def normalizar(Xj):
     return Xj
 
 
-print(Xj)
-
 fraccionesMolares(ETAPAS, NUMERO_COMPONENTES, Vj, Kij)
-Xijn = normalizar(fraccionesMolares(ETAPAS, NUMERO_COMPONENTES, Vj, Kij))
-Xj = Xijn
+Xj = normalizar(fraccionesMolares(ETAPAS, NUMERO_COMPONENTES, Vj, Kij))
 
 
 def equilibrio(variables, P, Xi):
@@ -175,7 +170,7 @@ hFj
 
 # ISOPROPANOL
 # 106
-CONSTANTES_VAP1 = np.array([6.31E07, 3.92E-01, 0.00E+00, 0.00E+00, 0.00E+00, 185.28, 508.3]) 
+CONSTANTES_VAP1 = np.array([6.31E07, 3.92E-01, 0.00E+00, 0.00E+00, 0.00E+00, 185.28, 508.3])
 # 107
 CONSTANTES_1 = np.array([5.72E+04, 1.91E+05, 1.42E+03, 1.22E+05, 6.26E+02, 150, 1500])
 
@@ -209,7 +204,6 @@ def entalpiaGasIdeal(constantes, T):
     termino_3 = - D * E ** 2
 
     H = A * T + B * C ** 2 * termino_1 + termino_2 * termino_3
-
     return H
 
 
@@ -221,9 +215,7 @@ def entalpiaVaporizacion(constantes, Tc, T):
     D = constantes[3]
 
     Tr = T / Tc
-
     Hvap = A * (1 - Tr) ** (B + C * Tr + D * Tr ** 2)
-
     return Hvap
 
 
@@ -231,9 +223,7 @@ Tci = Tc
 
 
 def entalpiaLiquidoIdeal(H, Hvap):
-
     h = H - Hvap
-
     return h
 
 
@@ -274,69 +264,69 @@ def segundo(primer, Vj):
     return Vj
 
 
-
 def columna(Vj, Kij):
-    
+
     i = 0
     TjInit1 = np.array([350, 355, 360, 365, 370])
 
     while True:
         i += 1
         print(i)
-        
+
         fraccionesMolares(ETAPAS, NUMERO_COMPONENTES, Vj, Kij)
         Xj = normalizar(fraccionesMolares(ETAPAS, NUMERO_COMPONENTES, Vj, Kij))
-        
+
         variables = np.array([378, 0.3, 0.3])
         Eqj = np.array([optimize.root(equilibrio, variables, args=(P, xj)) for xj in Xj.T])
-        
+
         for n in range(ETAPAS):
             Teqj[n] = Eqj[n].x[0]
-            yij[0,n] = Eqj[n].x[1]
-            yij[1,n] = Eqj[n].x[2]
-                
+            yij[0, n] = Eqj[n].x[1]
+            yij[1, n] = Eqj[n].x[2]
+
         print("TjInit1 = ", TjInit1)
         print("Teqj = ", Teqj)
-        
-        yij[2,:] = 1 - yij[0] - yij[1]
+
+        yij[2, :] = 1 - yij[0] - yij[1]
         Yj = yij
         Kij = Yj / Xj
-        Kij_N = np.zeros([3,1])
+        Kij_N = np.zeros([3, 1])
         Kij = np.append(Kij, Kij_N, axis=1)
-        
+
         print("Kij = ", Kij)
-        
+
         Hij = np.array([np.array([entalpiaGasIdeal(constantes, T) for T in Teqj]) for constantes in CONSTANTES])
         Hvapij = np.array([np.array([entalpiaVaporizacion(constantesVap, Tc, T) for T in Teqj]) for Tc, constantesVap in zip(Tci, CONSTANTESVAP)])
         hij = entalpiaLiquidoIdeal(Hij, Hvapij)
-        
-        hj = np.sum(Xijn * hij, axis=0) / 1e3
-        Hj = np.sum(yij * Hij, axis=0) / 1e3
-        
+
+        hj = np.sum(Xj * hij, axis=0) / 1e3
+        Hj = np.sum(Yj * Hij, axis=0) / 1e3
+
         Qj[0] = Vj[1] * Hj[1] - (Lj[0] + Uj[0]) * hj[0]
         Qj[-1] = np.sum(Fj * hFj - Uj * hj - Wj * Hj) - Lj[-1] * hj[-1]
-        
+
         primer = primero(Hj)
         Vj = segundo(primer, Vj)
-        
+
         print("Vj = ", Vj)
-        
+
         TjInit2 = Teqj
-        
-        #tau = np.sum((TjInit1 - TjInit2) ** 2)
-        
+
+        # tau = np.sum((TjInit1 - TjInit2) ** 2)
+
         TjInit1 = TjInit2
-        
+
         print("Tempj2 = ", TjInit2)
-        #print("tau = ", tau)       
-        
+        # print("tau = ", tau)
+
         criterio1 = 0.01 * ETAPAS
         print("criterio1 = ", criterio1)
-        #if tau <= 0.01 * ETAPAS or i > 20:
+        # if tau <= 0.01 * ETAPAS or i > 20:
         if i > 100:
             break
-            
+
     return Vj
+
 
 Te = np.array([350, 355, 360, 365, 370])
 Eqj = np.zeros([NUMERO_COMPONENTES, ETAPAS])
@@ -347,3 +337,9 @@ Yi = np.zeros(NUMERO_COMPONENTES)
 hj = np.zeros(ETAPAS)
 
 columna(Vj, Kij)
+
+
+
+
+
+
