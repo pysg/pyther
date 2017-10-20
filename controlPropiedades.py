@@ -90,7 +90,8 @@ elif property_thermodynamics == "Vapour_Thermal_Conductivity":
 	return vapour_Thermal_Conductivity(T)
 elif property_thermodynamics == "Surface_Tension":
 	return surface_Tension(T, Tc)
-
+else:
+	print("No hay propiedad termodinámica")
 
 if Solid_Density:
 	return solid_Density(T)
