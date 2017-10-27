@@ -1,7 +1,5 @@
 import numpy as np
 import pandas as pd
-import math
-# import matplotlib as plt
 import matplotlib.pyplot as plt
 import os
 
@@ -34,15 +32,12 @@ class Thermodynamic_correlations(object):
 	11. Liquid_Thermal_Conductivity = "Liquid Thermal Conductivity", "[J/(m*s*K)]", "A+B*T+C*T^2+D*T^3+E*T^4", 10
 	12. Vapour_Thermal_Conductivity = "Vapour Thermal Conductivity", "[J/(m*s*K)]", "A*T^B/(1+C/T+D/T^2)", 11
 	13. Surface_Tension = "Surface Tension", "[kg/s^2]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 12	
-	
 	"""
-
 	#def __init__(self, dppr_file):		
 	#	self.dppr_file = dppr_file
 	
 	#def __init__(self):
-	#	pass
-
+	#	pass	
 
 	def read_dppr(self):
 		
@@ -70,7 +65,7 @@ class Thermodynamic_correlations(object):
 			Liquid_Density = "Liquid Density", "[kmol/m^3]", "A/B^(1+(1-T/C)^D)", 1
 			return Liquid_Density 
 		elif property_thermodynamics == "Vapour_Pressure":
-			Vapour_Pressure = "Vapour Pressure", "[Pa]", "exp(A+B/T+C*ln(T)+D*T^E)", 2
+			Vapour_Pressure = "Vapour Pressure", "[Bar]", "exp(A+B/T+C*ln(T)+D*T^E)* 1e-5", 2
 			return Vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
 			Heat_of_Vaporization = "Heat of Vaporization", "[J/kmol]", "A*(1-Tr)^(B+C*Tr+D*Tr^2)", 3
@@ -111,47 +106,54 @@ class Thermodynamic_correlations(object):
 
 	def select_constans_cal(self, component, property_thermodynamics):
 
-		self.property_label = self.select_property(property_thermodynamics)
+		self.property_label = self.select_property(property_thermodynamics)		
 
-		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]
+		select_constans = [x + self.property_label[3] for x in range(0, 13*size_data, 13)]	
 		values_constans = self.read_dppr().ix[select_constans, 1:8].get_values()
 		self.table_constans = pd.DataFrame(data=values_constans,index=self.data_name_cal(),
 							 columns=["A", "B", "C", "D", "E", "T Min [K]", "T Max [K]"])
 
-		# print(table_constans)
+		#print(table_constans)
 		self.component_constans = self.table_constans.loc[component]
-		# print(component_constans)
+		#print(component_constans)
 
-		# Min, Max = np.zeros(2), np.array(2)
+		#Min, Max = np.zeros(2), np.array(2)
 
 		A, B, C, D, E, Min, Max = self.component_constans.get_values()
 
-		print("sss constans = ", Min, Max)
+		self.Tmin = Min
+		self.Tmax = Max
 
+		range_temp = np.array([self.Tmin, self.Tmax])
 
+		# print("sss constans = ",Min, Max)
+
+		return range_temp
+
+	
 	def graphical(self, t, p, pp, u):
-		plt.plot(t, p)
-		plt.title(pp)
-		plt.xlabel(u[0])
-		plt.ylabel(u[1])
-		# plt.show()
+	    plt.plot(t, p)
+	    plt.title(pp)
+	    plt.xlabel(u[0])
+	    plt.ylabel(u[1])
+	    #plt.show()
 
-		return 0
+	    return
 
 	def multi_graphical(self, components, temperature, property_thermodynamics):
-
+    
 	    fig, axes = plt.subplots(1, len(components), figsize=(10, 4))
 	    for pure, label in zip(range(len(components)), components):
 	        axes[pure].plot(temperature[pure], property_thermodynamics[pure])
 	        axes[pure].set_title(label)
-	        axes[pure].set_xlabel(self.units[0])
-	        axes[pure].set_ylabel(self.units[1])
+	        axes[pure].set_xlabel("Temperature " + self.units[0])
+	        axes[pure].set_ylabel("Pressure " + self.units[1])
 
 
 	def data_temperature(self, components, temperature, property_thermodynamics, temperature_enter):
-
+    
 	    datas = np.ones([len(components),len(temperature)])
-
+	    
 	    for k in range(len(components)):
 	        con1 = [type(temperature_enter[k][i])!= str for i in range(len(temperature))]
 	        vap1 = property_thermodynamics[k]
@@ -164,6 +166,7 @@ class Thermodynamic_correlations(object):
 	    t = [str(temp)+" K" for temp in temperature]
 	    datas_table = pd.DataFrame(data=datas,index= components, columns=t)
 
+	        
 	    return datas_table
 
 
@@ -225,9 +228,12 @@ class Thermodynamic_correlations(object):
 
 				#print("temperature = ", Temp_vector, len(Temp_vector), np.shape(Temp_vector) )
 
+
 		self.temperature = Temp_vector
 
-		# print("temperature = ", self.temperature, len(self.temperature) )
+
+		#print("temperature = ", self.temperature, len(self.temperature) )
+		#print(type(self.temperature))
 
 		return self.temperature
 
@@ -276,17 +282,17 @@ class Thermodynamic_correlations(object):
 			D = np.array(self.component_constans["D"].get_values())
 			E = np.array(self.component_constans["E"].get_values())
 			Min = np.array(self.component_constans["T Min [K]"].get_values())
-			Max = np.array(self.component_constans["T Max [K]"].get_values())		
+			Max = np.array(self.component_constans["T Max [K]"].get_values())
 
+		self.Min = Min
+		self.Max = Max
 		
 		#print("sss = ",A, Min, type(Max))
 
 		Temp_vector = self.control_temperature(components, temperature, Min, Max)
-		
-		
 
 		if property_thermodynamics == "Solid_Density":
-			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4		
+			solid_Density = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector **4
 			return solid_Density
 		elif property_thermodynamics == "Liquid_Density":
 			liquid_Density = A / B ** (1 + (1 - Temp_vector / C) ** D)		
@@ -302,21 +308,42 @@ class Thermodynamic_correlations(object):
 					
 					log_tem = np.log(np.float64(Temp_vector))
 					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
-					vapour_Pressure = np.exp(np.float64(log_vapour_Pressure)) * 1e-5				
+					vapour_Pressure = np.exp(np.float64(log_vapour_Pressure)) * 1e-5			
 					
 				else:
 					# many components 
-					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
-					vapour = np.array(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
-					vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5				
+					##log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
+					##vapour = np.array(A + B/Temp_vector + C * log_tem + D*Temp_vector **E)
+					##vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5				
 					#print("vapour_Pressure = ", vapour_Pressure, np.shape(vapour_Pressure))
+
+					##vapour_Pressure = np.array(A + B/Temp_vector + C * log_tem + D*Temp_vector **E) * 1e-5
+					def presionVapor(constantes, T):
+						A = constantes[0]
+						B = constantes[1]
+						C = constantes[2]
+						D = constantes[3]
+						E = constantes[4]
+						print(A)
+						vaporCalculado = np.exp(A + B/T + C * np.log(T) + D*T **E) * 1e-5
+						return vaporCalculado
+
+					#vapour_Pressure = np.array(list(map(presonVapor, Temp_vector)))
+					print(A)
+					CONSTANTES = np.array([A, B, C, D, E]).T
+					print(CONSTANTES)
+					vapour_Pressure = np.array([np.array([presionVapor(constantes, T) for T in Temp_vector]) for constantes in CONSTANTES])
+
+					print(vapour_Pressure)					
+
+					#vapour_Pressure = np.array([presonVapor(T) for T in Temp_vector])
 				
 			else:
 
 				if len(self.components) == 1:
 					# one component with one temperature especific 
 					
-					log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
+					##log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
 					log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
 					#print("log_vapour-pressure = ",log_vapour_Pressure)
 					vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
@@ -326,7 +353,7 @@ class Thermodynamic_correlations(object):
 					if len(temperature) == 1:
 						# many components with one temperature especific
 
-						log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
+						##log_tem = np.array([np.log(Temp_vector) for Temp_vector in Temp_vector])
 						vapour = np.array(A + B/Temp_vector.T + C * log_tem.T + D*Temp_vector.T **E)
 						# used 1 Pa = 1e-5 Bar
 						vapour_Pressure = np.array([np.exp(vapour) for vapour in vapour]) * 1e-5				
@@ -335,16 +362,36 @@ class Thermodynamic_correlations(object):
 					else:
 						# many components with many temperatures especific
 
-						log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
-						log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
+						##log_tem = [np.log(Temp_vector) for Temp_vector in Temp_vector]
+						##log_vapour_Pressure = A + B/Temp_vector + C * log_tem + D*Temp_vector **E
 						#print("log_vapour-pressure = ",log_vapour_Pressure)
-						vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
+						##vapour_Pressure = np.array([np.exp(vapour) for vapour in log_vapour_Pressure]) * 1e-5
+
+						def presionVapor(constantes, T):
+							A = constantes[0]
+							B = constantes[1]
+							C = constantes[2]
+							D = constantes[3]
+							E = constantes[4]
+							print(constantes, T)
+							vaporCalculado = np.exp(A + B/T + C * np.log(T) + D*T **E) * 1e-5
+							return vaporCalculado
+
+						print(A)
+						CONSTANTES = np.array([A, B, C, D, E]).T
+						print("CONSTANTES = ",CONSTANTES)
+						print("Temp_vector = ",Temp_vector)
+
+						vapour_Pressure = np.array([presionVapor(constantes, T) for constantes, T in zip(CONSTANTES, Temp_vector)])
+						print(vapour_Pressure)
+
+						# ----------------------------------------
 
 					print(np.size(vapour_Pressure))
 
 			return vapour_Pressure
 		elif property_thermodynamics == "Heat_of_Vaporization":
-			heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)
+			heat_of_Vaporization = A*(1-Tr) ** (B+C*Tr+D*Tr**2)		
 			return heat_of_Vaporization
 		elif property_thermodynamics == "Solid_Heat_Capacity":
 			solid_Heat_Capacity = A + B * Temp_vector + C * Temp_vector ** 2 + D * Temp_vector ** 3 + E * Temp_vector ** 4
@@ -371,14 +418,13 @@ class Thermodynamic_correlations(object):
 			vapour_Thermal_Conductivity = A*Temp_vector**B/(1+C/Temp_vector+D/Temp_vector**2)
 			return vapour_Thermal_Conductivity
 		elif property_thermodynamics == "Surface_Tension":
-			surface_Tension = A*(1-Tr)**(B+C*Tr+D*Tr*2)
+			surface_Tension = A * (1 - Tr) ** (B + C * Tr + D * Tr * 2)
 			return surface_Tension
 
 	def table_properties(self):
 		table_components = pd.DataFrame(data=self.property_cal(self.components, self.property_label),index= self.components, 
 							 columns=[str(self.temperature)+"K"])
 		return table_components
-
 
 
 def main():
@@ -414,7 +460,7 @@ def main():
 	# many components and many temperatures
 
 	# Not test
-
+	
 	temp = [180.4, 181.4, 185.3, 210, 800]
 	#temp = [180.4, 230.4]	
 	#temp = [180.4]
@@ -423,11 +469,12 @@ def main():
 	#oss = np.zeros([3,1])
 	#print(ass)
 
+	
 	#zzz = [ [row_idx for row_idx in (ass[i], oss[i])] for i in range(0,3)]	
 
-	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
+	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure")
 
-	#property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
+	property_thermodynamics = thermodynamic_correlations.property_cal(components, "Vapour_Pressure", temp)
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Vapour_Pressure", temp)
 	#property_thermodynamics = thermodynamic_correlations.property_cal(component, "Ideal_Gas_Heat_Capacity", temp)
 	#property_thermodynamics = property_cal(components, Vapour_Pressure, temp)
@@ -441,10 +488,9 @@ def main():
 	#print(thermodynamic_correlations.temperature)
 	#print(thermodynamic_correlations.select_constans_cal(components, "Vapour_Pressure"))
 
-	table_components = pd.DataFrame(data=property_thermodynamics,index= components, 
-							 columns=[str(temp)+"K"])
-	
-	print(table_components)
+	if temp:
+		table_components = pd.DataFrame(data=property_thermodynamics,index= components, columns=[str(temp)+"K"])
+		print(table_components)
 
 	#print(thermodynamic_correlations.units)
 
@@ -452,7 +498,6 @@ def main():
 	#print(thermodynamic_correlations.__doc__)
 
 	print('-' * 79)
-
 
 if __name__ == '__main__':
 	main()
@@ -475,8 +520,5 @@ if __name__ == '__main__':
 #print(units)
 
 #thermodynamic_correlations.graphical(temperature_density, Liquid_Density, property_thermodynamics, units)
-
-
-
 
 
