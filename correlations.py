@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Correlations(object):
 	"""docstring for Correlations"""
 	def __init__(self, constantes, T, Tc):		
@@ -15,8 +16,12 @@ class Correlations(object):
 
 
 	def solidDensity(self):
+
+		VAR1 = self.A + self.B * self.T + self.C * self.T ** 2 
+		VAR2 = self.D * self.T ** 3 + self.E * self.T ** 4
 		
-		solidDensity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
+		#solidDensity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
+		solidDensity = VAR1 + VAR2
 
 		return solidDensity
 
@@ -28,7 +33,12 @@ class Correlations(object):
 
 	def presionVapor(self):
 
-		vaporCalculado = np.exp(self.A + self.B / self.T + self.C * np.log(self.T) + self.D * self.T ** self.E) * 1e-5
+		VAR1 = self.A + self.B / self.T
+		VAR2 = self.C * np.log(self.T) + self.D * self.T ** self.E
+
+		vaporCalculado = np.exp(VAR1 + VAR2) * 1e-5
+
+		#vaporCalculado = np.exp(self.A + self.B / self.T + self.C * np.log(self.T) + self.D * self.T ** self.E) * 1e-5
 
 		return vaporCalculado
 
@@ -42,7 +52,12 @@ class Correlations(object):
 
 	def solid_Heat_Capacity(self):
 
-		solid_Heat_Capacity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
+		VAR1 = self.A + self.B * self.T + self.C * self.T ** 2
+		VAR2 = self.D * self.T ** 3 + self.E * self.T ** 4
+
+		solid_Heat_Capacity = VAR1 + VAR2
+
+		#solid_Heat_Capacity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
 
 		return solid_Heat_Capacity
 
@@ -72,7 +87,13 @@ class Correlations(object):
 
 	def second_Virial_Coefficient(self):
 
-		second_Virial_Coefficient = self.A + self.B / self.T + self.C / self.T ** 3 + self.D / self.T ** 8 + self.E / self.T ** 9
+		VAR1 = self.B / self.T + self.C / self.T ** 3
+		VAR2 = self.D / self.T ** 8
+		VAR3 = self.E / self.T ** 9
+
+		second_Virial_Coefficient = self.A + VAR1 + VAR2 + VAR3
+
+		#second_Virial_Coefficient = self.A + self.B / self.T + self.C / self.T ** 3 + self.D / self.T ** 8 + self.E / self.T ** 9
 
 		return second_Virial_Coefficient
 
@@ -91,7 +112,14 @@ class Correlations(object):
 
 	def liquid_Thermal_Conductivity(self):
 
-		liquid_Thermal_Conductivity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
+		VAR1 = self.A + self.B * self.T 
+		VAR2 = self.C * self.T ** 2 
+		VAR3 = self.D * self.T ** 3 
+		VAR4 = self.E * self.T ** 4
+
+		#liquid_Thermal_Conductivity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
+
+		liquid_Thermal_Conductivity = VAR1 + VAR2 + VAR3 + VAR4
 
 		return liquid_Thermal_Conductivity
 
