@@ -139,7 +139,7 @@ class Correlations(object):
 
 
 #vapour_Pressure = np.array(list(map(presonVapor, Temp_vector)))
-print(A)
+
 CONSTANTES = np.array([A, B, C, D, E]).T
 print(CONSTANTES)
 vapour_Pressure = np.array([np.array([presionVapor(constantes, T) for T in Temp_vector]) for constantes in CONSTANTES])
