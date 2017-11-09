@@ -14,7 +14,6 @@ class Correlations(object):
 		self.Tc = Tc
 		print(self.A)
 
-
 	def solidDensity(self):
 
 		VAR1 = self.A + self.B * self.T + self.C * self.T ** 2 
@@ -109,7 +108,6 @@ class Correlations(object):
 
 		return vapour_Viscosity
 
-
 	def liquid_Thermal_Conductivity(self):
 
 		VAR1 = self.A + self.B * self.T 
@@ -139,6 +137,10 @@ class Correlations(object):
 
 
 #vapour_Pressure = np.array(list(map(presonVapor, Temp_vector)))
+
+correlations = Correlations()
+
+correlations.presionVapor()
 
 CONSTANTES = np.array([A, B, C, D, E]).T
 print(CONSTANTES)
