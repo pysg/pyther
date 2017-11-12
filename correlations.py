@@ -110,9 +110,9 @@ class Correlations(object):
 
 	def liquid_Thermal_Conductivity(self):
 
-		VAR1 = self.A + self.B * self.T 
-		VAR2 = self.C * self.T ** 2 
-		VAR3 = self.D * self.T ** 3 
+		VAR1 = self.A + self.B * self.T
+		VAR2 = self.C * self.T ** 2
+		VAR3 = self.D * self.T ** 3
 		VAR4 = self.E * self.T ** 4
 
 		#liquid_Thermal_Conductivity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
@@ -140,7 +140,7 @@ class Correlations(object):
 
 correlations = Correlations()
 
-correlations.presionVapor()
+presionVapor = correlations.presionVapor()
 
 CONSTANTES = np.array([A, B, C, D, E]).T
 print(CONSTANTES)
