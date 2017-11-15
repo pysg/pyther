@@ -1,5 +1,5 @@
 import numpy as np
-
+import constantes
 
 class Correlations(object):
 	"""docstring for Correlations"""
@@ -139,7 +139,6 @@ class Correlations(object):
 #vapour_Pressure = np.array(list(map(presonVapor, Temp_vector)))
 
 correlations = Correlations()
-
 presionVapor = correlations.presionVapor()
 
 CONSTANTES = np.array([A, B, C, D, E]).T
