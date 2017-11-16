@@ -1,9 +1,10 @@
 import numpy as np
-import constantes
+from properties_ecuations import Thermodynamic_correlations
+
 
 class Correlations(object):
 	"""docstring for Correlations"""
-	def __init__(self, constantes, T, Tc):		
+	def __init__(self, constantes, T, Tc):
 		
 		self.A = constantes[0]
 		self.B = constantes[1]
@@ -16,7 +17,7 @@ class Correlations(object):
 
 	def solidDensity(self):
 
-		VAR1 = self.A + self.B * self.T + self.C * self.T ** 2 
+		VAR1 = self.A + self.B * self.T + self.C * self.T ** 2
 		VAR2 = self.D * self.T ** 3 + self.E * self.T ** 4
 		
 		#solidDensity = self.A + self.B * self.T + self.C * self.T ** 2 + self.D * self.T ** 3 + self.E * self.T ** 4
