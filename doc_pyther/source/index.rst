@@ -27,7 +27,7 @@ Contents:
    Volumen.rst
    Hmz.rst
    IPyTherm_2.rst
-   Envolvente.rst
+   Envolventes.rst
    sistemas_binarios.rst
    Estabilidad.rst
    PuntosCriticos.rst
