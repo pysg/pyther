@@ -97,17 +97,10 @@ La descripción del algoritmo es tomada de Pisoni, Gerardo Oscar (2014):
     
     Jx\left(\frac{dΛ}{dS_{Spec}}\right) + \left(\frac{dF}{dS_{Spec}}\right) = 0 
 
-Donde :math:`J_x` es la matriz jacobiana de la función vectorial
-:math:`F`, :math:`Λ` es el vector de variables del sistema :math:`F=0`,
-:math:`S_{Spec}` es el valor asignado a una de las variables del vector
-:math:`Λ`, :math:`\frac{dΛ}{ dS_{Spec}}` es la derivada, manteniendo la
-condición :math:`F=0`, del vector de variables con respecto al parámetro
-:math:`S_{spec}`. Observe que si :math:`S_{spec}=Λ_i`, entonces
-:math:`\frac{dΛi} {dS_{Spec}} =1`. El vector
-:math:`\frac{dΛ}{ dS_{Spec}}` es llamado “vector de sensitividades”.
-
-:math:`\frac{\partial F} {\partial S_{Spec}}` es la derivada parcial del
-vector de funciones :math:`F` con respecto la variable :math:`S_{spec}`.
+Donde :math:`J_x` es la matriz jacobiana de la función vectorial :math:`F`, :math:`Λ` es el vector de variables
+del sistema :math:`F=0`, :math:`S_{Spec}` es el valor asignado a una de las variables del
+vector :math:`Λ`, :math:`\frac{dΛ}{ dS_{Spec}}` es la derivada, manteniendo la condición :math:`F=0`, del vector de variables con respecto al parámetro :math:`S_{spec}`. Observe que si :math:`S_{spec}=Λ_i`, entonces :math:`\frac{dΛi} {dS_{Spec}} =1`. El
+vector :math:`\frac{dΛ}{ dS_{Spec}}` es llamado “vector de sensitividades”. :math:`\frac{\partial F} {\partial S_{Spec}}` es la derivada parcial del vector de funciones :math:`F` con respecto la variable :math:`S_{spec}`.
 
 En la ecuación A.3-1 la matriz jacobiana :math:`J_x` debe ser valuada en
 un punto ya convergido que es solución del sistema de ecuaciones
