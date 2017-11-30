@@ -17,7 +17,8 @@ muestra en la figura 1.
 |pilares\_open\_science| Figura 1. Esquema del cálculo del flash
 isotermico
 
-.. |pilares\_open\_science| image:: img/flash_diagrama.jpg
+.. image:: _static/flash_diagrama.jpg
+  :width: 1200
 
 14.1 Modelo flash líquido-vapor
 ----------------------------------------
