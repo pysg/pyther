@@ -125,7 +125,7 @@ Ecuación de Wilson
 Cálculo de los valores mínimos y máximos para la fracción :math:`\beta`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: ipython3
+.. code-block:: python
 
         def beta_initial(self):
             self.Ki = self.Ki_wilson()
@@ -137,7 +137,7 @@ Cálculo de los valores mínimos y máximos para la fracción :math:`\beta`
 Cálculo del *step* para calcular la fracción :math:`\beta`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: ipython3
+.. code-block:: python
 
     def beta_newton(self):
         iteration, step, tolerance = 0, 1, 1e-5
