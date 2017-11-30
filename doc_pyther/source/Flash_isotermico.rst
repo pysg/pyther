@@ -1,10 +1,6 @@
-----------------------------------------
+**************************************
 14. Cálculo del flash Isotermico (T, P)
-----------------------------------------
-
-
-14.1 Cálculo del flash Isotermico (T, P)
-----------------------------------------
+**************************************
 
 Se presenta una implementación del calculo del flash isotermico bifasico
 utilizando la ecuación de estado *Peng-Robinsong (PR)* [2] junto con las
@@ -23,7 +19,7 @@ isotermico
 
 .. |pilares\_open\_science| image:: img/flash_diagrama.jpg
 
-14.1.1 Modelo flash líquido-vapor
+14.1 Modelo flash líquido-vapor
 ----------------------------------------
 
 El modelo del flash isotermico bifasico, corresponde al balance de
