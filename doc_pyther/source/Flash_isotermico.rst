@@ -96,8 +96,7 @@ Valores extremos de la fracción de vapor en el sistema :math:`\beta`
 -  Volver a resolver la ecuación de *Rachford-Rice* :math:`g(\beta)`,
    para calcular :math:`\beta` con una tolerancia de :math:`1x10^{-6}`
 -  Verificar la convergencia del sistema con una tolerancia de
-   :math:`1x10^{-6}` para
-   :math:`\Delta K_i =  \left | K_{i}^{j+1} - K_{i}^{j} \right| `,
+   :math:`1x10^{-6}` para :math:`\Delta K_i =  \left | K_{i}^{j+1} - K_{i}^{j} \right|`,
    siendo está situación la convergencia del procedimiento.
 
 14.2.1 Implementación
