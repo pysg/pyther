@@ -114,7 +114,7 @@ importantes:
 Ecuación de Wilson
 ~~~~~~~~~~~~~~~~~~
 
-.. code:: ipython3
+.. code-block:: python
 
         def Ki_wilson(self):
             """Equation of wilson for to calculate the Ki(T,P)"""
