@@ -1,6 +1,6 @@
-****************************************
-9. Diagrama de fases de sustancias puras
-****************************************
+**************************************
+14. Diagrama de fases de sustancias puras
+**************************************
 
 En esta sección se presenta una forma de obtener las ecuaciones
 necesarias para realizar el cálculo del diagrama de fases de usa
@@ -48,7 +48,7 @@ siendo
 
 .. math::
 
-    Λ = 
+    \Lambda = 
    \begin{bmatrix}
    \Delta ln T\\
    \Delta ln V^l\\
@@ -93,34 +93,54 @@ muestra más adelante.
 
 La descripción del algoritmo es tomada de Pisoni, Gerardo Oscar (2014):
 
-.. math::  
-    
-    Jx\left(\frac{dΛ}{dS_{Spec}}\right) + \left(\frac{dF}{dS_{Spec}}\right) = 0 
+.. math::  Jx\left(\frac{d\Lambda}{dS_{Spec}}\right) + \left(\frac{dF}{dS_{Spec}}\right) = 0 
 
-Donde :math:`J_x` es la matriz jacobiana de la función vectorial :math:`F`, :math:`Λ` es el vector de variables
-del sistema :math:`F=0`, :math:`S_{Spec}` es el valor asignado a una de las variables del
-vector :math:`Λ`, :math:`\frac{dΛ}{ dS_{Spec}}` es la derivada, manteniendo la condición :math:`F=0`, del vector de variables con respecto al parámetro :math:`S_{spec}`. Observe que si :math:`S_{spec}=Λ_i`, entonces :math:`\frac{dΛi} {dS_{Spec}} =1`. El
-vector :math:`\frac{dΛ}{ dS_{Spec}}` es llamado “vector de sensitividades”. :math:`\frac{\partial F} {\partial S_{Spec}}` es la derivada parcial del vector de funciones :math:`F` con respecto la variable :math:`S_{spec}`.
+Donde :math:`J_x` es la matriz jacobiana de la función vectorial
+:math:`F`, :math:`\Lambda` es el vector de variables del sistema
+:math:`F=0`, :math:`S_{Spec}` es el valor asignado a una de las
+variables del vector :math:`\Lambda`,
+:math:`\frac{d\Lambda}{ dS_{Spec}}` es la derivada, manteniendo la
+condición :math:`F=0`, del vector de variables con respecto al parámetro
+:math:`S_{spec}`. Observe que si :math:`S_{spec}=\Lambda_i`, entonces
+:math:`\frac{d\Lambda_i} {dS_{Spec}} =1`. El vector
+:math:`\frac{d\Lambda}{ dS_{Spec}}` es llamado “vector de
+sensitividades”.
 
-La matriz jacobiana :math:`J_x` debe ser valuada en un punto ya convergido que es solución del sistema de ecuaciones :math:`F=0`. Observe en los distintos sistemas de ecuaciones presentados en el capítulo 3, que sólo una componente del vector :math:`F` depende explícitamente de :math:`S_{spec}`. Por tanto, las componentes 
-del vector :math:`\frac{\partial F} {\partial S_{Spec}}` son todas iguales a cero, excepto la que depende de :math:`S_{spec}`, en esta tesis el valor de dicha componente es siempre :math:`“-1”`.
+:math:`\frac{\partial F} {\partial S_{Spec}}` es la derivada parcial del
+vector de funciones :math:`F` con respecto la variable :math:`S_{spec}`.
 
-Conocidos :math:`J_x` y :math:`\frac{\partial F} {\partial S_{Spec}}` es posible calcular todas las
-componentes del vector :math:`\frac{dΛ}{ dS_{Spec}}`.
+La matriz jacobiana :math:`J_x` debe ser valuada en un punto ya
+convergido que es solución del sistema de ecuaciones :math:`F=0`.
+Observe en los distintos sistemas de ecuaciones presentados en el
+capítulo 3, que sólo una componente del vector :math:`F` depende
+explícitamente de :math:`S_{spec}`. Por tanto, las componentes del
+vector :math:`\frac{\partial F} {\partial S_{Spec}}` son todas iguales a
+cero, excepto la que depende de :math:`S_{spec}`, en esta tesis el valor
+de dicha componente es siempre :math:`“-1”`.
 
-Con :math:`\frac{dΛ}{ dS_{Spec}}` conocido es posible predecir los valores de todas las variables
-del vector :math:`Λ` para el siguiente punto de la “hiper-línea" que se está calculando, aplicando
-la siguiente ecuación:
+Conocidos :math:`J_x` y :math:`\frac{\partial F} {\partial S_{Spec}}` es
+posible calcular todas las componentes del vector
+:math:`\frac{d\Lambda}{ dS_{Spec}}`.
 
-.. math::  Λ_{next point}^0  = Λ_{conve. pont} + \left(\frac{dΛ}{dS_{Spec}}\right) \Delta S_{Spec} 
+Con :math:`\frac{d\Lambda}{ dS_{Spec}}` conocido es posible predecir los
+valores de todas las variables del vector :math:`\Lambda` para el
+siguiente punto de la “hiper-línea" que se está calculando, aplicando la
+siguiente ecuación:
 
-Aquí :math:`Λ_{next point}^0` corresponde al valor inicial del vector :math:`Λ` para el próximo punto
-a ser calculado. :math:`Λ_{conve. pont}` es el valor del vector :math:`Λ` en el punto ya convergido.
+.. math::  \Lambda_{next point}^0  = \Lambda_{conve. pont} + \left(\frac{d\Lambda}{dS_{Spec}}\right) \Delta S_{Spec} 
 
-Por otra parte, el vector de sensitividades :math:`\frac{dΛ}{ dS_{Spec}}` provee información sobre la próxima
-variable que debe ser especificada en el próximo punto a ser calculado. La variable a especificar corresponderá
-a la componente del vector :math:`\frac{dΛ}{dS_{Spec}}` de mayor valor absoluto. Supongamos que la variable
-especificada para el punto convergido fue la presión :math:`P`, es decir en el punto convergido :math:`S_{spec} = P`.
+Aquí :math:`\Lambda_{next point}^0` corresponde al valor inicial del
+vector :math:`\Lambda` para el próximo punto a ser calculado.
+:math:`\Lambda_{conve. pont}` es el valor del vector :math:`\Lambda` en
+el punto ya convergido.
+
+Por otra parte, el vector de sensitividades
+:math:`\frac{d\Lambda}{ dS_{Spec}}` provee información sobre la próxima
+variable que debe ser especificada en el próximo punto a ser calculado.
+La variable a especificar corresponderá a la componente del vector
+:math:`\frac{d\Lambda}{dS_{Spec}}` de mayor valor absoluto. Supongamos
+que la variable especificada para el punto convergido fue la presión
+:math:`P`, es decir en el punto convergido :math:`S_{spec} = P`.
 
 9.3 Implementación del Algoritmo
 --------------------------------
@@ -199,6 +219,7 @@ interfaz gráfica con los usuarios.
     plt.ylabel('Presión [=] bar')
     plt.grid(True)
     plt.text(Vc * 1.4, Pc * 1.01, "Punto critico")
+
 
 
 .. image:: _static/envolvente_1.png
