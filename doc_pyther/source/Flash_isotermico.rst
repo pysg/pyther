@@ -1,13 +1,10 @@
+----------------------------------------
+14. Cálculo del flash Isotermico (T, P)
+----------------------------------------
 
-Flash isotermico
-================
 
---------------
-
-1. Cálculo del flash Isotermico (T, P)
---------------------------------------
-
---------------
+14.1 Cálculo del flash Isotermico (T, P)
+----------------------------------------
 
 Se presenta una implementación del calculo del flash isotermico bifasico
 utilizando la ecuación de estado *Peng-Robinsong (PR)* [2] junto con las
@@ -26,8 +23,8 @@ isotermico
 
 .. |pilares\_open\_science| image:: img/flash_diagrama.jpg
 
-1.1 Modelo flash líquido-vapor
-------------------------------
+14.1.1 Modelo flash líquido-vapor
+----------------------------------------
 
 El modelo del flash isotermico bifasico, corresponde al balance de
 materia global y por componente en el tanque separador que se muestra en
@@ -81,10 +78,8 @@ Valores extremos de la fracción de vapor en el sistema :math:`\beta`
 
 .. math::  \beta_{max} = 1 
 
-2. Algoritmo
+14.2 Algoritmo
 ------------
-
---------------
 
 -  Especificar la Presión :math:`P`, Temperatura :math:`T` y número de
    moles :math:`N` de cada componente del sistema
@@ -108,7 +103,7 @@ Valores extremos de la fracción de vapor en el sistema :math:`\beta`
    :math:`\Delta K_i =  \left | K_{i}^{j+1} - K_{i}^{j} \right| `,
    siendo está situación la convergencia del procedimiento.
 
-2.1 Implementación
+14.2.1 Implementación
 ------------------
 
 En la implementación del cálculo del flash isotermico, se tiene 3 partes
@@ -160,10 +155,8 @@ Cálculo del *step* para calcular la fracción :math:`\beta`
                 break
         return self.Binit
 
-3. Resultados
--------------
-
---------------
+14.3. Resultados
+------------------
 
 A continuación se muestran los resultados numéricos del calculo del
 flash isotermico bifasico para una mezcla de los componentes
@@ -226,10 +219,8 @@ solución que utiliza la aproximación de wilson para el coeficiente de
 distribución **Ki**, mostrando ser efieciente para casos simples como el
 presente en este capítulo.
 
-3.1 Efecto de la temperatura y presión sobre :math:`\beta`
+14.3.1 Efecto de la temperatura y presión sobre :math:`\beta`
 ----------------------------------------------------------
-
---------------
 
 Para el mismo sistema que se presentó en las tabla 1 y 2, en la figura 2
 se muestra la solución del cálculo del flash isotermico para un rango de
@@ -242,10 +233,8 @@ sobre :math:`\beta`
 
 .. |pilares\_open\_science| image:: img/index.png
 
-4. Conclusiones
+14.4 Conclusiones
 ---------------
-
---------------
 
 -  Se implemento el cálculo del flash isotermico bifasico utilizando la
    ecuación de estado *Peng-Robinsong (PR)* tomando las recomendaciones
@@ -256,9 +245,7 @@ sobre :math:`\beta`
    el valor :math:`\beta` en cada paso que se mantienen constantes los
    valores :math:`K_i`.
 
-5. Referencias
---------------
-
+14.5 Referencias
 --------------
 
 1. Curso de especialización en Termodinámica de fluidos. Ph.D Martín
