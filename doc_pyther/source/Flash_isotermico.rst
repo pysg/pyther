@@ -14,11 +14,10 @@ obtiene una corriente de salida por cada fase presente en el sistema. En
 el caso bifasico, una corriente de líquido y otra de vapor, tal como se
 muestra en la figura 1.
 
-|pilares\_open\_science| Figura 1. Esquema del cálculo del flash
-isotermico
-
 .. image:: _static/flash_diagrama.jpg
   :width: 1200
+
+Figura 1. Esquema del cálculo del flash isotermico
 
 14.1 Modelo flash líquido-vapor
 ----------------------------------------
@@ -222,10 +221,8 @@ presión y temperatura en el cual la fracción vaporizada :math:`\beta`
 varia entre 0 y 1. En este caso, al aumentar la presión :math:`\beta`
 disminuye mientras que el efecto de la temperatura es el contrario.
 
-|pilares\_open\_science| Figura 2. Efecto de la temperatura y presión
-sobre :math:`\beta`
-
 .. image:: _static/flash_var.png
+Figura 2. Efecto de la temperatura y presión sobre :math:`\beta`
 
 14.4 Conclusiones
 ---------------
