@@ -227,7 +227,7 @@ disminuye mientras que el efecto de la temperatura es el contrario.
 |pilares\_open\_science| Figura 2. Efecto de la temperatura y presión
 sobre :math:`\beta`
 
-.. |pilares\_open\_science| image:: img/index.png
+.. image:: _static/flash_var.png
 
 14.4 Conclusiones
 ---------------
