@@ -175,8 +175,7 @@ Tabla.1 flash isotermico :math:`K_i(T, P)` Mezcla ideal
 | 8             | 320             | 1               |
 +---------------+-----------------+-----------------+
 
-| Componente \| :math:`z_i` \| líquido :math:`x_i` \| Vapor :math:`y_i`
-\|
+| Componente \| :math:`z_i` \| líquido :math:`x_i` \| Vapor :math:`y_i`\|
 | :---------:\| ---------- ------------ ------------\|
 |     C3 \| 0.23 \|0.18357118 \|0.37209837 \|
 |     Ci4 \| 0.67 \|0.70479988 \|0.56349276 \|
@@ -196,8 +195,7 @@ incluyento el cálculo de los coeficientes de fugacidad
 
 Tabla.2 Flash isotermico :math:`K_i(T, P, x_i, y_i)` **(PR)**
 
-| Componente \| :math:`z_i` \| líquido :math:`x_i` \| Vapor :math:`y_i`
-\|
+| Componente \| :math:`z_i` \| líquido :math:`x_i` \| Vapor :math:`y_i`\|
 | :---------:\| ---------- ------------ ------------\|
 |     C3 \| 0.23 \|0.20070242 \|0.35071046 \|
 |     Ci4 \| 0.67 \|0.69183981 \|0.5800167 \|
