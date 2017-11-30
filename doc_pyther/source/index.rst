@@ -32,7 +32,7 @@ Contents:
    Estabilidad.rst
    PuntosCriticos.rst
    mezclas_multicomponentes.rst   
-   flash.rst
+   Flash_isotermico.rst
    modelos_energia_gibbs.rst
    pyther_consistencia.rst   
    Curso_Termodinamica.rst   
