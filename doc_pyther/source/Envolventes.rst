@@ -93,7 +93,9 @@ muestra más adelante.
 
 La descripción del algoritmo es tomada de Pisoni, Gerardo Oscar (2014):
 
-.. math::  Jx\left(\frac{dΛ}{dS_{Spec}}\right) + \left(\frac{dF}{dS_{Spec}}\right) = 0 
+.. math::  
+    
+    Jx\left(\frac{dΛ}{dS_{Spec}}\right) + \left(\frac{dF}{dS_{Spec}}\right) = 0 
 
 Donde :math:`J_x` es la matriz jacobiana de la función vectorial
 :math:`F`, :math:`Λ` es el vector de variables del sistema :math:`F=0`,
