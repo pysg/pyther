@@ -121,6 +121,11 @@ print("STa = ", STa)
 print("Lg = ", Lg[1,:])
 
 
+print("A = ", A)
+print("STa = ", STa)
+print("Lg = ", Lg[1,:])
+
+
 
 #STa =
 
