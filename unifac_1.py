@@ -120,13 +120,6 @@ print("A = ", A)
 print("STa = ", STa)
 print("Lg = ", Lg[1,:])
 
-
-print("A = ", A)
-print("STa = ", STa)
-print("Lg = ", Lg[1,:])
-
-
-
 #STa =
 
 #   1.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
