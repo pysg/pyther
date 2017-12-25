@@ -150,3 +150,15 @@ for i in range(m):
 print(STa)
 
 
+
+for i in range(m):
+	for k in range(g):
+		if i == 1:
+			STa[k,:] = Lg[:,i].T @ A[k,:]
+		elif i == 2:
+			STa[k + g,:] = Lg[:, i].T * A[k, :]
+		elif i == 3:
+			STa[k + 2 * g, :] = Lg[:, i].T * A[k, :]
+
+print(STa)
+
