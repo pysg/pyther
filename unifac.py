@@ -230,3 +230,6 @@ lnYRi;
 %Coeficiente de actividad total
 lnYi = lnYCi + lnYRi
 Yi = np.exp(lnYi)
+
+
+
