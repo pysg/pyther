@@ -10,20 +10,20 @@ m = 2
 g = 7
 
 %T = 331.15  % K
-%T = 328
+T = 328
 %     Etanol - n-Hexano
 %xj = [0.332 , 0.668]
-%xj = [0.383 , 0.617]
+xj = [0.383 , 0.617]
 
 %--------------------------------------------------------
 % Agua - Isoamil alcohol - ácido acético
 %     H2O CH3 CH2 CH  OH  COOH  COOCH3
-% v1 = [1   0   0   0   0   0     0]'; % Agua
-% v2 = [0   2   2   1   0   0     1]'; % Isoamil acetato
-% v3 = [0   1   0   0   0   1     0]'; % Ácido acético
+ v1 = [1   0   0   0   0   0     0]'; % Agua
+ v2 = [0   2   2   1   0   0     1]'; % Isoamil acetato
+ v3 = [0   1   0   0   0   1     0]'; % Ácido acético
 
 % v = [v1' ; v2' ; v3']';
-% v = [v1' ; v3']';
+v = [v1' ; v3']';
 v
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Agua - Isoamil acetato - ácido acético
