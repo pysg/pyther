@@ -131,7 +131,7 @@ STa = np.array([lg * A for lg in Lg])
 print("A = ", A)
 print("Lg = ", Lg[1,:])
 
-
+print("STa = ", STa)
 
 
 #STa =
@@ -192,55 +192,6 @@ print("ppp = ", ppp)
 #%lnT(1,k) = Q(k,1).*(1 - log(STg(1,k)) - sum(STga(k,:)./STg));
 
 #lnTg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ahorro = 11000 * 48
-print("ahorro = ", ahorro)
-
-apto = 579600
-print("apto = ", apto)
-uno = 8 * 9000
-dos = 8 * 12000
-tres = 8 * 15000
-cuatro = 8 * 18000
-cinco = 8 * 18000*1.18
-seis = 8 * (18000*1.18)*1.18
-siete = 8 * ((18000*1.18)*1.18) * 1.18
-suma = uno + dos + tres + cuatro + cinco + seis + siete
-print(8 * 7)
-print(suma)
-print("dueda = ", suma - apto - ahorro)
-
-
-
-
-
-
-pa = 22 * 1000 * 3455
-print(pa)
-
-
-
-
-
 
 
 
