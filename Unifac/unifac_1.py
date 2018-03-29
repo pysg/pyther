@@ -188,10 +188,10 @@ print("ppp = ", ppp)
 
 #   end
 
-#end
-#%lnT(1,k) = Q(k,1).*(1 - log(STg(1,k)) - sum(STga(k,:)./STg));
+end
+%lnT(1,k) = Q(k,1).*(1 - log(STg(1,k)) - sum(STga(k,:)./STg));
 
-#lnTg
+lnTg
 
 
 
