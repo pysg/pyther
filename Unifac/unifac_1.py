@@ -41,7 +41,7 @@ print("R = ", R)
 filasRQ = ["R", "Q"]
 labelsRQ = ["H2O", "CH3", "CH2", "CH", "OH", "COOH", "COOCH3"]
 
-dfRQ = pd.DataFrame(data = [R, Q], index=filasRQ, columns=labelsRQ)
+dfRQ = pd.DataFrame(data=[R, Q], index=filasRQ, columns=labelsRQ)
 print(dfRQ)
 
 # --------------------------------------------------------
@@ -123,18 +123,18 @@ ST = Lg @ A
 
 # --------------------------------------------
 
-#STa = Lg[1, :] * A
-#STa = Lg[1, :] * A
+# STa = Lg[1, :] * A
+# STa = Lg[1, :] * A
 
 STa = np.array([lg * A for lg in Lg])
 
 print("A = ", A)
-print("Lg = ", Lg[1,:])
+print("Lg = ", Lg[1, :])
 
 print("STa = ", STa)
 
 
-#STa =
+# STa =
 
 #   1.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
 #   0.01798   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
@@ -156,25 +156,25 @@ k = 1
 i = 1
 
 wwww = Q * (1 - np.log(ST[0, :]))
-ppp = STa[0][0,:] / ST[0, :]
+ppp = STa[0][0, :] / ST[0, :]
 
 
-lnTg = Q * (1 - np.log(ST[0, :]) - np.sum(STa[0][0,:] / ST[0, :]))
+lnTg = Q * (1 - np.log(ST[0, :]) - np.sum(STa[0][0, :] / ST[0, :]))
 
-#lnTg = (STa[0][0,:]  / ST[0, :])
+# lnTg = (STa[0][0,:]  / ST[0, :])
 
 print("Q = ", Q[0])
 print("ST = ", ST[0, :])
-print("STa = ", STa[0][0,:])
+print("STa = ", STa[0][0, :])
 print("lnTg = ", lnTg)
 print("wwww = ", wwww)
 print("ppp = ", ppp)
 
-#www =
+# www =
 
 #   1.40000   1.62361   1.03390   0.43654   0.36183   1.17142   2.11190
 
-#for i = 1 : 1 : m      %Molécula (i)
+# for i = 1 : 1 : m      %Molécula (i)
 
 #   for k = 1 : 1 : g   %Grupo funcional (k)
 
@@ -188,10 +188,11 @@ print("ppp = ", ppp)
 
 #   end
 
-end
-%lnT(1,k) = Q(k,1).*(1 - log(STg(1,k)) - sum(STga(k,:)./STg));
+# end
+# %lnT(1,k) = Q(k,1).*(1 - log(STg(1,k)) - sum(STga(k,:)./STg));
 
-lnTg
+# lnTg
+
 
 
 
