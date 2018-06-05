@@ -600,4 +600,305 @@ class Component(object):
 
 
 
+def HelmSRKPR():
 
+	# COMMON /COMPONENTS/ ac,b,del1,rm,Kij,NTdep
+	# COMMON /rule/ncomb
+
+	nco = 20
+	RGAS = 0.08314472
+
+	rn = np.ones(nco)
+	Arn = np.ones(nco)
+	ArVn = np.ones(nco)
+	ArTn = np.ones(nco)
+	Arn2 = np.ones((nco, nco))
+
+	Kij = np.ones((nco, nco))
+	ac = np.ones(nco)
+	b = np.ones(nco)
+	del1 = np.ones(nco)
+	rm = np.ones(nco)
+
+	TOTN = np.sum(rn)
+	D1 = del1[0]
+	D2 = (1 - D1) / (1 + D1)
+
+	ncomb = 2
+
+	if ncomb <= 2:
+		# Bmix,dBi,dBij = Bnder(nc,rn,Bmix,dBi,dBij)
+		# D,dDi,dDiT,dDij,dDdT,dDdT2 = DandTnder(NT,nc,T,rn,D,dDi,dDiT,dDij,dDdT,dDdT2)
+		Bmix, dBi, dBij = BnderOp(nc,rn)
+		D, dDi, dDiT, dDij, dDdT, dDdT2 = DandTnder(NT, nc, T, rn)
+
+	# The f's and g's used here are for Ar, not F (reduced Ar)
+	# This requires to multiply by R all g, f and its derivatives as defined by Mollerup
+
+	f = np.log((V + D1 * Bmix) / (V + D2 * Bmix)) / Bmix / (D1 - D2)
+	g = RGAS * np.log(1 - Bmix / V)
+	fv = - 1 / ((V + D1 * Bmix) * (V + D2 * Bmix))
+	fB = -(f + V * fv) / Bmix
+	gv = RGAS * Bmix / (V * (V - Bmix))
+	fv2 = (- 1 / (V + D1 * Bmix) ** 2 + 1 / (V + D2 * Bmix) ** 2) / Bmix / (D1 - D2)
+	gv2 = RGAS * (1 / V ** 2 - 1 / (V - Bmix) ** 2)
+
+	# Reduced Helmholtz Energy and derivatives
+	Ar = - TOTN * g * T - D * f
+	ArV = - TOTN * gv * T - D * fv
+	ArV2 = - TOTN * gv2 * T - D * fv2
+
+	AUX = RGAS * T / (V - Bmix)
+	FFB = TOTN * AUX - D * fB
+	FFBV = - TOTN * AUX / (V - Bmix) + D * (2 * fv + V * fv2) / Bmix
+	FFBB = TOTN * AUX / (V - Bmix) - D * (2 * f + 4 * V * fv + V ** 2 * fv2) / Bmix ** 2
+
+	##do i=1,nc
+    ##    Arn(i)=-g*T+FFB*dBi(i)-f*dDi(i)
+    ##    ArVn(i)=-gv*T+FFBV*dBi(i)-fv*dDi(i)
+	##    IF (ND.EQ.2) THEN
+	##        do j=1,i
+    ##            Arn2(i,j)=AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i))  &
+    ##                      +FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
+    ##            Arn2(j,i)=Arn2(i,j)
+	##        end do
+	##    END IF
+	##end do
+
+	for i in range(nc):
+		Arn[i] = - g * T + FFB * dBi[i] - f * dDi[i]
+		ArVn[i] = - gv * T + FFBV * dBi[i] - fv * dDi[i]
+		if ND == 2:
+			for j in range(i):
+				Arn2[i, j] = AUX * (dBi[i] + dBi[j]) - fB * (dBi[i] * dDi[j] + dBi[j] * dDi[i])+ FFB * dBij[i,j]+FFBB*dBi[i]*dBi[j]-f*dDij[i,j]
+				Arn2[j,i] = Arn2[i,j]
+
+#! TEMPERATURE DERIVATIVES
+	##IF (NT.EQ.1) THEN
+    ##    ArT=-TOTN*g-dDdT*f
+    ##    ArTV=-TOTN*gv-dDdT*fV
+    ##    ArTT=-dDdT2*f
+
+	##    do i=1,nc
+    ##        ArTn(i)=-g+(TOTN*AUX/T-dDdT*fB)*dBi(i)-f*dDiT(i)
+	##    end do
+
+	##END IF
+
+	if NT == 1:
+		ArT = - TOTN * g - dDdT * f
+		ArTV = - TOTN * gv - dDdT * fV
+		ArTT = - dDdT2 * f
+
+		for i in range(nc):
+			ArTn[i] = - g + (TOTN * AUX / T - dDdT * fB) * dBi[i] - f * dDiT[i]
+
+	return 0
+ 
+
+
+def BnderOp(nC, ni, b_ii):
+	
+	B = np.sum(ni * b_ii)
+	
+	return B
+
+
+def Bnder(nc, rn):
+    
+    # implicit DOUBLE PRECISION (A-H,O-Z)
+    # PARAMETER (nco=20)
+	# dimension rn(nc),dBi(nc),dBij(nc,nc),aux(nc)
+	# COMMON /bcross/bij(nco,nco)
+	
+	nc = 20
+
+	rn = np.ones(nc)
+	dBi = np.ones(nc)
+	dBij= np.ones((nc,nc))
+	aux = np.ones(nc)
+
+	TOTN = np.sum(rn)
+	Bmix = np.zeros(nc)
+	aux = np.zeros(nc)
+
+	for i in range(nc):
+		for j in range(nc):
+			aux[i] = aux[i] + rn[j] * bij[i,j]
+
+		Bmix = Bmix + rn[i] * aux[i]
+	
+	Bmix = Bmix / TOTN
+	
+	for i in range(nc):
+		dBi[i] = (2 * aux(i) - Bmix) / TOTN
+		for j in range(nc):
+			dBij[i, j] = (2 * bij[i, j] - dBi[i] - dBi[j]) / TOTN
+			dBij[j, i] = dBij[i, j]
+
+	return Bmix, dBi, dBij, bij
+
+
+class Eos_equations():
+
+    def __init__(self, eq, w, Tc, Pc, Tr, R, ep, ni, nT, nC, V, T, P, kij, lij, delta_1, k):
+        self.eq = eq
+        self.w = w
+        self.Tc = Tc
+        self.Pc = Pc
+        self.Tr = Tr
+        self.R = R
+        self.ep = ep
+        self.ni = ni
+        self.nT = nT
+        self.nC = nC
+        self.V = V
+        self.T = T
+        self.P = P
+        self.kij = kij
+        self.lij = lij
+        self.delta_1 = delta_1
+        self.k = k
+
+        if self.eq == "SRK":
+            # Soave-Redlich-Kwong (SRK)
+            self.s1, self.s2 = 1, 2
+            self.m = 0.480 + 1.574 * self.w - 0.175 * self.w ** 2
+            self.ac = 0.077796070 * self.R ** 2, self.Tc ** 2 / self.Pc
+            self.bc = 0.086640 * self.R * self.Tc / self.Pc
+        elif self.eq == "PR":
+            # Peng-Robinson (PR)
+            self.s1, self.s2 = 1 + 2 ** 0.5, 1 - (2 ** 0.5)
+            self.m = 0.37464 + 1.54226 * self.w - 0.26992 * self.w ** 2
+            self.ac = 0.45723553 * self.R ** 2 * self.Tc ** 2 / self.Pc
+            self.bc = 0.077796070 * self.R * self.Tc / self.Pc
+
+            self.alfa = (1 + self.m * (1 - (self.T / self.Tc) ** 0.5)) ** 2
+            self.dalfadT = - (self.m / self.T) * (self.T / self.Tc) ** 0.5 * (self.m * (- (self.T / self.Tc) ** 0.5 + 1) + 1)
+            ter_1 = 0.5 * self.m ** 2 * (self.T / self.Tc) ** 1.0 / self.T ** 2
+            ter_2 = 0.5 * self.m * (self.T / self.Tc) ** 0.5 * (self.m * (- (self.T / self.Tc) ** 0.5 + 1) + 1) / self.T ** 2
+
+            self.d2alfaT2 = ter_1 + ter_2
+            self.a_ii = self.ac * self.alfa
+            self.b_ii = self.bc
+
+            self.da_iidT = self.ac * self.dalfadT
+            d2adT2_puros = self.ac * self.d2alfaT2
+
+        elif self.eq == "RKPR":
+            # (RKPR)
+
+            self.delta_1m = sum(self.ni * self.delta_1)
+
+            self.s1, self.s2 = self.delta_1m, (1-self.delta_1m)/(1+self.delta_1m)
+
+            # datos C1 - C24
+            self.ac = np.array([2.3213, 208.3471])
+            self.bc = np.array([0.030088, 0.531299])
+
+            self.a_ii = self.ac * (3/(2+(self.T / self.Tc))) ** self.k
+            self.b_ii = self.bc
+            self.da_iidT = -self.k * self.a_ii / self.Tc/(2+(self.T / self.Tc))
+            dadT2 = -(self.k + 1) * self.da_iidT / self.Tc / (2 + (self.T / self.Tc))
+        else:
+            print("Che boludo... Modelo no valido, intentalo de nuevo !!! ")
+
+    def parametros(self):
+
+        if self.nC > 1:
+            self.aij = np.ones((len(self.ni), len(self.ni)))
+            self.bij = np.ones((len(self.ni), len(self.ni)))
+            self.daijdT = np.ones((len(self.ni), len(self.ni)))
+
+            for j in range(self.nC):
+                for i in range(self.nC):
+                    self.aij[i, j] = (self.a_ii[i] * self.a_ii[j]) ** 0.5
+                    self.bij[i, j] = (self.b_ii[i] + self.b_ii[j]) / 2
+                    self.bij[i, j] = self.bij[i, j]
+                    self.daijdT[i, j] = (self.da_iidT[i] * self.da_iidT[j]) ** 0.5
+
+            for i in range(self.nC):
+                for j in range(self.nC):
+                    if i == j:
+                        self.aij[i, j] = self.a_ii[i] * (1 - self.kij[i, j])
+                        self.daijdT[i, j] = self.da_iidT[i] * (1 - self.kij[i, j])
+                    elif i != j:
+                        self.aij[i, j] = self.aij[i, j] * (1 - self.kij[i, j])
+                        self.daijdT[i, j] = self.daijdT[i, j] * (1 - self.kij[i, j])
+
+        if self.nC == 1:
+            return self.a_ii, self.b_ii, self.da_iidT
+        else:
+            # print("inicial aij = ", self.aij)
+            # print("bij = ", self.bij)
+            # print("daijT = ", self.daijdT)
+            return self.aij, self.bij, self.daijdT
+
+    def parametro_D(self):
+        if self.nC == 1:
+            self.D = self.ni ** 2 * self.a_ii
+            self.Di = 2 * self.ni * self.a_ii
+        else:
+            di = np.ones((len(self.ni), len(self.ni)))
+            self.Di = np.ones((len(self.ni)))
+            self.D = np.ones((len(self.ni)))
+            for i in range(self.nC):
+                for j in range(self.nC):
+                    di[i, j] = self.ni[j] * self.aij[i, j]
+                    self.Di[i] = 2 * np.sum(di[i, :])
+            self.D = 0.5 * np.sum(self.ni * self.Di)
+
+        return self.D
+
+    def parametro_delta_1(self):
+
+        if self.nC == 1:
+            self.D1m = np.zeros((len(self.ni) - 1))
+            self.dD1i = np.ones((len(self.ni)))
+            self.dD1ij = np.ones((len(self.ni), len(self.ni)))
+
+            for i in range(self.nC):
+                self.D1m = self.D1m + self.ni[i] * self.delta_1[i]
+
+            self.D1m = self.D1m / self.nT
+
+            # for i in range(self.nC):
+            #    self.dD1i[i] = (self.delta_1[i] - self.D1m) / self.nT
+            #    for j in range(self.nC):
+            #        self.dD1ij[i,j] = (2.0 * self.D1m - self.delta_1[i] - self.delta_1[j]) / self.nT ** 2
+        else:
+            self.D1m = np.zeros((len(self.ni) - 1))
+            self.dD1i = np.ones((len(self.ni)))
+            self.dD1ij = np.ones((len(self.ni), len(self.ni)))
+
+            for i in range(self.nC):
+                self.D1m = self.D1m + self.ni[i] * self.delta_1[i]
+
+            self.D1m = self.D1m / self.nT
+
+            for i in range(self.nC):
+                self.dD1i[i] = (self.delta_1[i] - self.D1m) / self.nT
+                for j in range(self.nC):
+                    self.dD1ij[i,j] = (2.0 * self.D1m - self.delta_1[i] - self.delta_1[j]) / self.nT ** 2
+
+        return self.D1m, self.dD1i, self.dD1ij
+
+    def parametro_B(self):
+        if self.nC == 1:
+            self.B = self.ni * self.b_ii
+        else:
+            self.aux = np.zeros((len(self.ni)))
+            for i in range(self.nC):
+                for j in range(self.nC):
+                    self.aux[i] = self.aux[i] + self.ni[j] * self.bij[i, j]
+
+            self.B = np.sum(self.ni * self.b_ii)
+            # print("B = ", self.B)
+
+        return self.B
+
+
+
+
+
+#HelmSRKPR()

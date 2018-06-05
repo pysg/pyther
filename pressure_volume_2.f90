@@ -724,3 +724,36 @@ def XTVTERMO(INDIC,T,V,P,rn):
     return P ,DPDT, DPDV, FUGLOG, DLFUGT, DLFUGV 
 
 
+
+
+
+
+
+
+      SUBROUTINE ArVnder(NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      PARAMETER (nco=2)
+      dimension rn(nco),Arn(nco),ArVn(nco),ArTn(nco),Arn2(nco,nco)
+      COMMON /MODEL/ NMODEL
+      
+      IF(NMODEL.LE.2) THEN
+C        SRK or PR
+         CALL HelmSRKPR(NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      ELSE IF (NMODEL.EQ.3) THEN
+         CALL HelmRKPR(NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      ELSE IF (NMODEL.EQ.4) THEN
+         CALL HelmPCSAFT(NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      ELSE IF (NMODEL.EQ.6) THEN
+         CALL HelmSPHCT(NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      ELSE IF (NMODEL.EQ.8) THEN
+         CALL HelmESD  (NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      ELSE !    GC-EOS 5 (or GCA 7)
+         CALL HelmGC(NDER,NTD,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
+      END IF
+      
+      END
+
+
+
+

@@ -247,3 +247,20 @@ c   The output PHILOG is actually the vector ln(phi(i)*P)
    64 RETURN
       END
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
