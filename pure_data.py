@@ -1,7 +1,10 @@
 import pandas as pd
 import os
 
-dfile = "PureFull.xls"
+#dfile = "PureFull.xls"
+
+dfile = "PureFull_Recortado.xls"
+
 path_file = os.path.dirname(__file__)
 # print("path_file", path_file)
 
@@ -14,7 +17,7 @@ class Data_parse(object):
     Data_parse read the dppr_file to get_values properties from a component
     """
 
-    def read_dppr(self, dppr_file):
+    def read_dppr(self):
         #self.dppr_data = pd.read_excel(dppr_file).head().set_index('Name').ix[:, 1:12]
 
         #self.dppr_data = pd.read_excel(dppr_file).set_index("Name").ix[:, 1:12]
@@ -25,7 +28,7 @@ class Data_parse(object):
     def selec_component(self, component):
         #self.name = str(component)
         self.name = component
-        self.properties = self.read_dppr(dppr_file).loc[self.name]
+        self.properties = self.read_dppr().loc[self.name]
         ## self.label = {self.name : self.properties}
 
         #print(self.properties.index)
