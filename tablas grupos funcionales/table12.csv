@@ -1,0 +1,20 @@
+Group ID	Interacting groups (see Table 4)	Group contribution (×104)	Number of components	Mean absolute error (kPa)	Mean absolute error (%)	Standard deviation (kPa)
+135	OHOH	−5.6023	5	268.4	4.0	303.5
+136	OHNH2	69.8200	2	0.0	0.0	0.0
+137	OHNH	6.1331	1			
+140	OHEtherO	7.3373	10	83.3	2.3	126.9
+148	OH(a)OH(a)	57.8350a	1			
+157	NH2NH2	−0.6754	1			
+159	NH2EtherO	−125.5983	1			
+165	NHNH	22.1871	1			
+178	EtherOEtherO	2.6751	21	69.7	3.0	96.2
+179	EtherOEpox	88.8752b	1			
+180	EtherOEster	−1.0295	5	91.1	3.3	108.7
+183	EtherOTeth	25.8246c	1			
+189	EsterEster	0.5195	2	30.5	1.0	30.5
+194	KetoneKetone	−78.2743	1			
+205	TethTeth	43.9001b	1			
+208	AtSAN5	−19.7033	1			
+210	AOAN5	−35.1998	1			
+212	AN6AN6	12.5371	1			
+218	COOHNH2	Do not estimate	–			

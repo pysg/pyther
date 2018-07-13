@@ -1,0 +1,7 @@
+Table 5. Group changes with respect to the previous method
+Periodic group	Structure	Previous name (ID)	New name (ID)	Comments
+14	C(a)	New	C(a)C(a)C2(a) (bridge) (214)	Aromatic C with three aromatic neighbors and two aromatic bonds (aliphatic bridge bond between aromatic rings)
+	Si	Si(O) (71)	Si(C,H)3 (71)	Si attached to no carbon or hydrogen
+	Si	Si(F, Cl) (93)	Si(C,H)2 (93)	Si attached to one carbon or hydrogen
+	Si	New	Si(C,H) (215)	Si attached to two carbon or hydrogen
+	Si	New	Si (216)	Si attached to three carbon or hydrogen

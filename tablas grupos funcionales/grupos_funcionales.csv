@@ -1,0 +1,203 @@
+Table 2. Group definitions (ID, identification number	 PR, priority)						
+Group	Description	Name	ID, PR	 PR	Occurs e.g. in		
+Periodic Groupa 17							
+ Fluorine							
+  F	F connected to nonaromatic C or Si	F(C,Si)	19, 87	87	2-Fluoropropane, trimethylfluorosilane		
+	F connected to C or Si with at least one F or Cl neighbor and one other atom	F((C,Si)([F,Cl]))a	22, 84	84	1-Chloro-1,2,2,2-tetrafluoroethane[R124], difluoromethylsilane		
+	F connected to C or Si already substituted with at least one F and two other atoms	F((C,Si)([F]))b	21, 81	81	1,1,1-Trifluoroethane, 2,2,3,3-tetrafluoropropionic acid		
+	F connected to C or Si already substituted with at least one Cl and two other atoms	F((C,Si)(Cl))b	102, 82	82	Trichlorofluoromethane[R11], 1,1-dichloro-1-fluoroethane [R141B]		
+	F connected to C or Si already substituted with two F or Cl	F((C,Si)([F,Cl]2))	23, 83	83	1,1,1-Trifluorotoluene, 2,2,2-trifluoroethanol,trifluoroacetic acid		
+	F connected to an aromatic C	F(C(a))	24, 86	86	Fluorobenzene, 4-fluoroaniline		
+	F on a CC (vinylfluoride)	FCC	20, 85	85	Vinyl fluoride, trifluoroethene, perfluoropropylene		
+							
+ Chlorine							
+  Cl	Cl connected to C or Si not already substituted with F or Cl	Cl (C,Si)	25, 71	71	Butyl chloride, 2-chloroethanol, chloroacetic acid		
+	Cl connected to C or Si already substituted with one F or Cl	Cl((C,Si)([F,Cl]))	26, 70	70	Dichloromethane, dichloroacetic acid, dichlorosilane		
+	Cl connected to C or Si already substituted with at least two F or Cl	Cl((C,Si)([F,Cl]2))	27, 68	68	Ethyl trichloroacetate, trichloroacetonitrile		
+	Cl connected to an aromatic C	Cl(C(a))	28, 72	72	Chlorobenzene		
+	Cl on a CC (vinylchloride)	ClCC	29, 69	29, 69	Vinyl chloride		
+							
+  COCl	COCl connected to C (acid chloride)	COCl	77, 18	77, 18	Acetyl chloride, phenylacetic acid chloride		
+							
+ Bromine							
+  Br	Br connected to a non-aromatic C or Si	Br(C,Si(na))	30, 65	30, 65	Ethyl bromide, bromoacetone		
+	Br connected to an aromatic C	Br(C(a))	31, 66	31, 66	Bromobenzene		
+							
+ Iodine							
+  I	I connected to C or Si	I(C,Si)	32, 63	32, 63	Ethyl iodide, 2-iodotoluene		
+							
+Periodic Group 16							
+ Oxygen							
+  OH	OH for aliphatic chains with less than five C (cannot be connected to aromatic groups)	OH (<C5) (z)	36, 92	36, 92	Ethanol, propanediol		
+	OH connected to C or Si substituted with one C or Si in an at least five C or Si containing chain (primary alkanols)	OH (>C4) (z)	35, 88	35, 88	1-Nonanol, tetrahydrofurfuryl alcohol, ethylene cyanohydrin		
+	OH connected to a C or Si substituted with two C or Si in at least three C or Si containing chain (secondary alkanols)	HO((C,Si)2H(C,Si)(C,Si)) (z)	34, 90	34, 90	2-Butanol, cycloheptanol		
+	OH connected to C which has four non-hydrogen neighbors (tertiary alkanols)	OH tert	33, 91	33, 91	tert-Butanol, diacetone alcohol		
+	OH connected to an aromatic C (phenols)	HO(Ca) (z)	37, 89	37, 89	Phenol, methyl salicylate		
+							
+  O	O connected to two neighbors which are each either C or Si (ethers)	(C,Si)O(C,Si) (z)	38, 94	38, 94	Diethyl ether, 1,4-dioxane		
+	O in an aromatic ring with aromatic C as neighbors	(C(a))O(a) (C(a)) (z)	65, 93	65, 93	Furan, furfural		
+							
+  CHO	CHO connected to non-aromatic C (aldehydes)	CHO(Cna) (z)	52, 53	52, 53	Acetaldehyde, pentanedial		
+	CHO connected to aromatic C (aldehydes)	CHO(Ca) (z)	90, 52	90, 52	Furfural, benzaldehyde		
+							
+  CO	CO connected to two non-aromatic C (ketones)	OC(Cna)2 (z)	51, 4	51, 4	Acetone, methyl cyclopropyl ketone		
+	CO connected to two C with at least one aromatic C (ketones)	(OC(C)2)a (z)	92, 54	92, 54	Acetophenone, benzophenone		
+	CO connected to N	N(CO)	109, 39	109, 39	Methyl thioacetate		
+	CO connected to two N (urea)	N(CO)N	100, 3	100, 3	Urea-1,1,3,3-tetramethyl		
+	1,2-diketone (Do not fragment)	OCCO	118, 1	118, 1	2,3-Butandione		
+							
+  OC(O)2	Non-cyclic carbonate diester	OC(O)2	79, 14	79, 14	Dimethyl carbonate		
+							
+  COOH	COOH connected to C (carboxylic acid)	COOH(C) (z)	44, 23	44, 23	Acetic acid		
+							
+  COO	HCOO connected to C (formic acid ester)	HCOO(C) (z)	46, 26	46, 26	Ethyl formate, phenyl formate		
+	COO connected to two C (ester) in a chain	(C)COO(C) (z)	45, 24	45, 24	Ethyl acetate, vinyl acetate		
+	COO in a ring, C is connected to C (lactone)	C(r)OO (z)	47, 25	47, 25	ɛ-Caprolactone, crotonolactone		
+							
+  OCOO	CO connected to two O (carbonates)	OCOO	103, 33	103, 33	Propylene carbonate, 1,3 dioxolan-2-one		
+							
+  OCON	CO connected to O and N (carbamate)	OCON	99, 2	99, 2	Trimethylsilyl methylcarbamate		
+							
+  (OC2)	(OC2) (epoxide)	(OC2) (z)	39, 50	39, 50	Propylene oxide		
+							
+  COOCO	Anhydride connected to two C	COOCO	76, 11	76, 11	Acetic anhydride, butyric anhydride		
+	Cyclic anhydride connected to two C connected by a double bond or aromatic bond	(COOCO)r	96, 10	96, 10	Maleic anhydride, phthalic anhydride		
+							
+  OO	Peroxide	OO	94, 31	94, 31	Di-tert-butylperoxide		
+							
+ Sulphur							
+  SS	SS (disulfide) connected to two C	(C)SS(C)	55, 51	55, 51	Dimethyldisulfide, 1,2-dicyclopentyl-1,2-disulfide		
+							
+  SH	SH connected to C (thiols, mercaptanes)	SH(C) (z)	53, 73	53, 73	1-Propanethiol		
+							
+  S	S connected to two C (thioether)	(C)S(C) (z)	54, 74	54, 74	Methyl ethyl sulfide		
+	S in an aromatic ring (aromatic thioether)	S(a) (z)	56, 75	56, 75	Thiazole, thiophene		
+							
+  SO2	Non-cyclic sulfone connected to two C (sulfone)	(C)SO2(C)	82, 17	82, 17	Sulfolane, divinylsulfone		
+  SO4	Sulfates	SO4	104, 34	104, 34	Dimethyl sulfate		
+							
+  SO2N	S(O)2 connected to N (sulfonamide)	SO2N	105, 35	105, 35	N,N-diethylmethanesulfonamide		
+							
+  SO	Sulfoxide	SO	107, 37	107, 37	1,4-Thioxane-S-oxide, tetramethylene sulfoxide		
+							
+  SCN	SCN (isothiocyanate) connected to C	SCN(C)	81, 19	81, 19	Allyl isothiocyanate		
+							
+ Selenium							
+  Se	Se connected to at least one C or Si	Se	116, 46	116, 46	Dimethyl selenide		
+							
+Periodic Group 15							
+ Nitrogen							
+  NH2	NH2 connected to either C or Si (primary amine)	NH2(C,Si) (z)	40, 96	40, 96	Hexylamine, ethylenediamine		
+	NH2 connected to an aromatic C (aromatic primary amine)	NH2(Ca) (z)	41, 95	41, 95	Aniline, benzidine		
+							
+  NH	NH connected to two C or Si neighbors (secondary amine)	(C,Si)NH(C,Si) (z)	42, 100	42, 100	Diethylamine, diallyl amine		
+	NH connected to two C or Si neighbors in a ring (cyclic secondary amine)	(C,Si)rNH(Ca,Si)r (z)	97, 99	97, 99	Morpholine, pyrrolidine		
+							
+  N	N connected to three C or Si neighbors (tertiary amine)	(C,Si)2N(C,Si)	43, 101	43, 101	N,N-dimethylaniline, nicotine		
+	N connected to four C or Si (quartenary amine)	(C,Si)2N(C,Si)2	101, 32	101, 32	N,N,N,N-tetramethylmethylenediamine		
+							
+  N	Double bonded amine connected to at least a C or Si	(C,Si)N	91, 102	91, 102	Acetonin		
+							
+  N	Aromatic N in a five membered ring, free electron pair	N(a) (r5) (z)	66, 98	66, 98	Piperidine, thiazole		
+							
+  N	Aromatic N in a six membered ring	N(a) (r6) (z)	67, 97	67, 97	Pyridine, nicotine		
+							
+  CN	CN (cyano-group) connected to C (cyanide)	(C)CN (z)	57, 55	57, 55	Acetonitrile, 2,2′-dicyano diethyl sulfide		
+	CN (cyano-group) connected to N (cyanamide)	(N)CN	111, 41	111, 41	Dimethylcyanamide		
+	CN (cyano-group) connected to S (thiocyanate)	(S)CN	108, 38	108, 38	Methyl thiocyanate		
+							
+  CNCNCr	Imadizole (aromatic 5-ring)	..CNCNC..	106, 36	106, 36	1-Methyl-1-imadizole		
+							
+  CONH	CONH2 (amide)	CONH2	50, 27	50, 27	Acetamide		
+	CONH (monosubstituted amide)	CONH	49, 48	49, 48	N-Methylformamide, 6-caprolactam		
+	CON (disubstituted amide)	CON	48, 49	48, 49	N,N-Dimethylformamide (DMF)		
+							
+  OCN	OCN connected to C or Si (isocyanate)	OCN (z)	80, 28	80, 28	Butylisocyanate, hexamethylene diisocyanate		
+							
+  ONC	ONC (oxime)	ONC	75, 29	75, 29	Methyl ethyl ketoxime		
+							
+  ON	ONconnected to C or Si (isoazole)	ON(C,Si)	115, 45	115, 45	Isoxazole, 5-phenyl isoxazole		
+							
+  NO2	Nitrites (esters of nitrous acid)	ONO(C)	74, 22	74, 22	Ethyl nitrite, nitrous acid methyl ester		
+	NO2 connected to aliphatic C	NO2(C)	68, 20	68, 20	1-Nitropropane		
+	NO2 connected to aromatic C	NO2(C(a)) (z)	69, 21	69, 21	Nitrobenzene		
+							
+  NO3	Nitrate (esters of nitric acid)	NO3	72, 13	72, 13	N-butylnitrate, 1,2-propanediol dinitrate		
+							
+ Phosphorous							
+  P(O)3	Phosphate triester	PO(O)3	73, 9	73, 9	Triethyl phosphate, tris-(2,4-dimethylphenyl) phosphate		
+							
+  P	Phosphorus connected to at least one C or S (phosphine, phosphane)	P(C,Si)	113, 43	113, 43	Triphenylphosphine, trietylphosphane		
+							
+ Arsine							
+  AsCl2	AsCl2 connected to C	AsCl2	84, 16	84, 16	Ethylarsenic dichloride		
+							
+Periodic Group 14							
+ Carbon							
+  CH3	CH3 not connected to either N, O, F or Cl	CH3(ne)	1, 105	1, 105	Decane		
+	CH3 connected to either N, O, F or Cl	CH3(e)	2, 103	2, 103	Dimethoxymethane, methyl butyl ether		
+	CH3 connected to an aromatic atom (not necessarily C)	CH3(a)	3, 104	3, 104	Toluene, p-methyl-styrene		
+							
+  CH2	CH2 in a chain	C(c)H2	4, 112	4, 112	Butane		
+	CH2 in a ring	C(r)H2	9, 113	9, 113	Cyclopentane		
+							
+  CH	CH in a chain	C(c)H	5, 119	5, 119	2-Methylpentane		
+	CH in a ring	C(r)H	10, 118	10, 118	Methylcyclohexane		
+							
+  C	C in a chain	C(c)	6, 121	6, 121	Neopentane		
+	C in a chain connected to at least one aromatic carbon	C(c)(a)	8, 109	8, 109	Ethylbenzene, diphenylmethane		
+	C in a chain connected to at least one F, Cl, N or O	C(c)(e)	7, 108	7, 108	Ethanol		
+	C in a ring	C(r)	11, 120	11, 120	Beta-pinene		
+	C in a ring connected to at least one aromatic carbon	C(r)(Ca)	14, 107	14, 107	Indene, 2-methyl tetralin		
+	C in a ring connected to, at least one N or O which are not part of the ring, or one Cl or F	C(r)(e,c)	12, 110	12, 110	Cyclopentanol, menthol		
+	C in a ring connected to at least one N or O which are part of the ring	C(r)(e,r)	13, 111	13, 111	Morpholine, nicotine		
+							
+  C(a)	Aromatic CH	C(a)H	15, 106	15, 106	Benzene		
+	Aromatic C not connected to either O,N,Cl or F	C(a)(ne)	16, 117	16, 117	Ethylbenzene, benzaldehyde		
+	Aromatic C with three aromatic neighbors and three aromatic bonds	(a)C(a)2(a)	18, 115	18, 115	Naphthalene, quinoline		
+	Aromatic C connected to either O,N,Cl or F	C(a)(e)	17, 114	17, 114	Aniline, phenol		
+	Aromatic C with three aromatic neighbors and two aromatic bonds (aliphatic bridge bond between aromatic rings)	C(a)C(a)C2(a) (bridge)	214, 116	214, 116	Biphenyl, m-terphenyl		
+							
+  CC	H2CC (1-ene)	H2C(c)C	61, 57	61, 57	1-Hexene		
+	CC (both C have at least one non-H neighbor)	C(c)C(c)	58, 62	58, 62	2-Heptene, mesityl oxide		
+	Non-cyclic CC connected to at least one aromatic C	C(c)C(c)(C(a))	59, 59	59, 59	Isosafrole, cinnamic alcohol		
+	Cyclic CC	C(r)C(r)	62, 60	62, 60	Cyclopentadiene		
+	Non-cyclic CC substituted with at least one F, Cl, N or O	(e)C(c)C(c)	60, 58	60, 58	Trans-1,2-dichloroethylene, perfluoroisoprene		
+							
+  CC	HCC (1-ine)	HCC	64, 56	64, 56	1-Heptyne		
+	CC with two non-H neighbors	CC	63, 61	63, 61	2-Octyne		
+							
+  CCC	Two cumulated double bonds	CCC	87, 5	87, 5	1,2-Butadiene, dimethyl allene		
+							
+  CCCC	Two conjugated double bonds in a ring	CCCC	88, 6	88, 6	Cyclopentadiene, abietic acid		
+							
+  CCCC	Two conjugated double bonds in a chain	CCCC	89, 7	89, 7	Isoprene, 1,3-hexadiene		
+							
+  CCCC	Two conjugated triple bonds	CCCC	95, 8	95, 8	2,4-Hexadiyne		
+ Silicon							
+  Si	Si	Si	70, 80	70, 80	Butylsilane		
+	Si attached to no carbon or hydrogen	Si(C,H)0	216, 76	216, 76	Tetrachlorosilane, tetramethoxysilane		
+	Si attached to one carbon or hydrogen	Si(C,H)1	215, 77	215, 77	Trichlorosilane, methyltrichlorosilane		
+	Si attached to two carbon or hydrogen	Si(C,H)2	93, 78	93, 78	Dichlorodimethylsilane, dichlorodiethylsilane		
+	Si attached to three carbon or hydrogen	Si(C,H)3	71, 79	71, 79	Hexamethyl disiloxane		
+							
+ Germanium							
+  Ge	Ge connected to four carbons	(C)2Ge(C)2	86, 67	86, 67	Tetramethylgermane		
+							
+  GeCl3	GeCl3 connected to carbons	GeCl3	85, 12	85, 12	Fluorodimethylsilyl (trichlorogermanyl)methane		
+							
+ Tin							
+  Sn	Sn connected to four carbons	(C)2Sn(C)2	83, 64	83, 64	Tetramethylstannane		
+							
+Periodic Group 13							
+ Boron							
+  B(O)3	Non-cyclic boric acid ester	B(O)3	78, 15	78, 15	Triethyl borate		
+							
+ Aluminum							
+  Al	Al connected to at least one C or Si	Al	117, 47	117, 47	Triethylaluminum		
+							
+Abbreviations: e, very electronegative neighbors (N, O, F, Cl)	 ne, not very electronegative neighbors (not N, O, F, Cl)	 na, non-aromatic atom or neighbor	 a, aromatic atom or neighbor		 c atom or neighbor is part of a chain	 r, atom or neighbor is part of a ring	 z, groups considered to be non-additive.
+							
+a							
+							
+    Periodic group number of the most significant element in the structural group. Periodic group numbers are used as defined in the IUPAC version of the periodic table of elements.							
